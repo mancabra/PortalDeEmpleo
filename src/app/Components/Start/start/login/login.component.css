@@ -1,0 +1,8 @@
+.enlace{
+    color: blue;
+    text-decoration: underline;
+    cursor: pointer;
+}
+.view{
+    display: none;
+}

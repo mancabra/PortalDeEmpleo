@@ -1,0 +1,46 @@
+.caja{
+    padding-top: 0rem;
+    padding-left: 7rem;
+    padding-right: 7rem;
+    padding-bottom: 0rem;
+    display: flex;
+}
+.bajo{
+    z-index: 50;
+}
+.sobre{
+    position: absolute;
+    top: 50%;
+}
+.info{
+    display: flex;
+    padding-top: 2.5rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+
+}
+
+.infoCuerpo{
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+.visualizarError{
+ display: none;
+}
+
+.superior{
+    padding-top: 2rem; 
+}
+.cajaIzquierda{
+    display: grid;
+    margin-right: .5rem;
+    width: 50%;
+}
+.cajaDerecha{
+    display: inline;
+    margin-left: .5rem;
+    width: 50%;
+}
+.view{
+    display:none;
+}

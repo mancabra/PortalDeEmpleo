@@ -1,0 +1,15 @@
+<div class="caja">
+    <div class="cajaIzquierda">
+        <div [ngClass]="{'on':viewLog, '':!viewLog}">
+            <app-login (viewLogin)="viewLog = $event" (viewCreate)="viewCreate = $event"></app-login>
+        </div>
+
+    </div>
+
+    <div class="cajaDerecha">
+        <div [ngClass]="{'on':viewCreate, '':!viewCreate}">
+            <app-create (viewCreate)="viewCreate = $event" (viewLogin)="viewLog = $event"></app-create>
+        </div>
+
+    </div>
+</div>

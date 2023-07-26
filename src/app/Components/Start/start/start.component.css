@@ -1,0 +1,24 @@
+.caja{
+    padding-top: 2rem;
+    padding-left: 7rem;
+    padding-right: 7rem;
+    padding-bottom: 2rem;
+    display: flex;
+}
+
+
+.cajaIzquierda{
+    display: grid;
+    margin-right: .5rem;
+    width: 50%;
+    height: 100%;
+}
+.cajaDerecha{
+    display: inline;
+    margin-left: .5rem;
+    width: 50%;
+}
+
+.on{
+    display: none;
+}

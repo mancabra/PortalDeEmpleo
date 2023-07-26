@@ -1,0 +1,38 @@
+
+.cajaIzquierda{
+    display: grid;
+    margin-right: .5rem;
+    width: 50%;
+    height: 100%;
+}
+.cajaDerecha{
+    display: inline;
+    margin-left: .5rem;
+    width: 50%;
+}
+
+
+.contenedor{
+
+    padding-left: 2rem;
+    padding-right: 2rem;
+}
+
+.botonInformativo{
+  margin-left: .3rem;
+  margin-right: .3rem;
+  pointer-events: none;
+}
+
+.botonInformativo2{
+    margin-left: .3rem;
+    margin-right: .3rem;
+}
+
+.textoInformativo{
+    color:darkgrey;
+}
+
+.on{
+    display: none;
+}

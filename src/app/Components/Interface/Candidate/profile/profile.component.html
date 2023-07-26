@@ -1,0 +1,76 @@
+<div style="display: flex;">
+    <div class="cajaIzquierda">
+        <!--  -->
+        <div class="card" style="width: 100%; height: 100%; padding: .5rem;">
+            <div style=" position: relative;">
+                <div class="bajo" >
+                    <div class="card text-bg-dark" style="height: 150px;">
+                        <img src="..." class="card-img" alt="..." style="height: 150px;">
+                        <div class="card-img-overlay">
+                          <h5 class="card-title" style="text-align: right;" 
+                          [ngClass]="{'view':perfilTipoCandidato, '':!perfilTipoCandidato}">{{usuario.profesion}}</h5>
+                        </div>
+                    </div>
+                    <div class="sobre">
+                        <img src="..." class="img-thumbnail" alt="..." style="height: 100px; width: 100px; margin-left: 1rem;">
+                    </div>
+                </div>
+            </div>
+        
+            <div class="info">
+                <h6 style="margin-right: .3rem;" [ngClass]="{'':perfilTipoEmpresa, 'view':!perfilTipoEmpresa}">{{usuario.nombre}} {{usuario.apellidoP}} {{usuario.apellidoM}}</h6>
+                <h6 style="margin-right: .3rem;" [ngClass]="{'view':perfilTipoEmpresa, '':!perfilTipoEmpresa}">{{usuario.nombre}}</h6>
+                <h6 style="color: darkgray; font-style: oblique;" [ngClass]="{'view':perfilTipoCandidato, '':!perfilTipoCandidato}"> ({{usuario.edad}})</h6>
+            </div>
+            <div class="infoCuerpo">
+                <p style="font-size:x-small; line-height: 150%;" [ngClass]="{'view':perfilTipoEmpresa, '':!perfilTipoEmpresa}">
+                    {{usuario.domicilio}}
+                    <br style="margin: 0%; padding: 0%;">
+                    {{usuario.municipio.nombreMunicipio}} Estado de {{usuario.estado.nombreEstado}}
+                </p>
+                <p style="font-size:x-small; line-height: 150%;" [ngClass]="{'view':perfilTipoCandidato, '':!perfilTipoCandidato}">
+                    {{usuario.domicilio}}
+                    <br style="margin: 0%; padding: 0%;">
+                    {{usuario.municipio.nombreMunicipio}} Estado de {{usuario.estado.nombreEstado}}
+                </p>
+                <p style="font-size:x-small; line-height: 150%;" [ngClass]="{'':perfilTipoEmpresa, 'view':!perfilTipoEmpresa}"> 
+                    {{usuario.correoElectronico}}
+                    <br style="margin: 0%; padding: 0%;">
+                    Tel: {{usuario.telefono}}
+                </p>
+                <b [ngClass]="{'view':perfilTipoCandidato, '':!perfilTipoCandidato}">Descripción</b>
+                <p style="font-size:x-small; line-height: 150%; text-align: justify;" 
+                [ngClass]="{'view':perfilTipoCandidato, '':!perfilTipoCandidato}">
+                {{usuario.descripcion}}
+                </p>
+                <b [ngClass]="{'view':perfilTipoEmpresa, '':!perfilTipoEmpresa}">Descripción</b>
+                <p style="font-size:x-small; line-height: 150%; text-align: justify;" 
+                [ngClass]="{'view':perfilTipoEmpresa, '':!perfilTipoEmpresa}">
+                {{usuario.descripcion}}
+                </p>
+            </div>
+            <div class="infoCuerpo" style="margin-bottom: .5rem;" [ngClass]="{'view':perfilTipoCandidato, '':!perfilTipoCandidato}">
+                <!-- SE CAMBIARA POR UN NGFOR DE LAS HABILIDADES DEL USUARIO REGISTRADAS EN BASE DE DATOS -->
+                <span class="badge rounded-pill text-bg-secondary" style="margin-right: .5rem;margin-bottom: .5rem;">habilidad</span>
+                <span class="badge rounded-pill text-bg-secondary" style="margin-right: .5rem;margin-bottom: .5rem;">habilidad</span>
+                <span class="badge rounded-pill text-bg-secondary" style="margin-right: .5rem;margin-bottom: .5rem;">habilidad</span>
+                <span class="badge rounded-pill text-bg-secondary" style="margin-right: .5rem;margin-bottom: .5rem;">habilidad</span>
+                <span class="badge rounded-pill text-bg-secondary" style="margin-right: .5rem;margin-bottom: .5rem;">habilidad</span>
+                <span class="badge rounded-pill text-bg-secondary" style="margin-right: .5rem;margin-bottom: .5rem;">habilidad</span>
+                <span class="badge rounded-pill text-bg-secondary" style="margin-right: .5rem;margin-bottom: .5rem;">habilidad</span>
+            </div>
+        </div>
+        <div [ngClass]="{'view':vistaAdministrar, '':!vistaAdministrar}">
+            <button type="button" class="btn btn-danger" style="width: 100%; margin-top: 2rem;" [ngClass]="{'':perfilTipoEmpresa, 'view':!perfilTipoEmpresa}">SUSPENDER CUENTA</button>
+            <button type="button" class="btn btn-danger" style="width: 100%; margin-top: 1rem;" [ngClass]="{'':perfilTipoEmpresa, 'view':!perfilTipoEmpresa}" (click)="cerrarSesion();">CERRAR SESIÓN</button>
+
+        </div>
+       
+        <!--  -->
+    </div>
+
+
+    <div class="cajaDerecha">
+
+    </div>
+</div>

@@ -1,0 +1,72 @@
+<div style="display: flex;">
+
+    <div class="cajaIzquierda">
+        <div class="input-group" style="width: 100%;">
+            <!-- <span class="input-group-text" style="border-radius: 45px 0px 0px 45px; ">
+                <img src="{{imageSeach}}" class="rounded mx-auto d-block" style="width: 30px; height: 30px;" alt="...">
+            </span> -->
+            <button class="btn btn-outline-secondary dropdown-toggle" type="button"
+            data-bs-toggle="dropdown" aria-expanded="false">{{filtro}}</button>
+        <ul class="dropdown-menu">
+            <li><button class="dropdown-item" type="button"
+                *ngFor="let filtroSelecionado of filtrosDisponibles"
+                (click)="actualizarFiltro(filtroSelecionado)">{{filtroSelecionado}}</button>
+            </li>
+        </ul>
+            <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)"
+                placeholder="Ingresa el nombre de tu trabajo ideal">
+            <button class="input-group-text" type="button" (click)="obtenerVacantes()">Buscar Vacantes </button>
+        </div>
+
+        <div *ngIf="cargarVacantes(); else sinVacantes">
+            <div class="card carta" *ngFor="let vacante of jobsList" style="margin-top: 1rem;">
+                <div class="card-body">
+                    <h3 class="card-title">{{vacante.nombreVacante}}</h3>
+                    <p class="card-text textoInformativo" style="padding-bottom: 0rem;">
+                        Empresa que contrata: {{vacante.empresa.nombreEmpresa}}
+                        <br> Ubicación: {{vacante.municipio.nombreMunicipio}}
+                        <!-- ver si colocamos el estado -->
+                    </p>
+                    <div style="margin-bottom: 1rem;">
+                        <span class="placeholder col-12 placeholder-xs bg-secondary" style="margin-bottom: .1rem; padding:0rem"></span>
+                        <span class="placeholder col-12 placeholder-xs bg-secondary" style="margin-bottom: .1rem; padding:0rem"></span>
+                    </div>
+                   
+
+                    <div class="container text-rigth" style="padding: 0%;">
+                        <div class="row">
+                            <div class="col-9">
+                                <a class="btn btn-success botonInformativo" style="margin-left: 0%; font-size: small;">horario: {{vacante.horario}} </a>
+                                <a class="btn btn-success botonInformativo" style="font-size: small;"> sueldo: $ {{vacante.sueldo}} mxn </a>
+                                <a class="btn btn-warning botonInformativo2" style="font-size: small;"  (click)="verVacanteCompleta(vacante)">+</a>
+                            </div>
+                            <div class="col">
+                                <a class="btn btn-secondary botonPostular" style="width: 100%; font-size: small;" (click)="postularse(vacante)">Postularse</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <ng-template #sinVacantes>
+            <p style="text-align: center;">No hay vacantes publicadas</p>
+        </ng-template>
+
+
+    </div>
+
+    <div class="cajaDerecha">
+
+        <div *ngIf="cargarPantalla(); else pantallaVacia">
+            <div class="card" style="width: 100%;">
+                <app-job [vacante]="vacanteSeleccionada"></app-job>
+            </div>
+        </div>
+
+        <ng-template #pantallaVacia>
+            <p style="text-align: center;">Ninguna vacante seleccionada</p>
+        </ng-template>
+    </div>
+
+</div>

@@ -1,0 +1,403 @@
+<div class="card" style="width: 100%; height: 100%; padding: 2rem;">
+    <div style="text-align: center; margin-bottom: 2rem;">
+        <b>REGISTRO</b>
+        <hr>
+    </div>
+
+
+    <div class="btn-group" role="group" aria-label="Basic radio toggle button group" style="margin-bottom: 1rem;">
+        <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off"
+            [ngClass]="{'view':verUsuariosPrincipales, '':!verUsuariosPrincipales}">
+        <label class="btn btn-outline-primary" for="btnradio1" (click)="identificarUsario('candidato')"
+            [ngClass]="{'view':verUsuariosPrincipales, '':!verUsuariosPrincipales}">Candidato</label>
+
+        <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off"
+            [ngClass]="{'view':verAdministrador, '':!verAdministrador}">
+        <label class="btn btn-outline-success" for="btnradio2" (click)="identificarUsario('administrador')"
+            [ngClass]="{'view':verAdministrador, '':!verAdministrador}">Administrador</label>
+
+        <input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off"
+            [ngClass]="{'view':verAdministrador, '':!verAdministrador}">
+        <label class="btn btn-outline-danger" for="btnradio3" (click)="identificarUsario('empresa')"
+            [ngClass]="{'view':verAdministrador, '':!verAdministrador}">Empresa</label>
+
+        <input type="radio" class="btn-check" name="btnradio" id="btnradio4" autocomplete="off" checked
+            [ngClass]="{'view':verUsuariosPrincipales, '':!verUsuariosPrincipales}">
+        <label class="btn btn-outline-secondary" for="btnradio4" (click)="identificarUsario('empleador')"
+            [ngClass]="{'view':verUsuariosPrincipales, '':!verUsuariosPrincipales}">Empleador</label>
+    </div>
+
+
+
+
+    <div style="display:grid;">
+        <div style="width: 100%;">
+            <div class="container">
+                <div class="row">
+                    <div class="col-9" style="padding-left: 0%; padding-bottom: .3rem;">
+                        Nombre:*
+                    </div>
+                    <div class="col" style="color: red; font-size: x-small; text-align: right;"
+                        [ngClass]="{'view':validarNombre, '':!validarNombre}">
+                        Campo Obligatorio*
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div style="display: flex;">
+            <div style="width: 100%;">
+                <input class="form-control" type="text" placeholder="Nombre Completo"
+                    aria-label="default input example" [(ngModel)]="nombre">
+            </div>
+            <div style="margin-left: 1rem; margin-right: 0rem; width: 100%;" [ngClass]="{'view':validarNombreRegistrado, '':!validarNombreRegistrado}">
+                <label class="btn btn-danger" style="width: 100%; pointer-events: none;">EMPRESA YA REGISTRADA</label>
+              </div>
+        </div>
+    </div>
+
+    <div [ngClass]="{'view':verApellidos, '':!verApellidos}">
+        <div style="display:grid; margin-top: 1rem;">
+            <div style="display: flex;">
+                <div style="display:grid; width: 50%;">
+                    <div style="width: 100%;">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-6" style="padding-left: 0%; padding-bottom: .3rem;">
+                                    Apellido P:*
+                                </div>
+                                <div class="col" style="color: red; font-size: x-small; text-align: right;"
+                                    [ngClass]="{'view':validarApellidoP, '':!validarApellidoP}">
+                                    Campo Obligatorio*
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="display: flex;">
+                        <div style="width: 100%;">
+                            <input class="form-control" type="text" placeholder="Apellido Paterno"
+                                aria-label="default input example" [(ngModel)]="apellidoP">
+                        </div>
+                    </div>
+                </div>
+
+                <div style="display:grid; width: 50%; margin-left: 1rem; margin-right: 0rem;">
+                    <div style="width: 100%;">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-6" style="padding-left: 0%; padding-bottom: .3rem;">
+                                    Apellido M:*
+                                </div>
+                                <div class="col" style="color: red; font-size: x-small; text-align: right;"
+                                    [ngClass]="{'view':validarApellidoM, '':!validarApellidoM}">
+                                    Campo Obligatorio*
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="display: flex;">
+                        <div style="width: 100%;">
+                            <input class="form-control" type="text" placeholder="Apellido Materno"
+                                aria-label="default input example" [(ngModel)]="apellidoM">
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+
+    <div [ngClass]="{'view':verEdadyTelefono, '':!verEdadyTelefono}">
+        <div style="display:grid; margin-top: 1rem;">
+            <div style="display: flex;">
+                <div style="display:grid; width: 50%;">
+                    <div style="width: 100%;">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-6" style="padding-left: 0%; padding-bottom: .3rem;">
+                                    Edad:*
+                                </div>
+                                <div class="col" style="color: red; font-size: x-small; text-align: right;"
+                                    [ngClass]="{'view':validarEdad, '':!validarEdad}">
+                                    {{mensajeEdad}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="display: flex;">
+                        <div style="width: 100%;">
+                            <input class="form-control" type="number" placeholder="Edad Actual"
+                                aria-label="default input example" [(ngModel)]="edad">
+                        </div>
+                    </div>
+                </div>
+
+                <div style="display:grid; width: 50%; margin-left: 1rem; margin-right: 0rem;">
+                    <div style="width: 100%;">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-6" style="padding-left: 0%; padding-bottom: .3rem;">
+                                    Telefono:*
+                                </div>
+                                <div class="col" style="color: red; font-size: x-small; text-align: right;"
+                                    [ngClass]="{'view':validarTelefono, '':!validarTelefono}">
+                                    {{mensajeTel}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="display: flex;">
+                        <div style="width: 100%;">
+                            <div class="input-group">
+                                <button class="btn btn-outline-secondary dropdown-toggle" type="button"
+                                    data-bs-toggle="dropdown" aria-expanded="false">{{lada}}</button>
+                                <ul class="dropdown-menu">
+                                    <li><button class="dropdown-item" type="button"
+                                            *ngFor="let ladaSeleccionada of ladasMexico"
+                                            (click)="actualizarLada(ladaSeleccionada)">{{ladaSeleccionada}}</button>
+                                    </li>
+                                </ul>
+                                <input type="text" class="form-control" aria-label="Text input with dropdown button"
+                                    placeholder="55-55-55-55-55" [(ngModel)]="numeroTelefonioco">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="accordion" id="accordionExample" style=" margin-top: 1.3rem;"
+        [ngClass]="{'view':VerUbicacion, '':!VerUbicacion}">
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne"
+                    aria-expanded="true" aria-controls="collapseOne" style="padding: .5rem; color:rgb(89, 92, 94)">
+                    Ubicación
+                </button>
+            </h2>
+            <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+
+                    <div style="display:grid;  margin-top: 1rem;">
+                        <div style="width: 100%;">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-9" style="padding-left: 0%; padding-bottom: .3rem;">
+                                        {{textoUbicacion}}
+                                    </div>
+                                    <div class="col" style="color: red; font-size: x-small; text-align: right;"
+                                        [ngClass]="{'view':validarCalle, '':!validarCalle}">
+                                        Campo Obligatorio*
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="display: flex;">
+                            <div style="width: 100%;">
+                                <input class="form-control" type="text" placeholder="C.Alcatraz Mz1 Lt3"
+                                    aria-label="default input example" [(ngModel)]="ubicacion">
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div style="display:grid; margin-top: 1rem;">
+                        <div style="display: flex;">
+                            <div style="display:grid; width: 50%;">
+                                <div style="width: 100%;">
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class="col-5" style="padding-left: 0%; padding-bottom: .3rem;">
+                                                {{textoEstado}}
+                                            </div>
+                                            <div class="col" style="color: red; font-size: x-small; text-align: right;"
+                                                [ngClass]="{'view':validarEstado, '':!validarEstado}">
+                                                Campo Obligatorio*
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div style="display: flex;">
+                                    <div style="width: 100%;">
+                                        <div class="input-group">
+                                            <button class="btn btn-outline-secondary dropdown-toggle" type="button"
+                                                data-bs-toggle="dropdown" aria-expanded="false"
+                                                style="width: 100%;">{{estado.nombreEstado}}</button>
+                                            <ul class="dropdown-menu">
+                                                <li><button class="dropdown-item" type="button"
+                                                        *ngFor="let estadoSeleccionado of estadosMexico"
+                                                        (click)="actualizarEstado(estadoSeleccionado)">{{estadoSeleccionado.nombreEstado}}</button>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div style="display:grid; width: 50%; margin-left: 1rem; margin-right: 0rem;">
+                                <div style="width: 100%;">
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class="col-5" style="padding-left: 0%; padding-bottom: .3rem;">
+                                                {{textoMunicipio}}
+                                            </div>
+                                            <div class="col" style="color: red; font-size: x-small; text-align: right;"
+                                                [ngClass]="{'view':validarMunicipio, '':!validarMunicipio}">
+                                                Campo Obligatorio*
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div style="display: flex;">
+                                    <div style="width: 100%;">
+                                        <div class="input-group">
+                                            <button class="btn btn-outline-secondary dropdown-toggle" type="button"
+                                                data-bs-toggle="dropdown" aria-expanded="false" style="width: 100%;"
+                                                [ngStyle]="{'pointer-events':bloquearMunicipio}">{{municipio.nombreMunicipio}}</button>
+                                            <ul class="dropdown-menu">
+                                                <li><button class="dropdown-item" type="button"
+                                                        *ngFor="let municipioSeleccionado of municipiosMexico"
+                                                        (click)="actualizarMunicipio(municipioSeleccionado)">{{municipioSeleccionado.nombreMunicipio}}</button>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div [ngClass]="{'view':verCorreo, '':!verCorreo}">
+        <div style="display:grid; margin-top: 1rem;">
+
+            <div style="width: 100%;">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-9" style="padding-left: 0%; padding-bottom: .3rem;">
+                            Correo Electronico:*
+                        </div>
+                        <div class="col" style="color: red; font-size: x-small; text-align: right;"
+                            [ngClass]="{'view':validarCorreo, '':!validarCorreo}">
+                            Campo Obligatorio*
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div style="display: flex;">
+                <div style="width: 100%;">
+                    <input class="form-control" type="text" placeholder="mail@example.com"
+                        aria-label="default input example"  [(ngModel)]="correo">
+                </div>
+                <div style="margin-left: 1rem; margin-right: 0rem; width: 100%;"
+                    [ngClass]="{'view':correoExistente, '':!correoExistente}">
+                    <label class="btn btn-danger" style="width: 100%; pointer-events: none;">CORREO YA
+                        REGISTRADO</label>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div [ngClass]="{'view':verContrasenas, '':!verContrasenas}">
+        <div style="display:grid; margin-top: 1rem;">
+            <div style="display: flex;">
+                <div style="display:grid; width: 50%;">
+                    <div style="width: 100%;">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-6" style="padding-left: 0%; padding-bottom: .3rem;">
+                                    Contraseña:*
+                                </div>
+                                <div class="col" style="color: red; font-size: x-small; text-align: right;"
+                                    [ngClass]="{'view':validarContrasena, '':!validarContrasena}">
+                                    Campo Obligatorio*
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="display: flex;">
+                        <div style="width: 100%;">
+                            <input class="form-control" type="password" placeholder="Password"
+                                aria-label="default input example" [(ngModel)]="contrasena">
+                        </div>
+                    </div>
+                </div>
+
+                <div style="display:grid; width: 50%; margin-left: 1rem; margin-right: 0rem;">
+                    <div style="width: 100%;">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-6" style="padding-left: 0%; padding-bottom: .3rem;">
+                                    Contraseña:*
+                                </div>
+                                <div class="col" style="color: red; font-size: x-small; text-align: right;"
+                                    [ngClass]="{'view':validarContrasenaVe, '':!validarContrasenaVe}">
+                                    Campo Obligatorio*
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="display: flex;">
+                        <div style="width: 100%;">
+                            <input class="form-control" type="password" placeholder="Password"
+                                aria-label="default input example" [(ngModel)]="contrasenaValidacion">
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div [ngClass]="{'view':verDescripcion, '':!verDescripcion}">
+        <div style="display:grid; margin-top: 1rem;">
+            <div style="width: 100%;">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-9" style="padding-left: 0%; padding-bottom: .3rem;">
+                            Descripción:*
+                        </div>
+                        <div class="col" style="color: red; font-size: x-small; text-align: right;"
+                            [ngClass]="{'view':validarDescripcion, '':!validarDescripcion}">
+                            Campo Obligatorio*
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div style="display: flex;">
+                <div style="width: 100%;">
+                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" [(ngModel)]="descripcion"></textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="container text-center" style="margin-top: 2rem;">
+        <div class="row">
+            <div class="col">
+                <button type="button" class="btn btn-secondary btn-sm" style="width: 120px;" (click)="comenzarRegistro()">Registrar</button>
+            </div>
+        </div>
+    </div>
+    <div class="container text-center" style="margin-top: .5rem; font-size: small;"
+        [ngClass]="{'view':componetStart, '':!componetStart}">
+        <div class="row">
+            <div class="col enlace" (click)="linkLogin()">
+                Iniciar Sesión
+            </div>
+        </div>
+    </div>
+
+
+</div>

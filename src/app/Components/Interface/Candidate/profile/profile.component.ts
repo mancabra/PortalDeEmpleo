@@ -1,0 +1,80 @@
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { InterfaceService } from 'src/app/Services/InterfaceServices/interface.service';
+
+@Component({
+  selector: 'app-profile',
+  templateUrl: './profile.component.html',
+  styleUrls: ['./profile.component.css']
+})
+export class ProfileComponent implements OnInit, OnDestroy {
+  subscription: Subscription;
+  usuario: any;
+  id_tipoUsuario: any;
+
+  //varibale de input administrar
+  vistaAdministrar: boolean = false;
+
+  perfilTipoAdministrador: boolean = true;
+  perfilTipoCandidato: boolean = true;
+  perfilTipoEmpleador: boolean = true;
+  perfilTipoEmpresa: boolean = true;
+
+
+  constructor(private _UserRequest: InterfaceService) {
+    this.subscription = this._UserRequest.getUser().subscribe(data => {
+      this.usuario = data;
+    });
+
+    
+  }
+
+  ngOnInit(): void {
+    this._UserRequest.esparcirUsuario();
+    this.id_tipoUsuario = this.usuario.tipoUsuario;
+    this.identificarTipoDePerfil();
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+  }
+
+  identificarTipoDePerfil() {
+
+    if (this.id_tipoUsuario == 1) {
+
+      this.perfilTipoAdministrador = false;
+      this.perfilTipoCandidato = true;
+      this.perfilTipoEmpleador = true;
+      this.perfilTipoEmpresa = true;
+
+    } else if (this.id_tipoUsuario == 2) {
+
+      this.perfilTipoAdministrador = true;
+      this.perfilTipoCandidato = false;
+      this.perfilTipoEmpleador = true;
+      this.perfilTipoEmpresa = true;
+
+    } else if (this.id_tipoUsuario == 3) {
+
+      this.perfilTipoAdministrador = true;
+      this.perfilTipoCandidato = true;
+      this.perfilTipoEmpleador = false;
+      this.perfilTipoEmpresa = true;
+
+    } else {
+
+      this.perfilTipoAdministrador = true;
+      this.perfilTipoCandidato = true;
+      this.perfilTipoEmpleador = true;
+      this.perfilTipoEmpresa = false;
+    }
+  }
+
+  cerrarSesion(){
+    this._UserRequest.esVisitante();
+    this._UserRequest.esparcirUsuario();
+  }
+
+
+}
