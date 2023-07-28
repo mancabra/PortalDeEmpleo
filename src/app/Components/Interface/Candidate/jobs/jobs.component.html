@@ -1,6 +1,8 @@
 <div style="display: flex;">
 
     <div class="cajaIzquierda">
+        <div *ngIf="cargarPantallaPrincipal(); else PantallaVacia">
+        
         <div class="input-group" style="width: 100%;">
             <!-- <span class="input-group-text" style="border-radius: 45px 0px 0px 45px; ">
                 <img src="{{imageSeach}}" class="rounded mx-auto d-block" style="width: 30px; height: 30px;" alt="...">
@@ -14,8 +16,8 @@
             </li>
         </ul>
             <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)"
-                placeholder="Ingresa el nombre de tu trabajo ideal">
-            <button class="input-group-text" type="button" (click)="obtenerVacantes()">Buscar Vacantes </button>
+                placeholder="Ingresa el nombre de tu trabajo ideal" [(ngModel)]="busqueda">
+            <button class="input-group-text" type="button" (click)="buscarVacantes()">Buscar Vacantes </button>
         </div>
 
         <div *ngIf="cargarVacantes(); else sinVacantes">
@@ -41,20 +43,26 @@
                                 <a class="btn btn-warning botonInformativo2" style="font-size: small;"  (click)="verVacanteCompleta(vacante)">+</a>
                             </div>
                             <div class="col">
-                                <a class="btn btn-secondary botonPostular" style="width: 100%; font-size: small;" (click)="postularse(vacante)">Postularse</a>
+                                <a class="btn btn-secondary botonPostular" style="width: 100%; font-size: small;" (click)="postularse(vacante)">{{textoBoton}}</a>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
 
         <ng-template #sinVacantes>
             <p style="text-align: center;">No hay vacantes publicadas</p>
         </ng-template>
 
+        <ng-template #PantallaVacia>
+            <p style="text-align: center;">No hay vacantes publicadas</p>
+        </ng-template>
+
 
     </div>
+  
 
     <div class="cajaDerecha">
 

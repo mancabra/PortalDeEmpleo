@@ -1,1 +1,72 @@
-<p>requests works!</p>
+<div style="display: flex;">
+    <div class="cajaIzquierda">
+        <div style="text-align: center; margin-bottom: 2rem; padding-left: 1rem; padding-right: 1rem;">
+            <b>POSTULACIONES ACTUALES</b>
+            <hr>
+        </div>
+
+        <div *ngIf="cargarPantalla(); else PantallaVacia">
+            <div class="card" style="width: 100%; margin-bottom: 2rem;" *ngFor="let postulacion of postulaciones">
+                <div class="tituloVacante">
+                    <b>{{postulacion.nombreVacante}} / {{postulacion.especialista}}</b>
+                </div>
+                <div style="padding: 1rem;">
+                    <b style="font-size:medium; padding: 0rem;">{{postulacion.empresa.nombreEmpresa}}</b> <br>
+                    <p style="font-size:x-small; line-height: 150%;">
+                        {{postulacion.domicilio}}
+                        <br style="margin: 0%; padding: 0%;">
+                        {{postulacion.municipio.nombreMunicipio}} estado de {{postulacion.municipio.nombreMunicipio}}
+                    </p>
+                    <b style="font-size:small; padding: 0rem;"> $ {{postulacion.sueldo}}.00 MXN</b>
+
+                    <p style="font-size:x-small; line-height: 150%;">
+                        {{postulacion.tipoHorario.dias}} / {{postulacion.horario}}
+                        <br style="margin: 0%; padding: 0%;">
+                    </p>
+                    <p style="font-size:x-small; line-height: 150%; text-align: justify;">
+                        {{postulacion.descripcion}}
+                    </p>
+
+                    <div style="padding-top: 1rem; display: flex;">
+                        <button type="button" class="btn btn-danger " style=" width: 100%; font-size: medium;"
+                            (click)="eliminarPostulacion(postulacion)">
+                            Eliminar Postulacion
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <ng-template #PantallaVacia>
+            <p style="text-align: center;">No hay nada aqui</p>
+        </ng-template>
+        <!--  -->
+    </div>
+
+
+
+    <div class="cajaDerecha">
+        <div style="margin-left:7rem;">
+            <div style="text-align: center; margin-bottom: 2rem; padding-left: 1rem; padding-right: 1rem;">
+                <b>GESTIONAR POSTULACIONES</b>
+                <hr>
+            </div>
+            <div *ngIf="cargarPantalla(); else PantallaVaciaSecundaria">
+                <button type="button" class="btn btn-danger" style="width: 100%; margin-bottom: 1rem;" (click)="quitarTodas()">ELIMINAR TODAS LAS
+                    POSTULACIONES</button>
+                <button type="button" class="btn btn-warning" style="width: 100%; margin-bottom: 1rem;">MOSTRAR
+                    POSTULACIONES DE ESTATUS ""</button>
+                <button type="button" class="btn btn-warning" style="width: 100%; margin-bottom: 1rem;">MOSTRAR
+                    POSTULACIONES DE ESTATUS ""</button>
+
+            </div>
+          
+
+        </div>
+        <ng-template #PantallaVaciaSecundaria>
+            <p style="text-align: center;">No hay nada aqui</p>
+        </ng-template>
+
+
+    </div>
+</div>

@@ -1,0 +1,274 @@
+<!-- <div style="padding-left: 7rem;">
+    <div class="colorBoton" style="padding: .5rem; margin-bottom: .5rem;">
+        <div class="input-group input-group-sm">
+            <input type="text" class="form-control" aria-label="Sizing example input"
+                aria-describedby="inputGroup-sizing-sm" style="border-radius: 5px 5px 5px 5px;"
+                placeholder="Ingresa el nuevo nombre">
+            <button class="input-group-text colorBoton" id="inputGroup-sizing-sm" style="width: 50%; text-align: center;">
+                <b> CAMBIAR NOMBRE</b> </button>
+        </div>
+    </div>
+</div> -->
+
+<div style="padding-left: 7rem;">
+
+    <!--  -->
+    <div class="" id="accordion">
+        <div class="accordion-item ">
+            <h2 class="accordion-header">
+                <button class="accordion-button " type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne"
+                    aria-expanded="true" aria-controls="collapseOne" style="color:rgb(89, 92, 94); height: 1.8rem;">
+                    MODIFICAR INFORMACIÓN
+                    <hr>
+                </button>
+            </h2>
+            <div id="collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                    <!--  -->
+                    <h2 class="accordion-header" style="margin-top: 1rem;">
+                        <button class="accordion-button " type="button" data-bs-toggle="collapse"
+                            data-bs-target="#collap" aria-expanded="true" aria-controls="collap"
+                            style="padding: .5rem; color:rgb(89, 92, 94); height: 1.8rem; align-content: center;">
+                            Datos de Usuario:
+                            <hr>
+                        </button>
+                    </h2>
+
+                    <div class="input-group input-group-sm" style="margin-bottom: .5rem;">
+                        <input type="text" class="form-control" aria-label="Sizing example input"
+                            aria-describedby="inputGroup-sizing-sm" style="border-radius: 5px 0px 0px 5px;"
+                            placeholder="Ingresa el nuevo nombre" [(ngModel)]="nuevoNombre">
+                        <button class="input-group-text" id="inputGroup-sizing-sm"
+                            style="width: 35%; text-align: center;">
+                            <b> CAMBIAR NOMBRE </b> </button>
+                    </div>
+
+
+                    <div class="input-group input-group-sm" style="margin-bottom: .5rem;">
+                        <input type="text" class="form-control" aria-label="Sizing example input"
+                            aria-describedby="inputGroup-sizing-sm" style="border-radius: 5px 0px 0px 5px;"
+                            placeholder="Ingresa el nuevo apellido paterno" [(ngModel)]="nuevoApellidoP">
+                        <button class="input-group-text" id="inputGroup-sizing-sm"
+                            style="width: 35%; text-align: center;">
+                            <b> CAMBIAR APELLIDO </b> </button>
+                    </div>
+
+                    <div class="input-group input-group-sm" style="margin-bottom: .5rem;">
+                        <input type="text" class="form-control" aria-label="Sizing example input"
+                            aria-describedby="inputGroup-sizing-sm" style="border-radius: 5px 0px 0px 5px;"
+                            placeholder="Ingresa el nuevo apellido materno" [(ngModel)]="nuevoApellidoM">
+                        <button class="input-group-text" id="inputGroup-sizing-sm"
+                            style="width: 35%; text-align: center;">
+                            <b> CAMBIAR APELLIDO </b> </button>
+                    </div>
+
+                    <!-- <div class="input-group input-group-sm" style="margin-bottom: .5rem;">
+                        <input type="number" class="form-control" aria-label="Sizing example input"
+                            aria-describedby="inputGroup-sizing-sm" style="border-radius: 5px 0px 0px 5px;"
+                            placeholder="Ingresa la nueva edad" [(ngModel)]="nuevaEdad">
+                        <button class="input-group-text" id="inputGroup-sizing-sm"
+                            style="width: 35%; text-align: center;">
+                            <b> CAMBIAR EDAD </b> </button>
+                    </div> -->
+
+                    <div class="input-group input-group-sm" style="margin-bottom: .5rem;">
+                        <input type="text" class="form-control" aria-label="Sizing example input"
+                            aria-describedby="inputGroup-sizing-sm" style="border-radius: 5px 0px 0px 5px;"
+                            placeholder="Ingresa la nueva profesión" [(ngModel)]="nuevaProfesion">
+                        <button class="input-group-text" id="inputGroup-sizing-sm"
+                            style="width: 35%; text-align: center;">
+                            <b> CAMBIAR PROFESIÓN </b> </button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--  -->
+    <div class="" id="accordion">
+        <div class="accordion-item ">
+            <h2 class="accordion-header ">
+                <button class="accordion-button " type="button" data-bs-toggle="collapse" data-bs-target=""
+                    aria-expanded="true" aria-controls=""
+                    style="padding: .5rem; color:rgb(89, 92, 94); height: 1.8rem;">
+                    <hr>
+                </button>
+            </h2>
+            <div id="collapseOne" class="accordion-collapse collapse " data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+
+                    <h2 class="accordion-header">
+                        <button class="accordion-button " type="button" data-bs-toggle="collapse"
+                            data-bs-target="#collap" aria-expanded="true" aria-controls="collap"
+                            style="padding: .5rem; color:rgb(89, 92, 94); height: 1.8rem; align-content: center;">
+                            Zona y Ubicación:
+                            <hr>
+                        </button>
+                    </h2>
+
+                    <div class="input-group input-group-sm" style="margin-bottom: .5rem;">
+                        <input type="text" class="form-control" aria-label="Sizing example input"
+                            aria-describedby="inputGroup-sizing-sm" style="border-radius: 5px 0px 0px 5px;"
+                            placeholder="Ingresa el nuevo domicilio" [(ngModel)]="nuevoDomicilio">
+                        <button class="input-group-text" id="inputGroup-sizing-sm"
+                            style="width: 35%; text-align: center;">
+                            <b> CAMBIAR DOMICILIO </b> </button>
+                    </div>
+
+
+                    <div class="input-group" style="margin-bottom: .5rem;">
+
+                        <button class="form-select" type="button" id="inputGroupSelect01" data-bs-toggle="dropdown"
+                            aria-expanded="false"
+                            style="font-size: x-small; border-radius: 5px 0px 0px 5px;">{{nuevoEstado.nombreEstado}}</button>
+                        <ul class="dropdown-menu">
+                            <li><button class="dropdown-item" type="button"
+                                    *ngFor="let estadoSeleccionado of estadosMexico"
+                                    (click)="actualizarEstado(estadoSeleccionado)">{{estadoSeleccionado.nombreEstado}}</button>
+                            </li>
+                        </ul>
+                        <label class="input-group-text" for="inputGroupSelect01" style=" height: 1.8rem; width: 35%;">
+                            <b>
+                                ESTADO </b> </label>
+
+                    </div>
+
+                    <div class="input-group" style="margin-bottom: .5rem;">
+
+                        <button class="form-select" type="button" id="inputGroupSelect01" data-bs-toggle="dropdown"
+                            aria-expanded="false" style="font-size: x-small; border-radius: 5px 0px 0px 5px;"
+                            [ngStyle]="{'pointer-events':bloquearMunicipio}">{{nuevoMunicipio.nombreMunicipio}}</button>
+                        <ul class="dropdown-menu">
+                            <li><button class="dropdown-item" type="button"
+                                    *ngFor="let municipioSeleccionado of municipiosMexico"
+                                    (click)="actualizarMunicipio(municipioSeleccionado)">{{municipioSeleccionado.nombreMunicipio}}</button>
+                            </li>
+                        </ul>
+                        <label class="input-group-text" for="inputGroupSelect01" style=" height: 1.8rem; width: 35%;">
+                            <b>
+                                MUNICIPIO </b> </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--  -->
+
+    <div class="" id="accordion">
+        <div class="accordion-item ">
+            <h2 class="accordion-header ">
+                <button class="accordion-button " type="button" data-bs-toggle="collapse" data-bs-target=""
+                    aria-expanded="true" aria-controls=""
+                    style="padding: .5rem; color:rgb(89, 92, 94); height: 1.8rem;">
+                    <hr>
+                </button>
+            </h2>
+            <div id="collapseOne" class="accordion-collapse collapse " data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+
+                    <h2 class="accordion-header">
+                        <button class="accordion-button " type="button" data-bs-toggle="collapse"
+                            data-bs-target="#collap" aria-expanded="true" aria-controls="collap"
+                            style="padding: .5rem; color:rgb(89, 92, 94); height: 1.8rem; align-content: center;">
+                            Formación Academica y Experiencia:
+                            <hr>
+                        </button>
+                    </h2>
+
+                    <div class="input-group input-group-sm" style="margin-bottom: .5rem;">
+                        <input type="text" class="form-control" aria-label="Sizing example input"
+                            aria-describedby="inputGroup-sizing-sm" style="border-radius: 5px 0px 0px 5px;"
+                            placeholder="Ingresa el nuevo centro educativo" [(ngModel)]="nuevoCentroEducativo">
+                        <button class="input-group-text" id="inputGroup-sizing-sm"
+                            style="width: 35%; text-align: center;">
+                            <b> CAMBIAR ESCUELA </b> </button>
+                    </div>
+
+                    <div class="input-group input-group-sm" style="margin-bottom: .5rem;">
+                        <input type="text" class="form-control" aria-label="Sizing example input"
+                            aria-describedby="inputGroup-sizing-sm" style="border-radius: 5px 0px 0px 5px;"
+                            placeholder="Ingresa tu puesto actual" [(ngModel)]="nuevoPuesto">
+                        <button class="input-group-text" id="inputGroup-sizing-sm"
+                            style="width: 35%; text-align: center;">
+                            <b> CAMBIAR PUESTO </b> </button>
+                    </div>
+
+                    <div class="input-group input-group-sm" style="display: block;">
+                        <label class="input-group-text" id="inputGroup-sizing-sm"
+                            style="width: 100%; text-align: center; border-radius: 5px 5px 0px 0px; margin: 0%;">
+                            <b> AGREGAR UNA DESCRIPCIÓN </b> </label>
+                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="2"
+                            style="width: 100%; border-radius: 0px 0px 5px 5px; margin: 0%; font-size: small;"
+                            [(ngModel)]="nuevaDescripcion"></textarea>
+                    </div>
+
+                    <button type="button" class="btn btn-warning" style="width: 100%; margin-top: 1.7rem;" (click)="capturarNuevosDatos()">MODIFICAR
+                        USUARIO</button>
+                    
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--  -->
+
+
+
+    <!-- 
+    <div class="" id="accordion" style="margin-bottom: .5rem;">
+        <div class="accordion-item ">
+            <h2 class="accordion-header ">
+                <button class="accordion-button " type="button" data-bs-toggle="collapse" data-bs-target=""
+                    aria-expanded="true" aria-controls=""
+                    style="padding: .5rem; color:rgb(89, 92, 94); height: 1.8rem;">
+                    <hr>
+                </button>
+            </h2>
+            <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+
+                    <h2 class="accordion-header ">
+                        <button class="accordion-button " type="button" data-bs-toggle="collapse"
+                            data-bs-target="#collap" aria-expanded="true" aria-controls="collap"
+                            style="padding: .5rem; color:rgb(89, 92, 94); height: 1.8rem; align-content: center;">
+                            Informacion Adicional:
+                            <hr>
+                        </button>
+                    </h2>
+
+                    <div class="input-group input-group-sm" style="margin-bottom: .5rem;">
+                        <input class="form-control form-control-sm" id="formFileSm" type="file">
+                        <button class="input-group-text" id="inputGroup-sizing-sm"
+                            style="width: 35%; text-align: center;">
+                            <b> CURRICULUM VITAE</b> </button>
+                    </div>
+
+                    <div class="input-group input-group-sm" style="margin-bottom: .5rem;">
+                        <input class="form-control form-control-sm" id="formFileSm" type="file">
+                        <button class="input-group-text" id="inputGroup-sizing-sm"
+                            style="width: 35%; text-align: center;">
+                            <b> IMAGEN DE PERFIL</b> </button>
+                    </div>
+
+                    <div class="input-group input-group-sm" style="margin-bottom: .5rem;">
+                        <input class="form-control form-control-sm" id="formFileSm" type="file">
+                        <button class="input-group-text" id="inputGroup-sizing-sm"
+                            style="width: 35%; text-align: center;">
+                            <b> IMAGEN DE PORTADA</b> </button>
+                    </div>
+
+               
+                </div>
+            </div>
+        </div>
+    </div> -->
+
+
+
+
+    <!--  -->
+
+
+
+</div>

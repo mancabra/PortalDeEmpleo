@@ -11,6 +11,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
   subscription: Subscription;
   usuario: any;
   id_tipoUsuario: any;
+  modificarPerfil:boolean=false;
 
   //varibale de input administrar
   vistaAdministrar: boolean = false;
@@ -37,6 +38,15 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
+  }
+
+  modificarDatosPerfil(){
+    if(this.modificarPerfil == false){
+      this.modificarPerfil = true;
+    }else {
+      this.modificarPerfil = false;
+    }
+  
   }
 
   identificarTipoDePerfil() {

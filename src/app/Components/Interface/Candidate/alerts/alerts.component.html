@@ -1,1 +1,31 @@
-<p>alerts works!</p>
+<div style="display: flex;">
+    <div class="cajaIzquierda" *ngIf="cargarPantalla(); else PantallaVacia">
+
+        <div class="card" style="width: 100%; margin-top: 1rem;" *ngFor="let notificacion of alertas">
+            <div class="tituloVacante" style="height: 2rem;">
+                <b></b>
+            </div>
+            <div style="padding: 2rem;">
+                <p style="font-size:medium; padding: 0rem;"> <b>{{notificacion.nombreAlerta}} </b></p>
+    
+                <p style="font-size: small; line-height: 150%; text-align: justify;">
+                {{notificacion.textoAlerta}}
+                </p>
+                
+            </div>
+        </div>
+    </div>
+    
+    <ng-template #PantallaVacia>
+        <p style="text-align: center;">No hay nada aqui</p>
+    </ng-template>
+    
+    <div class="cajaDerecha" *ngIf="cargarPantalla(); else PantallaVaciaSecunadria">
+    
+    </div>
+    
+        <ng-template #PantallaVaciaSecunadria>
+            <p style="text-align: center;">No hay nada aqui</p>
+        </ng-template>
+
+</div>

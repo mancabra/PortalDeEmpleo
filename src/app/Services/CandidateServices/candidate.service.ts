@@ -20,17 +20,33 @@ export class CandidateService {
     return this.id_candidato;
   }
 
+  modificar(CandidatoDTO:any){
+    return this._http.put("http://localhost:8080/modificarCandidato",CandidatoDTO).toPromise();
+  }
+
+
   obtenerVacantes(){
     return this._http.get("http://localhost:8080/obtenerListaVacantes").toPromise();
   }
 
-  buscarporFiltro(filtro:any){
+  buscarporFiltro(BusquedaDTO:any){
     // VER COMO MANEJA SAMUEL LOS FILTROS
-    return this._http.get("http://localhost:8080/", filtro).toPromise();
+    return this._http.get("http://localhost:8080/",BusquedaDTO).toPromise();
   }
 
   postularse(PostDTO:any){
     return this._http.put("http://localhost:8080/postulacion",PostDTO).toPromise();
+  }
+
+  obtenerPostulaciones(idRequest:number){
+    let cadena = "http://localhost:8080/obtenerPostulacionesPorIdDeCandidato/"+idRequest;
+    return this._http.get(cadena).toPromise();
+  }
+
+  eliminarPostulacion(idRequest:number){
+    let cadena = "http://localhost:8080/eliminarPostulacion/"+idRequest;
+    return this._http.delete(cadena).toPromise();
+
   }
 
 

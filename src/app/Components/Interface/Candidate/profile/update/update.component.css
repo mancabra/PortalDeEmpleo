@@ -1,0 +1,8 @@
+.colorBoton{
+    background-color:rgb(91, 164, 239);
+    border-color: rgb(91, 164, 239); ;
+    font-style:normal;
+    color: white;
+    text-align: center;
+    border-radius: 5px;
+}

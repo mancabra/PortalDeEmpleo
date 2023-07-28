@@ -57,16 +57,23 @@ export class NavbarComponent implements OnInit, OnDestroy{
   asignarUsuario(){
     if (this.usuario == null){
       this.id_tipoUsuario = 0;
-
     } else{
       this.id_tipoUsuario = this.usuario.tipoUsuario;
+      if(this.id_tipoUsuario == 0){
+       // alert("hola1");
+        this.usuarioVisitante();
+      }else {
+
+      }
     }
-   
+
+    //hace que siempre este seleccionada vacantes
+    //this.validarUsuario();
+
   }
 
   cargarPantalla(){
     this.asignarUsuario();
-    this.validarUsuario();
     if (this.id_tipoUsuario == null) {
       return false;
     } else {
@@ -74,15 +81,23 @@ export class NavbarComponent implements OnInit, OnDestroy{
     }
   }
 
+  usuarioVisitante(){
+   // alert("hola2");
+    this.validarUsuario();
+    
+  }
+
   validarUsuario() {
+    //alert("hola3");
     //SE TIENE QUE VALIDAR CUALES SON LOS USUARIOS
     if (this.id_tipoUsuario == 0) {
-
+     // alert("hola4");
       this.administradorActivo = true;
       this.candidatoActivo = true;
       this.visitanteActivo = false;
       this.empleadorActivo = true;
       this.seleccionar("Vacantes");
+   
 
     } else if (this.id_tipoUsuario == 2) {
 
@@ -115,6 +130,7 @@ export class NavbarComponent implements OnInit, OnDestroy{
 
   seleccionar(ventana: string) {
     if (ventana == "Vacantes") {
+      //alert("hola5");
       this.verVacantes();
     } else if (ventana == "Postulaciones") {
       this.verPostulaciones();
@@ -148,6 +164,7 @@ export class NavbarComponent implements OnInit, OnDestroy{
   }
 
   verVacantes() {
+    //alert("hola6");
     this.vacantes = false;
     this.postulaciones = true;
     this.notificaciones = true;
@@ -244,6 +261,7 @@ export class NavbarComponent implements OnInit, OnDestroy{
   }
 
   enviarVacantes() {
+    //alert("hola7");
     this.viewJobs.emit(false);
     this.viewRequests.emit(true);
     this.newJob.emit(true);

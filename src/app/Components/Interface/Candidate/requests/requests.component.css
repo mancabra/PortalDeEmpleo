@@ -1,0 +1,27 @@
+.caja{
+    padding-top: 0rem;
+    padding-left: 7rem;
+    padding-right: 7rem;
+    padding-bottom: 0rem;
+    display: flex;
+}
+.superior{
+    padding-top: 2rem; 
+}
+.cajaIzquierda{
+    display: inline;
+    margin-right: .5rem;
+    width: 50%;
+}
+.cajaDerecha{
+    display: inline-block;
+    margin-left: .5rem;
+    width: 50%;
+}
+.tituloVacante{
+    background-color:rgb(91, 164, 239); 
+    color: white; 
+    padding: .5rem; 
+    text-align: center;
+    border-radius: 5px 5px 0px 0px;
+}

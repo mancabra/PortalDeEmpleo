@@ -28,11 +28,20 @@
                     <br style="margin: 0%; padding: 0%;">
                     {{usuario.municipio.nombreMunicipio}} Estado de {{usuario.estado.nombreEstado}}
                 </p>
+
+                <p style="font-size:x-small; line-height: 150%;" [ngClass]="{'view':perfilTipoCandidato, '':!perfilTipoCandidato}">
+                    Centro Educativo: {{usuario.centroEducativo}}
+                    <br style="margin: 0%; padding: 0%;">
+                 
+                    Actualmente laborando como: {{usuario.puestoActual}}
+                </p>
+
                 <p style="font-size:x-small; line-height: 150%;" [ngClass]="{'view':perfilTipoCandidato, '':!perfilTipoCandidato}">
                     {{usuario.domicilio}}
                     <br style="margin: 0%; padding: 0%;">
                     {{usuario.municipio.nombreMunicipio}} Estado de {{usuario.estado.nombreEstado}}
                 </p>
+
                 <p style="font-size:x-small; line-height: 150%;" [ngClass]="{'':perfilTipoEmpresa, 'view':!perfilTipoEmpresa}"> 
                     {{usuario.correoElectronico}}
                     <br style="margin: 0%; padding: 0%;">
@@ -49,21 +58,15 @@
                 {{usuario.descripcion}}
                 </p>
             </div>
-            <div class="infoCuerpo" style="margin-bottom: .5rem;" [ngClass]="{'view':perfilTipoCandidato, '':!perfilTipoCandidato}">
+            <div class="infoCuerpo" [ngClass]="{'view':perfilTipoCandidato, '':!perfilTipoCandidato}">
                 <!-- SE CAMBIARA POR UN NGFOR DE LAS HABILIDADES DEL USUARIO REGISTRADAS EN BASE DE DATOS -->
-                <span class="badge rounded-pill text-bg-secondary" style="margin-right: .5rem;margin-bottom: .5rem;">habilidad</span>
-                <span class="badge rounded-pill text-bg-secondary" style="margin-right: .5rem;margin-bottom: .5rem;">habilidad</span>
-                <span class="badge rounded-pill text-bg-secondary" style="margin-right: .5rem;margin-bottom: .5rem;">habilidad</span>
-                <span class="badge rounded-pill text-bg-secondary" style="margin-right: .5rem;margin-bottom: .5rem;">habilidad</span>
-                <span class="badge rounded-pill text-bg-secondary" style="margin-right: .5rem;margin-bottom: .5rem;">habilidad</span>
-                <span class="badge rounded-pill text-bg-secondary" style="margin-right: .5rem;margin-bottom: .5rem;">habilidad</span>
                 <span class="badge rounded-pill text-bg-secondary" style="margin-right: .5rem;margin-bottom: .5rem;">habilidad</span>
             </div>
         </div>
         <div [ngClass]="{'view':vistaAdministrar, '':!vistaAdministrar}">
-            <button type="button" class="btn btn-danger" style="width: 100%; margin-top: 2rem;" [ngClass]="{'':perfilTipoEmpresa, 'view':!perfilTipoEmpresa}">SUSPENDER CUENTA</button>
+            <button type="button" class="btn btn-warning" style="width: 100%; margin-top: 1rem;" [ngClass]="{'':perfilTipoEmpresa, 'view':!perfilTipoEmpresa}" (click)="modificarDatosPerfil()">MODIFICAR CUENTA</button>
             <button type="button" class="btn btn-danger" style="width: 100%; margin-top: 1rem;" [ngClass]="{'':perfilTipoEmpresa, 'view':!perfilTipoEmpresa}" (click)="cerrarSesion();">CERRAR SESIÓN</button>
-
+            <button type="button" class="btn btn-danger" style="width: 100%; margin-top: 1rem;" [ngClass]="{'':perfilTipoEmpresa, 'view':!perfilTipoEmpresa}">SUSPENDER CUENTA</button>
         </div>
        
         <!--  -->
@@ -71,6 +74,7 @@
 
 
     <div class="cajaDerecha">
+        <app-update [ngClass]="{'':modificarPerfil, 'view':!modificarPerfil}"></app-update>
 
     </div>
 </div>

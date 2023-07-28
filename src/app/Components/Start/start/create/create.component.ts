@@ -135,6 +135,10 @@ export class CreateComponent {
     this.estado = { id_estado: 0, nombreEstado: "Selecciona un Estado" };
     this.municipio = { id_municipio: 0, nombreMunicipio: "Selecciona un Municipio", id_estado: 0 }
     this.bloquearMunicipio = "none";
+
+    this._UserRequest.obtenerEstados().then((data:any) =>{
+      this.estadosMexico = data;
+    });
   }
 
   identificarUsario(usuario?: any) {
@@ -226,9 +230,11 @@ export class CreateComponent {
 
   actualizarEstado(estado: any) {
     this.estado = estado;
-
-    // INSERTAR LLMADA AL SERVICIO OBTENER MUNICIPIOS
     this.bloquearMunicipio = "all";
+    this._UserRequest.obtenerMunicipios(this.estado.id_estado).then((data:any) =>{
+      this.municipiosMexico = data;
+    });
+
 
   }
 

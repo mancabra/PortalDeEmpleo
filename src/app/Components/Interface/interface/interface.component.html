@@ -10,7 +10,7 @@
     </app-navbar>
 </div>
 
-<div class="caja">
+ <div class="caja"> <!--*ngIf="cargarPantalla(); else PantallaVacia"-->
     <app-jobs [ngClass]="{'view':viewJobs, '':!viewJobs}"></app-jobs>
     <app-requests [ngClass]="{'view':viewRequests, '':!viewRequests}"></app-requests>
     <app-new-job [ngClass]="{'view':newJob, '':!newJob}"></app-new-job>
@@ -20,3 +20,7 @@
     <app-alerts [ngClass]="{'view':alerts, '':!alerts}"></app-alerts>
     <app-profile [ngClass]="{'view':profile, '':!profile}"></app-profile>
 </div>
+<!-- 
+<ng-template #PantallaVacia>
+    <p style="text-align: center;">No hay nada aqui</p>
+</ng-template> -->

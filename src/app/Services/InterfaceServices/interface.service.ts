@@ -8,7 +8,10 @@ import { Observable, Subject } from 'rxjs';
 export class InterfaceService {
 
   usuario:any = "";
+
   private usuario$ = new Subject<any>();
+  private alerts$ = new Subject<any>();
+  alertas:any = [];
   online:boolean = true;
 
   constructor(private _http: HttpClient) { }
@@ -58,7 +61,7 @@ export class InterfaceService {
         //------
         correoElectronico:"ramon2@gmail.com",
         contraseña:"password",
-        tipoUsuario:2,
+        tipoUsuario:0,
         apellidoP:"Serrano",
         apellidoM:"Gamez",
         telefono:"(+52)48-95-67-34-12",
@@ -67,6 +70,9 @@ export class InterfaceService {
            domicilio:"C.Pinos N.447 Col.Nuevo Mundo",
            estado:{id_estado:1,nombreEstado:"México"},
            municipio:{id_municipio:1,nombreMunicipio:"Acolman",id_estado:1},
+
+           centroEducativo:"UAM Azcapotzalco",
+           puestoActual:"Programador Jr",
            //------
         descripcion:"Lorem ipsum dolor sit amet consectetur adipiscing elit interdum nascetur purus, libero integer qui"
         +"ut facilisi hac suspendisse pretium ad urna, consequat id natoque sollicitudin orci mi tristique quisque posuere."
@@ -76,7 +82,11 @@ export class InterfaceService {
         
       }
       this.usuario = USUARIO;
+
+      } else {
+
       }
+
       this.usuario$.next(this.usuario);
   }
 
@@ -84,6 +94,29 @@ export class InterfaceService {
     return this.usuario$.asObservable();
   }
 
+  obtenerEstados(){
+    return this._http.get("http://localhost:8080/obtenerListaEstados").toPromise();
+  }
+
+  obtenerMunicipios(idRequest:number){
+    let cadena = "http://localhost:8080/botenerMunicipiosDeEstado/"+idRequest;
+    return this._http.get(cadena).toPromise();
+  }
+
+  // arreglo alertas
+  getAlerts():Observable<any>{
+    return this.alerts$.asObservable();
+  }
+
+  esparcirAlertas(){
+    this.alerts$.next(this.alertas);
+  }
+
+  agregarAlerta(alert:any){
+
+    this.alertas.push(alert);
+    this.alerts$.next(this.alertas);
+  }
 
 
 }

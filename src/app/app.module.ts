@@ -19,6 +19,7 @@ import { CandidatesComponent } from './Components/Interface/Employer/candidates/
 import { ManageComponent } from './Components/Interface/Admin/manage/manage.component';
 import { RequestAdminComponent } from './Components/Interface/Admin/request-admin/request-admin.component';
 import { JobComponent } from './Components/Interface/Employer/candidates/job/job.component';
+import { UpdateComponent } from './Components/Interface/Candidate/profile/update/update.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { JobComponent } from './Components/Interface/Employer/candidates/job/job
     CandidatesComponent,
     ManageComponent,
     RequestAdminComponent,
-    JobComponent
+    JobComponent,
+    UpdateComponent
   ],
   imports: [
     BrowserModule,
