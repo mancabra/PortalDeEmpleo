@@ -47,9 +47,10 @@ export class NavbarComponent implements OnInit, OnDestroy{
   ngOnInit() {
    
     this._UserRequest.esparcirUsuario();
+    this.actualizarUsuario();
     this. asignarUsuario();
     this.validarUsuario();
-    this.actualizarUsuario();
+  
   }
 
   ngOnDestroy(): void {
@@ -69,7 +70,6 @@ export class NavbarComponent implements OnInit, OnDestroy{
     } else{
       this.id_tipoUsuario = this.usuario.tipoUsuario;
       if(this.id_tipoUsuario == 0){
-       // alert("hola1");
         this.usuarioVisitante();
       }else {
 
