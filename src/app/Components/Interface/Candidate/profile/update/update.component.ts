@@ -49,7 +49,7 @@ export class UpdateComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this._UserRequest.esparcirUsuario();
+    //this._UserRequest.esparcirUsuario();
     this.bloquearMunicipios();
     this.asignarDatos();
 
@@ -287,7 +287,6 @@ export class UpdateComponent implements OnInit, OnDestroy {
   }
 
   guardarMod(usuarioModificado:any){
-  console.log(usuarioModificado);
     this._CandidateRequest.modificar(usuarioModificado).then((data:any) =>{
       if(data == null){
 

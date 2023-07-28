@@ -7,112 +7,136 @@ import { Observable, Subject } from 'rxjs';
 })
 export class InterfaceService {
 
-  usuario:any = "";
+  usuario: any = "";
 
   private usuario$ = new Subject<any>();
   private alerts$ = new Subject<any>();
-  alertas:any = [];
-  online:boolean = true;
+  alertas: any = [];
+  online: boolean = true;
 
   constructor(private _http: HttpClient) { }
 
-  ngOnInit(){
+  ngOnInit() {
     //this.esVisitante();
     this.cargarUsuario("a");
   }
 
-  esVisitante(){
-    const USUARIO ={
-      tipoUsuario:0,
+  esVisitante() {
+    const USUARIO = {
+      tipoUsuario: 0,
     }
-      this.usuario = USUARIO;
-      console.log(this.usuario);
+    this.usuario = USUARIO;
+    console.log(this.usuario);
   }
 
   //INICIO DE SESION
   login(userRequest: any) {
+    //prueba de funcionamiento
+    console.log("Proceso ligin");
+    console.log("Info Enviada");
+    console.log(userRequest);
+
     return this._http.post("http://localhost:8080/Login", userRequest).toPromise();
   }
 
   // OBTENER INFORMACION POR CORREO
   userData(userRequest: string) {
+    //prueba de funcionamiento
+    console.log("Proceso obtenerUsuario");
+    console.log("Info Enviada");
+    console.log(userRequest);
+
     let cadena = "http://localhost:8080/obtenerUsuario/" + userRequest;
     return this._http.get(cadena).toPromise();
   }
 
-  cargarUsuario(mail:string){
-    this.userData(mail).then((data:any) =>{
+  cargarUsuario(mail: string) {
+    //prueba de funcionamiento
+    console.log("Proceso cargarUsuario");
+    console.log("Info Enviada");
+    console.log(mail);
+
+    this.userData(mail).then((data: any) => {
       this.usuario = data;
+      console.log("Estatus de usuario");
+      console.log(this.usuario);
+
     });
-  
+
     this.usuario$.next(this.usuario);
   }
 
-  esparcirUsuario(){
-    if (this.usuario == ""){
-      
-      const USUARIO ={
-        id_usuario: 15,
-        nombre:"Ramon",
-        //------
-        edad:26,
-        profesion:"Desarrollador",
-        id_candidato:1,
-        //------
-        correoElectronico:"ramon2@gmail.com",
-        contraseña:"password",
-        tipoUsuario:0,
-        apellidoP:"Serrano",
-        apellidoM:"Gamez",
-        telefono:"(+52)48-95-67-34-12",
-        estatusUsuario:true,
-           //------
-           domicilio:"C.Pinos N.447 Col.Nuevo Mundo",
-           estado:{id_estado:1,nombreEstado:"México"},
-           municipio:{id_municipio:1,nombreMunicipio:"Acolman",id_estado:1},
+  esparcirUsuario() {
+    console.log("Esparcir usuario");
+    if (this.usuario == "") {
 
-           centroEducativo:"UAM Azcapotzalco",
-           puestoActual:"Programador Jr",
-           //------
-        descripcion:"Lorem ipsum dolor sit amet consectetur adipiscing elit interdum nascetur purus, libero integer qui"
-        +"ut facilisi hac suspendisse pretium ad urna, consequat id natoque sollicitudin orci mi tristique quisque posuere."
-        +"Lorem ipsum dolor sit amet consectetur adipiscing elit interdum nascetur purus, libero integer qui"
-        +"ut facilisi hac suspendisse pretium ad urna, consequat id natoque sollicitudin orci mi tristique quisque posuere."
-        +"Lorem ipsum dolor sit amet consectetur adipiscing elit interdum nascetur purus, libero integer qui",
-        
+      const USUARIO = {
+        id_usuario: 15,
+        nombre: "Ramon",
+        //------
+        edad: 26,
+        profesion: "Desarrollador",
+        id_candidato: 1,
+        //------
+        correoElectronico: "ramon2@gmail.com",
+        contraseña: "password",
+        tipoUsuario: 2,
+        apellidoP: "Serrano",
+        apellidoM: "Gamez",
+        telefono: "(+52)48-95-67-34-12",
+        estatusUsuario: true,
+        //------
+        domicilio: "C.Pinos N.447 Col.Nuevo Mundo",
+        estado: { id_estado: 1, nombreEstado: "México" },
+        municipio: { id_municipio: 1, nombreMunicipio: "Acolman", id_estado: 1 },
+
+        centroEducativo: "UAM Azcapotzalco",
+        puestoActual: "Programador Jr",
+        //------
+        descripcion: "Lorem ipsum dolor sit amet consectetur adipiscing elit interdum nascetur purus, libero integer qui"
+          + "ut facilisi hac suspendisse pretium ad urna, consequat id natoque sollicitudin orci mi tristique quisque posuere."
+          + "Lorem ipsum dolor sit amet consectetur adipiscing elit interdum nascetur purus, libero integer qui"
+          + "ut facilisi hac suspendisse pretium ad urna, consequat id natoque sollicitudin orci mi tristique quisque posuere."
+          + "Lorem ipsum dolor sit amet consectetur adipiscing elit interdum nascetur purus, libero integer qui",
+
       }
       this.usuario = USUARIO;
 
-      } else {
+    } else {
 
-      }
+    }
 
-      this.usuario$.next(this.usuario);
+    this.usuario$.next(this.usuario);
   }
 
-  getUser():Observable<any>{
+  getUser(): Observable<any> {
     return this.usuario$.asObservable();
   }
 
-  obtenerEstados(){
+  obtenerEstados() {
+    //prueba de funcionamiento
+    console.log("Proceso obtenerEstados");
+
+
     return this._http.get("http://localhost:8080/obtenerListaEstados").toPromise();
   }
 
-  obtenerMunicipios(idRequest:number){
-    let cadena = "http://localhost:8080/botenerMunicipiosDeEstado/"+idRequest;
+  obtenerMunicipios(idRequest: number) {
+    console.log("Proceso obtenerMunicipios");
+    let cadena = "http://localhost:8080/botenerMunicipiosDeEstado/" + idRequest;
     return this._http.get(cadena).toPromise();
   }
 
   // arreglo alertas
-  getAlerts():Observable<any>{
+  getAlerts(): Observable<any> {
     return this.alerts$.asObservable();
   }
 
-  esparcirAlertas(){
+  esparcirAlertas() {
     this.alerts$.next(this.alertas);
   }
 
-  agregarAlerta(alert:any){
+  agregarAlerta(alert: any) {
 
     this.alertas.push(alert);
     this.alerts$.next(this.alertas);

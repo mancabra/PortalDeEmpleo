@@ -25,13 +25,14 @@ export class ProfileComponent implements OnInit, OnDestroy {
   constructor(private _UserRequest: InterfaceService) {
     this.subscription = this._UserRequest.getUser().subscribe(data => {
       this.usuario = data;
+      console.log(this.usuario);
     });
 
     
   }
 
   ngOnInit(): void {
-    this._UserRequest.esparcirUsuario();
+    //this._UserRequest.esparcirUsuario();
     this.id_tipoUsuario = this.usuario.tipoUsuario;
     this.identificarTipoDePerfil();
   }

@@ -69,7 +69,7 @@ export class JobsComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this._UserRequest.esparcirUsuario();
+    //this._UserRequest.esparcirUsuario();
     this.vacanteSeleccionada = "";
     this.obtenerVacantes();
   }

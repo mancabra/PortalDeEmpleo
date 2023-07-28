@@ -5,46 +5,71 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class CandidateService {
-  id_candidato:any=0;
-  
-  constructor(private _http:HttpClient) { }
+  id_candidato: any = 0;
 
- 
+  constructor(private _http: HttpClient) { }
 
-  registrar( CandidateRequest : any ){
-    //return this._http.put("http://localhost:8080/", EmployerRequest).toPromise();
+
+
+  registrar(CandidateRequest: any) {
+    //prueba de funcionamiento
+    console.log("Proceso RegistrarCandidato");
+    console.log("Info Enviada");
+    console.log(CandidateRequest);
+
     this._http.put("http://localhost:8080/registroCandidato", CandidateRequest)
-    .subscribe(      
-      resultado => { this.id_candidato = resultado }
-    );
+      .subscribe(
+        resultado => { this.id_candidato = resultado }
+      );
     return this.id_candidato;
   }
 
-  modificar(CandidatoDTO:any){
-    return this._http.put("http://localhost:8080/modificarCandidato",CandidatoDTO).toPromise();
+  modificar(CandidatoDTO: any) {
+    //prueba de funcionamiento
+    console.log("Proceso ModificarCandidato");
+    console.log("Info Enviada");
+    console.log(CandidatoDTO);
+
+    return this._http.put("http://localhost:8080/modificarCandidato", CandidatoDTO).toPromise();
   }
 
 
-  obtenerVacantes(){
+  obtenerVacantes() {
+    //prueba de funcionamiento
+    console.log("Proceso ObternerVacantes");
+
     return this._http.get("http://localhost:8080/obtenerListaVacantes").toPromise();
   }
 
-  buscarporFiltro(BusquedaDTO:any){
+  buscarporFiltro(BusquedaDTO: any) {
     // VER COMO MANEJA SAMUEL LOS FILTROS
-    return this._http.get("http://localhost:8080/",BusquedaDTO).toPromise();
+    return this._http.get("http://localhost:8080/", BusquedaDTO).toPromise();
   }
 
-  postularse(PostDTO:any){
-    return this._http.put("http://localhost:8080/postulacion",PostDTO).toPromise();
+  postularse(PostDTO: any) {
+    //prueba de funcionamiento
+    console.log("Proceso Postularse");
+    console.log("Info Enviada");
+    console.log(PostDTO);
+
+    return this._http.put("http://localhost:8080/postulacion", PostDTO).toPromise();
   }
 
-  obtenerPostulaciones(idRequest:number){
-    let cadena = "http://localhost:8080/obtenerPostulacionesPorIdDeCandidato/"+idRequest;
+  obtenerPostulaciones(idRequest: number) {
+    //prueba de funcionamiento
+    console.log("Proceso ObtenerPostulaciones");
+    console.log("Info Enviada id_candidato" + idRequest);
+
+    let cadena = "http://localhost:8080/obtenerPostulacionesPorIdDeCandidato/" + idRequest;
     return this._http.get(cadena).toPromise();
   }
 
-  eliminarPostulacion(idRequest:number){
-    let cadena = "http://localhost:8080/eliminarPostulacion/"+idRequest;
+  eliminarPostulacion(idRequest: number) {
+    //prueba de funcionamiento
+    console.log("Proceso EliminarPostulacion");
+    console.log("Info Enviada id_postulacion" + idRequest);
+
+    let cadena = "http://localhost:8080/eliminarPostulacion/" + idRequest;
     return this._http.delete(cadena).toPromise();
 
   }

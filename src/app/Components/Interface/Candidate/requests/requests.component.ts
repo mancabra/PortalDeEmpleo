@@ -50,12 +50,12 @@ export class RequestsComponent implements OnInit, OnDestroy {
   constructor(private _UserRequest:InterfaceService, private _CandidateRequest:CandidateService){
     this.subscription = this._UserRequest.getUser().subscribe(data =>{
       this.usuario = data;
+      console.log(this.usuario);
     });
   }
   
   ngOnInit(): void {
     this.obetenerPostulaciones();
-   
   }
 
   cargarPantalla(){
@@ -83,15 +83,33 @@ export class RequestsComponent implements OnInit, OnDestroy {
   quitarTodas(){
     for (let i = 0; i < this.postulaciones.length; i++) {
       const element = this.postulaciones[i].id_postulacion;
-      this._CandidateRequest.eliminarPostulacion(element);
+      this._CandidateRequest.eliminarPostulacion(element).then((data:any) =>{
+        if(data.estaus==true){
+  
+          const ALERTA = {
 
-      const ALERTA = {
+            nombreAlerta:"Postulacion Eliminada",
+            textoAlerta:"La postulación a vacante "+this.postulaciones[i].nombreVacante+" de la empresa "+this.postulaciones[i].empresa.nombreEmpresa+" ha sido eliminada, si usted no ha realizado esta acció puede que el empleador eliminara la publicación."
+          }
+    
+          this._UserRequest.agregarAlerta(ALERTA);
+  
+          alert("La vacante fue eliminada correctamente");
+          this.obetenerPostulaciones();
+        } else{
 
-        nombreAlerta:"Postulacion Eliminada",
-        textoAlerta:"La postulación a vacante "+this.postulaciones[i].nombreVacante+" de la empresa "+this.postulaciones[i].empresa.nombreEmpresa+" ha sido eliminada, si usted no ha realizado esta acció puede que el empleador eliminara la publicación."
-      }
+        const ALERTA = {
 
-      this._UserRequest.agregarAlerta(ALERTA);
+          nombreAlerta:"Eliminacion Fallida",
+          textoAlerta:"La postulación a vacante "+this.postulaciones[i].nombreVacante+" de la empresa "+this.postulaciones[i].empresa.nombreEmpresa+" no ha podido ser Eliminada correctamente, te recomendamos intentarlo nuevamente, si el error persiste puedes contactar a soporte mediente el correo soporte@mail.com"
+
+        }
+        this._UserRequest.agregarAlerta(ALERTA);
+        }
+
+      });
+
+
 
 
     }

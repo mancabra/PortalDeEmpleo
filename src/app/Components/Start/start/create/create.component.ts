@@ -449,7 +449,7 @@ export class CreateComponent {
       }
     }
 
-    this.registarCandidato(usuario);
+
 
   }
 
@@ -459,11 +459,10 @@ export class CreateComponent {
     // COMPROBAR QUE LA CADENA CONTENGA EL CARACTER NUMEROS Y LETRAS (CARACTER ESPECIAL ?)
 
     usuario.contrasena = this.contrasena;
-    console.log(usuario);
+    this.registarCandidato(usuario);
   }
 
   registarCandidato(usuario: any) {
-    //alert("candidato");
     let numero = 0;
     if (this.ObligatoriosCandidato != false) {
       numero = this._CandidateRequest.registrar(usuario); 
