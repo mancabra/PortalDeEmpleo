@@ -45,13 +45,22 @@ export class NavbarComponent implements OnInit, OnDestroy{
   }
 
   ngOnInit() {
+   
     this._UserRequest.esparcirUsuario();
     this. asignarUsuario();
     this.validarUsuario();
+    this.actualizarUsuario();
   }
 
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
+  }
+
+  actualizarUsuario(){
+    this._UserRequest.buscarUsuario().then((data:any) =>{
+      let usuario = data 
+      this._UserRequest.actualizarUsuario(usuario);
+    });
   }
 
   asignarUsuario(){

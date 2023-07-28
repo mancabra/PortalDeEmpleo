@@ -8,6 +8,7 @@ import { Observable, Subject } from 'rxjs';
 export class InterfaceService {
 
   usuario: any = "";
+  correo:string ="";
 
   private usuario$ = new Subject<any>();
   private alerts$ = new Subject<any>();
@@ -102,15 +103,37 @@ export class InterfaceService {
       }
       this.usuario = USUARIO;
 
-    } else {
+    } else if(this.usuario == null){
+
+    } else{
 
     }
 
     this.usuario$.next(this.usuario);
   }
 
+  guaradarCorreo(correo:any){
+    this.correo = correo;
+    console.log(this.correo);
+  }
+
   getUser(): Observable<any> {
     return this.usuario$.asObservable();
+  }
+
+  buscarUsuario(){
+    console.log("Proceso buscarUsuario");
+    console.log("Info Enviada");
+    console.log(this.correo);
+
+    let cadena = "http://localhost:8080/obtenerUsuario/" + this.correo;
+    return this._http.get(cadena).toPromise();
+  }
+
+  actualizarUsuario(usuario:any){
+    this.usuario = usuario;
+    console.log(this.usuario);
+    this.usuario$.next(this.usuario);
   }
 
   obtenerEstados() {
