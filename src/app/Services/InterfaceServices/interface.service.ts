@@ -139,8 +139,7 @@ export class InterfaceService {
   obtenerEstados() {
     //prueba de funcionamiento
     console.log("Proceso obtenerEstados");
-
-
+    
     return this._http.get("http://localhost:8080/obtenerListaEstados").toPromise();
   }
 
