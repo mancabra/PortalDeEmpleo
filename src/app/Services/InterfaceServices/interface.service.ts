@@ -144,10 +144,12 @@ export class InterfaceService {
     return this._http.get("http://localhost:8080/obtenerListaEstados").toPromise();
   }
 
-  obtenerMunicipios(idRequest: number) {
+  obtenerMunicipios(idRequest: number):Observable<any> {
     console.log("Proceso obtenerMunicipios");
+    console.log("Info Enviada");
+    console.log(idRequest);
     let cadena = "http://localhost:8080/botenerMunicipiosDeEstado/" + idRequest;
-    return this._http.get(cadena).toPromise();
+    return this._http.get<any>(cadena);
   }
 
   // arreglo alertas

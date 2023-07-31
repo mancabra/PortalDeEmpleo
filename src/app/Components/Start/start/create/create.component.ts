@@ -16,8 +16,9 @@ export class CreateComponent {
   //Vectores necesarios
   ladasMexico = ["+51", "+52", "+53"];
   contenerNumero = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "-", "+"];
-  estadosMexico = [{ id_estado: 1, nombreEstado: "Mexico" }];
-  municipiosMexico = [{ id_municipio: 1, nombreMunicipio: "Acolman", id_estado: 1 }];
+  estadosMexico:any[]  = [{ id_estado: 1, nombreEstado: "Mexico" }];
+  municipiosMexico:any[] = [{ id_municipio: 1, nombreMunicipio: "Acolman", id_estado: 1 }];
+  descripcionDelUSuario: string = "";
 
   // COMUNICACION ENTRE COMPONENTES
   @Output() viewCreate = new EventEmitter<boolean>();
@@ -102,11 +103,11 @@ export class CreateComponent {
   descripcion: String = "";
 
   constructor(
-    private router:Router,
+    private router: Router,
     private _CandidateRequest: CandidateService,
     private _AdminRequest: AdminService,
     private _EmployerRequest: EmployerService,
-    private _UserRequest:InterfaceService,
+    private _UserRequest: InterfaceService,
     private _CompanyRequest: CompanyService
   ) {
 
@@ -136,7 +137,7 @@ export class CreateComponent {
     this.municipio = { id_municipio: 0, nombreMunicipio: "Selecciona un Municipio", id_estado: 0 }
     this.bloquearMunicipio = "none";
 
-    this._UserRequest.obtenerEstados().then((data:any) =>{
+    this._UserRequest.obtenerEstados().then((data: any) => {
       this.estadosMexico = data;
     });
   }
@@ -155,6 +156,8 @@ export class CreateComponent {
 
       if (this.tipoUsurio == "candidato") {
         this.bloquearMunicipios();
+        this.descripcionDelUSuario = "Al crear una cuenta del tipo candidato tendras acceso a todas las vacantes disponibles en nuestra plataforma," 
+                                      +" podras postularte a ellas y gestionar dichas postulaciones en vistas exclusivas.";
         this.verApellidos = false;
         this.VerUbicacion = false;
         this.verEdadyTelefono = false;
@@ -164,6 +167,8 @@ export class CreateComponent {
 
 
       } else if (this.tipoUsurio == "administrador") {
+        this.descripcionDelUSuario = "Al crear una cuenta del tipo administrador estaras creando un usuario que podra gestionar de manera libre la plataforma,"
+                                    +" el suario  podra crear cuentas de cualquier tipo, eliminarlas o suspenderlas.";
         this.verApellidos = false;
         this.verEdadyTelefono = true;
         this.VerUbicacion = true;
@@ -174,6 +179,8 @@ export class CreateComponent {
 
 
       } else if (this.tipoUsurio == "empleador") {
+        this.descripcionDelUSuario = "Al crear una cuenta del tipo empleador podras publicar nuevos empleos dentro de nuestra plataforma y podras gestionar a todos "
+                                    +"los candidatos que se postularon a tu vacante en ventanas exclusivas.";
         this.verApellidos = false;
         this.verEdadyTelefono = true;
         this.VerUbicacion = true;
@@ -185,10 +192,11 @@ export class CreateComponent {
       } else {
 
         this.bloquearMunicipios();
+        this.descripcionDelUSuario = "Al crear una empersa debes tener en cuenta que estara disponible de manera instantanea en nuestra plataforma," 
+                                    +" y sera visible para todos los empleadores durante la creacion de vacantes en el campo empresa.";
         this.textoUbicacion = "Calle y Número:*";
         this.textoMunicipio = "Municipio:*";
         this.textoEstado = "Estado:*";
-
         this.verApellidos = true;
         this.verEdadyTelefono = true;
         this.VerUbicacion = false;
@@ -209,6 +217,8 @@ export class CreateComponent {
     this.limpiarCampos();
     if (this.tipoUsurio == "candidato") {
       this.bloquearMunicipios();
+      this.descripcionDelUSuario = "Al crear una cuenta del tipo candidato tendras acceso a todas las vacantes disponibles en nuestra plataforma," 
+                                  +"podras postularte a ellas y gestionar dichas postulaciones en vistas exclusivas.";      
       this.verAdministrador = true;
       this.verUsuariosPrincipales = false;
       this.verEdadyTelefono = false;
@@ -216,6 +226,8 @@ export class CreateComponent {
       this.verDescripcion = true;
 
     } else {
+      this.descripcionDelUSuario = "Al crear una cuenta del tipo empleador podras publicar nuevos empleos dentro de nuestra plataforma y podras gestionar a todos "
+      +"los candidatos que se postularon a tu vacante en ventanas exclusivas.";
       this.verAdministrador = true;
       this.verUsuariosPrincipales = false;
       this.verEdadyTelefono = true;
@@ -231,8 +243,10 @@ export class CreateComponent {
   actualizarEstado(estado: any) {
     this.estado = estado;
     this.bloquearMunicipio = "all";
-    this._UserRequest.obtenerMunicipios(this.estado.id_estado).then((data:any) =>{
+
+    this._UserRequest.obtenerMunicipios(this.estado.id_estado).subscribe(data=>{
       this.municipiosMexico = data;
+      console.log( this.municipiosMexico);
     });
 
 
@@ -402,7 +416,7 @@ export class CreateComponent {
     //AGREGAR FUNCION PARA COMPROBAR NUMEROS
     let numeroConFormato = "(" + this.lada + ")" + this.numeroTelefonioco;
     usuario.telefono = numeroConFormato;
-    this.evaluarUbicacion(usuario);
+
   }
 
   evaluarUbicacion(usuario: any) {
@@ -465,7 +479,7 @@ export class CreateComponent {
   registarCandidato(usuario: any) {
     let numero = 0;
     if (this.ObligatoriosCandidato != false) {
-      numero = this._CandidateRequest.registrar(usuario); 
+      numero = this._CandidateRequest.registrar(usuario);
       if (numero != 0) {
         this.limpiarCampos();
         this._UserRequest.cargarUsuario(usuario.correoElectronico);
@@ -580,13 +594,13 @@ export class CreateComponent {
     //alert("administrador");
     let numero = 0;
     if (this.ObligatoriosAdministrador != false) {
-      numero = this._AdminRequest.registrar(administrador); 
+      numero = this._AdminRequest.registrar(administrador);
       if (numero != 0) {
         this.limpiarCampos();
         this.router.navigate(['interface']);
       } else {
-      //this.correoExistente = false;
-      alert("ha ocurrido un error");
+        //this.correoExistente = false;
+        alert("ha ocurrido un error");
       }
     } else {
     }
@@ -694,7 +708,7 @@ export class CreateComponent {
     //alert("empleador");
     let numero = 0;
     if (this.ObligatoriosEmpleador != false) {
-      numero = this._EmployerRequest.registrar(empleador); 
+      numero = this._EmployerRequest.registrar(empleador);
       if (numero != 0) {
         this.limpiarCampos();
         this._UserRequest.cargarUsuario(empleador.correoElectronico);
@@ -784,13 +798,13 @@ export class CreateComponent {
     //alert("empresa");
     let numero = 0;
     if (this.ObligatoriosEmpresa != false) {
-      numero = this._CompanyRequest.registrar(empresa); 
+      numero = this._CompanyRequest.registrar(empresa);
       if (numero != 0) {
         this.limpiarCampos();
-         this.router.navigate(['interface']);
+        this.router.navigate(['interface']);
       } else {
-      // this.validarNombreRegistrado = false;
-      alert("ha ocurrido un error");
+        // this.validarNombreRegistrado = false;
+        alert("ha ocurrido un error");
       }
     } else {
 

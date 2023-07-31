@@ -74,8 +74,9 @@ export class UpdateComponent implements OnInit, OnDestroy {
     this.nuevoEstado = estado;
     this.bloquearMunicipio = "all";
 
-    this._UserRequest.obtenerMunicipios(this.nuevoEstado.id_estado).then((data:any) =>{
+    this._UserRequest.obtenerMunicipios(this.nuevoEstado.id_estado).subscribe(data=>{
       this.municipiosMexico = data;
+      console.log( this.municipiosMexico);
     });
 
   }

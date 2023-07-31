@@ -69,6 +69,7 @@ export class NavbarComponent implements OnInit, OnDestroy{
       this.id_tipoUsuario = 0;
     } else{
       this.id_tipoUsuario = this.usuario.tipoUsuario;
+      
       if(this.id_tipoUsuario == 0){
         this.usuarioVisitante();
       }else {
