@@ -1,33 +1,33 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
+import { Municipio } from '../Entity/municipio';
+import { Estado } from '../Entity/estado';
+import { CandidateService } from '../CandidateServices/candidate.service';
+import { AdminService } from '../AdminServices/admin.service';
+import { EmployerService } from '../EmployerServices/employer.service';
+import { Candidato } from '../Entity/candidato';
 
 @Injectable({
   providedIn: 'root'
 })
 export class InterfaceService {
 
-  usuario: any = "";
-  correo:string ="";
+  usuario:Candidato = new Candidato;
+  correo: string  = "";
 
-  private usuario$ = new Subject<any>();
+  private usuario$ = new Subject<Candidato>();
   private alerts$ = new Subject<any>();
   alertas: any = [];
-  online: boolean = true;
+  //online: boolean = true;
 
-  constructor(private _http: HttpClient) { }
+  constructor(private _http: HttpClient,
+              private _CandidateRequest: CandidateService,
+              private _AdminRequest: AdminService,
+              private _EmployerRequest: EmployerService) { }
 
   ngOnInit() {
-    //this.esVisitante();
-    this.cargarUsuario("a");
-  }
 
-  esVisitante() {
-    const USUARIO = {
-      tipoUsuario: 0,
-    }
-    this.usuario = USUARIO;
-    console.log(this.usuario);
   }
 
   //INICIO DE SESION
@@ -40,6 +40,7 @@ export class InterfaceService {
     return this._http.post("http://localhost:8080/Login", userRequest).toPromise();
   }
 
+/*
   // OBTENER INFORMACION POR CORREO
   userData(userRequest: string) {
     //prueba de funcionamiento
@@ -112,14 +113,7 @@ export class InterfaceService {
     this.usuario$.next(this.usuario);
   }
 
-  guaradarCorreo(correo:any){
-    this.correo = correo;
-    console.log(this.correo);
-  }
-
-  getUser(): Observable<any> {
-    return this.usuario$.asObservable();
-  }
+  
 
   buscarUsuario(){
     console.log("Proceso buscarUsuario");
@@ -136,19 +130,40 @@ export class InterfaceService {
     this.usuario$.next(this.usuario);
   }
 
-  obtenerEstados() {
-    //prueba de funcionamiento
-    console.log("Proceso obtenerEstados");
+  */
+
+  buscarUsuario(){
+    this._CandidateRequest.obtener(this.correo).subscribe( data =>{
+      this.usuario = data;
+    });
     
-    return this._http.get("http://localhost:8080/obtenerListaEstados").toPromise();
+    this.usuario$.next(this.usuario);
   }
 
-  obtenerMunicipios(idRequest: number):Observable<any> {
+  getUser(): Observable<any> {
+    return this.usuario$.asObservable();
+  }
+
+  guaradarCorreo(correo:any){
+    this.correo = correo ;
+    this._AdminRequest.guaradarCorreo(correo);
+    this._CandidateRequest.guaradarCorreo(correo);
+    this._EmployerRequest.guaradarCorreo(correo);
+  }
+
+  obtenerEstados():Observable<Estado[]> {
+    //prueba de funcionamiento
+    console.log("Proceso obtenerEstados");
+
+    return this._http.get<Estado[]>("http://localhost:8080/obtenerListaEstados");
+  }
+
+  obtenerMunicipios(idRequest: number):Observable<Municipio[]> {
     console.log("Proceso obtenerMunicipios");
     console.log("Info Enviada");
     console.log(idRequest);
     let cadena = "http://localhost:8080/botenerMunicipiosDeEstado/" + idRequest;
-    return this._http.get<any>(cadena);
+    return this._http.get<Municipio[]>(cadena);
   }
 
   // arreglo alertas

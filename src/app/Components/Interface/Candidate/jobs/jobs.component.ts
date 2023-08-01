@@ -2,6 +2,8 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { CandidateService } from 'src/app/Services/CandidateServices/candidate.service';
+import { Candidato } from 'src/app/Services/Entity/candidato';
+import { Vacante } from 'src/app/Services/Entity/vacante';
 import { InterfaceService } from 'src/app/Services/InterfaceServices/interface.service';
 
 @Component({
@@ -13,18 +15,20 @@ export class JobsComponent implements OnInit, OnDestroy {
   imageSeach: string = "../assets/search.png";
 
   //DEBE SUSCRIBIRSE AL USARIO ENVIADO POR BASE DE DATOS
-  usuario: any;
+  usuario: Candidato = new Candidato;
   subscription: Subscription;
-  vacanteSeleccionada: any = "";
+  vacanteSeleccionada: Vacante = new Vacante;
   busqueda: string = "";
   textoBoton: string = "Postularse"
   id_tipoUsuario: number = 0;
 
   filtroActivo: boolean = false;
   filtro: string = "Filtros";
-
   filtrosDisponibles = ["Cercanos", "Salario", "Estado",];
+  jobsList: Vacante[] = [];
+  
 
+  /*
   jobsList = [
     {
       id_vacante: 1,
@@ -59,6 +63,7 @@ export class JobsComponent implements OnInit, OnDestroy {
     },
 
   ];
+  */
 
   constructor(private _CandidateRequest: CandidateService, private _UserRequest: InterfaceService, private router: Router) {
     this.subscription = this._UserRequest.getUser().subscribe(data => {
@@ -70,12 +75,12 @@ export class JobsComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     //this._UserRequest.esparcirUsuario();
-    this.vacanteSeleccionada = "";
+    this.vacanteSeleccionada = new Vacante;
     this.obtenerVacantes();
   }
 
   cambiarBoton() {
-    this.id_tipoUsuario = this.usuario.tipoUsuario
+    this.id_tipoUsuario = this.usuario.usuario.tipoUsuario;
     if (this.id_tipoUsuario == 0) {
       this.textoBoton = "Iniciar Sesión";
     } else {
@@ -158,7 +163,7 @@ export class JobsComponent implements OnInit, OnDestroy {
   }
 
   cargarPantalla() {
-    if (this.vacanteSeleccionada == "") {
+    if (this.vacanteSeleccionada == null) {
       return false;
     } else {
       return true;

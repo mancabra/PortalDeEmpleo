@@ -1,6 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { CandidateService } from 'src/app/Services/CandidateServices/candidate.service';
+import { Candidato } from 'src/app/Services/Entity/candidato';
+import { Estado } from 'src/app/Services/Entity/estado';
+import { Municipio } from 'src/app/Services/Entity/municipio';
 import { InterfaceService } from 'src/app/Services/InterfaceServices/interface.service';
 
 @Component({
@@ -10,7 +13,7 @@ import { InterfaceService } from 'src/app/Services/InterfaceServices/interface.s
 })
 export class UpdateComponent implements OnInit, OnDestroy {
   subscription: Subscription;
-  usuario: any;
+  usuario: Candidato = new Candidato;
 
   //DATOS A CAPTURAR
   nuevoNombre: string = "";
@@ -20,8 +23,8 @@ export class UpdateComponent implements OnInit, OnDestroy {
   nuevaProfesion: string = "";
 
   nuevoDomicilio: string = "";
-  nuevoEstado: any;
-  nuevoMunicipio: any;
+  nuevoEstado: Estado;
+  nuevoMunicipio: Municipio;
   nuevoCentroEducativo: string = "";
   nuevoPuesto: string = "";
   bloquearMunicipio: string = "all"
@@ -32,8 +35,11 @@ export class UpdateComponent implements OnInit, OnDestroy {
   nuevaImagenPortada: any;
   nuevaDescripcion: string = "";
 
-  estadosMexico = [{ id_estado: 1, nombreEstado: "Mexico" }];
-  municipiosMexico = [{ id_municipio: 1, nombreMunicipio: "Acolman", id_estado: 1 }];
+  estadosMexico: Estado [] = [];
+  municipiosMexico: Municipio [] = [];
+
+  // estadosMexico = [{ id_estado: 1, nombreEstado: "Mexico" }];
+  // municipiosMexico = [{ id_municipio: 1, nombreMunicipio: "Acolman", id_estado: 1 }];
 
 
   constructor(private _UserRequest: InterfaceService, private _CandidateRequest:CandidateService) {
@@ -44,12 +50,11 @@ export class UpdateComponent implements OnInit, OnDestroy {
 
     });
 
-    this.nuevoEstado = { id_estado: 0, nombreEstado: "Selecciona un Estado" };
-    this.nuevoMunicipio = { id_municipio: 0, nombreMunicipio: "Selecciona un Municipio", id_estado: 0 }
+    this.nuevoEstado = { id_estado: 0, nombreEstado: "Selecciona un Estado", municipios:[]};
+    this.nuevoMunicipio = { id_municipio: 0, nombreMunicipio: "Selecciona un Municipio", estado: new Estado }
   }
 
   ngOnInit(): void {
-    //this._UserRequest.esparcirUsuario();
     this.bloquearMunicipios();
     this.asignarDatos();
 
@@ -60,13 +65,15 @@ export class UpdateComponent implements OnInit, OnDestroy {
   }
 
   bloquearMunicipios() {
-    this.nuevoEstado = { id_estado: 0, nombreEstado: "Selecciona un Estado" };
-    this.nuevoMunicipio = { id_municipio: 0, nombreMunicipio: "Selecciona un Municipio", id_estado: 0 }
+    this.nuevoEstado = { id_estado: 0, nombreEstado: "Selecciona un Estado", municipios:[]};
+    this.nuevoMunicipio = { id_municipio: 0, nombreMunicipio: "Selecciona un Municipio", estado: new Estado }
     this.bloquearMunicipio = "none";
 
-    this._UserRequest.obtenerEstados().then((data:any) =>{
+    this._UserRequest.obtenerEstados().subscribe(data=>{
       this.estadosMexico = data;
+      console.log(this.estadosMexico);
     });
+    
   }
 
 
@@ -94,8 +101,8 @@ export class UpdateComponent implements OnInit, OnDestroy {
     this.nuevaProfesion = "";
 
     this.nuevoDomicilio = "";
-    this.nuevoEstado = "";
-    this.nuevoMunicipio = "";
+    this.nuevoEstado = new Estado
+    this.nuevoMunicipio = new Municipio
 
     this.nuevoCurriculum = "";
     this.nuevaImagenPerfil = "";
@@ -105,11 +112,11 @@ export class UpdateComponent implements OnInit, OnDestroy {
 
   asignarDatos() {
 
-    this.nuevoNombre = this.usuario.nombre;
-    this.nuevoApellidoP = this.usuario.apellidoP;
-    this.nuevoApellidoM = this.usuario.apellidoM;
+    this.nuevoNombre = this.usuario.usuario.nombre;
+    this.nuevoApellidoP = this.usuario.usuario.apellidoP;
+    this.nuevoApellidoM = this.usuario.usuario.apellidoM;
     this.nuevaEdad = this.usuario.edad;
-    this.nuevaProfesion = this.usuario.profesion;
+    this.nuevaProfesion = this.usuario.usuario.nombre;
 
     this.nuevoDomicilio = this.usuario.domicilio;
     this.nuevoEstado = this.usuario.estado;
@@ -140,12 +147,12 @@ export class UpdateComponent implements OnInit, OnDestroy {
   validarDatosNombre(usuarioModificado: any) {
 
     if (usuarioModificado.nombre == "") {
-      usuarioModificado.nombre = this.usuario.nombre;
+      usuarioModificado.nombre = this.usuario.usuario.nombre;
 
     } else if (usuarioModificado.nombre.length < 3) {
-      usuarioModificado.nombre = this.usuario.nombre;
+      usuarioModificado.nombre = this.usuario.usuario.nombre;
     } else if (usuarioModificado.nombre.length > 15) {
-      usuarioModificado.nombre = this.usuario.nombre;
+      usuarioModificado.nombre = this.usuario.usuario.nombre;
 
     } else {
 
@@ -158,12 +165,12 @@ export class UpdateComponent implements OnInit, OnDestroy {
   validarDatosApellidoP(usuarioModificado: any) {
 
     if (usuarioModificado.apellidoP == "") {
-      usuarioModificado.apellidoP = this.usuario.apellidoP;
+      usuarioModificado.apellidoP = this.usuario.usuario.apellidoP;
 
     } else if (usuarioModificado.apellidoP.length < 4) {
-      usuarioModificado.apellidoP = this.usuario.apellidoP;
+      usuarioModificado.apellidoP = this.usuario.usuario.apellidoP;
     } else if (usuarioModificado.apellidoP.length > 15) {
-      usuarioModificado.apellidoP = this.usuario.apellidoP;
+      usuarioModificado.apellidoP = this.usuario.usuario.apellidoP;
 
     } else {
 
@@ -176,12 +183,12 @@ export class UpdateComponent implements OnInit, OnDestroy {
   validarDatosApellidoM(usuarioModificado: any) {
 
     if (usuarioModificado.apellidoM == "") {
-      usuarioModificado.apellidoM = this.usuario.apellidoM;
+      usuarioModificado.apellidoM = this.usuario.usuario.apellidoM;
 
     } else if (usuarioModificado.apellidoM.length < 4) {
-      usuarioModificado.apellidoM = this.usuario.apellidoM;
+      usuarioModificado.apellidoM = this.usuario.usuario.apellidoM;
     } else if (usuarioModificado.apellidoM.length > 15) {
-      usuarioModificado.apellidoM = this.usuario.apellidoM;
+      usuarioModificado.apellidoM = this.usuario.usuario.apellidoM;
 
     } else {
 
@@ -261,14 +268,14 @@ export class UpdateComponent implements OnInit, OnDestroy {
   validarDatosEstado(usuarioModificado: any) {
 
     if (usuarioModificado.id_estado == 0) {
-      usuarioModificado.id_estado = this.usuario.id_estado;
-      usuarioModificado.id_municipio = this.usuario.id_municipio;
+      usuarioModificado.id_estado = this.usuario.estado.id_estado;
+      usuarioModificado.id_municipio = this.usuario.municipio.id_municipio;
 
-    } else if (usuarioModificado.id_estado == this.usuario.id_estado) {
+    } else if (usuarioModificado.id_estado == this.usuario.estado.id_estado) {
 
       if (usuarioModificado.id_municipio == 0) {
 
-        usuarioModificado.id_municipio = this.usuario.id_municipio;
+        usuarioModificado.id_municipio = this.usuario.municipio.id_municipio;
       } else {
 
       }
@@ -291,9 +298,9 @@ export class UpdateComponent implements OnInit, OnDestroy {
     this._CandidateRequest.modificar(usuarioModificado).then((data:any) =>{
       if(data == null){
 
-      alert("LAgo fallo");
+      alert("Algo fallo");
       }else{
-      this._UserRequest.cargarUsuario(this.usuario.correoElectronico);
+      this._UserRequest.buscarUsuario();
       }
     });
 

@@ -13,6 +13,7 @@ export class Vacante {
     especialista: string  = "";
     sueldo: number  = 0;
     horario: string = "";
+    domicilio: string = "";
     municipio: Municipio = new Municipio;
     estatus: boolean = false;
     descripcion: string  = "";
@@ -22,5 +23,6 @@ export class Vacante {
     tipoHorario: TipoHorario = new TipoHorario;
     tipoContratacion: TipoContratacion = new TipoContratacion;
     modalidadTrabajo: ModalidadTrabajo = new ModalidadTrabajo;
+    id_postulacion: number = 0;
 
 }

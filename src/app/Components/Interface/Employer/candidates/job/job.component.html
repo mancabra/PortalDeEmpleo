@@ -5,9 +5,9 @@
         <p style="font-size:medium; line-height: 150%; color: darkgray;">
             {{vacante.empresa.nombreEmpresa}}
             <br style="margin: 0%; padding: 0%;">
-             {{vacante.municipio.nombreMunicipio}} Estado de {{vacante.municipio.nombreMunicipio}}
+             {{vacante.municipio.nombreMunicipio}} Estado de {{vacante.municipio.estado.nombreEstado}}
             <br style="margin: 0%; padding: 0%;">
-            {{vacante.domicilio}}
+            {{vacante.domicilio}} 
         </p>
     </div>
 
@@ -79,8 +79,8 @@
       <div class="container text-center" style="margin-top: 2rem;">
         <div class="row">
           <div class="col" style="font-size:small; line-height: 150%; color: darkgray;">
-                Vacante publicada por : {{vacante.empleador.nombre}} {{vacante.empleador.apellidoP}}. {{vacante.empleador.apellidoM}}
-                Para mayor información recomendamos contactar al publicante al correo: {{vacante.empleador.correoElectronico}}
+                Vacante publicada por : {{vacante.empleador.usuario.nombre}} {{vacante.empleador.usuario.apellidoP}}. {{vacante.empleador.usuario.apellidoM}}
+                Para mayor información recomendamos contactar al publicante al correo: {{vacante.empleador.usuario.correoElectronico}}
           </div>
         </div>
       </div>

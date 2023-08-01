@@ -4,6 +4,8 @@ import { AdminService } from 'src/app/Services/AdminServices/admin.service';
 import { CandidateService } from 'src/app/Services/CandidateServices/candidate.service';
 import { CompanyService } from 'src/app/Services/CompanyServices/company.service';
 import { EmployerService } from 'src/app/Services/EmployerServices/employer.service';
+import { Estado } from 'src/app/Services/Entity/estado';
+import { Municipio } from 'src/app/Services/Entity/municipio';
 import { InterfaceService } from 'src/app/Services/InterfaceServices/interface.service';
 
 @Component({
@@ -16,8 +18,10 @@ export class CreateComponent {
   //Vectores necesarios
   ladasMexico = ["+51", "+52", "+53"];
   contenerNumero = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "-", "+"];
-  estadosMexico:any[]  = [{ id_estado: 1, nombreEstado: "Mexico" }];
-  municipiosMexico:any[] = [{ id_municipio: 1, nombreMunicipio: "Acolman", id_estado: 1 }];
+  estadosMexico:Estado[] = [];
+  municipiosMexico:Municipio[] = [];
+  //estadosMexico:any[]  = [{ id_estado: 1, nombreEstado: "Mexico" }];
+  //municipiosMexico:any[] = [{ id_municipio: 1, nombreMunicipio: "Acolman", id_estado: 1 }];
   descripcionDelUSuario: string = "";
 
   // COMUNICACION ENTRE COMPONENTES
@@ -82,8 +86,8 @@ export class CreateComponent {
   textoEstado: string = "Estado:";
 
   ubicacion: string = "";
-  estado: any;
-  municipio: any;
+  estado: Estado;
+  municipio: Municipio;
 
   // VALIDACION CORREO
   validarCorreo: boolean = true;
@@ -113,8 +117,8 @@ export class CreateComponent {
 
     this.lada = "+52";
     this.edad = 0;
-    this.estado = { id_estado: 0, nombreEstado: "Selecciona un Estado" };
-    this.municipio = { id_municipio: 0, nombreMunicipio: "Selecciona un Municipio", id_estado: 0 }
+    this.estado = { id_estado: 0, nombreEstado: "Selecciona un Estado", municipios:[]};
+    this.municipio = { id_municipio: 0, nombreMunicipio: "Selecciona un Municipio", estado: new Estado }
   }
 
 
@@ -132,14 +136,17 @@ export class CreateComponent {
     this.identificarUsario("empleador");
   }
 
+  //FUNCION PARA OBTENER LA LISTA DE ESTADO DE MÉXICO
   bloquearMunicipios() {
-    this.estado = { id_estado: 0, nombreEstado: "Selecciona un Estado" };
-    this.municipio = { id_municipio: 0, nombreMunicipio: "Selecciona un Municipio", id_estado: 0 }
+    this.estado = { id_estado: 0, nombreEstado: "Selecciona un Estado", municipios:[]};
+    this.municipio = { id_municipio: 0, nombreMunicipio: "Selecciona un Municipio", estado: new Estado }
     this.bloquearMunicipio = "none";
 
-    this._UserRequest.obtenerEstados().then((data: any) => {
+    this._UserRequest.obtenerEstados().subscribe(data=>{
       this.estadosMexico = data;
+      console.log(this.estadosMexico);
     });
+
   }
 
   identificarUsario(usuario?: any) {
@@ -246,7 +253,7 @@ export class CreateComponent {
 
     this._UserRequest.obtenerMunicipios(this.estado.id_estado).subscribe(data=>{
       this.municipiosMexico = data;
-      console.log( this.municipiosMexico);
+      console.log(this.municipiosMexico);
     });
 
 
@@ -482,7 +489,7 @@ export class CreateComponent {
       numero = this._CandidateRequest.registrar(usuario);
       if (numero != 0) {
         this.limpiarCampos();
-        this._UserRequest.cargarUsuario(usuario.correoElectronico);
+        //this._UserRequest.cargarUsuario(usuario.correoElectronico);
         this.router.navigate(['interface']);
       } else {
         //this.correoExistente = false;
@@ -711,7 +718,7 @@ export class CreateComponent {
       numero = this._EmployerRequest.registrar(empleador);
       if (numero != 0) {
         this.limpiarCampos();
-        this._UserRequest.cargarUsuario(empleador.correoElectronico);
+        //this._UserRequest.cargarUsuario(empleador.correoElectronico);
         this.router.navigate(['interface'])
 
       } else {
@@ -818,8 +825,10 @@ export class CreateComponent {
     this.edad = 0;
     this.numeroTelefonioco = "";
     this.ubicacion = "";
-    this.estado = { id_estado: 0, nombreEstado: "Selecciona un Estado" };
-    this.municipio = { id_municipio: 0, nombreMunicipio: "Selecciona un Municipio", id_estado: 0 };
+    this.estado = new Estado;
+    this.municipio = new Municipio ;
+    //this.estado = { id_estado: 0, nombreEstado: "Selecciona un Estado" };
+    //this.municipio = { id_municipio: 0, nombreMunicipio: "Selecciona un Municipio", id_estado: 0 };
     this.correo = "";
     this.contrasena = "";
     this.contrasenaValidacion = "";

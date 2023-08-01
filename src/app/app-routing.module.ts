@@ -9,11 +9,11 @@ import { InterfaceComponent } from './Components/Interface/interface/interface.c
 
 
 const routes: Routes = [
-  {path:'',redirectTo:'/interface',pathMatch:'full'},
+  {path:'',redirectTo:'/start',pathMatch:'full'},
   {path:'start',component:StartComponent},
   {path:'interface',component:InterfaceComponent},
 
-  {path:'**',redirectTo:'/interface',pathMatch:'full'}
+  {path:'**',redirectTo:'/start',pathMatch:'full'}
 ];
 
 @NgModule({

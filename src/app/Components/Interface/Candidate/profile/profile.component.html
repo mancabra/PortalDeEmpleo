@@ -8,7 +8,7 @@
                         <img src="..." class="card-img" alt="..." style="height: 150px;">
                         <div class="card-img-overlay">
                           <h5 class="card-title" style="text-align: right;" 
-                          [ngClass]="{'view':perfilTipoCandidato, '':!perfilTipoCandidato}">{{usuario.profesion}}</h5>
+                          [ngClass]="{'view':perfilTipoCandidato, '':!perfilTipoCandidato}">FaltaPuesto</h5>
                         </div>
                     </div>
                     <div class="sobre">
@@ -18,21 +18,21 @@
             </div>
         
             <div class="info">
-                <h6 style="margin-right: .3rem;" [ngClass]="{'':perfilTipoEmpresa, 'view':!perfilTipoEmpresa}">{{usuario.nombre}} {{usuario.apellidoP}} {{usuario.apellidoM}}</h6>
-                <h6 style="margin-right: .3rem;" [ngClass]="{'view':perfilTipoEmpresa, '':!perfilTipoEmpresa}">{{usuario.nombre}}</h6>
+                <h6 style="margin-right: .3rem;" [ngClass]="{'':perfilTipoEmpresa, 'view':!perfilTipoEmpresa}">{{usuario.usuario.nombre}} {{usuario.usuario.apellidoP}} {{usuario.usuario.apellidoM}}</h6>
+                <!-- <h6 style="margin-right: .3rem;" [ngClass]="{'view':perfilTipoEmpresa, '':!perfilTipoEmpresa}">{{usuario.nombre}}</h6> -->
                 <h6 style="color: darkgray; font-style: oblique;" [ngClass]="{'view':perfilTipoCandidato, '':!perfilTipoCandidato}"> ({{usuario.edad}})</h6>
             </div>
             <div class="infoCuerpo">
-                <p style="font-size:x-small; line-height: 150%;" [ngClass]="{'view':perfilTipoEmpresa, '':!perfilTipoEmpresa}">
+
+                <!-- <p style="font-size:x-small; line-height: 150%;" [ngClass]="{'view':perfilTipoEmpresa, '':!perfilTipoEmpresa}">
                     {{usuario.domicilio}}
                     <br style="margin: 0%; padding: 0%;">
                     {{usuario.municipio.nombreMunicipio}} Estado de {{usuario.estado.nombreEstado}}
-                </p>
+                </p> -->
 
                 <p style="font-size:x-small; line-height: 150%;" [ngClass]="{'view':perfilTipoCandidato, '':!perfilTipoCandidato}">
                     Centro Educativo: {{usuario.centroEducativo}}
                     <br style="margin: 0%; padding: 0%;">
-                 
                     Actualmente laborando como: {{usuario.puestoActual}}
                 </p>
 
@@ -42,21 +42,30 @@
                     {{usuario.municipio.nombreMunicipio}} Estado de {{usuario.estado.nombreEstado}}
                 </p>
 
-                <p style="font-size:x-small; line-height: 150%;" [ngClass]="{'':perfilTipoEmpresa, 'view':!perfilTipoEmpresa}"> 
+                <p style="font-size:x-small; line-height: 150%;" [ngClass]="{'view':perfilTipoCandidato, '':!perfilTipoCandidato}"> 
+                    {{usuario.usuario.correoElectronico}}
+                    <br style="margin: 0%; padding: 0%;">
+                    Tel: {{usuario.usuario.telefono}}
+                </p>
+
+                <!-- <p style="font-size:x-small; line-height: 150%;" [ngClass]="{'':perfilTipoEmpresa, 'view':!perfilTipoEmpresa}"> 
                     {{usuario.correoElectronico}}
                     <br style="margin: 0%; padding: 0%;">
                     Tel: {{usuario.telefono}}
-                </p>
+                </p> -->
+
                 <b [ngClass]="{'view':perfilTipoCandidato, '':!perfilTipoCandidato}">Descripción</b>
                 <p style="font-size:x-small; line-height: 150%; text-align: justify;" 
                 [ngClass]="{'view':perfilTipoCandidato, '':!perfilTipoCandidato}">
                 {{usuario.descripcion}}
                 </p>
-                <b [ngClass]="{'view':perfilTipoEmpresa, '':!perfilTipoEmpresa}">Descripción</b>
+
+                <!-- <b [ngClass]="{'view':perfilTipoEmpresa, '':!perfilTipoEmpresa}">Descripción</b>
                 <p style="font-size:x-small; line-height: 150%; text-align: justify;" 
                 [ngClass]="{'view':perfilTipoEmpresa, '':!perfilTipoEmpresa}">
                 {{usuario.descripcion}}
-                </p>
+                </p> -->
+
             </div>
             <div class="infoCuerpo" [ngClass]="{'view':perfilTipoCandidato, '':!perfilTipoCandidato}">
                 <!-- SE CAMBIARA POR UN NGFOR DE LAS HABILIDADES DEL USUARIO REGISTRADAS EN BASE DE DATOS -->
