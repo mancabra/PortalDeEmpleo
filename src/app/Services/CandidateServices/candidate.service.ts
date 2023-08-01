@@ -1,15 +1,31 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { Candidato } from '../Entity/candidato';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CandidateService {
   id_candidato: any = 0;
+  correo: string = "";
 
   constructor(private _http: HttpClient) { }
 
+  guaradarCorreo(correo:any){
+    this.correo = correo;
+    console.log(this.correo);
+  }
 
+  obtener(CandidateRequest:string):Observable<Candidato>{
+
+    console.log("Proceso buscarUsuario");
+    console.log("Info Enviada");
+    console.log(CandidateRequest);
+
+    let cadena = "http://localhost:8080/obtenerUsuario/" + CandidateRequest;
+    return this._http.get<Candidato>(cadena);
+  }
 
   registrar(CandidateRequest: any) {
     //prueba de funcionamiento

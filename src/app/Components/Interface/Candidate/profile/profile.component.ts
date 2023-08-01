@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { Candidato } from 'src/app/Services/Entity/candidato';
 import { InterfaceService } from 'src/app/Services/InterfaceServices/interface.service';
 
 @Component({
@@ -9,7 +10,7 @@ import { InterfaceService } from 'src/app/Services/InterfaceServices/interface.s
 })
 export class ProfileComponent implements OnInit, OnDestroy {
   subscription: Subscription;
-  usuario: any;
+  usuario: Candidato = new Candidato;
   id_tipoUsuario: any;
   modificarPerfil:boolean=false;
 
@@ -32,8 +33,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    //this._UserRequest.esparcirUsuario();
-    this.id_tipoUsuario = this.usuario.tipoUsuario;
+    this.id_tipoUsuario = this.usuario.usuario.tipoUsuario;
     this.identificarTipoDePerfil();
   }
 
@@ -83,8 +83,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
   }
 
   cerrarSesion(){
-    this._UserRequest.esVisitante();
-    this._UserRequest.esparcirUsuario();
+    //falta cerrar sesion
   }
 
 

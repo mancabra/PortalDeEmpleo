@@ -6,10 +6,14 @@ import { Injectable } from '@angular/core';
 })
 export class AdminService {
   id_administrador:any=0;
+  correo: string = "";  
   
   constructor(private _http:HttpClient) { }
 
- 
+  guaradarCorreo(correo:any){
+    this.correo = correo;
+    console.log(this.correo);
+  }
 
   registrar( AdminRequest : any ){
     //return this._http.put("http://localhost:8080/", EmployerRequest).toPromise();
@@ -19,4 +23,6 @@ export class AdminService {
     );
     return this.id_administrador;
   }
+
+
 }

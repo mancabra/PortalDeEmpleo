@@ -7,8 +7,15 @@ import { Injectable } from '@angular/core';
 export class EmployerService {
 
   id_empleador:any=0;
+  correo: string = "";
 
   constructor(private _http:HttpClient) { }
+
+  guaradarCorreo(correo:any){
+    this.correo = correo;
+    console.log(this.correo);
+  }
+
 
   registrar( EmployerRequest : any ){
     //return this._http.put("http://localhost:8080/", EmployerRequest).toPromise();

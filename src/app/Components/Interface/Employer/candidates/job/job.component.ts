@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { Vacante } from 'src/app/Services/Entity/vacante';
 
 @Component({
   selector: 'app-job',
@@ -6,7 +7,7 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./job.component.css']
 })
 export class JobComponent {
-@Input () vacante : any;
+@Input () vacante : Vacante = new Vacante;
 
 constructor(){
 

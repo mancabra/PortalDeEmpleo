@@ -60,6 +60,9 @@ export class LoginComponent {
 
     this._UserRequest.login(USUARIO).then((data:any) =>{
       if(data.estatus == false){
+
+        // CODIGO PARA MOSTRAR LOS ERRORES DE LOGIN
+
         /*
         if(data.massaje =="correo no registrado"){
           this.correoExistente == false;
@@ -69,10 +72,11 @@ export class LoginComponent {
 
         }
        */
+
       alert("Datos Incorrectos");
       }else{
         this._UserRequest.guaradarCorreo(USUARIO.correoElectronico);
-        this._UserRequest.cargarUsuario(USUARIO.correoElectronico);
+        //this._UserRequest.cargarUsuario(USUARIO.correoElectronico);
         this.router.navigate(['interface']);
       }
     });

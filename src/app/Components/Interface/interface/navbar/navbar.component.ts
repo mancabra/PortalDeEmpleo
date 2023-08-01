@@ -1,6 +1,7 @@
 import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { Candidato } from 'src/app/Services/Entity/candidato';
 import { InterfaceService } from 'src/app/Services/InterfaceServices/interface.service';
 
 @Component({
@@ -19,7 +20,7 @@ export class NavbarComponent implements OnInit, OnDestroy{
   @Output() alerts = new EventEmitter<boolean>();
   @Output() profile = new EventEmitter<boolean>();
 
-  usuario:any;
+  usuario:Candidato = new Candidato;
 
   id_tipoUsuario: number = 0;
 
@@ -45,12 +46,10 @@ export class NavbarComponent implements OnInit, OnDestroy{
   }
 
   ngOnInit() {
-   
-    this._UserRequest.esparcirUsuario();
+    this._UserRequest.buscarUsuario();
     this.actualizarUsuario();
-    this. asignarUsuario();
+    this.asignarUsuario();
     this.validarUsuario();
-  
   }
 
   ngOnDestroy(): void {
@@ -58,17 +57,14 @@ export class NavbarComponent implements OnInit, OnDestroy{
   }
 
   actualizarUsuario(){
-    this._UserRequest.buscarUsuario().then((data:any) =>{
-      let usuario = data 
-      this._UserRequest.actualizarUsuario(usuario);
-    });
+
   }
 
   asignarUsuario(){
     if (this.usuario == null){
       this.id_tipoUsuario = 0;
     } else{
-      this.id_tipoUsuario = this.usuario.tipoUsuario;
+      this.id_tipoUsuario = this.usuario.usuario.tipoUsuario;
       
       if(this.id_tipoUsuario == 0){
         this.usuarioVisitante();
