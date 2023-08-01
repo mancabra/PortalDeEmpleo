@@ -133,7 +133,7 @@ export class CreateComponent {
     this.verDescripcion = false;
     this.componetStart = false;
     this.bloquearMunicipios();
-    this.identificarUsario("empleador");
+    this.identificarUsario("candidato");
   }
 
   //FUNCION PARA OBTENER LA LISTA DE ESTADO DE MÉXICO

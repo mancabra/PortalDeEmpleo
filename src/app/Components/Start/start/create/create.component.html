@@ -6,7 +6,7 @@
 
 
     <div class="btn-group" role="group" aria-label="Basic radio toggle button group" style="margin-bottom: 1rem;">
-        <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off"
+        <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked
             [ngClass]="{'view':verUsuariosPrincipales, '':!verUsuariosPrincipales}">
         <label class="btn btn-outline-primary" for="btnradio1" (click)="identificarUsario('candidato')"
             [ngClass]="{'view':verUsuariosPrincipales, '':!verUsuariosPrincipales}">Candidato</label>
@@ -21,7 +21,7 @@
         <label class="btn btn-outline-danger" for="btnradio3" (click)="identificarUsario('empresa')"
             [ngClass]="{'view':verAdministrador, '':!verAdministrador}">Empresa</label>
 
-        <input type="radio" class="btn-check" name="btnradio" id="btnradio4" autocomplete="off" checked
+        <input type="radio" class="btn-check" name="btnradio" id="btnradio4" autocomplete="off" 
             [ngClass]="{'view':verUsuariosPrincipales, '':!verUsuariosPrincipales}">
         <label class="btn btn-outline-secondary" for="btnradio4" (click)="identificarUsario('empleador')"
             [ngClass]="{'view':verUsuariosPrincipales, '':!verUsuariosPrincipales}">Empleador</label>
@@ -49,7 +49,7 @@
         </div>
         <div style="display: flex;">
             <div style="width: 100%;">
-                <input class="form-control" type="text" placeholder="Nombre Completo"
+                <input class="form-control" type="text" placeholder="Nombre(s)"
                     aria-label="default input example" [(ngModel)]="nombre">
             </div>
             <div style="margin-left: 1rem; margin-right: 0rem; width: 100%;" [ngClass]="{'view':validarNombreRegistrado, '':!validarNombreRegistrado}">
@@ -183,7 +183,7 @@
                     Ubicación
                 </button>
             </h2>
-            <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+            <div id="collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
                 <div class="accordion-body">
 
                     <div style="display:grid;  margin-top: 1rem;">
