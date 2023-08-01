@@ -46,36 +46,11 @@ export class NavbarComponent implements OnInit, OnDestroy{
   }
 
   ngOnInit() {
-    this._UserRequest.buscarUsuario();
     this.actualizarUsuario();
-    this.asignarUsuario();
-    this.validarUsuario();
   }
 
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
-  }
-
-  actualizarUsuario(){
-
-  }
-
-  asignarUsuario(){
-    if (this.usuario == null){
-      this.id_tipoUsuario = 0;
-    } else{
-      this.id_tipoUsuario = this.usuario.usuario.tipoUsuario;
-      
-      if(this.id_tipoUsuario == 0){
-        this.usuarioVisitante();
-      }else {
-
-      }
-    }
-
-    //hace que siempre este seleccionada vacantes
-    //this.validarUsuario();
-
   }
 
   cargarPantalla(){
@@ -87,17 +62,25 @@ export class NavbarComponent implements OnInit, OnDestroy{
     }
   }
 
-  usuarioVisitante(){
-   // alert("hola2");
+  actualizarUsuario(){
+    this.asignarUsuario();
     this.validarUsuario();
-    
+  }
+
+  asignarUsuario(){
+    if (this.usuario == null){
+      this.id_tipoUsuario = 0;
+    } else{
+      this.id_tipoUsuario = this.usuario.usuario.tipoUsuario;
+    }
+
   }
 
   validarUsuario() {
-    //alert("hola3");
+
     //SE TIENE QUE VALIDAR CUALES SON LOS USUARIOS
     if (this.id_tipoUsuario == 0) {
-     // alert("hola4");
+  
       this.administradorActivo = true;
       this.candidatoActivo = true;
       this.visitanteActivo = false;
@@ -136,7 +119,7 @@ export class NavbarComponent implements OnInit, OnDestroy{
 
   seleccionar(ventana: string) {
     if (ventana == "Vacantes") {
-      //alert("hola5");
+
       this.verVacantes();
     } else if (ventana == "Postulaciones") {
       this.verPostulaciones();
@@ -170,7 +153,7 @@ export class NavbarComponent implements OnInit, OnDestroy{
   }
 
   verVacantes() {
-    //alert("hola6");
+
     this.vacantes = false;
     this.postulaciones = true;
     this.notificaciones = true;
@@ -267,7 +250,6 @@ export class NavbarComponent implements OnInit, OnDestroy{
   }
 
   enviarVacantes() {
-    //alert("hola7");
     this.viewJobs.emit(false);
     this.viewRequests.emit(true);
     this.newJob.emit(true);

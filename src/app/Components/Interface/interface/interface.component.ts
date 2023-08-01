@@ -22,11 +22,13 @@ export class InterfaceComponent implements OnInit, OnDestroy {
   constructor(private _UserRequest:InterfaceService){
 
   }
-  ngOnInit(): void {
-   
-  }
-  ngOnDestroy(): void {
 
+  ngOnInit(): void {
+    this._UserRequest.buscarUsuario();
+  }
+
+  ngOnDestroy(): void {
+    
   }
 
 

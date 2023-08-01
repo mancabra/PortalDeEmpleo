@@ -18,8 +18,8 @@ export class CreateComponent {
   //Vectores necesarios
   ladasMexico = ["+51", "+52", "+53"];
   contenerNumero = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "-", "+"];
-  estadosMexico:Estado[] = [];
-  municipiosMexico:Municipio[] = [];
+  estadosMexico: Estado[] = [];
+  municipiosMexico: Municipio[] = [];
   //estadosMexico:any[]  = [{ id_estado: 1, nombreEstado: "Mexico" }];
   //municipiosMexico:any[] = [{ id_municipio: 1, nombreMunicipio: "Acolman", id_estado: 1 }];
   descripcionDelUSuario: string = "";
@@ -117,7 +117,7 @@ export class CreateComponent {
 
     this.lada = "+52";
     this.edad = 0;
-    this.estado = { id_estado: 0, nombreEstado: "Selecciona un Estado", municipios:[]};
+    this.estado = { id_estado: 0, nombreEstado: "Selecciona un Estado", municipios: [] };
     this.municipio = { id_municipio: 0, nombreMunicipio: "Selecciona un Municipio", estado: new Estado }
   }
 
@@ -138,11 +138,11 @@ export class CreateComponent {
 
   //FUNCION PARA OBTENER LA LISTA DE ESTADO DE MÉXICO
   bloquearMunicipios() {
-    this.estado = { id_estado: 0, nombreEstado: "Selecciona un Estado", municipios:[]};
+    this.estado = { id_estado: 0, nombreEstado: "Selecciona un Estado", municipios: [] };
     this.municipio = { id_municipio: 0, nombreMunicipio: "Selecciona un Municipio", estado: new Estado }
     this.bloquearMunicipio = "none";
 
-    this._UserRequest.obtenerEstados().subscribe(data=>{
+    this._UserRequest.obtenerEstados().subscribe(data => {
       this.estadosMexico = data;
       console.log(this.estadosMexico);
     });
@@ -163,8 +163,8 @@ export class CreateComponent {
 
       if (this.tipoUsurio == "candidato") {
         this.bloquearMunicipios();
-        this.descripcionDelUSuario = "Al crear una cuenta del tipo candidato tendras acceso a todas las vacantes disponibles en nuestra plataforma," 
-                                      +" podras postularte a ellas y gestionar dichas postulaciones en vistas exclusivas.";
+        this.descripcionDelUSuario = "Al crear una cuenta del tipo candidato tendras acceso a todas las vacantes disponibles en nuestra plataforma,"
+          + " podras postularte a ellas y gestionar dichas postulaciones en vistas exclusivas.";
         this.verApellidos = false;
         this.VerUbicacion = false;
         this.verEdadyTelefono = false;
@@ -175,7 +175,7 @@ export class CreateComponent {
 
       } else if (this.tipoUsurio == "administrador") {
         this.descripcionDelUSuario = "Al crear una cuenta del tipo administrador estaras creando un usuario que podra gestionar de manera libre la plataforma,"
-                                    +" el suario  podra crear cuentas de cualquier tipo, eliminarlas o suspenderlas.";
+          + " el suario  podra crear cuentas de cualquier tipo, eliminarlas o suspenderlas.";
         this.verApellidos = false;
         this.verEdadyTelefono = true;
         this.VerUbicacion = true;
@@ -187,7 +187,7 @@ export class CreateComponent {
 
       } else if (this.tipoUsurio == "empleador") {
         this.descripcionDelUSuario = "Al crear una cuenta del tipo empleador podras publicar nuevos empleos dentro de nuestra plataforma y podras gestionar a todos "
-                                    +"los candidatos que se postularon a tu vacante en ventanas exclusivas.";
+          + "los candidatos que se postularon a tu vacante en ventanas exclusivas.";
         this.verApellidos = false;
         this.verEdadyTelefono = true;
         this.VerUbicacion = true;
@@ -199,8 +199,8 @@ export class CreateComponent {
       } else {
 
         this.bloquearMunicipios();
-        this.descripcionDelUSuario = "Al crear una empersa debes tener en cuenta que estara disponible de manera instantanea en nuestra plataforma," 
-                                    +" y sera visible para todos los empleadores durante la creacion de vacantes en el campo empresa.";
+        this.descripcionDelUSuario = "Al crear una empersa debes tener en cuenta que estara disponible de manera instantanea en nuestra plataforma,"
+          + " y sera visible para todos los empleadores durante la creacion de vacantes en el campo empresa.";
         this.textoUbicacion = "Calle y Número:*";
         this.textoMunicipio = "Municipio:*";
         this.textoEstado = "Estado:*";
@@ -224,8 +224,8 @@ export class CreateComponent {
     this.limpiarCampos();
     if (this.tipoUsurio == "candidato") {
       this.bloquearMunicipios();
-      this.descripcionDelUSuario = "Al crear una cuenta del tipo candidato tendras acceso a todas las vacantes disponibles en nuestra plataforma," 
-                                  +"podras postularte a ellas y gestionar dichas postulaciones en vistas exclusivas.";      
+      this.descripcionDelUSuario = "Al crear una cuenta del tipo candidato tendras acceso a todas las vacantes disponibles en nuestra plataforma,"
+        + "podras postularte a ellas y gestionar dichas postulaciones en vistas exclusivas.";
       this.verAdministrador = true;
       this.verUsuariosPrincipales = false;
       this.verEdadyTelefono = false;
@@ -234,7 +234,7 @@ export class CreateComponent {
 
     } else {
       this.descripcionDelUSuario = "Al crear una cuenta del tipo empleador podras publicar nuevos empleos dentro de nuestra plataforma y podras gestionar a todos "
-      +"los candidatos que se postularon a tu vacante en ventanas exclusivas.";
+        + "los candidatos que se postularon a tu vacante en ventanas exclusivas.";
       this.verAdministrador = true;
       this.verUsuariosPrincipales = false;
       this.verEdadyTelefono = true;
@@ -251,7 +251,7 @@ export class CreateComponent {
     this.estado = estado;
     this.bloquearMunicipio = "all";
 
-    this._UserRequest.obtenerMunicipios(this.estado.id_estado).subscribe(data=>{
+    this._UserRequest.obtenerMunicipios(this.estado.id_estado).subscribe(data => {
       this.municipiosMexico = data;
       console.log(this.municipiosMexico);
     });
@@ -447,7 +447,6 @@ export class CreateComponent {
 
   evaluarContrasena(usuario: any) {
 
-
     if (this.contrasena == "" && this.contrasenaValidacion == "") {
       this.validarContrasena = false;
       this.validarContrasenaVe = false;
@@ -456,30 +455,29 @@ export class CreateComponent {
     } else if (this.contrasena == "") {
       this.validarContrasena = false;
       this.ObligatoriosCandidato = false;
+
     } else if (this.contrasenaValidacion == "") {
       this.validarContrasenaVe = false;
       this.ObligatoriosCandidato = false;
+
     } else {
-      if (this.contrasena != this.contrasenaValidacion) {
-        this.validarContrasenasIguales = false
-        this.ObligatoriosCandidato = false;
-      } else {
-        this.validarContrasenasIguales = true;
-        this.comprobarContrasena(usuario);
-
-      }
+      this.comprobarContrasena(usuario);
     }
-
-
-
   }
+
 
   comprobarContrasena(usuario: any) {
     // SE DEBEN AGREGAR VALIDACIONES PARA LA EVALUACION DE LA CADENA  
     // COMPROBAR LONGITUD MINIMA
     // COMPROBAR QUE LA CADENA CONTENGA EL CARACTER NUMEROS Y LETRAS (CARACTER ESPECIAL ?)
 
-    usuario.contrasena = this.contrasena;
+    if (this.contrasena != this.contrasenaValidacion) {
+      this.validarContrasenasIguales = false
+      this.ObligatoriosCandidato = false;
+    } else {
+      this.validarContrasenasIguales = true;
+      usuario.contrasena = this.contrasena;
+    }
     this.registarCandidato(usuario);
   }
 
@@ -489,7 +487,8 @@ export class CreateComponent {
       numero = this._CandidateRequest.registrar(usuario);
       if (numero != 0) {
         this.limpiarCampos();
-        //this._UserRequest.cargarUsuario(usuario.correoElectronico);
+        this._UserRequest.guaradarCorreo(usuario.correoElectronico);
+        this._UserRequest.buscarUsuario();
         this.router.navigate(['interface']);
       } else {
         //this.correoExistente = false;
@@ -826,7 +825,7 @@ export class CreateComponent {
     this.numeroTelefonioco = "";
     this.ubicacion = "";
     this.estado = new Estado;
-    this.municipio = new Municipio ;
+    this.municipio = new Municipio;
     //this.estado = { id_estado: 0, nombreEstado: "Selecciona un Estado" };
     //this.municipio = { id_municipio: 0, nombreMunicipio: "Selecciona un Municipio", id_estado: 0 };
     this.correo = "";

@@ -163,7 +163,7 @@ export class JobsComponent implements OnInit, OnDestroy {
   }
 
   cargarPantalla() {
-    if (this.vacanteSeleccionada == null) {
+    if (this.vacanteSeleccionada.id_vacante == 0) {
       return false;
     } else {
       return true;

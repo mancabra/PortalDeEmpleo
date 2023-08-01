@@ -17,14 +17,14 @@ export class CandidateService {
     console.log(this.correo);
   }
 
-  obtener(CandidateRequest:string):Observable<Candidato>{
+  obtener(CandidateRequest:string) {
 
     console.log("Proceso buscarUsuario");
     console.log("Info Enviada");
     console.log(CandidateRequest);
 
-    let cadena = "http://localhost:8080/obtenerUsuario/" + CandidateRequest;
-    return this._http.get<Candidato>(cadena);
+    let cadena = "http://localhost:8080/obtenerUsuarioCompleto/" + CandidateRequest;
+    return this._http.get<Candidato>(cadena).toPromise();
   }
 
   registrar(CandidateRequest: any) {

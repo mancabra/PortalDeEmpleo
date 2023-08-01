@@ -123,6 +123,18 @@ export class InterfaceService {
     let cadena = "http://localhost:8080/obtenerUsuario/" + this.correo;
     return this._http.get(cadena).toPromise();
   }
+    */
+
+
+
+  buscarUsuario(){
+    this._CandidateRequest.obtener(this.correo).then((data:any) =>{
+      this.usuario = data;
+
+     this.actualizarUsuario(data);
+    });
+
+  }
 
   actualizarUsuario(usuario:any){
     this.usuario = usuario;
@@ -130,15 +142,6 @@ export class InterfaceService {
     this.usuario$.next(this.usuario);
   }
 
-  */
-
-  buscarUsuario(){
-    this._CandidateRequest.obtener(this.correo).subscribe( data =>{
-      this.usuario = data;
-    });
-    
-    this.usuario$.next(this.usuario);
-  }
 
   getUser(): Observable<any> {
     return this.usuario$.asObservable();
@@ -162,7 +165,7 @@ export class InterfaceService {
     console.log("Proceso obtenerMunicipios");
     console.log("Info Enviada");
     console.log(idRequest);
-    let cadena = "http://localhost:8080/botenerMunicipiosDeEstado/" + idRequest;
+    let cadena = "http://localhost:8080/obtenerMunicipiosDeEstado/" + idRequest;
     return this._http.get<Municipio[]>(cadena);
   }
 
