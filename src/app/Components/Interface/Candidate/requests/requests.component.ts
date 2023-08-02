@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { CandidateService } from 'src/app/Services/CandidateServices/candidate.service';
+import { Candidato } from 'src/app/Services/Entity/candidato';
 import { Postulacion } from 'src/app/Services/Entity/postulacion';
 
 import { InterfaceService } from 'src/app/Services/InterfaceServices/interface.service';
@@ -11,17 +12,24 @@ import { InterfaceService } from 'src/app/Services/InterfaceServices/interface.s
   styleUrls: ['./requests.component.css']
 })
 export class RequestsComponent implements OnInit, OnDestroy {
+  usuario: Candidato = new Candidato;
   subscription:Subscription;
+  subscriptionArray:Subscription;
   postulaciones:Postulacion[]=[];
 
   constructor(private _UserRequest:InterfaceService, private _CandidateRequest:CandidateService){
-    this.subscription = this._CandidateRequest.getPostulaciones().subscribe(data =>{
+    this.subscription = this._UserRequest.getUser().subscribe(data =>{
+      this.usuario = data;
+    });
+
+    this.subscriptionArray = this._UserRequest.getUser().subscribe(data => {
       this.postulaciones = data;
     });
   }
   
   ngOnInit(): void {
     this.obetenerPostulaciones();
+    this.guardarUsuario();
   }
 
   cargarPantalla(){
@@ -34,6 +42,11 @@ export class RequestsComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
+    this.subscriptionArray.unsubscribe();
+  }
+
+  guardarUsuario(){
+    this._CandidateRequest.guaradarUsuario(this.usuario);
   }
 
   obetenerPostulaciones(){

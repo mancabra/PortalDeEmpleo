@@ -1,5 +1,6 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { Subject, Subscription } from 'rxjs';
+import { Candidato } from 'src/app/Services/Entity/candidato';
 import { InterfaceService } from 'src/app/Services/InterfaceServices/interface.service';
 
 @Component({
@@ -9,26 +10,30 @@ import { InterfaceService } from 'src/app/Services/InterfaceServices/interface.s
 })
 export class InterfaceComponent implements OnInit, OnDestroy {
 
-  usuario:any;
-  viewJobs: boolean = true;
-  viewRequests: boolean = true;
-  newJob: boolean = true;
-  candidates: boolean = true;
-  manage: boolean = true;
-  viewRequestsAdmin:boolean = true;
-  alerts: boolean = true;
-  profile: boolean = true;
+  @Output() tipoUsuario  = new EventEmitter<number>();
+  subscription: Subscription;
+  usuario:Candidato = new Candidato;
+
 
   constructor(private _UserRequest:InterfaceService){
-
+    this.subscription = this._UserRequest.getUser().subscribe(data => {
+      this.usuario = data;
+      console.log(this.usuario);
+    });
   }
 
   ngOnInit(): void {
-    this._UserRequest.buscarUsuario();
+  
   }
 
   ngOnDestroy(): void {
-    
+    this.subscription.unsubscribe();
+  }
+
+  enviarUsuarioNavbar() {
+
+    // this.tipoUsuario.emit(this.usuario.usuario.tipoUsuario);
+    this.tipoUsuario.emit(2);
   }
 
 

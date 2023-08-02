@@ -51,8 +51,8 @@ export class ProfileComponent implements OnInit, OnDestroy {
   }
 
   identificarTipoDePerfil() {
-
-    if (this.id_tipoUsuario == 1) {
+    this.id_tipoUsuario = 2;
+    if (this.id_tipoUsuario == 0) {
 
       this.perfilTipoAdministrador = false;
       this.perfilTipoCandidato = true;

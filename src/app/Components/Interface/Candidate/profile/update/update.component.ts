@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { CandidateService } from 'src/app/Services/CandidateServices/candidate.service';
 import { Candidato } from 'src/app/Services/Entity/candidato';
@@ -42,7 +43,7 @@ export class UpdateComponent implements OnInit, OnDestroy {
   // municipiosMexico = [{ id_municipio: 1, nombreMunicipio: "Acolman", id_estado: 1 }];
 
 
-  constructor(private _UserRequest: InterfaceService, private _CandidateRequest:CandidateService) {
+  constructor(private _UserRequest: InterfaceService, private _CandidateRequest:CandidateService, private router:Router) {
     this.subscription = this._UserRequest.getUser().subscribe(data => {
       this.usuario = data;
       console.log(this.usuario);
@@ -301,6 +302,7 @@ export class UpdateComponent implements OnInit, OnDestroy {
       alert("Algo fallo");
       }else{
       this._UserRequest.buscarUsuario();
+  
       }
     });
 

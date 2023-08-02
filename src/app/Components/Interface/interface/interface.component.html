@@ -1,26 +1,3 @@
-<div>
-    <app-navbar (viewJobs)="viewJobs = $event" 
-                (viewRequests)="viewRequests = $event"
-                (newJob)="newJob = $event"
-                (candidates)="candidates = $event"
-                (manage)="manage = $event"
-                (viewRequestsAdmin)="viewRequestsAdmin = $event"
-                (alerts)="alerts = $event"
-                (profile)="profile = $event">
-    </app-navbar>
-</div>
 
- <div class="caja"> <!--*ngIf="cargarPantalla(); else PantallaVacia"-->
-    <app-jobs [ngClass]="{'view':viewJobs, '':!viewJobs}"></app-jobs>
-    <app-requests [ngClass]="{'view':viewRequests, '':!viewRequests}"></app-requests>
-    <app-new-job [ngClass]="{'view':newJob, '':!newJob}"></app-new-job>
-    <app-candidates [ngClass]="{'view':candidates, '':!candidates}"></app-candidates>
-    <app-manage [ngClass]="{'view':manage, '':!manage}"></app-manage>
-    <app-request-admin [ngClass]="{'view':viewRequestsAdmin, '':!viewRequestsAdmin}"></app-request-admin>
-    <app-alerts [ngClass]="{'view':alerts, '':!alerts}"></app-alerts>
-    <app-profile [ngClass]="{'view':profile, '':!profile}"></app-profile>
-</div>
-<!-- 
-<ng-template #PantallaVacia>
-    <p style="text-align: center;">No hay nada aqui</p>
-</ng-template> -->
+    <router-outlet></router-outlet>
+

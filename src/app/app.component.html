@@ -1,3 +1,7 @@
-<div>
-  <router-outlet></router-outlet>
+
+<app-navbar [tipoUsuario]="tipoUsuario"></app-navbar>
+
+<div class="caja">
+ <app-interface (tipoUsuario)="tipoUsuario = $event"></app-interface>
 </div>
+

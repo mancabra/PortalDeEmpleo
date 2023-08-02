@@ -1,26 +1,17 @@
-import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
-import { Subscription } from 'rxjs';
-import { Candidato } from 'src/app/Services/Entity/candidato';
+import { CandidateService } from 'src/app/Services/CandidateServices/candidate.service';
 import { InterfaceService } from 'src/app/Services/InterfaceServices/interface.service';
+
 
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css']
 })
-export class NavbarComponent implements OnInit, OnDestroy{
- subscription:Subscription;
-  @Output() viewJobs = new EventEmitter<boolean>();
-  @Output() viewRequests = new EventEmitter<boolean>();
-  @Output() newJob = new EventEmitter<boolean>();
-  @Output() candidates = new EventEmitter<boolean>();
-  @Output() manage = new EventEmitter<boolean>();
-  @Output() viewRequestsAdmin = new EventEmitter<boolean>();
-  @Output() alerts = new EventEmitter<boolean>();
-  @Output() profile = new EventEmitter<boolean>();
+export class NavbarComponent implements OnInit, OnDestroy {
 
-  usuario:Candidato = new Candidato;
+  @Input() tipoUsuario: number = 0;
 
   id_tipoUsuario: number = 0;
 
@@ -38,23 +29,21 @@ export class NavbarComponent implements OnInit, OnDestroy{
   publicaciones: boolean = true;
   publicarNueva: boolean = true;
 
-  constructor(private router: Router, private _UserRequest: InterfaceService) {
-    this.subscription = this._UserRequest.getUser().subscribe(data =>{
-      this.usuario = data;
-      console.log(this.usuario);
-    });
+  constructor(private router: Router, private _UserRequest:InterfaceService) {
+   
   }
 
   ngOnInit() {
+    this._UserRequest.buscarUsuario();
     this.actualizarUsuario();
   }
 
   ngOnDestroy(): void {
-    this.subscription.unsubscribe();
+ 
   }
 
-  cargarPantalla(){
-    this.asignarUsuario();
+  cargarPantalla() {
+    // this.asignarUsuario();
     if (this.id_tipoUsuario == null) {
       return false;
     } else {
@@ -62,31 +51,26 @@ export class NavbarComponent implements OnInit, OnDestroy{
     }
   }
 
-  actualizarUsuario(){
+  actualizarUsuario() {
     this.asignarUsuario();
     this.validarUsuario();
   }
 
-  asignarUsuario(){
-    if (this.usuario == null){
-      this.id_tipoUsuario = 0;
-    } else{
-      this.id_tipoUsuario = this.usuario.usuario.tipoUsuario;
-    }
-
+  asignarUsuario() {
+      this.id_tipoUsuario = 2;
   }
 
   validarUsuario() {
 
     //SE TIENE QUE VALIDAR CUALES SON LOS USUARIOS
     if (this.id_tipoUsuario == 0) {
-  
+
       this.administradorActivo = true;
       this.candidatoActivo = true;
       this.visitanteActivo = false;
       this.empleadorActivo = true;
       this.seleccionar("Vacantes");
-   
+
 
     } else if (this.id_tipoUsuario == 2) {
 
@@ -141,19 +125,11 @@ export class NavbarComponent implements OnInit, OnDestroy{
   }
 
   login() {
-    this.vacantes = true;
-    this.postulaciones = true;
-    this.notificaciones = true;
-    this.perfil = true;
-    this.administrar = true;
-    this.peticiones = true;
-    this.publicaciones = true;
-    this.publicarNueva = true;
+    this.visitanteActivo = true;
     this.router.navigate(['start']);
   }
 
   verVacantes() {
-
     this.vacantes = false;
     this.postulaciones = true;
     this.notificaciones = true;
@@ -162,7 +138,7 @@ export class NavbarComponent implements OnInit, OnDestroy{
     this.peticiones = true;
     this.publicaciones = true;
     this.publicarNueva = true;
-    this.enviarVacantes();
+    this.router.navigate(['vacantes']);
   }
 
   verPostulaciones() {
@@ -174,7 +150,7 @@ export class NavbarComponent implements OnInit, OnDestroy{
     this.peticiones = true;
     this.publicaciones = true;
     this.publicarNueva = true;
-    this.enviarPostulaciones();
+    this.router.navigate(['postulaciones']);
   }
 
   Notificaciones() {
@@ -186,7 +162,7 @@ export class NavbarComponent implements OnInit, OnDestroy{
     this.peticiones = true;
     this.publicaciones = true;
     this.publicarNueva = true;
-    this.enviarNotificaciones();
+    this.router.navigate(['notificaciones']);
   }
 
   verPerfil() {
@@ -198,7 +174,7 @@ export class NavbarComponent implements OnInit, OnDestroy{
     this.peticiones = true;
     this.publicaciones = true;
     this.publicarNueva = true;
-    this.enviarPerfil();
+    this.router.navigate(['perfil']);
   }
 
   verAdministrar() {
@@ -210,7 +186,7 @@ export class NavbarComponent implements OnInit, OnDestroy{
     this.peticiones = true;
     this.publicaciones = true;
     this.publicarNueva = true;
-    this.enviarAdministrar();
+    this.router.navigate(['start']);
   }
 
   verPeticiones() {
@@ -222,7 +198,7 @@ export class NavbarComponent implements OnInit, OnDestroy{
     this.peticiones = false;
     this.publicaciones = true;
     this.publicarNueva = true;
-    this.enviarPeticiones();
+    this.router.navigate(['start']);
   }
 
   verPublicaciones() {
@@ -234,7 +210,7 @@ export class NavbarComponent implements OnInit, OnDestroy{
     this.peticiones = true;
     this.publicaciones = false;
     this.publicarNueva = true;
-    this.enviarPublicaciones();
+    this.router.navigate(['start']);
   }
 
   verNueva() {
@@ -246,105 +222,9 @@ export class NavbarComponent implements OnInit, OnDestroy{
     this.peticiones = true;
     this.publicaciones = true;
     this.publicarNueva = false;
-    this.enviarNueva();
+    this.router.navigate(['start']);
   }
 
-  enviarVacantes() {
-    this.viewJobs.emit(false);
-    this.viewRequests.emit(true);
-    this.newJob.emit(true);
-    this.candidates.emit(true);
-    this.manage.emit(true);
-    this.viewRequestsAdmin.emit(true);
-    this.alerts.emit(true);
-    this.profile.emit(true);
-
-  }
-
-  enviarPostulaciones() {
-    this.viewJobs.emit(true);
-    this.viewRequests.emit(false);
-    this.newJob.emit(true);
-    this.candidates.emit(true);
-    this.manage.emit(true);
-    this.viewRequestsAdmin.emit(true);
-    this.alerts.emit(true);
-    this.profile.emit(true);
-
-  }
-
-  enviarNotificaciones() {
-    this.viewJobs.emit(true);
-    this.viewRequests.emit(true);
-    this.newJob.emit(true);
-    this.candidates.emit(true);
-    this.manage.emit(true);
-    this.viewRequestsAdmin.emit(true);
-    this.alerts.emit(false);
-    this.profile.emit(true);
-
-  }
-
-  enviarPerfil() {
-    this.viewJobs.emit(true);
-    this.viewRequests.emit(true);
-    this.newJob.emit(true);
-    this.candidates.emit(true);
-    this.manage.emit(true);
-    this.viewRequestsAdmin.emit(true);
-    this.alerts.emit(true);
-    this.profile.emit(false);
-
-  }
-
-  enviarAdministrar() {
-    this.viewJobs.emit(true);
-    this.viewRequests.emit(true);
-    this.newJob.emit(true);
-    this.candidates.emit(true);
-    this.manage.emit(false);
-    this.viewRequestsAdmin.emit(true);
-    this.alerts.emit(true);
-    this.profile.emit(true);
-
-  }
-
-
-  enviarPeticiones() {
-    this.viewJobs.emit(true);
-    this.viewRequests.emit(true);
-    this.newJob.emit(true);
-    this.candidates.emit(true);
-    this.manage.emit(true);
-    this.viewRequestsAdmin.emit(false);
-    this.alerts.emit(true);
-    this.profile.emit(true);
-
-  }
-
-  enviarPublicaciones() {
-    this.viewJobs.emit(true);
-    this.viewRequests.emit(true);
-    this.newJob.emit(true);
-    this.candidates.emit(false);
-    this.manage.emit(true);
-    this.viewRequestsAdmin.emit(true);
-    this.alerts.emit(true);
-    this.profile.emit(true);
-
-  }
-
-  enviarNueva() {
-    this.viewJobs.emit(true);
-    this.viewRequests.emit(true);
-    this.newJob.emit(false);
-    this.candidates.emit(true);
-    this.manage.emit(true);
-    this.viewRequestsAdmin.emit(true);
-    this.alerts.emit(true);
-    this.profile.emit(true);
-
-  }
 
 
 

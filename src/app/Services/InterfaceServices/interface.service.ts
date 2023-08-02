@@ -14,7 +14,7 @@ import { Candidato } from '../Entity/candidato';
 export class InterfaceService {
 
   usuario:Candidato = new Candidato;
-  correo: string  = "";
+  correo: string  = "ramon@gmail.com";
 
   private usuario$ = new Subject<Candidato>();
   private alerts$ = new Subject<any>();

@@ -8,9 +8,9 @@ import { InterfaceService } from '../InterfaceServices/interface.service';
 @Injectable({
   providedIn: 'root'
 })
-export class CandidateService implements OnInit, OnDestroy{
+export class CandidateService {
 
-  subscription: Subscription;
+
   id_candidato: any = 0;
   correo: string = "";
   candidato: Candidato = new Candidato;
@@ -19,16 +19,12 @@ export class CandidateService implements OnInit, OnDestroy{
   private postulaciones$ = new Subject<any>();
 
 
-  constructor(private _http: HttpClient, private _UserRequest:InterfaceService) { 
-    this.subscription = this._UserRequest.getUser().subscribe(data => {
-      this.candidato = data;
-    });
+  constructor(private _http: HttpClient) { 
+
   }
-  ngOnInit(): void {
-   
-  }
-  ngOnDestroy(): void {
-    this.subscription.unsubscribe();
+
+  guaradarUsuario(usuario:Candidato){
+    this.candidato = usuario;
   }
 
   guaradarCorreo(correo:any){
