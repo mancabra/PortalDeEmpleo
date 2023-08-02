@@ -57,10 +57,7 @@ export class LoginComponent {
       correoElectronico:this.correoIngresado,
       contrasena:this.contrasenaIngresada,
     }
-    this._UserRequest.guaradarCorreo(USUARIO.correoElectronico);
-    this._UserRequest.cambiartipo();
-    this._UserRequest.mostarNav();
-    this.router.navigate(['vacantes']);
+   
     this._UserRequest.login(USUARIO).then((data:any) =>{
       if(data.estatus == false){
 
