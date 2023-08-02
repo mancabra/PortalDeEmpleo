@@ -1,6 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Subscription } from 'rxjs';
 import { CandidateService } from 'src/app/Services/CandidateServices/candidate.service';
 import { Candidato } from 'src/app/Services/Entity/candidato';
 import { Estado } from 'src/app/Services/Entity/estado';
@@ -13,7 +12,6 @@ import { InterfaceService } from 'src/app/Services/InterfaceServices/interface.s
   styleUrls: ['./update.component.css']
 })
 export class UpdateComponent implements OnInit, OnDestroy {
-  subscription: Subscription;
   usuario: Candidato = new Candidato;
 
   //DATOS A CAPTURAR
@@ -44,25 +42,26 @@ export class UpdateComponent implements OnInit, OnDestroy {
 
 
   constructor(private _UserRequest: InterfaceService, private _CandidateRequest:CandidateService, private router:Router) {
-    this.subscription = this._UserRequest.getUser().subscribe(data => {
-      this.usuario = data;
-      console.log(this.usuario);
-
-
-    });
 
     this.nuevoEstado = { id_estado: 0, nombreEstado: "Selecciona un Estado", municipios:[]};
     this.nuevoMunicipio = { id_municipio: 0, nombreMunicipio: "Selecciona un Municipio", estado: new Estado }
   }
 
   ngOnInit(): void {
+    this.buscarUsuario();
     this.bloquearMunicipios();
     this.asignarDatos();
-
   }
 
   ngOnDestroy(): void {
-    this.subscription.unsubscribe();
+
+  }
+
+  buscarUsuario(){
+    this._CandidateRequest.obtener().then((data:any) =>{
+      this.usuario = data
+      console.log(this.usuario)
+    });
   }
 
   bloquearMunicipios() {
@@ -301,8 +300,7 @@ export class UpdateComponent implements OnInit, OnDestroy {
 
       alert("Algo fallo");
       }else{
-      this._UserRequest.buscarUsuario();
-  
+
       }
     });
 

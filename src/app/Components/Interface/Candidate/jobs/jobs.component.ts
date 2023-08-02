@@ -18,7 +18,6 @@ export class JobsComponent implements OnInit, OnDestroy {
   //DEBE SUSCRIBIRSE AL USARIO ENVIADO POR BASE DE DATOS
   usuario: Candidato = new Candidato;
   postulacion: Postulacion = new Postulacion;
-  subscription: Subscription;
   vacanteSeleccionada: Vacante = new Vacante;
   busqueda: string = "";
   textoBoton: string = "Postularse"
@@ -30,55 +29,22 @@ export class JobsComponent implements OnInit, OnDestroy {
   jobsList: Vacante[] = [];
   
 
-  /*
-  jobsList = [
-    {
-      id_vacante: 1,
-      nombreVacante: "Diseñador web",
-      especialista: "Diseñador",
-      sueldo: 10000,
-      horario: "9:00 am - 6:00 pm",
-      domicilio: "C.Pinos N.447 Col.Nuevo Mundo",
-      municipio: { id_municipio: 1, nombreMunicipio: "Acolman", id_estado: 1 },
-      estatus: false,
-      descripcion:
-        "Lorem ipsum dolor sit amet consectetur adipiscing elit interdum nascetur purus, libero integer qui"
-        + "ut facilisi hac suspendisse pretium ad urna, consequat id natoque sollicitudin orci mi tristique quisque posuere."
-        + "Lorem ipsum dolor sit amet consectetur adipiscing elit interdum nascetur purus, libero integer qui"
-        + "ut facilisi hac suspendisse pretium ad urna, consequat id natoque sollicitudin orci mi tristique quisque posuere."
-        + "Lorem ipsum dolor sit amet consectetur adipiscing elit interdum nascetur purus, libero integer qui",
-      empresa: { id_empresa: 1, vacantes: null, nombreEmpresa: "Infotec", descripcion: "holaMundo Infotec" },
-      empleador: {
-        id_usuario: 1,
-        nombre: "Saumuel",
-        correoElectronico: "mail@gmail.com",
-        consena: "1234hola",
-        tipoUsuario: 3,
-        apellidoP: "Aispuro",
-        apellidoM: "Wilson",
-        estatusUsuario: true,
-      },
-      candidatos: null, // lista de candidatos
-      tipoHorario: { id_tipoHorario: 1, dias: "Tiempo Completo" },
-      tipoContratacion: { id_tipoContratacion: 1, horario: "Tiempo Indefinido" },
-      modalidadTrabajo: { id_modalidadTrabajo: 1, modalidad: "Presencial" },
-    },
-
-  ];
-  */
-
   constructor(private _CandidateRequest: CandidateService, private _UserRequest: InterfaceService, private router: Router) {
-    this.subscription = this._UserRequest.getUser().subscribe(data => {
 
-      this.usuario = data;
-      console.log(this.usuario);
-    });
   }
 
   ngOnInit() {
-    //this._UserRequest.esparcirUsuario();
     this.vacanteSeleccionada = new Vacante;
+    this.buscarUsuario();
     this.obtenerVacantes();
+  }
+
+
+  buscarUsuario(){
+    this._CandidateRequest.obtener().then((data:any) =>{
+      this.usuario = data
+      console.log(this.usuario)
+    });
   }
 
   cambiarBoton() {
@@ -99,9 +65,7 @@ export class JobsComponent implements OnInit, OnDestroy {
     }
   }
 
-
   ngOnDestroy(): void {
-    this.subscription.unsubscribe();
   }
 
   obtenerVacantes() {
@@ -111,7 +75,6 @@ export class JobsComponent implements OnInit, OnDestroy {
       } else {
         this.jobsList = data;
       }
-
     });
   }
 
@@ -172,22 +135,16 @@ export class JobsComponent implements OnInit, OnDestroy {
     }
   }
 
-
-
-
   postularse(vacante:Vacante) {
-
     if(this.id_tipoUsuario == 0) {
       this.router.navigate(['start']);
     } else {
       this.botonNoVisitante(vacante);
     }
-
   }
 
   botonNoVisitante(vacante:Vacante){
     const PostDTO = {
-      // VER COMO SE ESTA MANEJANDO EL ID PORQIE SE ENVIA EL IDE DE USUARIO NO EL ID CANDIDATO
       id_candidato: this.usuario.id_candidato,
       id_vacante: vacante.id_vacante
     }
@@ -195,6 +152,8 @@ export class JobsComponent implements OnInit, OnDestroy {
     console.log(PostDTO);
 
     this.asignarPostulacion(PostDTO);
+    console.log(this.postulacion);
+
     if (this.postulacion.estatus != false) {
 
       alert("Postulacion Exitosa");
@@ -226,7 +185,6 @@ export class JobsComponent implements OnInit, OnDestroy {
       this.postulacion = data;
     });
   }
-
 
 }
 

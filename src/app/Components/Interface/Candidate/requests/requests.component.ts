@@ -13,23 +13,19 @@ import { InterfaceService } from 'src/app/Services/InterfaceServices/interface.s
 })
 export class RequestsComponent implements OnInit, OnDestroy {
   usuario: Candidato = new Candidato;
-  subscription:Subscription;
-  subscriptionArray:Subscription;
   postulaciones:Postulacion[]=[];
 
   constructor(private _UserRequest:InterfaceService, private _CandidateRequest:CandidateService){
-    this.subscription = this._UserRequest.getUser().subscribe(data =>{
-      this.usuario = data;
-    });
-
-    this.subscriptionArray = this._UserRequest.getUser().subscribe(data => {
-      this.postulaciones = data;
-    });
+  
   }
   
   ngOnInit(): void {
+    this.buscarUsuario();
     this.obetenerPostulaciones();
-    this.guardarUsuario();
+  }
+
+  ngOnDestroy(): void {
+
   }
 
   cargarPantalla(){
@@ -40,19 +36,22 @@ export class RequestsComponent implements OnInit, OnDestroy {
     }
   }
 
-  ngOnDestroy(): void {
-    this.subscription.unsubscribe();
-    this.subscriptionArray.unsubscribe();
+  buscarUsuario(){
+    this._CandidateRequest.obtener().then((data:any) =>{
+      this.usuario = data
+      console.log(this.usuario)
+    });
   }
 
-  guardarUsuario(){
-    this._CandidateRequest.guaradarUsuario(this.usuario);
-  }
+  
 
   obetenerPostulaciones(){
-    this._CandidateRequest.esparcirPostulaciones();
-  }
+    this._CandidateRequest.obtenerPostulaciones(this.usuario.id_candidato).subscribe(data => {
+      this.postulaciones = data;
+      console.log(this.postulaciones);
+    });
 
+  }
 
   quitarTodas(){
     for (let i = 0; i < this.postulaciones.length; i++) {

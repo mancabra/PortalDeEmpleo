@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { CandidateService } from 'src/app/Services/CandidateServices/candidate.service';
 import { Candidato } from 'src/app/Services/Entity/candidato';
 import { InterfaceService } from 'src/app/Services/InterfaceServices/interface.service';
 
@@ -9,7 +10,6 @@ import { InterfaceService } from 'src/app/Services/InterfaceServices/interface.s
   styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent implements OnInit, OnDestroy {
-  subscription: Subscription;
   usuario: Candidato = new Candidato;
   id_tipoUsuario: number = 0;
   modificarPerfil:boolean=false;
@@ -23,25 +23,28 @@ export class ProfileComponent implements OnInit, OnDestroy {
   perfilTipoEmpresa: boolean = true;
 
 
-  constructor(private _UserRequest: InterfaceService) {
-    this.subscription = this._UserRequest.getUser().subscribe(data => {
-      this.usuario = data;
-      console.log(this.usuario);
-    });
+  constructor(private _CandidateRequest:CandidateService) {
 
-    
   }
 
   ngOnInit(): void {
+    this.buscarUsuario();
     this.id_tipoUsuario = this.usuario.usuario.tipoUsuario;
     this.identificarTipoDePerfil();
   }
 
   ngOnDestroy(): void {
-    this.subscription.unsubscribe();
+  }
+
+  buscarUsuario(){
+    this._CandidateRequest.obtener().then((data:any) =>{
+      this.usuario = data
+      console.log(this.usuario)
+    });
   }
 
   modificarDatosPerfil(){
+    
     if(this.modificarPerfil == false){
       this.modificarPerfil = true;
     }else {

@@ -488,7 +488,6 @@ export class CreateComponent {
       if (numero != 0) {
         this.limpiarCampos();
         this._UserRequest.guaradarCorreo(usuario.correoElectronico);
-        this._UserRequest.buscarUsuario();
         this.router.navigate(['interface']);
       } else {
         //this.correoExistente = false;

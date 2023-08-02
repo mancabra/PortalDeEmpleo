@@ -1,9 +1,8 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable, OnDestroy, OnInit } from '@angular/core';
-import { Observable, Subject, Subscription } from 'rxjs';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import { Candidato } from '../Entity/candidato';
 import { Postulacion } from '../Entity/postulacion';
-import { InterfaceService } from '../InterfaceServices/interface.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,12 +11,8 @@ export class CandidateService {
 
 
   id_candidato: any = 0;
-  correo: string = "";
+  correo: string = "ramon@gmail.com";
   candidato: Candidato = new Candidato;
-
-  postulaciones: Postulacion[] = [];
-  private postulaciones$ = new Subject<any>();
-
 
   constructor(private _http: HttpClient) { 
 
@@ -32,13 +27,12 @@ export class CandidateService {
     console.log(this.correo);
   }
 
-  obtener(CandidateRequest:string) {
-
+  obtener() {
     console.log("Proceso buscarUsuario");
     console.log("Info Enviada");
-    console.log(CandidateRequest);
+    console.log(this.correo);
 
-    let cadena = "http://localhost:8080/obtenerUsuarioCompleto/" + CandidateRequest;
+    let cadena = "http://localhost:8080/obtenerUsuarioCompleto/" + this.correo;
     return this._http.get<Candidato>(cadena).toPromise();
   }
 
@@ -81,7 +75,6 @@ export class CandidateService {
     console.log("Info Enviada");
     console.log(PostDTO);
 
-    this.esparcirPostulaciones();
 
     return this._http.put("http://localhost:8080/postulacion", PostDTO).toPromise();
   }
@@ -99,27 +92,11 @@ export class CandidateService {
     //prueba de funcionamiento
     console.log("Proceso EliminarPostulacion");
     console.log("Info Enviada id_postulacion" + idRequest);
-    this.esparcirPostulaciones();
 
     let cadena = "http://localhost:8080/eliminarPostulacion/" + idRequest;
     return this._http.delete(cadena).toPromise();
 
   }
-
-  getPostulaciones(): Observable<Postulacion[]> {
-    return this.postulaciones$.asObservable();
-  }
-
-  esparcirPostulaciones() {
-      this.obtenerPostulaciones(this.candidato.id_candidato).subscribe(data => {
-        this.postulaciones = data;
-        console.log(this.postulaciones);
-      });
-    this.postulaciones$.next(this.postulaciones);
-  }
-
-
-
 
 }
 

@@ -11,15 +11,12 @@ import { InterfaceService } from 'src/app/Services/InterfaceServices/interface.s
 export class InterfaceComponent implements OnInit, OnDestroy {
 
   @Output() tipoUsuario  = new EventEmitter<number>();
-  subscription: Subscription;
+ 
   usuario:Candidato = new Candidato;
 
 
   constructor(private _UserRequest:InterfaceService){
-    this.subscription = this._UserRequest.getUser().subscribe(data => {
-      this.usuario = data;
-      console.log(this.usuario);
-    });
+
   }
 
   ngOnInit(): void {
@@ -27,7 +24,7 @@ export class InterfaceComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.subscription.unsubscribe();
+
   }
 
   enviarUsuarioNavbar() {

@@ -29,12 +29,11 @@ export class NavbarComponent implements OnInit, OnDestroy {
   publicaciones: boolean = true;
   publicarNueva: boolean = true;
 
-  constructor(private router: Router, private _UserRequest:InterfaceService) {
+  constructor(private router: Router) {
    
   }
 
   ngOnInit() {
-    this._UserRequest.buscarUsuario();
     this.actualizarUsuario();
   }
 

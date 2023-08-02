@@ -76,7 +76,6 @@ export class LoginComponent {
       alert("Datos Incorrectos");
       }else{
         this._UserRequest.guaradarCorreo(USUARIO.correoElectronico);
-        this._UserRequest.buscarUsuario();
         //this._UserRequest.cargarUsuario(USUARIO.correoElectronico);
         this.router.navigate(['interface']);
       }

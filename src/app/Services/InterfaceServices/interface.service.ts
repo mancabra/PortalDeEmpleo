@@ -16,7 +16,6 @@ export class InterfaceService {
   usuario:Candidato = new Candidato;
   correo: string  = "ramon@gmail.com";
 
-  private usuario$ = new Subject<Candidato>();
   private alerts$ = new Subject<any>();
   
 
@@ -40,113 +39,6 @@ export class InterfaceService {
     console.log(userRequest);
 
     return this._http.post("http://localhost:8080/Login", userRequest).toPromise();
-  }
-
-/*
-  // OBTENER INFORMACION POR CORREO
-  userData(userRequest: string) {
-    //prueba de funcionamiento
-    console.log("Proceso obtenerUsuario");
-    console.log("Info Enviada");
-    console.log(userRequest);
-
-    let cadena = "http://localhost:8080/obtenerUsuario/" + userRequest;
-    return this._http.get(cadena).toPromise();
-  }
-
-  cargarUsuario(mail: string) {
-    //prueba de funcionamiento
-    console.log("Proceso cargarUsuario");
-    console.log("Info Enviada");
-    console.log(mail);
-
-    this.userData(mail).then((data: any) => {
-      this.usuario = data;
-      console.log("Estatus de usuario");
-      console.log(this.usuario);
-
-    });
-
-    this.usuario$.next(this.usuario);
-  }
-
-  esparcirUsuario() {
-    console.log("Esparcir usuario");
-    if (this.usuario == "") {
-
-      const USUARIO = {
-        id_usuario: 15,
-        nombre: "Ramon",
-        //------
-        edad: 26,
-        profesion: "Desarrollador",
-        id_candidato: 1,
-        //------
-        correoElectronico: "ramon2@gmail.com",
-        contraseña: "password",
-        tipoUsuario: 2,
-        apellidoP: "Serrano",
-        apellidoM: "Gamez",
-        telefono: "(+52)48-95-67-34-12",
-        estatusUsuario: true,
-        //------
-        domicilio: "C.Pinos N.447 Col.Nuevo Mundo",
-        estado: { id_estado: 1, nombreEstado: "México" },
-        municipio: { id_municipio: 1, nombreMunicipio: "Acolman", id_estado: 1 },
-
-        centroEducativo: "UAM Azcapotzalco",
-        puestoActual: "Programador Jr",
-        //------
-        descripcion: "Lorem ipsum dolor sit amet consectetur adipiscing elit interdum nascetur purus, libero integer qui"
-          + "ut facilisi hac suspendisse pretium ad urna, consequat id natoque sollicitudin orci mi tristique quisque posuere."
-          + "Lorem ipsum dolor sit amet consectetur adipiscing elit interdum nascetur purus, libero integer qui"
-          + "ut facilisi hac suspendisse pretium ad urna, consequat id natoque sollicitudin orci mi tristique quisque posuere."
-          + "Lorem ipsum dolor sit amet consectetur adipiscing elit interdum nascetur purus, libero integer qui",
-
-      }
-      this.usuario = USUARIO;
-
-    } else if(this.usuario == null){
-
-    } else{
-
-    }
-
-    this.usuario$.next(this.usuario);
-  }
-
-  
-
-  buscarUsuario(){
-    console.log("Proceso buscarUsuario");
-    console.log("Info Enviada");
-    console.log(this.correo);
-
-    let cadena = "http://localhost:8080/obtenerUsuario/" + this.correo;
-    return this._http.get(cadena).toPromise();
-  }
-    */
-
-
-
-  buscarUsuario(){
-    this._CandidateRequest.obtener(this.correo).then((data:any) =>{
-      this.usuario = data;
-
-     this.actualizarUsuario(data);
-    });
-
-  }
-
-  actualizarUsuario(usuario:any){
-    this.usuario = usuario;
-    console.log(this.usuario);
-    this.usuario$.next(this.usuario);
-  }
-
-
-  getUser(): Observable<any> {
-    return this.usuario$.asObservable();
   }
 
   guaradarCorreo(correo:any){
@@ -185,8 +77,5 @@ export class InterfaceService {
     this.alertas.push(alert);
     this.alerts$.next(this.alertas);
   }
-
-
-
 
 }
