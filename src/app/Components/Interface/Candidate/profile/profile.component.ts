@@ -11,7 +11,7 @@ import { InterfaceService } from 'src/app/Services/InterfaceServices/interface.s
 export class ProfileComponent implements OnInit, OnDestroy {
   subscription: Subscription;
   usuario: Candidato = new Candidato;
-  id_tipoUsuario: any;
+  id_tipoUsuario: number = 0;
   modificarPerfil:boolean=false;
 
   //varibale de input administrar
@@ -51,7 +51,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
   }
 
   identificarTipoDePerfil() {
-    this.id_tipoUsuario = 2;
     if (this.id_tipoUsuario == 0) {
 
       this.perfilTipoAdministrador = false;
