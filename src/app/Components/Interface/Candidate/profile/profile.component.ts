@@ -1,8 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs';
 import { CandidateService } from 'src/app/Services/CandidateServices/candidate.service';
 import { Candidato } from 'src/app/Services/Entity/candidato';
-import { InterfaceService } from 'src/app/Services/InterfaceServices/interface.service';
 
 @Component({
   selector: 'app-profile',

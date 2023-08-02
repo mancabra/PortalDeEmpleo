@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CandidateService } from 'src/app/Services/CandidateServices/candidate.service';
 import { Candidato } from 'src/app/Services/Entity/candidato';
@@ -12,7 +12,8 @@ import { InterfaceService } from 'src/app/Services/InterfaceServices/interface.s
   styleUrls: ['./update.component.css']
 })
 export class UpdateComponent implements OnInit, OnDestroy {
-  usuario: Candidato = new Candidato;
+
+  @Input () usuario: Candidato = new Candidato;
 
   //DATOS A CAPTURAR
   nuevoNombre: string = "";
@@ -48,7 +49,6 @@ export class UpdateComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.buscarUsuario();
     this.bloquearMunicipios();
     this.asignarDatos();
   }
@@ -57,12 +57,6 @@ export class UpdateComponent implements OnInit, OnDestroy {
 
   }
 
-  buscarUsuario(){
-    this._CandidateRequest.obtener().then((data:any) =>{
-      this.usuario = data
-      console.log(this.usuario)
-    });
-  }
 
   bloquearMunicipios() {
     this.nuevoEstado = { id_estado: 0, nombreEstado: "Selecciona un Estado", municipios:[]};
