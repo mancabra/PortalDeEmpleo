@@ -21,7 +21,6 @@ export class RequestsComponent implements OnInit, OnDestroy {
   
   ngOnInit(): void {
     this.buscarUsuario();
-    this.obetenerPostulaciones();
   }
 
   ngOnDestroy(): void {
@@ -40,13 +39,12 @@ export class RequestsComponent implements OnInit, OnDestroy {
     this._CandidateRequest.obtener().then((data:any) =>{
       this.usuario = data
       console.log(this.usuario)
+      this.obetenerPostulaciones(this.usuario)
     });
   }
 
-  
-
-  obetenerPostulaciones(){
-    this._CandidateRequest.obtenerPostulaciones(this.usuario.id_candidato).subscribe(data => {
+  obetenerPostulaciones(usuario:Candidato){
+    this._CandidateRequest.obtenerPostulaciones(usuario.id_candidato).subscribe(data => {
       this.postulaciones = data;
       console.log(this.postulaciones);
     });
@@ -68,7 +66,7 @@ export class RequestsComponent implements OnInit, OnDestroy {
           this._UserRequest.agregarAlerta(ALERTA);
   
           alert("La vacante fue eliminada correctamente");
-          this.obetenerPostulaciones();
+
         } else{
 
         const ALERTA = {
@@ -83,7 +81,7 @@ export class RequestsComponent implements OnInit, OnDestroy {
       });
     }
 
-    this.obetenerPostulaciones();
+
 
     if(this.postulaciones.length == 0){
       alert("la accion se completo correctamente");
@@ -107,7 +105,6 @@ export class RequestsComponent implements OnInit, OnDestroy {
         this._UserRequest.agregarAlerta(ALERTA);
 
         alert("La vacante fue eliminada correctamente");
-        this.obetenerPostulaciones();
       } else{
         alert("Algo fallo");
         alert("Algo Fallo");

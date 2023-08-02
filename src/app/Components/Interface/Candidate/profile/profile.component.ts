@@ -27,8 +27,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.buscarUsuario();
-    this.id_tipoUsuario = this.usuario.usuario.tipoUsuario;
-    this.identificarTipoDePerfil();
   }
 
   ngOnDestroy(): void {
@@ -38,6 +36,8 @@ export class ProfileComponent implements OnInit, OnDestroy {
     this._CandidateRequest.obtener().then((data:any) =>{
       this.usuario = data
       console.log(this.usuario)
+      this.id_tipoUsuario = this.usuario.usuario.tipoUsuario;
+      this.identificarTipoDePerfil();
     });
   }
 

@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CandidateService } from 'src/app/Services/CandidateServices/candidate.service';
 import { Candidato } from 'src/app/Services/Entity/candidato';
@@ -13,7 +13,7 @@ import { InterfaceService } from 'src/app/Services/InterfaceServices/interface.s
 })
 export class UpdateComponent implements OnInit, OnDestroy {
 
-  @Input () usuario: Candidato = new Candidato;
+ usuario: Candidato = new Candidato;
 
   //DATOS A CAPTURAR
   nuevoNombre: string = "";
@@ -38,10 +38,6 @@ export class UpdateComponent implements OnInit, OnDestroy {
   estadosMexico: Estado [] = [];
   municipiosMexico: Municipio [] = [];
 
-  // estadosMexico = [{ id_estado: 1, nombreEstado: "Mexico" }];
-  // municipiosMexico = [{ id_municipio: 1, nombreMunicipio: "Acolman", id_estado: 1 }];
-
-
   constructor(private _UserRequest: InterfaceService, private _CandidateRequest:CandidateService, private router:Router) {
 
     this.nuevoEstado = { id_estado: 0, nombreEstado: "Selecciona un Estado", municipios:[]};
@@ -50,13 +46,20 @@ export class UpdateComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.bloquearMunicipios();
-    this.asignarDatos();
+    this.buscarUsuario();
   }
 
   ngOnDestroy(): void {
 
   }
 
+  buscarUsuario(){
+    this._CandidateRequest.obtener().then((data:any) =>{
+      this.usuario = data
+      this.asignarDatos(this.usuario);
+      console.log(this.usuario)
+    });
+  }
 
   bloquearMunicipios() {
     this.nuevoEstado = { id_estado: 0, nombreEstado: "Selecciona un Estado", municipios:[]};
@@ -77,7 +80,7 @@ export class UpdateComponent implements OnInit, OnDestroy {
 
     this._UserRequest.obtenerMunicipios(this.nuevoEstado.id_estado).subscribe(data=>{
       this.municipiosMexico = data;
-      console.log( this.municipiosMexico);
+      console.log(this.municipiosMexico);
     });
 
   }
@@ -104,19 +107,23 @@ export class UpdateComponent implements OnInit, OnDestroy {
     this.nuevaDescripcion = "";
   }
 
-  asignarDatos() {
+  asignarDatos(usuario:Candidato) {
+    this.guardarObjeto(usuario);
+    this.nuevoNombre = usuario.usuario.nombre;
+    this.nuevoApellidoP = usuario.usuario.apellidoP;
+    this.nuevoApellidoM = usuario.usuario.apellidoM;
+    this.nuevaEdad = usuario.edad;
+    this.nuevaProfesion = usuario.usuario.nombre;
 
-    this.nuevoNombre = this.usuario.usuario.nombre;
-    this.nuevoApellidoP = this.usuario.usuario.apellidoP;
-    this.nuevoApellidoM = this.usuario.usuario.apellidoM;
-    this.nuevaEdad = this.usuario.edad;
-    this.nuevaProfesion = this.usuario.usuario.nombre;
+    this.nuevoDomicilio = usuario.domicilio;
+    this.nuevoEstado = usuario.estado;
+    this.nuevoCentroEducativo = usuario.centroEducativo;
+    this.nuevoPuesto = usuario.puestoActual;
 
-    this.nuevoDomicilio = this.usuario.domicilio;
-    this.nuevoEstado = this.usuario.estado;
-    this.nuevoCentroEducativo = this.usuario.centroEducativo;
-    this.nuevoPuesto = this.usuario.puestoActual;
+  }
 
+  guardarObjeto(usuario:Candidato){
+    this.usuario = usuario;
   }
 
   capturarNuevosDatos() {
