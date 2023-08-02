@@ -12,50 +12,11 @@ import { InterfaceService } from 'src/app/Services/InterfaceServices/interface.s
 })
 export class RequestsComponent implements OnInit, OnDestroy {
   subscription:Subscription;
-  usuario:any;
   postulaciones:Postulacion[]=[];
-  /*
-  postulaciones = [
-    {
-      id_vacante:1,
-      nombreVacante: "Diseñador web",
-      especialista: "Diseñador",
-      sueldo: 10000,
-      horario: "9:00 am - 6:00 pm",
-      domicilio:"C.Pinos N.447 Col.Nuevo Mundo",
-      municipio:{id_municipio:1,nombreMunicipio:"Acolman",id_estado:1},
-      estatus: false,
-      id_postulacion:45,
-      descripcion: 
-      "Lorem ipsum dolor sit amet consectetur adipiscing elit interdum nascetur purus, libero integer qui"
-      +"ut facilisi hac suspendisse pretium ad urna, consequat id natoque sollicitudin orci mi tristique quisque posuere."
-      +"Lorem ipsum dolor sit amet consectetur adipiscing elit interdum nascetur purus, libero integer qui"
-      +"ut facilisi hac suspendisse pretium ad urna, consequat id natoque sollicitudin orci mi tristique quisque posuere."
-      +"Lorem ipsum dolor sit amet consectetur adipiscing elit interdum nascetur purus, libero integer qui",
-      empresa:{id_empresa:1,vacantes:null,nombreEmpresa:"Infotec",descripcion:"holaMundo Infotec"},
-      empleador:{
-                  id_usuario:1,
-                  nombre:"Saumuel",
-                  correoElectronico:"mail@gmail.com",
-                  consena:"1234hola",
-                  tipoUsuario:3,
-                  apellidoP:"Aispuro",
-                  apellidoM:"Wilson",
-                  estatusUsuario:true,
-                },
-      candidatos:null, // lista de candidatos
-      tipoHorario:{id_tipoHorario:1,dias:"Tiempo Completo"},
-      tipoContratacion:{id_tipoContratacion:1,horario:"Tiempo Indefinido"},
-      modalidadTrabajo:{id_modalidadTrabajo:1,modalidad:"Presencial"},
-    },
-  ];
-  */
-
 
   constructor(private _UserRequest:InterfaceService, private _CandidateRequest:CandidateService){
-    this.subscription = this._UserRequest.getUser().subscribe(data =>{
-      this.usuario = data;
-      console.log(this.usuario);
+    this.subscription = this._CandidateRequest.getPostulaciones().subscribe(data =>{
+      this.postulaciones = data;
     });
   }
   
@@ -67,10 +28,7 @@ export class RequestsComponent implements OnInit, OnDestroy {
     if(this.postulaciones.length == 0){ 
       return false;
     } else {
-      //this.obetenerPostulaciones();
       return true;
-      
-
     }
   }
 
@@ -79,9 +37,7 @@ export class RequestsComponent implements OnInit, OnDestroy {
   }
 
   obetenerPostulaciones(){
-    this._CandidateRequest.obtenerPostulaciones(this.usuario.id_candidato).then((data:any) =>{
-      this.postulaciones = data;
-    });
+    this._CandidateRequest.esparcirPostulaciones();
   }
 
 
@@ -113,10 +69,6 @@ export class RequestsComponent implements OnInit, OnDestroy {
         }
 
       });
-
-
-
-
     }
 
     this.obetenerPostulaciones();

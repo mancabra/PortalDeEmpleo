@@ -1,16 +1,35 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Injectable, OnDestroy, OnInit } from '@angular/core';
+import { Observable, Subject, Subscription } from 'rxjs';
 import { Candidato } from '../Entity/candidato';
+import { Postulacion } from '../Entity/postulacion';
+import { InterfaceService } from '../InterfaceServices/interface.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class CandidateService {
+export class CandidateService implements OnInit, OnDestroy{
+
+  subscription: Subscription;
   id_candidato: any = 0;
   correo: string = "";
+  candidato: Candidato = new Candidato;
 
-  constructor(private _http: HttpClient) { }
+  postulaciones: Postulacion[] = [];
+  private postulaciones$ = new Subject<any>();
+
+
+  constructor(private _http: HttpClient, private _UserRequest:InterfaceService) { 
+    this.subscription = this._UserRequest.getUser().subscribe(data => {
+      this.candidato = data;
+    });
+  }
+  ngOnInit(): void {
+   
+  }
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+  }
 
   guaradarCorreo(correo:any){
     this.correo = correo;
@@ -49,11 +68,9 @@ export class CandidateService {
     return this._http.put("http://localhost:8080/modificarCandidato", CandidatoDTO).toPromise();
   }
 
-
   obtenerVacantes() {
     //prueba de funcionamiento
     console.log("Proceso ObternerVacantes");
-
     return this._http.get("http://localhost:8080/obtenerListaVacantes").toPromise();
   }
 
@@ -68,27 +85,43 @@ export class CandidateService {
     console.log("Info Enviada");
     console.log(PostDTO);
 
+    this.esparcirPostulaciones();
+
     return this._http.put("http://localhost:8080/postulacion", PostDTO).toPromise();
   }
 
-  obtenerPostulaciones(idRequest: number) {
+  obtenerPostulaciones(idRequest: number):Observable<Postulacion[]>  {
     //prueba de funcionamiento
     console.log("Proceso ObtenerPostulaciones");
     console.log("Info Enviada id_candidato" + idRequest);
 
     let cadena = "http://localhost:8080/obtenerPostulacionesPorIdDeCandidato/" + idRequest;
-    return this._http.get(cadena).toPromise();
+    return this._http.get<Postulacion[]>(cadena);
   }
 
   eliminarPostulacion(idRequest: number) {
     //prueba de funcionamiento
     console.log("Proceso EliminarPostulacion");
     console.log("Info Enviada id_postulacion" + idRequest);
+    this.esparcirPostulaciones();
 
     let cadena = "http://localhost:8080/eliminarPostulacion/" + idRequest;
     return this._http.delete(cadena).toPromise();
 
   }
+
+  getPostulaciones(): Observable<Postulacion[]> {
+    return this.postulaciones$.asObservable();
+  }
+
+  esparcirPostulaciones() {
+      this.obtenerPostulaciones(this.candidato.id_candidato).subscribe(data => {
+        this.postulaciones = data;
+        console.log(this.postulaciones);
+      });
+    this.postulaciones$.next(this.postulaciones);
+  }
+
 
 
 

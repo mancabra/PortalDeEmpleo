@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { CandidateService } from 'src/app/Services/CandidateServices/candidate.service';
 import { Candidato } from 'src/app/Services/Entity/candidato';
+import { Postulacion } from 'src/app/Services/Entity/postulacion';
 import { Vacante } from 'src/app/Services/Entity/vacante';
 import { InterfaceService } from 'src/app/Services/InterfaceServices/interface.service';
 
@@ -16,6 +17,7 @@ export class JobsComponent implements OnInit, OnDestroy {
 
   //DEBE SUSCRIBIRSE AL USARIO ENVIADO POR BASE DE DATOS
   usuario: Candidato = new Candidato;
+  postulacion: Postulacion = new Postulacion;
   subscription: Subscription;
   vacanteSeleccionada: Vacante = new Vacante;
   busqueda: string = "";
@@ -173,49 +175,56 @@ export class JobsComponent implements OnInit, OnDestroy {
 
 
 
-  postularse(vacante: any) {
+  postularse(vacante:Vacante) {
 
-    if (this.id_tipoUsuario == 0) {
+    if(this.id_tipoUsuario == 0) {
       this.router.navigate(['start']);
     } else {
-
-      const PostDTO = {
-        // VER COMO SE ESTA MANEJANDO EL ID PORQIE SE ENVIA EL IDE DE USUARIO NO EL ID CANDIDATO
-        id_candidato: this.usuario.id_candidato,
-        id_vacante: vacante.id_vacante
-      }
-
-      console.log(PostDTO);
-      let postulacion: any = "";
-
-      if (postulacion != "") {
-        alert("Postulacion Exitosa");
-
-        const ALERTA = {
-
-          nombreAlerta:"Pustulacion Exitosa",
-          textoAlerta:"La postulación a vacante "+vacante.nombreVacante+" de la empresa "+vacante.empresa.nombreEmpresa+" se ha realizado correctamente Si tÚ no has realizado esta acción podras eliminarla desde el apartado POSTULACIONES."
-        }
-  
-        this._UserRequest.agregarAlerta(ALERTA);
-        
-      } else {
-        alert("Algo Fallo");
-
-        const ALERTA = {
-
-          nombreAlerta:"Pustulacion Fallida",
-          textoAlerta:"La postulación a vacante "+vacante.nombreVacante+" de la empresa "+vacante.empresa.nombreEmpresa+" no ha podido realizarse correctamente, te recomendamos intentarlo nuevamente, si el error persiste puedes contactar a soporte mediente el correo soporte@mail.com"
-        }
-
-        this._UserRequest.agregarAlerta(ALERTA);
-      }
-      this._CandidateRequest.postularse(PostDTO).then((data: any) => {
-        postulacion = data;
-      });
-
+      this.botonNoVisitante(vacante);
     }
 
+  }
+
+  botonNoVisitante(vacante:Vacante){
+    const PostDTO = {
+      // VER COMO SE ESTA MANEJANDO EL ID PORQIE SE ENVIA EL IDE DE USUARIO NO EL ID CANDIDATO
+      id_candidato: this.usuario.id_candidato,
+      id_vacante: vacante.id_vacante
+    }
+
+    console.log(PostDTO);
+
+    this.asignarPostulacion(PostDTO);
+    if (this.postulacion.estatus != false) {
+
+      alert("Postulacion Exitosa");
+
+      const ALERTA = {
+
+        nombreAlerta:"Pustulacion Exitosa",
+        textoAlerta:"La postulación a vacante "+vacante.nombreVacante+" de la empresa "+vacante.empresa.nombreEmpresa+" se ha realizado correctamente Si tÚ no has realizado esta acción podras eliminarla desde el apartado POSTULACIONES."
+      }
+
+      this._UserRequest.agregarAlerta(ALERTA);
+      
+    } else {
+
+      alert("Algo Fallo");
+
+      const ALERTA = {
+
+        nombreAlerta:"Pustulacion Fallida",
+        textoAlerta:"La postulación a vacante "+vacante.nombreVacante+" de la empresa "+vacante.empresa.nombreEmpresa+" no ha podido realizarse correctamente, te recomendamos intentarlo nuevamente, si el error persiste puedes contactar a soporte mediente el correo soporte@mail.com"
+      }
+
+      this._UserRequest.agregarAlerta(ALERTA);
+    }
+  }
+
+  asignarPostulacion(PostDTO:any){
+    this._CandidateRequest.postularse(PostDTO).then((data: any) => {
+      this.postulacion = data;
+    });
   }
 
 

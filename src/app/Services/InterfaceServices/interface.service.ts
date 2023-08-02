@@ -18,6 +18,8 @@ export class InterfaceService {
 
   private usuario$ = new Subject<Candidato>();
   private alerts$ = new Subject<any>();
+  
+
   alertas: any = [];
   //online: boolean = true;
 
@@ -183,6 +185,8 @@ export class InterfaceService {
     this.alertas.push(alert);
     this.alerts$.next(this.alertas);
   }
+
+
 
 
 }
