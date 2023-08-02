@@ -1,7 +1,6 @@
-import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
-import { Subject, Subscription } from 'rxjs';
+import { Component, OnDestroy, OnInit,  } from '@angular/core';
+
 import { Candidato } from 'src/app/Services/Entity/candidato';
-import { InterfaceService } from 'src/app/Services/InterfaceServices/interface.service';
 
 @Component({
   selector: 'app-interface',
@@ -10,12 +9,10 @@ import { InterfaceService } from 'src/app/Services/InterfaceServices/interface.s
 })
 export class InterfaceComponent implements OnInit, OnDestroy {
 
-  @Output() tipoUsuario  = new EventEmitter<number>();
- 
   usuario:Candidato = new Candidato;
 
 
-  constructor(private _UserRequest:InterfaceService){
+  constructor(){
 
   }
 
@@ -25,12 +22,6 @@ export class InterfaceComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
 
-  }
-
-  enviarUsuarioNavbar() {
-
-    // this.tipoUsuario.emit(this.usuario.usuario.tipoUsuario);
-    this.tipoUsuario.emit(2);
   }
 
 

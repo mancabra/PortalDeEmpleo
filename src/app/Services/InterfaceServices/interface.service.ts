@@ -14,12 +14,18 @@ import { Candidato } from '../Entity/candidato';
 export class InterfaceService {
 
   usuario:Candidato = new Candidato;
-  correo: string  = "ramon@gmail.com";
+  correo: string  = "";
 
   private alerts$ = new Subject<any>();
-  
-
   alertas: any = [];
+
+  private nav$ = new Subject<boolean>();
+  ocultarNav: boolean = false;
+
+  private tipo$ = new Subject<number>();
+  tipoUsuario:number = 0;
+
+
   //online: boolean = true;
 
   constructor(private _http: HttpClient,
@@ -73,9 +79,45 @@ export class InterfaceService {
   }
 
   agregarAlerta(alert: any) {
-
     this.alertas.push(alert);
     this.alerts$.next(this.alertas);
+  }
+
+  getNavBar(): Observable<boolean> {
+    return this.nav$.asObservable();
+  }
+
+  ocultarNavB() {
+    this.ocultarNav = true;
+    this.nav$.next(this.ocultarNav);
+  }
+
+  mostarNav(){
+    this.ocultarNav = false;
+    this.nav$.next(this.ocultarNav);
+  }
+
+  //OBSERVABLES TIPO USUARIO
+
+  getTipoUsuario(): Observable<number> {
+    return this.tipo$.asObservable();
+  }
+
+  cambiartipo() {
+    this._CandidateRequest.obtener().then((data:any) =>{
+      this.tipoUsuario = data.usuario.tipoUsuario;
+      this.usuarioActivo(this.tipoUsuario);
+    });
+ 
+  }
+
+  usuarioActivo(tipo:number){
+    this.tipo$.next(tipo);
+  }
+
+  hacerVisitante(){
+    this.tipoUsuario = 0;
+    this.tipo$.next(this.tipoUsuario);
   }
 
 }

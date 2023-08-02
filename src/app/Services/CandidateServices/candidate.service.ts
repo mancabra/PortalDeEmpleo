@@ -75,7 +75,6 @@ export class CandidateService {
     console.log("Info Enviada");
     console.log(PostDTO);
 
-
     return this._http.put("http://localhost:8080/postulacion", PostDTO).toPromise();
   }
 

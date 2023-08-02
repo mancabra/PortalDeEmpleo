@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { CandidateService } from 'src/app/Services/CandidateServices/candidate.service';
 import { Candidato } from 'src/app/Services/Entity/candidato';
+import { InterfaceService } from 'src/app/Services/InterfaceServices/interface.service';
 
 @Component({
   selector: 'app-profile',
@@ -21,7 +22,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
   perfilTipoEmpresa: boolean = true;
 
 
-  constructor(private _CandidateRequest:CandidateService) {
+  constructor(private _CandidateRequest:CandidateService,private _UserRequest:InterfaceService) {
 
   }
 
@@ -83,7 +84,8 @@ export class ProfileComponent implements OnInit, OnDestroy {
   }
 
   cerrarSesion(){
-    //falta cerrar sesion
+    this._UserRequest.hacerVisitante();
+    this._UserRequest.guaradarCorreo("");
   }
 
 

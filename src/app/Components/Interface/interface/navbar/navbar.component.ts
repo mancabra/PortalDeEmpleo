@@ -1,7 +1,8 @@
-import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { CandidateService } from 'src/app/Services/CandidateServices/candidate.service';
+import { Subscription } from 'rxjs';
 import { InterfaceService } from 'src/app/Services/InterfaceServices/interface.service';
+
 
 
 @Component({
@@ -10,9 +11,11 @@ import { InterfaceService } from 'src/app/Services/InterfaceServices/interface.s
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit, OnDestroy {
+  subscription:Subscription;
+  ocultarNavbar:boolean = false;
+  //usuario: Candidato = new Candidato;
 
-  @Input() tipoUsuario: number = 0;
-
+  subscription2:Subscription;
   id_tipoUsuario: number = 0;
 
   administradorActivo: boolean = true;
@@ -29,20 +32,29 @@ export class NavbarComponent implements OnInit, OnDestroy {
   publicaciones: boolean = true;
   publicarNueva: boolean = true;
 
-  constructor(private router: Router) {
-   
+  constructor(private router: Router, private _UserRequest:InterfaceService) {
+    this.subscription = this._UserRequest.getNavBar().subscribe(data => {
+      this.ocultarNavbar = data;
+    });
+
+    this.subscription2 = this._UserRequest.getTipoUsuario().subscribe(data => {
+      this.id_tipoUsuario = data;
+      this.actualizarUsuario();
+    });
   }
 
   ngOnInit() {
+    this._UserRequest.mostarNav();
+    this._UserRequest.hacerVisitante();
     this.actualizarUsuario();
   }
 
   ngOnDestroy(): void {
- 
+    this.subscription.unsubscribe();
+    this.subscription2.unsubscribe();
   }
 
   cargarPantalla() {
-    // this.asignarUsuario();
     if (this.id_tipoUsuario == null) {
       return false;
     } else {
@@ -51,13 +63,15 @@ export class NavbarComponent implements OnInit, OnDestroy {
   }
 
   actualizarUsuario() {
-    this.asignarUsuario();
+    //this.asignarUsuario();
     this.validarUsuario();
   }
 
+  /*
   asignarUsuario() {
-      this.id_tipoUsuario = 2;
+    this.id_tipoUsuario = this.usuario.usuario.id_usuario;
   }
+*/
 
   validarUsuario() {
 
@@ -124,7 +138,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
   }
 
   login() {
-    this.visitanteActivo = true;
+    this._UserRequest.ocultarNavB();
     this.router.navigate(['start']);
   }
 

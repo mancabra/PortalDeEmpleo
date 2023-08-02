@@ -1,6 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Subscription } from 'rxjs';
 import { CandidateService } from 'src/app/Services/CandidateServices/candidate.service';
 import { Candidato } from 'src/app/Services/Entity/candidato';
 import { Postulacion } from 'src/app/Services/Entity/postulacion';
@@ -14,10 +13,9 @@ import { InterfaceService } from 'src/app/Services/InterfaceServices/interface.s
 })
 export class JobsComponent implements OnInit, OnDestroy {
   imageSeach: string = "../assets/search.png";
-
+  postulacion: Postulacion = new Postulacion;
   //DEBE SUSCRIBIRSE AL USARIO ENVIADO POR BASE DE DATOS
   usuario: Candidato = new Candidato;
-  postulacion: Postulacion = new Postulacion;
   vacanteSeleccionada: Vacante = new Vacante;
   busqueda: string = "";
   textoBoton: string = "Postularse"
@@ -27,7 +25,7 @@ export class JobsComponent implements OnInit, OnDestroy {
   filtro: string = "Filtros";
   filtrosDisponibles = ["Cercanos", "Salario", "Estado",];
   jobsList: Vacante[] = [];
-  
+
 
   constructor(private _CandidateRequest: CandidateService, private _UserRequest: InterfaceService, private router: Router) {
 
@@ -39,33 +37,15 @@ export class JobsComponent implements OnInit, OnDestroy {
     this.obtenerVacantes();
   }
 
+  ngOnDestroy(): void {
+  }
 
-  buscarUsuario(){
-    this._CandidateRequest.obtener().then((data:any) =>{
+
+  buscarUsuario() {
+    this._CandidateRequest.obtener().then((data: any) => {
       this.usuario = data
       console.log(this.usuario)
     });
-  }
-
-  cambiarBoton() {
-    this.id_tipoUsuario = this.usuario.usuario.tipoUsuario;
-    if (this.id_tipoUsuario == 0) {
-      this.textoBoton = "Iniciar Sesión";
-    } else {
-      this.textoBoton = "Postularse";
-    }
-  }
-
-  cargarPantallaPrincipal() {
-    this.cambiarBoton();
-    if (this.id_tipoUsuario == null) {
-      return false;
-    } else {
-      return true;
-    }
-  }
-
-  ngOnDestroy(): void {
   }
 
   obtenerVacantes() {
@@ -78,53 +58,22 @@ export class JobsComponent implements OnInit, OnDestroy {
     });
   }
 
-  cargarVacantes() {
-    if (this.jobsList.length == 0) {
+  cargarPantallaPrincipal() {
+    this.cambiarBoton();
+    if (this.id_tipoUsuario == null) {
       return false;
     } else {
       return true;
     }
   }
 
-  buscarVacantes() {
-    if (this.busqueda == "" && this.filtroActivo == false) {
-
-      this._CandidateRequest.obtenerVacantes().then((data: any) => {
-        if (data == null) {
-
-        } else {
-          this.jobsList = data;
-        }
-
-      });
-
+  cambiarBoton() {
+    this.id_tipoUsuario = this.usuario.usuario.tipoUsuario;
+    if (this.id_tipoUsuario == 0) {
+      this.textoBoton = "Iniciar Sesión";
     } else {
-
-      const busquedaDTO = {
-        textoBusqueda: this.busqueda,
-        filtroActivo: this.filtro,
-      }
-
-      this._CandidateRequest.buscarporFiltro(busquedaDTO).then((data: any) => {
-        if (data == null) {
-
-        } else {
-          this.jobsList = data;
-        }
-
-      });
-
+      this.textoBoton = "Postularse";
     }
-  }
-
-  actualizarFiltro(filtroSelecionado: string) {
-    this.filtro = filtroSelecionado;
-    this.filtroActivo = true;
-  }
-
-  verVacanteCompleta(vacante: any) {
-    this.vacanteSeleccionada = vacante;
-
   }
 
   cargarPantalla() {
@@ -135,55 +84,101 @@ export class JobsComponent implements OnInit, OnDestroy {
     }
   }
 
-  postularse(vacante:Vacante) {
-    if(this.id_tipoUsuario == 0) {
-      this.router.navigate(['start']);
+  cargarVacantes() {
+    if (this.jobsList.length == 0) {
+      return false;
     } else {
-      this.botonNoVisitante(vacante);
+      return true;
     }
   }
 
-  botonNoVisitante(vacante:Vacante){
+  verVacanteCompleta(vacante: any) {
+    this.vacanteSeleccionada = vacante;
+  }
+
+  actualizarFiltro(filtroSelecionado: string) {
+    this.filtro = filtroSelecionado;
+    this.filtroActivo = true;
+  }
+
+  buscarVacantes() {
+
+   if (this.busqueda == "" && this.filtroActivo == false) {
+    this.obtenerVacantes();
+   } else {
+    /*
+     const busquedaDTO = {
+       textoBusqueda: this.busqueda,
+       filtroActivo: this.filtro,
+     }
+
+     this._CandidateRequest.buscarporFiltro(busquedaDTO).then((data: any) => {
+       if (data == null) {
+
+       } else {
+         this.jobsList = data;
+       }
+
+     });
+  */
+   } 
+  }
+
+  evaluarBoton(vacante: Vacante) {
+    if (this.id_tipoUsuario == 0) {
+      this.router.navigate(['start']);
+    } else {
+      this.postularse(vacante);
+    }
+  }
+
+  postularse(vacante:Vacante) {
+
     const PostDTO = {
       id_candidato: this.usuario.id_candidato,
       id_vacante: vacante.id_vacante
     }
 
-    console.log(PostDTO);
-
-    this.asignarPostulacion(PostDTO);
-    console.log(this.postulacion);
-
-    if (this.postulacion.estatus != false) {
-
-      alert("Postulacion Exitosa");
-
-      const ALERTA = {
-
-        nombreAlerta:"Pustulacion Exitosa",
-        textoAlerta:"La postulación a vacante "+vacante.nombreVacante+" de la empresa "+vacante.empresa.nombreEmpresa+" se ha realizado correctamente Si tÚ no has realizado esta acción podras eliminarla desde el apartado POSTULACIONES."
-      }
-
-      this._UserRequest.agregarAlerta(ALERTA);
-      
-    } else {
-
-      alert("Algo Fallo");
-
-      const ALERTA = {
-
-        nombreAlerta:"Pustulacion Fallida",
-        textoAlerta:"La postulación a vacante "+vacante.nombreVacante+" de la empresa "+vacante.empresa.nombreEmpresa+" no ha podido realizarse correctamente, te recomendamos intentarlo nuevamente, si el error persiste puedes contactar a soporte mediente el correo soporte@mail.com"
-      }
-
-      this._UserRequest.agregarAlerta(ALERTA);
-    }
+   this.asignarPostulacion(PostDTO,vacante);
   }
 
-  asignarPostulacion(PostDTO:any){
+  asignarPostulacion(PostDTO:any,vacante:Vacante) {
     this._CandidateRequest.postularse(PostDTO).then((data: any) => {
       this.postulacion = data;
+
+      if(this.postulacion.estatus == true){
+        this.enviarAlertaExito(vacante);
+      } else {
+        this.enviarAlertaError(vacante);
+      }
+
     });
+  }
+
+  enviarAlertaExito(vacante: Vacante) {
+    alert("Postulación Exitosa");
+
+    const ALERTA = {
+      nombreAlerta: "Pustulacion Exitosa",
+      textoAlerta: "La postulación a vacante " + vacante.nombreVacante + 
+                   " de la empresa " + vacante.empresa.nombreEmpresa + 
+                   " se ha realizado correctamente Si tÚ no has realizado esta acción podras eliminarla desde el apartado POSTULACIONES."
+    }
+
+    this._UserRequest.agregarAlerta(ALERTA);
+  }
+
+  enviarAlertaError(vacante: Vacante) {
+    alert("Algo Fallo");
+
+    const ALERTA = {
+      nombreAlerta: "Pustulacion Fallida",
+      textoAlerta: "La postulación a vacante " + vacante.nombreVacante +
+                   " de la empresa " + vacante.empresa.nombreEmpresa +
+                   " no ha podido realizarse correctamente, te recomendamos intentarlo nuevamente, si el error persiste puedes contactar a soporte mediente el correo soporte@mail.com"
+    }
+
+    this._UserRequest.agregarAlerta(ALERTA);
   }
 
 }

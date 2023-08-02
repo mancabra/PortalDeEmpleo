@@ -488,6 +488,7 @@ export class CreateComponent {
       if (numero != 0) {
         this.limpiarCampos();
         this._UserRequest.guaradarCorreo(usuario.correoElectronico);
+        this._UserRequest.mostarNav();
         this.router.navigate(['interface']);
       } else {
         //this.correoExistente = false;
@@ -602,7 +603,6 @@ export class CreateComponent {
       numero = this._AdminRequest.registrar(administrador);
       if (numero != 0) {
         this.limpiarCampos();
-        this.router.navigate(['interface']);
       } else {
         //this.correoExistente = false;
         alert("ha ocurrido un error");
@@ -806,7 +806,6 @@ export class CreateComponent {
       numero = this._CompanyRequest.registrar(empresa);
       if (numero != 0) {
         this.limpiarCampos();
-        this.router.navigate(['interface']);
       } else {
         // this.validarNombreRegistrado = false;
         alert("ha ocurrido un error");
