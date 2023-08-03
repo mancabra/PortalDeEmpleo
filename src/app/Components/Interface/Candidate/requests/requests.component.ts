@@ -60,7 +60,7 @@ export class RequestsComponent implements OnInit, OnDestroy {
           const ALERTA = {
 
             nombreAlerta:"Postulacion Eliminada",
-            textoAlerta:"La postulación a vacante "+this.postulaciones[i].vacante.nombreVacante+" de la empresa "+this.postulaciones[i].vacante.empresa.nombreEmpresa+" ha sido eliminada, si usted no ha realizado esta acció puede que el empleador eliminara la publicación."
+            textoAlerta:"La postulación a vacante "+this.postulaciones[i].vacante.nombreVacante+" de la empresa "+this.postulaciones[i].vacante.empresa.nombre+" ha sido eliminada, si usted no ha realizado esta acció puede que el empleador eliminara la publicación."
           }
     
           this._UserRequest.agregarAlerta(ALERTA);
@@ -72,7 +72,7 @@ export class RequestsComponent implements OnInit, OnDestroy {
         const ALERTA = {
 
           nombreAlerta:"Eliminacion Fallida",
-          textoAlerta:"La postulación a vacante "+this.postulaciones[i].vacante.nombreVacante+" de la empresa "+this.postulaciones[i].vacante.empresa.nombreEmpresa+" no ha podido ser Eliminada correctamente, te recomendamos intentarlo nuevamente, si el error persiste puedes contactar a soporte mediente el correo soporte@mail.com"
+          textoAlerta:"La postulación a vacante "+this.postulaciones[i].vacante.nombreVacante+" de la empresa "+this.postulaciones[i].vacante.empresa.nombre+" no ha podido ser Eliminada correctamente, te recomendamos intentarlo nuevamente, si el error persiste puedes contactar a soporte mediente el correo soporte@mail.com"
 
         }
         this._UserRequest.agregarAlerta(ALERTA);
@@ -99,7 +99,7 @@ export class RequestsComponent implements OnInit, OnDestroy {
         const ALERTA = {
 
           nombreAlerta:"Postulacion Eliminada",
-          textoAlerta:"La postulación a vacante "+postulacion.vacante.nombreVacante+" de la empresa "+postulacion.vacante.empresa.nombreEmpresa+" ha sido eliminada, si usted no ha realizado esta acció puede que el empleador eliminara la publicación."
+          textoAlerta:"La postulación a vacante "+postulacion.vacante.nombreVacante+" de la empresa "+postulacion.vacante.empresa.nombre+" ha sido eliminada, si usted no ha realizado esta acció puede que el empleador eliminara la publicación."
         }
 
         this._UserRequest.agregarAlerta(ALERTA);
@@ -112,7 +112,7 @@ export class RequestsComponent implements OnInit, OnDestroy {
         const ALERTA = {
 
           nombreAlerta:"Eliminacion Fallida",
-          textoAlerta:"La postulación a vacante "+postulacion.vacante.nombreVacante+" de la empresa "+postulacion.vacante.empresa.nombreEmpresa+" no ha podido ser Eliminada correctamente, te recomendamos intentarlo nuevamente, si el error persiste puedes contactar a soporte mediente el correo soporte@mail.com"
+          textoAlerta:"La postulación a vacante "+postulacion.vacante.nombreVacante+" de la empresa "+postulacion.vacante.empresa.nombre+" no ha podido ser Eliminada correctamente, te recomendamos intentarlo nuevamente, si el error persiste puedes contactar a soporte mediente el correo soporte@mail.com"
         }
 
         this._UserRequest.agregarAlerta(ALERTA);

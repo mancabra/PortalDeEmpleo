@@ -11,7 +11,7 @@ export class CandidateService {
 
 
   id_candidato: any = 0;
-  correo: string = "ramon@gmail.com";
+  correo: string = "";
   candidato: Candidato = new Candidato;
 
   constructor(private _http: HttpClient) { 

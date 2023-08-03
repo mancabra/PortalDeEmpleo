@@ -489,7 +489,7 @@ export class CreateComponent {
         this.limpiarCampos();
         this._UserRequest.guaradarCorreo(usuario.correoElectronico);
         this._UserRequest.mostarNav();
-        this.router.navigate(['interface']);
+        this.router.navigate(['vacantes']);
       } else {
         //this.correoExistente = false;
         alert("ha ocurrido un error");

@@ -18,7 +18,7 @@ export class JobsComponent implements OnInit, OnDestroy {
   usuario: Candidato = new Candidato;
   vacanteSeleccionada: Vacante = new Vacante;
   busqueda: string = "";
-  textoBoton: string = "Postularse"
+  textoBoton: string = "Iniciar Sesión"
   id_tipoUsuario: number = 0;
 
   filtroActivo: boolean = false;
@@ -126,6 +126,7 @@ export class JobsComponent implements OnInit, OnDestroy {
 
   evaluarBoton(vacante: Vacante) {
     if (this.id_tipoUsuario == 0) {
+      this._UserRequest.ocultarNavB();
       this.router.navigate(['start']);
     } else {
       this.postularse(vacante);
@@ -161,7 +162,7 @@ export class JobsComponent implements OnInit, OnDestroy {
     const ALERTA = {
       nombreAlerta: "Pustulacion Exitosa",
       textoAlerta: "La postulación a vacante " + vacante.nombreVacante + 
-                   " de la empresa " + vacante.empresa.nombreEmpresa + 
+                   " de la empresa " + vacante.empresa.nombre + 
                    " se ha realizado correctamente Si tÚ no has realizado esta acción podras eliminarla desde el apartado POSTULACIONES."
     }
 
@@ -174,7 +175,7 @@ export class JobsComponent implements OnInit, OnDestroy {
     const ALERTA = {
       nombreAlerta: "Pustulacion Fallida",
       textoAlerta: "La postulación a vacante " + vacante.nombreVacante +
-                   " de la empresa " + vacante.empresa.nombreEmpresa +
+                   " de la empresa " + vacante.empresa.nombre +
                    " no ha podido realizarse correctamente, te recomendamos intentarlo nuevamente, si el error persiste puedes contactar a soporte mediente el correo soporte@mail.com"
     }
 
