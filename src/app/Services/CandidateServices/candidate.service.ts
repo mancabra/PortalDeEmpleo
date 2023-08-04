@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { Candidato } from '../Entity/candidato';
 import { Postulacion } from '../Entity/postulacion';
 
@@ -9,17 +9,16 @@ import { Postulacion } from '../Entity/postulacion';
 })
 export class CandidateService {
 
-
-  id_candidato: any = 0;
   correo: string = "";
+  
+  private postulaciones$ = new Subject<Postulacion[]>();
+  postulaciones: Postulacion [] = [];
+
+  private candidato$ = new Subject<Candidato>();
   candidato: Candidato = new Candidato;
 
   constructor(private _http: HttpClient) { 
 
-  }
-
-  guaradarUsuario(usuario:Candidato){
-    this.candidato = usuario;
   }
 
   guaradarCorreo(correo:any){
@@ -36,17 +35,13 @@ export class CandidateService {
     return this._http.get<Candidato>(cadena).toPromise();
   }
 
-  registrar(CandidateRequest: any) {
+  registrar(CandidateRequest:any) {
     //prueba de funcionamiento
     console.log("Proceso RegistrarCandidato");
     console.log("Info Enviada");
     console.log(CandidateRequest);
 
-    this._http.put("http://localhost:8080/registroCandidato", CandidateRequest)
-      .subscribe(
-        resultado => { this.id_candidato = resultado }
-      );
-    return this.id_candidato;
+    return this._http.put("http://localhost:8080/registroCandidato", CandidateRequest).toPromise();
   }
 
   modificar(CandidatoDTO: any) {
@@ -97,5 +92,44 @@ export class CandidateService {
 
   }
 
+  //OBSERVABLE USUARIO
+
+  getCandidate(): Observable<Candidato> {
+    return this.candidato$.asObservable();
+  }
+
+  updateCandidate() {
+    this.obtener().then((data:any) =>{
+      this.candidato = data;
+      this.esparcir(this.candidato);
+    });
+  }
+
+  esparcir(candidato:Candidato){
+    this.candidato$.next(candidato);
+  }
+
+  guaradarUsuario(usuario:Candidato){
+    this.candidato = usuario;
+    this.candidato$.next(this.candidato);
+  }
+
+  //OBSERVABLE POSTULACIONES
+
+  getRequest(): Observable<Postulacion[]>{
+    return this.postulaciones$.asObservable();
+  }
+
+  updateRequest(id_candidato:number){
+    this.obtenerPostulaciones(id_candidato).subscribe(data => {
+      this.postulaciones = data;
+      this.esparcirRequest(this.postulaciones);
+    });
+  }
+
+  esparcirRequest(postulaciones:Postulacion[]){
+    this.postulaciones = postulaciones;
+    this.postulaciones$.next(this.postulaciones);
+  }
 }
 

@@ -202,7 +202,6 @@ export class UpdateComponent implements OnInit, OnDestroy {
 
     if (usuarioModificado.domicilio == "") {
       usuarioModificado.domicilio = this.usuario.domicilio;
-
     } else if (usuarioModificado.domicilio.length < 10) {
       usuarioModificado.domicilio = this.usuario.domicilio;
     } else if (usuarioModificado.domicilio.length > 50) {
@@ -296,12 +295,14 @@ export class UpdateComponent implements OnInit, OnDestroy {
   }
 
   guardarMod(usuarioModificado:any){
+    
     this._CandidateRequest.modificar(usuarioModificado).then((data:any) =>{
       if(data == null){
 
-      alert("Algo fallo");
+      alert("Algo Fallo");
       }else{
-
+        alert("Modificacion Exitosa");
+        this.router.navigate(['perfil']);
       }
     });
 

@@ -72,17 +72,17 @@
                 <span class="badge rounded-pill text-bg-secondary" style="margin-right: .5rem;margin-bottom: .5rem;">habilidad</span>
             </div>
         </div>
-        <div [ngClass]="{'view':vistaAdministrar, '':!vistaAdministrar}">
-            <button type="button" class="btn btn-warning" style="width: 100%; margin-top: 1rem;" [ngClass]="{'':perfilTipoEmpresa, 'view':!perfilTipoEmpresa}" (click)="modificarDatosPerfil()">MODIFICAR CUENTA</button>
-            <button type="button" class="btn btn-danger" style="width: 100%; margin-top: 1rem;" [ngClass]="{'':perfilTipoEmpresa, 'view':!perfilTipoEmpresa}" (click)="cerrarSesion();">CERRAR SESIÓN</button>
-            <button type="button" class="btn btn-danger" style="width: 100%; margin-top: 1rem;" [ngClass]="{'':perfilTipoEmpresa, 'view':!perfilTipoEmpresa}">SUSPENDER CUENTA</button>
-        </div>
+
        
         <!--  -->
     </div>
 
 
     <div class="cajaDerecha">
-        <app-update [ngClass]="{'':modificarPerfil, 'view':!modificarPerfil}"></app-update>
+        <div [ngClass]="{'view':vistaAdministrar, '':!vistaAdministrar}">
+            <button type="button" class="btn btn-danger" style="width: 100%;" [ngClass]="{'':perfilTipoEmpresa, 'view':!perfilTipoEmpresa}" (click)="cerrarSesion();">CERRAR SESIÓN</button>
+            <button type="button" class="btn btn-danger" style="width: 100%; margin-top: 1rem;" [ngClass]="{'':perfilTipoEmpresa, 'view':!perfilTipoEmpresa}">SUSPENDER CUENTA</button>
+            <button type="button" class="btn btn-warning" style="width: 100%; margin-top: 1rem;" [ngClass]="{'':perfilTipoEmpresa, 'view':!perfilTipoEmpresa}" (click)="modificarDatosPerfil()">MODIFICAR CUENTA</button>
+        </div>
     </div>
 </div>

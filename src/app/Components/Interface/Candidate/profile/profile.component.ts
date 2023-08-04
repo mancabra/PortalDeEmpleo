@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { CandidateService } from 'src/app/Services/CandidateServices/candidate.service';
 import { Candidato } from 'src/app/Services/Entity/candidato';
 import { InterfaceService } from 'src/app/Services/InterfaceServices/interface.service';
@@ -11,7 +12,6 @@ import { InterfaceService } from 'src/app/Services/InterfaceServices/interface.s
 export class ProfileComponent implements OnInit, OnDestroy {
   usuario: Candidato = new Candidato;
   id_tipoUsuario: number = 0;
-  modificarPerfil:boolean=false;
 
   //varibale de input administrar
   vistaAdministrar: boolean = false;
@@ -22,7 +22,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
   perfilTipoEmpresa: boolean = true;
 
 
-  constructor(private _CandidateRequest:CandidateService,private _UserRequest:InterfaceService) {
+  constructor(private _CandidateRequest:CandidateService, private _UserRequest:InterfaceService, private router:Router) {
 
   }
 
@@ -43,13 +43,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
   }
 
   modificarDatosPerfil(){
-    
-    if(this.modificarPerfil == false){
-      this.modificarPerfil = true;
-    }else {
-      this.modificarPerfil = false;
-    }
-  
+    this.router.navigate(['modificar']);
   }
 
   identificarTipoDePerfil() {

@@ -5,23 +5,23 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class AdminService {
-  id_administrador:any=0;
-  correo: string = "";  
-  
-  constructor(private _http:HttpClient) { }
+  id_administrador: any = 0;
+  correo: string = "";
 
-  guaradarCorreo(correo:any){
+  constructor(private _http: HttpClient) { }
+
+  guaradarCorreo(correo: any) {
     this.correo = correo;
     console.log(this.correo);
   }
 
-  registrar( AdminRequest : any ){
-    //return this._http.put("http://localhost:8080/", EmployerRequest).toPromise();
-    this._http.put("http://localhost:8080/", AdminRequest)
-    .subscribe(      
-      resultado => { this.id_administrador = resultado }
-    );
-    return this.id_administrador;
+  registrar(AdminRequest: any) {
+    //prueba de funcionamiento
+    console.log("Proceso RegistrarAdministrador");
+    console.log("Info Enviada");
+    console.log(AdminRequest);
+
+    return this._http.put("http://localhost:8080/", AdminRequest).toPromise();
   }
 
 

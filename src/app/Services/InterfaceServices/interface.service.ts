@@ -25,7 +25,6 @@ export class InterfaceService {
   private tipo$ = new Subject<number>();
   tipoUsuario:number = 0;
 
-
   //online: boolean = true;
 
   constructor(private _http: HttpClient,

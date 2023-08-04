@@ -7,6 +7,7 @@ import { JobsComponent } from './Components/Interface/Candidate/jobs/jobs.compon
 import { RequestsComponent } from './Components/Interface/Candidate/requests/requests.component';
 import { AlertsComponent } from './Components/Interface/Candidate/alerts/alerts.component';
 import { ProfileComponent } from './Components/Interface/Candidate/profile/profile.component';
+import { UpdateComponent } from './Components/Interface/Candidate/profile/update/update.component';
 
 
 
@@ -19,8 +20,7 @@ const routes: Routes = [
   {path:'postulaciones',component:RequestsComponent},
   {path:'notificaciones',component:AlertsComponent},
   {path:'perfil',component:ProfileComponent},
-
-
+  {path:'modificar',component:UpdateComponent},
 
   {path:'**',redirectTo:'/start',pathMatch:'full'}
 ];

@@ -106,21 +106,7 @@ export class JobsComponent implements OnInit, OnDestroy {
    if (this.busqueda == "" && this.filtroActivo == false) {
     this.obtenerVacantes();
    } else {
-    /*
-     const busquedaDTO = {
-       textoBusqueda: this.busqueda,
-       filtroActivo: this.filtro,
-     }
-
-     this._CandidateRequest.buscarporFiltro(busquedaDTO).then((data: any) => {
-       if (data == null) {
-
-       } else {
-         this.jobsList = data;
-       }
-
-     });
-  */
+ 
    } 
   }
 

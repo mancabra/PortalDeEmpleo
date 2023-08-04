@@ -34,12 +34,12 @@
 .cajaIzquierda{
     display: grid;
     margin-right: .5rem;
-    width: 50%;
+    width: 70%;
 }
 .cajaDerecha{
     display: inline;
-    margin-left: .5rem;
-    width: 50%;
+    margin-left: 7rem;
+    width: 30%;
 }
 .view{
     display:none;

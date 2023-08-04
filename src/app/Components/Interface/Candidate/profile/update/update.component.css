@@ -6,3 +6,20 @@
     text-align: center;
     border-radius: 5px;
 }
+.caja{
+    padding-top: 0rem;
+    padding-bottom: 0rem;
+    display: flex;
+}
+
+.cajaIzquierda{
+    display: grid;
+    margin-right: .5rem;
+    width: 50%;
+}
+.cajaDerecha{
+    display: grid;
+    padding-top: 1rem;
+    margin-left: .5rem;
+    width: 50%;
+}
