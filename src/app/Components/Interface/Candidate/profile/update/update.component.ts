@@ -14,6 +14,10 @@ import { InterfaceService } from 'src/app/Services/InterfaceServices/interface.s
 export class UpdateComponent implements OnInit, OnDestroy {
 
  usuario: Candidato = new Candidato;
+ usuarioModificado: Candidato = new Candidato;
+
+ datosPrincipales: boolean = true;
+ datosSecundarios: boolean = false;
 
   //DATOS A CAPTURAR
   nuevoNombre: string = "";
@@ -89,6 +93,26 @@ export class UpdateComponent implements OnInit, OnDestroy {
     this.nuevoMunicipio = municipio;
   }
 
+  modificarPrincipales (){
+
+    if( this.datosPrincipales == true){
+      this.modificarSecundarios();
+    } else {
+      this.datosPrincipales = true;
+      this.datosSecundarios = false;
+    }
+  }
+
+  modificarSecundarios(){
+
+    if( this.datosSecundarios == true){
+      this.modificarPrincipales();
+    } else {
+      this.datosPrincipales = false;
+      this.datosSecundarios = true;
+    }
+  }
+
   limpiarTodo() {
 
     this.nuevoNombre = "";
@@ -127,6 +151,18 @@ export class UpdateComponent implements OnInit, OnDestroy {
   }
 
   capturarNuevosDatos() {
+  if(this.datosPrincipales == true){
+    this.capturarPrincipales();
+  } else if ( this.datosSecundarios == true){
+    this.capturarSecundarios();
+  } else {
+
+  }
+
+  }
+
+  capturarPrincipales(){
+   
     const USUARIO_MODIFICADO = {
 
       id_candidato: this.usuario.id_candidato,
@@ -142,7 +178,6 @@ export class UpdateComponent implements OnInit, OnDestroy {
     }
 
     this.validarDatosNombre(USUARIO_MODIFICADO);
-
   }
 
   validarDatosNombre(usuarioModificado: any) {
@@ -291,18 +326,27 @@ export class UpdateComponent implements OnInit, OnDestroy {
 
     }
 
-    this.guardarMod(usuarioModificado);
+    this.guardarModPrincipales(usuarioModificado);
   }
 
-  guardarMod(usuarioModificado:any){
+  capturarSecundarios(){
+   const USUARIO_MODIFICADO = {
+
+   }
+
+  }
+
+
+
+  guardarModPrincipales(usuarioModificado:any){
     
     this._CandidateRequest.modificar(usuarioModificado).then((data:any) =>{
-      if(data == null){
-
-      alert("Algo Fallo");
-      }else{
-        alert("Modificacion Exitosa");
+      if(data.estatus == true){
+        alert("Modificación Exitosa");
         this.router.navigate(['perfil']);
+
+      }else{
+        alert("Algo Fallo");
       }
     });
 

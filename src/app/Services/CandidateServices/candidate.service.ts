@@ -10,18 +10,18 @@ import { Postulacion } from '../Entity/postulacion';
 export class CandidateService {
 
   correo: string = "";
-  
+
   private postulaciones$ = new Subject<Postulacion[]>();
-  postulaciones: Postulacion [] = [];
+  postulaciones: Postulacion[] = [];
 
   private candidato$ = new Subject<Candidato>();
   candidato: Candidato = new Candidato;
 
-  constructor(private _http: HttpClient) { 
+  constructor(private _http: HttpClient) {
 
   }
 
-  guaradarCorreo(correo:any){
+  guaradarCorreo(correo: any) {
     this.correo = correo;
     console.log(this.correo);
   }
@@ -35,7 +35,7 @@ export class CandidateService {
     return this._http.get<Candidato>(cadena).toPromise();
   }
 
-  registrar(CandidateRequest:any) {
+  registrar(CandidateRequest: any) {
     //prueba de funcionamiento
     console.log("Proceso RegistrarCandidato");
     console.log("Info Enviada");
@@ -59,6 +59,31 @@ export class CandidateService {
     return this._http.get("http://localhost:8080/obtenerListaVacantes").toPromise();
   }
 
+  obtenerVacantesCercanas(CandidateRequest: number) {
+    //prueba de funcionamiento
+    console.log("Proceso obtenerVacantesCercanas");
+    console.log("Info Enviada");
+    console.log(CandidateRequest);
+
+    let cadena = "http://localhost:8080/obtenerVacantesCerca/" + CandidateRequest;
+    return this._http.get(cadena).toPromise();
+  }
+
+  obtenerVacantesMejorPagadas() {
+    //prueba de funcionamiento
+    console.log("Proceso obtenerVacantesMejorPagadas");
+    return this._http.get("http://localhost:8080/obtenerVacantesPorSueldo").toPromise();
+  }
+
+  obtenerVacantesPorPalabra(CandidateRequest: string) {
+    //prueba de funcionamiento
+    console.log("Proceso obtenerVacantesPorPalabra");
+    console.log("Info Enviada");
+    console.log(CandidateRequest);
+    let cadena = "http://localhost:8080/obtenerVacantesPorPalabraClave/" + CandidateRequest;
+    return this._http.get(cadena).toPromise();
+  }
+
   buscarporFiltro(BusquedaDTO: any) {
     // VER COMO MANEJA SAMUEL LOS FILTROS
     return this._http.get("http://localhost:8080/", BusquedaDTO).toPromise();
@@ -73,7 +98,7 @@ export class CandidateService {
     return this._http.put("http://localhost:8080/postulacion", PostDTO).toPromise();
   }
 
-  obtenerPostulaciones(idRequest: number):Observable<Postulacion[]>  {
+  obtenerPostulaciones(idRequest: number): Observable<Postulacion[]> {
     //prueba de funcionamiento
     console.log("Proceso ObtenerPostulaciones");
     console.log("Info Enviada id_candidato" + idRequest);
@@ -99,35 +124,35 @@ export class CandidateService {
   }
 
   updateCandidate() {
-    this.obtener().then((data:any) =>{
+    this.obtener().then((data: any) => {
       this.candidato = data;
       this.esparcir(this.candidato);
     });
   }
 
-  esparcir(candidato:Candidato){
+  esparcir(candidato: Candidato) {
     this.candidato$.next(candidato);
   }
 
-  guaradarUsuario(usuario:Candidato){
+  guaradarUsuario(usuario: Candidato) {
     this.candidato = usuario;
     this.candidato$.next(this.candidato);
   }
 
   //OBSERVABLE POSTULACIONES
 
-  getRequest(): Observable<Postulacion[]>{
+  getRequest(): Observable<Postulacion[]> {
     return this.postulaciones$.asObservable();
   }
 
-  updateRequest(id_candidato:number){
+  updateRequest(id_candidato: number) {
     this.obtenerPostulaciones(id_candidato).subscribe(data => {
       this.postulaciones = data;
       this.esparcirRequest(this.postulaciones);
     });
   }
 
-  esparcirRequest(postulaciones:Postulacion[]){
+  esparcirRequest(postulaciones: Postulacion[]) {
     this.postulaciones = postulaciones;
     this.postulaciones$.next(this.postulaciones);
   }

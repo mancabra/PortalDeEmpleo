@@ -23,7 +23,7 @@ export class JobsComponent implements OnInit, OnDestroy {
 
   filtroActivo: boolean = false;
   filtro: string = "Filtros";
-  filtrosDisponibles = ["Cercanos", "Salario", "Estado",];
+  filtrosDisponibles = ["Cercanos a Mi", "Mejor Pagados",];
   jobsList: Vacante[] = [];
 
 
@@ -105,9 +105,56 @@ export class JobsComponent implements OnInit, OnDestroy {
 
    if (this.busqueda == "" && this.filtroActivo == false) {
     this.obtenerVacantes();
-   } else {
- 
-   } 
+   } else if (this.busqueda != "" && this.filtroActivo == false){
+      this.buscarPorNombre();
+   } else if (this.busqueda == "" && this.filtroActivo == true){
+    this.identificarFiltro();
+   } else if (this.busqueda != "" && this.filtroActivo == true){
+
+   }
+
+  }
+
+  identificarFiltro(){
+    if(this.filtro == "Cercanos a Mi"){
+      this.buscarPorMunicipio();
+    } else if(this.filtro == "Mejor Pagados"){
+      this.buscarPorSueldo();
+    }
+  }
+
+  buscarPorMunicipio(){
+    this._CandidateRequest.obtenerVacantesCercanas(this.usuario.municipio.id_municipio).then((data: any) => {
+      if (data == null) {
+
+      } else {
+        this.jobsList = data;
+      }
+    });
+    this.cargarVacantes();
+  }
+
+  buscarPorSueldo(){
+    this._CandidateRequest.obtenerVacantesMejorPagadas().then((data: any) => {
+      if (data == null) {
+
+      } else {
+        this.jobsList = data;
+      }
+    });
+
+    this.cargarVacantes();
+  }
+
+  buscarPorNombre(){
+    this._CandidateRequest.obtenerVacantesPorPalabra(this.busqueda).then((data: any) => {
+      if (data == null) {
+
+      } else {
+        this.jobsList = data;
+      }
+    });
+    this.cargarVacantes();
   }
 
   evaluarBoton(vacante: Vacante) {
