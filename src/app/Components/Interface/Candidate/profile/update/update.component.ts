@@ -61,10 +61,10 @@ export class UpdateComponent implements OnInit, OnDestroy {
     if(this.nuevoTelefono.length == 10){
       
     } else if(this.nuevoTelefono.length == 17){
-      this.nuevoTelefono.slice(5, 17);
+      this.nuevoTelefono = this.nuevoTelefono.slice(5, 17);
 
     } else if(this.nuevoTelefono.length == 18){
-      this.nuevoTelefono.slice(6, 18);
+      this.nuevoTelefono = this.nuevoTelefono.slice(6, 18);
     }
   }
 
@@ -199,7 +199,7 @@ export class UpdateComponent implements OnInit, OnDestroy {
       puestoActual: this.nuevoPuesto,
       id_municipio: this.nuevoMunicipio.id_municipio,
       id_estado: this.nuevoEstado.id_estado,
-      profesion: this.usuario.profesion,
+      profesion: this.nuevaProfesion,
     
     }
 
@@ -324,6 +324,20 @@ export class UpdateComponent implements OnInit, OnDestroy {
     } else if (usuarioModificado.descripcion.length > 120) {
       usuarioModificado.descripcion = this.usuario.descripcion;
 
+    } else {
+
+    }
+
+    this.validarProfesion(usuarioModificado);
+  }
+
+  validarProfesion(usuarioModificado:any){
+    if (usuarioModificado.profesion == ""){
+      usuarioModificado.profesio = this.usuario.profesion;
+    } else if(usuarioModificado.profesion.length < 4){
+      usuarioModificado.profesio = this.usuario.profesion;
+    } else if (usuarioModificado.profesion.length < 25){
+      usuarioModificado.profesio = this.usuario.profesion;
     } else {
 
     }
