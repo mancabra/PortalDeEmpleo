@@ -12,18 +12,18 @@ import { InterfaceService } from 'src/app/Services/InterfaceServices/interface.s
   styleUrls: ['./requests.component.css']
 })
 export class RequestsComponent implements OnInit, OnDestroy {
-  subscription: Subscription;
+  subscription:Subscription;
   usuario: Candidato = new Candidato;
-  postulaciones: Postulacion[] = [];
+  postulaciones:Postulacion[]=[];
 
-  constructor(private _UserRequest: InterfaceService, private _CandidateRequest: CandidateService) {
+  constructor(private _UserRequest:InterfaceService, private _CandidateRequest:CandidateService){
     // SE AGREGO ESTE CODIGO PARA EL OBSERVABLE
     this.subscription = this._CandidateRequest.getRequest().subscribe(data => {
       this.postulaciones = data;
       this.cargarPantalla();
     });
   }
-
+  
   ngOnInit(): void {
     this.buscarUsuario();
   }
@@ -32,23 +32,23 @@ export class RequestsComponent implements OnInit, OnDestroy {
     this.subscription.unsubscribe();
   }
 
-  cargarPantalla() {
-    if (this.postulaciones.length == 0) {
+  cargarPantalla(){
+    if(this.postulaciones.length == 0){ 
       return false;
     } else {
       return true;
     }
   }
 
-  buscarUsuario() {
-    this._CandidateRequest.obtener().then((data: any) => {
+  buscarUsuario(){
+    this._CandidateRequest.obtener().then((data:any) =>{
       this.usuario = data
       console.log(this.usuario)
       this.obetenerPostulaciones(this.usuario)
     });
   }
 
-  obetenerPostulaciones(usuario: Candidato) {
+  obetenerPostulaciones(usuario:Candidato){
     /*
     this._CandidateRequest.obtenerPostulaciones(usuario.id_candidato).subscribe(data => {
       this.postulaciones = data;
@@ -59,29 +59,18 @@ export class RequestsComponent implements OnInit, OnDestroy {
     this._CandidateRequest.updateRequest(usuario.id_candidato);
   }
 
-  quitarTodas() {
+  quitarTodas(){
     for (let i = 0; i < this.postulaciones.length; i++) {
-
+  
       const element = this.postulaciones[i].id_postulacion;
+      const postulacion = this.postulaciones[i];
+      console.log(postulacion);
 
-      this._CandidateRequest.eliminarPostulacion(element).then((data: any) => {
-        if (data.estatus == true) {
-
-          const ALERTA = {
-            nombreAlerta: "Postulacion Eliminada",
-            textoAlerta: "La postulación a vacante " + this.postulaciones[i].vacante.nombreVacante + " de la empresa " + this.postulaciones[i].vacante.empresa.nombre + " ha sido eliminada, si usted no ha realizado esta acció puede que el empleador eliminara la publicación."
-          }
-
-          this._UserRequest.agregarAlerta(ALERTA);
-
-        } else {
-
-          const ALERTA = {
-            nombreAlerta: "Eliminacion Fallida",
-            textoAlerta: "La postulación a vacante " + this.postulaciones[i].vacante.nombreVacante + " de la empresa " + this.postulaciones[i].vacante.empresa.nombre + " no ha podido ser Eliminada correctamente, te recomendamos intentarlo nuevamente, si el error persiste puedes contactar a soporte mediente el correo soporte@mail.com"
-          }
-
-          this._UserRequest.agregarAlerta(ALERTA);
+      this._CandidateRequest.eliminarPostulacion(element).then((data:any) =>{
+        if(data.estatus==true){
+          this.enviarAlertaExito(postulacion);
+        } else{
+          this.enviarAlertaError(postulacion);
         }
       });
 
@@ -89,15 +78,15 @@ export class RequestsComponent implements OnInit, OnDestroy {
     this.verificarBorrar();
   }
 
-  verificarBorrar() {
+  verificarBorrar(){
 
-    this._CandidateRequest.updateRequest(this.usuario.id_candidato);
+    //this._CandidateRequest.updateRequest(this.usuario.id_candidato);
     this.postulaciones = [];
     this.cargarPantalla();
-    if (this.postulaciones.length == 0) {
+    if(this.postulaciones.length == 0){
       alert("la acción se completo correctamente");
       // SE AGREGO ESTAA LINEA PARA EL OBSERVABLE
-
+     
     } else {
       alert("Algo fallo");
     }
@@ -105,15 +94,15 @@ export class RequestsComponent implements OnInit, OnDestroy {
 
 
   // FUNCION ELIMINAR VACANTE 
-  eliminarPostulacion(postulacion: Postulacion) {
+  eliminarPostulacion(postulacion:Postulacion){
     // SE ANALIZA EL ESTATUS BOOLEAN QUE RETORNA BASE DE DATOS
-    this._CandidateRequest.eliminarPostulacion(postulacion.id_postulacion).then((data: any) => {
+    this._CandidateRequest.eliminarPostulacion(postulacion.id_postulacion).then((data:any) =>{
 
-      if (data.estatus == true) {
+      if(data.estatus==true){
         alert("La vacante fue eliminada correctamente");
         this.enviarAlertaExito(postulacion);
         this._CandidateRequest.updateRequest(this.usuario.id_candidato);
-      } else {
+      } else{
         alert("Algo Fallo");
         this.enviarAlertaError(postulacion);
       }
@@ -122,24 +111,24 @@ export class RequestsComponent implements OnInit, OnDestroy {
   }
 
 
-  enviarAlertaExito(postulacion: Postulacion) {
+  enviarAlertaExito(postulacion:Postulacion) {
 
     const ALERTA = {
-      nombreAlerta: "Postulacion Eliminada",
-      textoAlerta: "La postulación a vacante " + postulacion.vacante.nombreVacante + " de la empresa " + postulacion.vacante.empresa.nombre + " ha sido eliminada, si usted no ha realizado esta acció puede que el empleador eliminara la publicación."
+      nombreAlerta:"Postulacion Eliminada",
+      textoAlerta:"La postulación a vacante "+postulacion.vacante.nombreVacante+" de la empresa "+postulacion.vacante.empresa.nombre+" ha sido eliminada, si usted no ha realizado esta acció puede que el empleador eliminara la publicación."
     }
     // SE AGREGO ESTAA LINEA PARA EL OBSERVABLE
     this._UserRequest.agregarAlerta(ALERTA);
   }
 
-  enviarAlertaError(postulacion: Postulacion) {
-
+  enviarAlertaError(postulacion:Postulacion ) {
+ 
     const ALERTA = {
-      nombreAlerta: "Eliminacion Fallida",
-      textoAlerta: "La postulación a vacante " + postulacion.vacante.nombreVacante + " de la empresa " + postulacion.vacante.empresa.nombre + " no ha podido ser Eliminada correctamente, te recomendamos intentarlo nuevamente, si el error persiste puedes contactar a soporte mediente el correo soporte@mail.com"
+      nombreAlerta:"Eliminacion Fallida",
+      textoAlerta:"La postulación a vacante "+postulacion.vacante.nombreVacante+" de la empresa "+postulacion.vacante.empresa.nombre+" no ha podido ser Eliminada correctamente, te recomendamos intentarlo nuevamente, si el error persiste puedes contactar a soporte mediente el correo soporte@mail.com"
     }
 
     this._UserRequest.agregarAlerta(ALERTA);
   }
-
+  
 }
