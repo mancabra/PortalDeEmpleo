@@ -23,3 +23,22 @@
     margin-left: .5rem;
     width: 50%;
 }
+
+.internaDerecha{
+    display: grid;
+    margin-left: .2rem;
+    width: 50%;
+}
+
+.internaIzquierda{
+    display: grid;
+    margin-right: .3rem;
+    width: 50%;
+}
+
+#list{
+    width: 150px;
+    height: 50px;
+    overflow-y: scroll;
+   
+  }

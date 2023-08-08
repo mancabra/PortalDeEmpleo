@@ -21,4 +21,6 @@ export class Candidato {
     municipio: Municipio = new Municipio;
     estado: Estado = new Estado;
 
+    profesion: string = "";
+
 }

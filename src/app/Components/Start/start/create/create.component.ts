@@ -496,13 +496,13 @@ export class CreateComponent {
       this.mensajeTel = "Campo obligatorio."
     } else {
       let numeroConLada = "";
-      numeroConLada = this.lada + this.numeroTelefonioco;
+      numeroConLada = this.lada +" "+ this.numeroTelefonioco;
 
-      if (numeroConLada.length < 17) {
+      if (numeroConLada.length < 18) {
         this.mensajeTel = "Tel. Invalido.";
         this.validarTelefono = false;
         this.Obligatorios = false;
-      } else if (numeroConLada.length > 17) {
+      } else if (numeroConLada.length > 18) {
         this.mensajeTel = "Tel. Invalido.";
         this.validarTelefono = false;
         this.Obligatorios = false;

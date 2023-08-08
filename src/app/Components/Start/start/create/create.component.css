@@ -7,3 +7,10 @@
 .view{
     display: none;
 }
+
+#list{
+    width: 150px;
+    height: 50px;
+    overflow-y: scroll;
+   
+  }

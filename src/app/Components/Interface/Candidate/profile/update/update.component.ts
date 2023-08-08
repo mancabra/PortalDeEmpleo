@@ -13,16 +13,20 @@ import { InterfaceService } from 'src/app/Services/InterfaceServices/interface.s
 })
 export class UpdateComponent implements OnInit, OnDestroy {
 
- usuario: Candidato = new Candidato;
- usuarioModificado: Candidato = new Candidato;
+  ladasMexico = ["+51", "+52", "+53"]; // CAMBIAR POR UN OBSERBABLE
 
- datosPrincipales: boolean = true;
- datosSecundarios: boolean = false;
+  usuario: Candidato = new Candidato;
+  usuarioModificado: Candidato = new Candidato;
+
+  datosPrincipales: boolean = true;
+  datosSecundarios: boolean = false;
 
   //DATOS A CAPTURAR
+  lada: string;
   nuevoNombre: string = "";
   nuevoApellidoP: string = "";
   nuevoApellidoM: string = "";
+  nuevoTelefono: string  = "";
   nuevaEdad: number = 0;
   nuevaProfesion: string = "";
 
@@ -39,26 +43,37 @@ export class UpdateComponent implements OnInit, OnDestroy {
   nuevaImagenPortada: any;
   nuevaDescripcion: string = "";
 
-  estadosMexico: Estado [] = [];
-  municipiosMexico: Municipio [] = [];
+  estadosMexico: Estado[] = [];
+  municipiosMexico: Municipio[] = [];
 
-  constructor(private _UserRequest: InterfaceService, private _CandidateRequest:CandidateService, private router:Router) {
+  constructor(private _UserRequest: InterfaceService, private _CandidateRequest: CandidateService, private router: Router) {
 
-    this.nuevoEstado = { id_estado: 0, nombreEstado: "Selecciona un Estado", municipios:[]};
+    this.lada = "+52";
+    this.nuevoEstado = { id_estado: 0, nombreEstado: "Selecciona un Estado", municipios: [] };
     this.nuevoMunicipio = { id_municipio: 0, nombreMunicipio: "Selecciona un Municipio", estado: new Estado }
+
   }
 
   ngOnInit(): void {
     this.bloquearMunicipios();
     this.buscarUsuario();
+
+    if(this.nuevoTelefono.length == 10){
+      
+    } else if(this.nuevoTelefono.length == 17){
+      this.nuevoTelefono.slice(5, 17);
+
+    } else if(this.nuevoTelefono.length == 18){
+      this.nuevoTelefono.slice(6, 18);
+    }
   }
 
   ngOnDestroy(): void {
 
   }
 
-  buscarUsuario(){
-    this._CandidateRequest.obtener().then((data:any) =>{
+  buscarUsuario() {
+    this._CandidateRequest.obtener().then((data: any) => {
       this.usuario = data
       this.asignarDatos(this.usuario);
       console.log(this.usuario)
@@ -66,36 +81,41 @@ export class UpdateComponent implements OnInit, OnDestroy {
   }
 
   bloquearMunicipios() {
-    this.nuevoEstado = { id_estado: 0, nombreEstado: "Selecciona un Estado", municipios:[]};
+    this.nuevoEstado = { id_estado: 0, nombreEstado: "Selecciona un Estado", municipios: [] };
     this.nuevoMunicipio = { id_municipio: 0, nombreMunicipio: "Selecciona un Municipio", estado: new Estado }
     this.bloquearMunicipio = "none";
 
-    this._UserRequest.obtenerEstados().subscribe(data=>{
+    this._UserRequest.obtenerEstados().subscribe(data => {
       this.estadosMexico = data;
       console.log(this.estadosMexico);
     });
-    
+
   }
 
 
   actualizarEstado(estado: any) {
     this.nuevoEstado = estado;
+    this.nuevoMunicipio = { id_municipio: 0, nombreMunicipio: "Selecciona un Municipio", estado: new Estado }
     this.bloquearMunicipio = "all";
 
-    this._UserRequest.obtenerMunicipios(this.nuevoEstado.id_estado).subscribe(data=>{
+    this._UserRequest.obtenerMunicipios(this.nuevoEstado.id_estado).subscribe(data => {
       this.municipiosMexico = data;
       console.log(this.municipiosMexico);
     });
 
   }
 
+  actualizarLada(numero: string) {
+    this.lada = numero;
+  }
+
   actualizarMunicipio(municipio: any) {
     this.nuevoMunicipio = municipio;
   }
 
-  modificarPrincipales (){
+  modificarPrincipales() {
 
-    if( this.datosPrincipales == true){
+    if (this.datosPrincipales == true) {
       this.modificarSecundarios();
     } else {
       this.datosPrincipales = true;
@@ -103,9 +123,9 @@ export class UpdateComponent implements OnInit, OnDestroy {
     }
   }
 
-  modificarSecundarios(){
+  modificarSecundarios() {
 
-    if( this.datosSecundarios == true){
+    if (this.datosSecundarios == true) {
       this.modificarPrincipales();
     } else {
       this.datosPrincipales = false;
@@ -118,6 +138,7 @@ export class UpdateComponent implements OnInit, OnDestroy {
     this.nuevoNombre = "";
     this.nuevoApellidoP = "";
     this.nuevoApellidoM = "";
+    this.nuevoTelefono  = "";
     this.nuevaEdad = 0;
     this.nuevaProfesion = "";
 
@@ -131,13 +152,14 @@ export class UpdateComponent implements OnInit, OnDestroy {
     this.nuevaDescripcion = "";
   }
 
-  asignarDatos(usuario:Candidato) {
+  asignarDatos(usuario: Candidato) {
     this.guardarObjeto(usuario);
     this.nuevoNombre = usuario.usuario.nombre;
     this.nuevoApellidoP = usuario.usuario.apellidoP;
     this.nuevoApellidoM = usuario.usuario.apellidoM;
+    this.nuevoTelefono = usuario.usuario.telefono;
     this.nuevaEdad = usuario.edad;
-    this.nuevaProfesion = usuario.usuario.nombre;
+    this.nuevaProfesion = usuario.profesion;
 
     this.nuevoDomicilio = usuario.domicilio;
     this.nuevoEstado = usuario.estado;
@@ -146,35 +168,39 @@ export class UpdateComponent implements OnInit, OnDestroy {
 
   }
 
-  guardarObjeto(usuario:Candidato){
+  guardarObjeto(usuario: Candidato) {
     this.usuario = usuario;
   }
 
   capturarNuevosDatos() {
-  if(this.datosPrincipales == true){
-    this.capturarPrincipales();
-  } else if ( this.datosSecundarios == true){
-    this.capturarSecundarios();
-  } else {
+    if (this.datosPrincipales == true && this.datosSecundarios == false) {
+      this.capturarPrincipales();
+    } else if (this.datosPrincipales == false && this.datosSecundarios == true) {
+      this.capturarSecundarios();
+    } else {
+      alert("No se selecciono una opcion"); 
+    }
 
   }
 
-  }
+  capturarPrincipales() {
 
-  capturarPrincipales(){
-   
     const USUARIO_MODIFICADO = {
 
       id_candidato: this.usuario.id_candidato,
       nombre: this.nuevoNombre,
       apellidoP: this.nuevoApellidoP,
       apellidoM: this.nuevoApellidoM,
+      telefono: this.nuevoTelefono,
+      edad:this.nuevaEdad,
       domicilio: this.nuevoDomicilio,
       descripcion: this.nuevaDescripcion,
       centroEducativo: this.nuevoCentroEducativo,
       puestoActual: this.nuevoPuesto,
       id_municipio: this.nuevoMunicipio.id_municipio,
-      id_estado: this.nuevoEstado.id_estado
+      id_estado: this.nuevoEstado.id_estado,
+      profesion: this.usuario.profesion,
+    
     }
 
     this.validarDatosNombre(USUARIO_MODIFICADO);
@@ -187,7 +213,8 @@ export class UpdateComponent implements OnInit, OnDestroy {
 
     } else if (usuarioModificado.nombre.length < 3) {
       usuarioModificado.nombre = this.usuario.usuario.nombre;
-    } else if (usuarioModificado.nombre.length > 15) {
+
+    } else if (usuarioModificado.nombre.length > 25) {
       usuarioModificado.nombre = this.usuario.usuario.nombre;
 
     } else {
@@ -205,6 +232,7 @@ export class UpdateComponent implements OnInit, OnDestroy {
 
     } else if (usuarioModificado.apellidoP.length < 4) {
       usuarioModificado.apellidoP = this.usuario.usuario.apellidoP;
+
     } else if (usuarioModificado.apellidoP.length > 15) {
       usuarioModificado.apellidoP = this.usuario.usuario.apellidoP;
 
@@ -223,9 +251,45 @@ export class UpdateComponent implements OnInit, OnDestroy {
 
     } else if (usuarioModificado.apellidoM.length < 4) {
       usuarioModificado.apellidoM = this.usuario.usuario.apellidoM;
+
     } else if (usuarioModificado.apellidoM.length > 15) {
       usuarioModificado.apellidoM = this.usuario.usuario.apellidoM;
 
+    } else {
+
+    }
+
+   this.validarTelefono(usuarioModificado);
+  }
+
+  validarTelefono(usuarioModificado: any){
+
+    if (this.nuevoTelefono == "") {
+      usuarioModificado.telefono = this.usuario.usuario.telefono
+    } else {
+      let numeroConLada = "";
+      numeroConLada = this.lada +" "+ this.nuevoTelefono;
+
+      if (numeroConLada.length < 18) {
+        usuarioModificado.telefono = this.usuario.usuario.telefono
+      } else if (numeroConLada.length > 18) {
+        usuarioModificado.telefono = this.usuario.usuario.telefono
+      } else {
+        usuarioModificado.telefono = numeroConLada
+      }
+    }
+
+    this.validarEdad(usuarioModificado);
+  }
+
+  validarEdad(usuarioModificado: any){
+    // FALATA AGREGAR FUNCION PARA REDONDEAR EDADES
+    if(usuarioModificado.edad == 0){
+      usuarioModificado.edad = this.usuario.edad;
+    } else if (usuarioModificado.edad < 18){
+      usuarioModificado.edad = this.usuario.edad;
+    } else if (usuarioModificado.edad > 70){
+      usuarioModificado.edad = this.usuario.edad;
     } else {
 
     }
@@ -237,7 +301,7 @@ export class UpdateComponent implements OnInit, OnDestroy {
 
     if (usuarioModificado.domicilio == "") {
       usuarioModificado.domicilio = this.usuario.domicilio;
-    } else if (usuarioModificado.domicilio.length < 10) {
+    } else if (usuarioModificado.domicilio.length < 5) {
       usuarioModificado.domicilio = this.usuario.domicilio;
     } else if (usuarioModificado.domicilio.length > 50) {
       usuarioModificado.domicilio = this.usuario.domicilio;
@@ -256,6 +320,7 @@ export class UpdateComponent implements OnInit, OnDestroy {
 
     } else if (usuarioModificado.descripcion.length < 10) {
       usuarioModificado.descripcion = this.usuario.descripcion;
+
     } else if (usuarioModificado.descripcion.length > 120) {
       usuarioModificado.descripcion = this.usuario.descripcion;
 
@@ -273,6 +338,7 @@ export class UpdateComponent implements OnInit, OnDestroy {
 
     } else if (usuarioModificado.centroEducativo.length < 3) {
       usuarioModificado.centroEducativo = this.usuario.centroEducativo;
+
     } else if (usuarioModificado.centroEducativo.length > 50) {
       usuarioModificado.centroEducativo = this.usuario.centroEducativo;
 
@@ -303,49 +369,46 @@ export class UpdateComponent implements OnInit, OnDestroy {
   validarDatosEstado(usuarioModificado: any) {
 
     if (usuarioModificado.id_estado == 0) {
+      alert("NO SE SELECCIONO UN ESTADO. Los datos del municipio y estado NO han cambiado");
       usuarioModificado.id_estado = this.usuario.estado.id_estado;
       usuarioModificado.id_municipio = this.usuario.municipio.id_municipio;
 
-    } else if (usuarioModificado.id_estado == this.usuario.estado.id_estado) {
+    } else if (usuarioModificado.id_estado != this.usuario.estado.id_estado) {
+      this.validarMunicipio(usuarioModificado);
+    }
+    this.guardarModPrincipales(usuarioModificado);  
+  }
 
-      if (usuarioModificado.id_municipio == 0) {
+  validarMunicipio(usuarioModificado:any){
 
-        usuarioModificado.id_municipio = this.usuario.municipio.id_municipio;
-      } else {
-
-      }
-    } else if (usuarioModificado.id_estado != 0) {
-
-      if (usuarioModificado.id_municipio == 0) {
-        //SI NO SE SELECCIONA UN MUNICIPIO SE AGREGARA EL MUNICIPIO CON ID 1 
-        usuarioModificado.id_municipio = 1;
-
-      } else {
-
-      }
+    if (usuarioModificado.id_municipio == 0) {
+      alert("NO SE SELECCIONO UN MUNICIPIO. Los datos del municipio y estado NO han cambiado");
+      usuarioModificado.id_estado = this.usuario.estado.id_estado;
+      usuarioModificado.id_municipio = this.usuario.municipio.id_municipio;
+    } else {
 
     }
 
-    this.guardarModPrincipales(usuarioModificado);
   }
 
-  capturarSecundarios(){
-   const USUARIO_MODIFICADO = {
+  // MODIFICACION DE IMAGENES
+  capturarSecundarios() {
+    const USUARIO_MODIFICADO = {
 
-   }
+    }
 
   }
 
 
 
-  guardarModPrincipales(usuarioModificado:any){
-    
-    this._CandidateRequest.modificar(usuarioModificado).then((data:any) =>{
-      if(data.estatus == true){
+  guardarModPrincipales(usuarioModificado: any) {
+
+    this._CandidateRequest.modificar(usuarioModificado).then((data: any) => {
+      if (data.estatus == true) {
         alert("Modificación Exitosa");
         this.router.navigate(['perfil']);
 
-      }else{
+      } else {
         alert("Algo Fallo");
       }
     });

@@ -33,33 +33,68 @@
                                 <b> CAMBIAR NOMBRE </b> </button>
                         </div>
 
+                        <div class="caja">
 
-                        <div class="input-group input-group-sm" style="margin-bottom: .5rem;">
-                            <input type="text" class="form-control" aria-label="Sizing example input"
-                                aria-describedby="inputGroup-sizing-sm" style="border-radius: 5px 0px 0px 5px;"
-                                placeholder="Ingresa el nuevo apellido paterno" [(ngModel)]="nuevoApellidoP">
-                            <button class="input-group-text" id="inputGroup-sizing-sm"
-                                style="width: 35%; text-align: center;">
-                                <b> CAMBIAR APELLIDO </b> </button>
+                            <div class="internaIzquierda">
+                                <div class="input-group input-group-sm" style="margin-bottom: .5rem;">
+                                    <button class="input-group-text" id="inputGroup-sizing-sm"
+                                        style="width: 60%; text-align: center;">
+                                        <b> CAMBIAR APELLIDO </b> </button>
+                                    <input type="text" class="form-control" aria-label="Sizing example input"
+                                        aria-describedby="inputGroup-sizing-sm" style="border-radius: 0px 5px 5px 0px;"
+                                        placeholder="Paterno" [(ngModel)]="nuevoApellidoP">
+                                </div>
+                            </div>
+
+                            <div class="internaDerecha">
+                                <div class="input-group input-group-sm" style="margin-bottom: .5rem;">
+                                    <input type="text" class="form-control" aria-label="Sizing example input"
+                                        aria-describedby="inputGroup-sizing-sm" style="border-radius: 5px 0px 0px 5px;"
+                                        placeholder="Materno" [(ngModel)]="nuevoApellidoM">
+                                    <button class="input-group-text" id="inputGroup-sizing-sm"
+                                        style="width: 60%; text-align: center;">
+                                        <b> CAMBIAR APELLIDO </b> </button>
+                                </div>
+                            </div>
+
                         </div>
 
-                        <div class="input-group input-group-sm" style="margin-bottom: .5rem;">
-                            <input type="text" class="form-control" aria-label="Sizing example input"
-                                aria-describedby="inputGroup-sizing-sm" style="border-radius: 5px 0px 0px 5px;"
-                                placeholder="Ingresa el nuevo apellido materno" [(ngModel)]="nuevoApellidoM">
-                            <button class="input-group-text" id="inputGroup-sizing-sm"
-                                style="width: 35%; text-align: center;">
-                                <b> CAMBIAR APELLIDO </b> </button>
+                        <div class="caja">
+
+                            <div class="internaIzquierda">
+                                <div class="input-group input-group-sm" style="margin-bottom: .5rem;">
+                                    <button class="input-group-text" id="inputGroup-sizing-sm"
+                                        style="width: 60%; text-align: center;">
+                                        <b> CAMBIAR EDAD </b> </button>
+                                        <input type="number" class="form-control" aria-label="Sizing example input"
+                                        aria-describedby="inputGroup-sizing-sm" style="border-radius: 0px 5px 5px 0px;"
+                                        placeholder="Ingresa la nueva edad" [(ngModel)]="nuevaEdad">
+                                </div>
+                            </div>
+
+                            <div class="internaDerecha">
+
+                                <div class="input-group input-group-sm" style="margin-bottom: .5rem;">
+                                    <button class="btn btn-outline-secondary dropdown-toggle" type="button"
+                                        data-bs-toggle="dropdown" aria-expanded="false">{{lada}}</button>
+                                    <ul class="dropdown-menu">
+                                        <li><button class="dropdown-item" type="button"
+                                                *ngFor="let ladaSeleccionada of ladasMexico"
+                                                (click)="actualizarLada(ladaSeleccionada)">{{ladaSeleccionada}}</button>
+                                        </li>
+                                    </ul>
+                                    <input type="text" class="form-control" aria-label="Text input with dropdown button"
+                                        placeholder="55-55-55-55-55" [(ngModel)]="nuevoTelefono">
+
+                                    <button class="input-group-text" id="inputGroup-sizing-sm"
+                                        style="width: 35%; text-align: center;">
+                                        <b> TELEFONO </b> </button>
+                                </div>
+                            </div>
+
                         </div>
 
-                        <!-- <div class="input-group input-group-sm" style="margin-bottom: .5rem;">
-                            <input type="number" class="form-control" aria-label="Sizing example input"
-                                aria-describedby="inputGroup-sizing-sm" style="border-radius: 5px 0px 0px 5px;"
-                                placeholder="Ingresa la nueva edad" [(ngModel)]="nuevaEdad">
-                            <button class="input-group-text" id="inputGroup-sizing-sm"
-                                style="width: 35%; text-align: center;">
-                                <b> CAMBIAR EDAD </b> </button>
-                        </div> -->
+
                     </div>
                 </div>
             </div>
@@ -101,11 +136,14 @@
                             <button class="form-select" type="button" id="inputGroupSelect01" data-bs-toggle="dropdown"
                                 aria-expanded="false"
                                 style="font-size: x-small; border-radius: 5px 0px 0px 5px;">{{nuevoEstado.nombreEstado}}</button>
+
                             <ul class="dropdown-menu">
+
                                 <li><button class="dropdown-item" type="button"
                                         *ngFor="let estadoSeleccionado of estadosMexico"
                                         (click)="actualizarEstado(estadoSeleccionado)">{{estadoSeleccionado.nombreEstado}}</button>
                                 </li>
+
                             </ul>
                             <label class="input-group-text" for="inputGroupSelect01"
                                 style=" height: 1.8rem; width: 35%;">
@@ -217,9 +255,9 @@
     <div class="" id="accordion" style="margin-bottom: .5rem; margin-top: .5rem;">
         <div class="accordion-item ">
             <h2 class="accordion-header ">
-                    <button class="accordion-button " type="button" data-bs-toggle="collapse"
-                        data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne"
-                        style="color:rgb(89, 92, 94); height: 1.8rem;" (click)="modificarSecundarios()">
+                <button class="accordion-button " type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne"
+                    aria-expanded="true" aria-controls="collapseOne" style="color:rgb(89, 92, 94); height: 1.8rem;"
+                    (click)="modificarSecundarios()">
                     INFORMACION ADICIONAL
                     <hr>
                 </button>
