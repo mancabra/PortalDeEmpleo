@@ -55,16 +55,23 @@ export class UpdateComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.bloquearMunicipios();
     this.buscarUsuario();
+    this.bloquearMunicipios();
+  }
 
+  validarLongitud(){
     if(this.nuevoTelefono.length == 10){
-      
+
     } else if(this.nuevoTelefono.length == 17){
       this.nuevoTelefono = this.nuevoTelefono.slice(5, 17);
 
     } else if(this.nuevoTelefono.length == 18){
       this.nuevoTelefono = this.nuevoTelefono.slice(6, 18);
+
+    } else if(this.nuevoTelefono.length == 19){
+      this.nuevoTelefono = this.nuevoTelefono.slice(6, 19);
+    } else {
+
     }
   }
 
@@ -83,7 +90,7 @@ export class UpdateComponent implements OnInit, OnDestroy {
   bloquearMunicipios() {
     this.nuevoEstado = { id_estado: 0, nombreEstado: "Selecciona un Estado", municipios: [] };
     this.nuevoMunicipio = { id_municipio: 0, nombreMunicipio: "Selecciona un Municipio", estado: new Estado }
-    this.bloquearMunicipio = "none";
+    this.bloquearMunicipio = "all";
 
     this._UserRequest.obtenerEstados().subscribe(data => {
       this.estadosMexico = data;
@@ -163,9 +170,11 @@ export class UpdateComponent implements OnInit, OnDestroy {
 
     this.nuevoDomicilio = usuario.domicilio;
     this.nuevoEstado = usuario.estado;
+    this.nuevoMunicipio = usuario.municipio;
     this.nuevoCentroEducativo = usuario.centroEducativo;
     this.nuevoPuesto = usuario.puestoActual;
 
+    this.validarLongitud();
   }
 
   guardarObjeto(usuario: Candidato) {
@@ -191,14 +200,14 @@ export class UpdateComponent implements OnInit, OnDestroy {
       nombre: this.nuevoNombre,
       apellidoP: this.nuevoApellidoP,
       apellidoM: this.nuevoApellidoM,
-      telefono: this.nuevoTelefono,
-      edad:this.nuevaEdad,
       domicilio: this.nuevoDomicilio,
       descripcion: this.nuevaDescripcion,
       centroEducativo: this.nuevoCentroEducativo,
       puestoActual: this.nuevoPuesto,
       id_municipio: this.nuevoMunicipio.id_municipio,
       id_estado: this.nuevoEstado.id_estado,
+      telefono: this.nuevoTelefono,
+      //edad:this.nuevaEdad,
       profesion: this.nuevaProfesion,
     
     }
@@ -318,7 +327,10 @@ export class UpdateComponent implements OnInit, OnDestroy {
     if (usuarioModificado.descripcion == "") {
       usuarioModificado.descripcion = this.usuario.descripcion;
 
-    } else if (usuarioModificado.descripcion.length < 10) {
+    } else if (usuarioModificado.descripcion == null) {
+      usuarioModificado.descripcion = this.usuario.descripcion;
+
+    } else if (usuarioModificado.descripcion.length < 5) {
       usuarioModificado.descripcion = this.usuario.descripcion;
 
     } else if (usuarioModificado.descripcion.length > 120) {
@@ -333,11 +345,15 @@ export class UpdateComponent implements OnInit, OnDestroy {
 
   validarProfesion(usuarioModificado:any){
     if (usuarioModificado.profesion == ""){
-      usuarioModificado.profesio = this.usuario.profesion;
+      usuarioModificado.profesion = this.usuario.profesion;
+
+    } else if(usuarioModificado.profesion == null){
+      usuarioModificado.profesion = this.usuario.profesion;
+
     } else if(usuarioModificado.profesion.length < 4){
-      usuarioModificado.profesio = this.usuario.profesion;
+      usuarioModificado.profesion = this.usuario.profesion;
     } else if (usuarioModificado.profesion.length < 25){
-      usuarioModificado.profesio = this.usuario.profesion;
+      usuarioModificado.profesion = this.usuario.profesion;
     } else {
 
     }
@@ -348,6 +364,10 @@ export class UpdateComponent implements OnInit, OnDestroy {
   validarDatosEscuela(usuarioModificado: any) {
 
     if (usuarioModificado.centroEducativo == "") {
+      usuarioModificado.centroEducativo = this.usuario.centroEducativo;
+
+
+    } else if (usuarioModificado.centroEducativo == null) {
       usuarioModificado.centroEducativo = this.usuario.centroEducativo;
 
     } else if (usuarioModificado.centroEducativo.length < 3) {
@@ -366,6 +386,9 @@ export class UpdateComponent implements OnInit, OnDestroy {
   validarDatosPuesto(usuarioModificado: any) {
 
     if (usuarioModificado.puestoActual == "") {
+      usuarioModificado.puestoActual = this.usuario.puestoActual;
+
+    } else if (usuarioModificado.puestoActual == null) {
       usuarioModificado.puestoActual = this.usuario.puestoActual;
 
     } else if (usuarioModificado.puestoActual.length < 5) {

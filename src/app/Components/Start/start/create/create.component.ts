@@ -663,6 +663,7 @@ export class CreateComponent {
         }else{
           this.limpiarCampos();
           this._UserRequest.guaradarCorreo(usuario.correoElectronico);
+          this._UserRequest.cambiartipo();
           this._UserRequest.mostarNav();
           this.router.navigate(['vacantes']);
         }
@@ -690,7 +691,7 @@ export class CreateComponent {
   registarEmpleador(empleador: any) {
     if (this.Obligatorios != false) {
       this._EmployerRequest.registrar(empleador).then((data:any) =>{
-        if(data.estatus == false){
+        if(data.id_empleador == 0){
           alert("ha ocurrido un error");
         }else{
           this.limpiarCampos();

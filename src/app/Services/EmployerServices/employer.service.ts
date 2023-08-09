@@ -23,7 +23,7 @@ export class EmployerService {
      console.log("Info Enviada");
      console.log(EmployerRequest);
 
-  return this._http.put("http://localhost:8080/", EmployerRequest).toPromise();
+  return this._http.put("http://localhost:8080/registroEmpleador", EmployerRequest).toPromise();
   }
   
 }
