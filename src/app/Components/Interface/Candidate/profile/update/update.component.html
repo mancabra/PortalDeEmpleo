@@ -66,7 +66,7 @@
                                     <button class="input-group-text" id="inputGroup-sizing-sm"
                                         style="width: 60%; text-align: center;">
                                         <b> CAMBIAR EDAD </b> </button>
-                                        <input type="number" class="form-control" aria-label="Sizing example input"
+                                    <input type="number" class="form-control" aria-label="Sizing example input"
                                         aria-describedby="inputGroup-sizing-sm" style="border-radius: 0px 5px 5px 0px;"
                                         placeholder="Ingresa la nueva edad" [(ngModel)]="nuevaEdad">
                                 </div>
@@ -136,15 +136,14 @@
                             <button class="form-select" type="button" id="inputGroupSelect01" data-bs-toggle="dropdown"
                                 aria-expanded="false"
                                 style="font-size: x-small; border-radius: 5px 0px 0px 5px;">{{nuevoEstado.nombreEstado}}</button>
-
-                            <ul class="dropdown-menu">
-
-                                <li><button class="dropdown-item" type="button"
-                                        *ngFor="let estadoSeleccionado of estadosMexico"
-                                        (click)="actualizarEstado(estadoSeleccionado)">{{estadoSeleccionado.nombreEstado}}</button>
-                                </li>
-
-                            </ul>
+                            <div class="scrollMenu">
+                                <ul class="dropdown-menu">
+                                    <li><button class="dropdown-item" type="button"
+                                            *ngFor="let estadoSeleccionado of estadosMexico"
+                                            (click)="actualizarEstado(estadoSeleccionado)">{{estadoSeleccionado.nombreEstado}}</button>
+                                    </li>
+                                </ul>
+                            </div>
                             <label class="input-group-text" for="inputGroupSelect01"
                                 style=" height: 1.8rem; width: 35%;">
                                 <b>
@@ -157,12 +156,15 @@
                             <button class="form-select" type="button" id="inputGroupSelect01" data-bs-toggle="dropdown"
                                 aria-expanded="false" style="font-size: x-small; border-radius: 5px 0px 0px 5px;"
                                 [ngStyle]="{'pointer-events':bloquearMunicipio}">{{nuevoMunicipio.nombreMunicipio}}</button>
-                            <ul class="dropdown-menu">
-                                <li><button class="dropdown-item" type="button"
-                                        *ngFor="let municipioSeleccionado of municipiosMexico"
-                                        (click)="actualizarMunicipio(municipioSeleccionado)">{{municipioSeleccionado.nombreMunicipio}}</button>
-                                </li>
-                            </ul>
+                            <div class="scrollMenu">
+                                <ul class="dropdown-menu">
+                                    <li><button class="dropdown-item" type="button"
+                                            *ngFor="let municipioSeleccionado of municipiosMexico"
+                                            (click)="actualizarMunicipio(municipioSeleccionado)">{{municipioSeleccionado.nombreMunicipio}}</button>
+                                    </li>
+                                </ul>
+                            </div>
+
                             <label class="input-group-text" for="inputGroupSelect01"
                                 style=" height: 1.8rem; width: 35%;">
                                 <b>

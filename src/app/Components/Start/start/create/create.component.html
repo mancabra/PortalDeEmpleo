@@ -21,7 +21,7 @@
         <label class="btn btn-outline-danger" for="btnradio3" (click)="identificarUsario('empresa')"
             [ngClass]="{'view':verAdministrador, '':!verAdministrador}">Empresa</label>
 
-        <input type="radio" class="btn-check" name="btnradio" id="btnradio4" autocomplete="off" 
+        <input type="radio" class="btn-check" name="btnradio" id="btnradio4" autocomplete="off"
             [ngClass]="{'view':verUsuariosPrincipales, '':!verUsuariosPrincipales}">
         <label class="btn btn-outline-secondary" for="btnradio4" (click)="identificarUsario('empleador')"
             [ngClass]="{'view':verUsuariosPrincipales, '':!verUsuariosPrincipales}">Empleador</label>
@@ -49,12 +49,13 @@
         </div>
         <div style="display: flex;">
             <div style="width: 100%;">
-                <input class="form-control" type="text" placeholder="Nombre(s)"
-                    aria-label="default input example" [(ngModel)]="nombre">
+                <input class="form-control" type="text" placeholder="Nombre(s)" aria-label="default input example"
+                    [(ngModel)]="nombre">
             </div>
-            <div style="margin-left: 1rem; margin-right: 0rem; width: 100%;" [ngClass]="{'view':validarNombreRegistrado, '':!validarNombreRegistrado}">
+            <div style="margin-left: 1rem; margin-right: 0rem; width: 100%;"
+                [ngClass]="{'view':validarNombreRegistrado, '':!validarNombreRegistrado}">
                 <label class="btn btn-danger" style="width: 100%; pointer-events: none;">EMPRESA YA REGISTRADA</label>
-              </div>
+            </div>
         </div>
     </div>
 
@@ -193,8 +194,7 @@
                         <button class="btn btn-outline-secondary dropdown-toggle" type="button"
                             data-bs-toggle="dropdown" aria-expanded="false">{{lada}}</button>
                         <ul class="dropdown-menu">
-                            <li><button class="dropdown-item" type="button"
-                                    *ngFor="let ladaSeleccionada of ladasMexico"
+                            <li><button class="dropdown-item" type="button" *ngFor="let ladaSeleccionada of ladasMexico"
                                     (click)="actualizarLada(ladaSeleccionada)">{{ladaSeleccionada}}</button>
                             </li>
                         </ul>
@@ -264,12 +264,14 @@
                                             <button class="btn btn-outline-secondary dropdown-toggle" type="button"
                                                 data-bs-toggle="dropdown" aria-expanded="false"
                                                 style="width: 100%;">{{estado.nombreEstado}}</button>
-                                            <ul class="dropdown-menu">
-                                                <li><button class="dropdown-item" type="button"
-                                                        *ngFor="let estadoSeleccionado of estadosMexico"
-                                                        (click)="actualizarEstado(estadoSeleccionado)">{{estadoSeleccionado.nombreEstado}}</button>
-                                                </li>
-                                            </ul>
+                                            <div class="scrollMenu">
+                                                <ul class="dropdown-menu">
+                                                    <li><button class="dropdown-item" type="button"
+                                                            *ngFor="let estadoSeleccionado of estadosMexico"
+                                                            (click)="actualizarEstado(estadoSeleccionado)">{{estadoSeleccionado.nombreEstado}}</button>
+                                                    </li>
+                                                </ul>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -295,12 +297,14 @@
                                             <button class="btn btn-outline-secondary dropdown-toggle" type="button"
                                                 data-bs-toggle="dropdown" aria-expanded="false" style="width: 100%;"
                                                 [ngStyle]="{'pointer-events':bloquearMunicipio}">{{municipio.nombreMunicipio}}</button>
-                                            <ul class="dropdown-menu">
-                                                <li><button class="dropdown-item" type="button"
-                                                        *ngFor="let municipioSeleccionado of municipiosMexico"
-                                                        (click)="actualizarMunicipio(municipioSeleccionado)">{{municipioSeleccionado.nombreMunicipio}}</button>
-                                                </li>
-                                            </ul>
+                                            <div class="scrollMenu">
+                                                <ul class="dropdown-menu">
+                                                    <li><button class="dropdown-item" type="button"
+                                                            *ngFor="let municipioSeleccionado of municipiosMexico"
+                                                            (click)="actualizarMunicipio(municipioSeleccionado)">{{municipioSeleccionado.nombreMunicipio}}</button>
+                                                    </li>
+                                                </ul>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -332,7 +336,7 @@
             <div style="display: flex;">
                 <div style="width: 100%;">
                     <input class="form-control" type="text" placeholder="mail@example.com"
-                        aria-label="default input example"  [(ngModel)]="correo">
+                        aria-label="default input example" [(ngModel)]="correo">
                 </div>
                 <div style="margin-left: 1rem; margin-right: 0rem; width: 100%;"
                     [ngClass]="{'view':correoExistente, '':!correoExistente}">
@@ -355,7 +359,7 @@
                                 </div>
                                 <div class="col" style="color: red; font-size: x-small; text-align: right;"
                                     [ngClass]="{'view':validarContrasena, '':!validarContrasena}">
-                                    {{mensajeContra}} 
+                                    {{mensajeContra}}
                                 </div>
                             </div>
                         </div>
@@ -396,7 +400,7 @@
 
     <div>
         <p style="text-align: justify; font-size: x-small; color: darkgray;">
-        La contraseña debe tener minimo 8 caracteres</p>
+            La contraseña debe tener minimo 8 caracteres</p>
     </div>
 
     <div [ngClass]="{'view':verDescripcion, '':!verDescripcion}">
@@ -416,7 +420,8 @@
             </div>
             <div style="display: flex;">
                 <div style="width: 100%;">
-                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" [(ngModel)]="descripcion"></textarea>
+                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"
+                        [(ngModel)]="descripcion"></textarea>
                 </div>
             </div>
         </div>
@@ -427,7 +432,8 @@
     <div class="container text-center" style="margin-top: 2rem;">
         <div class="row">
             <div class="col">
-                <button type="button" class="btn btn-secondary btn-sm" style="width: 120px;" (click)="comenzarRegistro()">Registrar</button>
+                <button type="button" class="btn btn-secondary btn-sm" style="width: 120px;"
+                    (click)="comenzarRegistro()">Registrar</button>
             </div>
         </div>
     </div>

@@ -8,9 +8,9 @@
     display: none;
 }
 
-#list{
-    width: 150px;
-    height: 50px;
+
+.scrollMenu{
+    width: 100%;
+    height: 100px;
     overflow-y: scroll;
-   
-  }
+}

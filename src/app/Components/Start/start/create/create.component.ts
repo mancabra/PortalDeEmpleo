@@ -222,6 +222,7 @@ export class CreateComponent {
       console.log(this.municipiosMexico);
     });
 
+    this.municipio = { id_municipio: 0, nombreMunicipio: "Selecciona un Municipio", estado: new Estado };
     this.bloquearMunicipio = "all";
   }
 
