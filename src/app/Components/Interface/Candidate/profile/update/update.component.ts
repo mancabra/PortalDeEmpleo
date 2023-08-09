@@ -63,13 +63,13 @@ export class UpdateComponent implements OnInit, OnDestroy {
     if(this.nuevoTelefono.length == 10){
 
     } else if(this.nuevoTelefono.length == 17){
-      this.nuevoTelefono = this.nuevoTelefono.slice(5, 17);
+      this.nuevoTelefono = this.nuevoTelefono.slice(3, 17);
 
     } else if(this.nuevoTelefono.length == 18){
-      this.nuevoTelefono = this.nuevoTelefono.slice(6, 18);
+      this.nuevoTelefono = this.nuevoTelefono.slice(4, 18);
 
     } else if(this.nuevoTelefono.length == 19){
-      this.nuevoTelefono = this.nuevoTelefono.slice(6, 19);
+      this.nuevoTelefono = this.nuevoTelefono.slice(5, 19);
     } else {
 
     }
