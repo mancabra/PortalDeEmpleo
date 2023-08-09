@@ -117,6 +117,7 @@ export class CreateComponent {
   // LA VARIABLE mensajeTel CAMBIA EL MENSAJE DEL ERROR MOSTRADO EN LA CAPTURA DE LA TELEFONO DEL USUARIO
 
   validarTelefono: boolean = true;
+  verTelefonoEmple: boolean = true;
   mensajeTel: string = "Campo obligatorio*"
 
   // VALIDACION UBICACION
@@ -186,6 +187,7 @@ export class CreateComponent {
     this.verNombre = false;
     this.verApellidos = false;
     this.verEdadyTelefono = false;
+    this.verTelefonoEmple = false;
     this.verUbicacion = false;
     this.verCorreo = false;
     this.verContrasenas = false;
@@ -239,7 +241,7 @@ export class CreateComponent {
     this.limpiarCampos();
 
     this.tipoUsurio = usuario;
-    this.textoUbicacion = "Calle y Número:";
+    this.textoUbicacion = "Calle y Número:*";
     this.textoMunicipio = "Municipio:";
     this.textoEstado = "Estado:";
 
@@ -266,6 +268,7 @@ export class CreateComponent {
       this.verApellidos = false;
       this.verUbicacion = false;
       this.verEdadyTelefono = false;
+      this.verTelefonoEmple = true;
       this.verCorreo = false;
       this.verContrasenas = false;
       this.verDescripcion = true;
@@ -275,6 +278,7 @@ export class CreateComponent {
         + " el suario  podra crear cuentas de cualquier tipo, eliminarlas o suspenderlas.";
       this.verApellidos = false;
       this.verEdadyTelefono = true;
+      this.verTelefonoEmple = false;
       this.verUbicacion = true;
       this.verCorreo = false;
       this.verContrasenas = false;
@@ -285,6 +289,7 @@ export class CreateComponent {
         + "los candidatos que se postularon a tu vacante en ventanas exclusivas.";
       this.verApellidos = false;
       this.verEdadyTelefono = true;
+      this.verTelefonoEmple = false;
       this.verUbicacion = true;
       this.verCorreo = false;
       this.verContrasenas = false;
@@ -300,6 +305,7 @@ export class CreateComponent {
       this.textoEstado = "Estado:*";
       this.verApellidos = true;
       this.verEdadyTelefono = true;
+      this.verTelefonoEmple = true;
       this.verUbicacion = false;
       this.verCorreo = true;
       this.verContrasenas = true;
@@ -371,6 +377,7 @@ export class CreateComponent {
       nombre: this.nombre,
       apellidoM: this.apellidoM,
       apellidoP: this.apellidoP,
+      telefono: this.numeroTelefonioco,
       correoElectronico: this.correo,
       contrasena: this.contrasena,
     }
@@ -387,6 +394,7 @@ export class CreateComponent {
       nombre: this.nombre,
       apellidoM: this.apellidoM,
       apellidoP: this.apellidoP,
+      telefono: this.numeroTelefonioco,
       correoElectronico: this.correo,
       contrasena: this.contrasena,
     }
@@ -460,9 +468,9 @@ export class CreateComponent {
   cambiarFlujoDeRegistroII(usuario: any) {
 
     if (this.tipoUsurio == "administrador") {
-      this.evaluarCorreo(usuario);
+      this.evaluarTelefono(usuario);
     } else if (this.tipoUsurio == "empleador") {
-      this.evaluarCorreo(usuario);
+      this.evaluarTelefono(usuario);
     } else if (this.tipoUsurio == "candidato") {
       this.evaluarEdad(usuario);
     } else {
@@ -512,7 +520,7 @@ export class CreateComponent {
         this.comprobarNumero(usuario);
       }
     }
-    this.evaluarUbicacion(usuario);
+    this.cambiarFlujoDeRegistroIII(usuario);
   }
 
   comprobarNumero(usuario: any,) {
@@ -521,46 +529,63 @@ export class CreateComponent {
     let numeroConFormato = "(" + this.lada + ")" + this.numeroTelefonioco;
     usuario.telefono = numeroConFormato;
 
+  } 
+
+  cambiarFlujoDeRegistroIII(usuario: any) {
+
+    if (this.tipoUsurio == "administrador") {
+      this.evaluarCorreo(usuario);
+    } else if (this.tipoUsurio == "empleador") {
+      this.evaluarCorreo(usuario);
+    } else if (this.tipoUsurio == "candidato") {
+      this.evaluarCalleyNumero(usuario);
+    } else {
+
+    }
   }
 
-  evaluarUbicacion(usuario: any) {
-    usuario.ubicacion = this.ubicacion;
-    usuario.id_estado = this.estado.id_estado;
-    usuario.id_municipio = this.municipio.id_municipio;
-    this.evaluarCorreo(usuario);
-  }
-
-  evaluarCalleyNumero(empresa: any) {
+  evaluarCalleyNumero(usuario: any) {
     if (this.ubicacion == "") {
       this.validarCalle = false;
       this.Obligatorios = false;
     } else {
       this.validarCalle = true;
-      empresa.domicilio = this.ubicacion;
+      usuario.domicilio = this.ubicacion;
     }
-    this.evaluarEstado(empresa);
+    this.evaluarEstado(usuario);
   }
 
-  evaluarEstado(empresa: any) {
+  evaluarEstado(usuario: any) {
     if (this.estado.id_estado == 0) {
       this.validarEstado = false;
       this.Obligatorios = false;
     } else {
       this.validarEstado = true;
-      empresa.id_estado = this.estado.id_estado;
+      usuario.id_estado = this.estado.id_estado;
     }
-    this.evaluarMunicipio(empresa);
+    this.evaluarMunicipio(usuario);
   }
 
-  evaluarMunicipio(empresa: any) {
+  evaluarMunicipio(usuario: any) {
     if (this.municipio.id_municipio == 0) {
       this.validarMunicipio = false;
       this.Obligatorios = false;
     } else {
       this.validarMunicipio = true;
-      empresa.id_municipio = this.municipio.id_municipio;
+      usuario.id_municipio = this.municipio.id_municipio;
     }
-    this.evaluarDescripcion(empresa);
+    this.cambiarFlujoDeRegistroIV(usuario);
+  }
+
+  cambiarFlujoDeRegistroIV(usuario: any) {
+
+    if (this.tipoUsurio == "candidato") {
+      this.evaluarCorreo(usuario);
+    } else if (this.tipoUsurio == "empresa") {
+      this.evaluarDescripcion(usuario);
+    } else {
+
+    }
   }
 
   evaluarDescripcion(empresa: any) {
@@ -639,10 +664,10 @@ export class CreateComponent {
       this.validarContrasenasIguales = true;
       usuario.contrasena = this.contrasena;
     }
-    this.cambiarFlujoDeRegistroIII(usuario);
+    this.cambiarFlujoDeRegistroIV(usuario);
   }
 
-  cambiarFlujoDeRegistroIII(usuario: any) {
+  cambiarFlujoDeRegistroV(usuario: any) {
     if (this.tipoUsurio == "administrador") {
       this.registarAdministrador(usuario);
     } else if (this.tipoUsurio == "empleador") {
@@ -665,7 +690,7 @@ export class CreateComponent {
           this._UserRequest.guaradarCorreo(usuario.correoElectronico);
           this._UserRequest.cambiartipo();
           this._UserRequest.mostarNav();
-          this.router.navigate(['vacantes']);
+          this.router.navigate(['interface/vacantes']);
         }
       });
     } else {

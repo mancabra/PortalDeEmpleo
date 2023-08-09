@@ -34,7 +34,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
   }
 
   buscarUsuario(){
-    this._CandidateRequest.obtener().then((data:any) =>{
+    this._UserRequest.obtener().then((data:any) =>{
       this.usuario = data
       console.log(this.usuario)
       this.id_tipoUsuario = this.usuario.usuario.tipoUsuario;
@@ -43,7 +43,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
   }
 
   modificarDatosPerfil(){
-    this.router.navigate(['modificar']);
+    this.router.navigate(['interface/perfil/modificar']);
   }
 
   identificarTipoDePerfil() {

@@ -46,6 +46,15 @@ export class InterfaceService {
     return this._http.post("http://localhost:8080/Login", userRequest).toPromise();
   }
 
+  obtener() {
+    console.log("Proceso buscarUsuario");
+    console.log("Info Enviada");
+    console.log(this.correo);
+
+    let cadena = "http://localhost:8080/obtenerUsuarioCompleto/" + this.correo;
+    return this._http.get(cadena).toPromise();
+  }
+
   guaradarCorreo(correo:any){
     this.correo = correo ;
     this._AdminRequest.guaradarCorreo(correo);
@@ -103,7 +112,7 @@ export class InterfaceService {
   }
 
   cambiartipo() {
-    this._CandidateRequest.obtener().then((data:any) =>{
+    this.obtener().then((data:any) =>{
       this.tipoUsuario = data.usuario.tipoUsuario;
       this.usuarioActivo(this.tipoUsuario);
     });

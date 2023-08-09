@@ -5,42 +5,45 @@
             <hr>
         </div>
 
-        <div *ngIf="cargarPantalla(); else PantallaVacia">
-            <div class="card" style="width: 100%; margin-bottom: 2rem;" *ngFor="let postulacion of postulaciones">
-                <div class="tituloVacante">
-                    <b>{{postulacion.vacante.nombreVacante}} / {{postulacion.vacante.especialista}}</b>
-                </div>
-                <div style="padding: 1rem;">
-                    <b style="font-size:medium; padding: 0rem;">{{postulacion.vacante.empresa.nombre}}</b> <br>
-                    <p style="font-size:x-small; line-height: 150%;">
-                        {{postulacion.vacante.domicilio}}
-                        <br style="margin: 0%; padding: 0%;">
-                        Municipio de {{postulacion.vacante.municipio.nombreMunicipio}} 
-                        <!-- estado de {{postulacion.municipio.nombreMunicipio}} -->
-                    </p>
-                    <b style="font-size:small; padding: 0rem;"> $ {{postulacion.vacante.sueldo}}.00 MXN</b>
+        <div class="scrollMenu">
+            <div *ngIf="cargarPantalla(); else PantallaVacia">
+                <div class="card" style="width: 100%; margin-bottom: 2rem;" *ngFor="let postulacion of postulaciones">
+                    <div class="tituloVacante">
+                        <b>{{postulacion.vacante.nombreVacante}} / {{postulacion.vacante.especialista}}</b>
+                    </div>
+                    <div style="padding: 1rem;">
+                        <b style="font-size:medium; padding: 0rem;">{{postulacion.vacante.empresa.nombre}}</b> <br>
+                        <p style="font-size:x-small; line-height: 150%;">
+                            {{postulacion.vacante.domicilio}}
+                            <br style="margin: 0%; padding: 0%;">
+                            Municipio de {{postulacion.vacante.municipio.nombreMunicipio}}
+                            <!-- estado de {{postulacion.municipio.nombreMunicipio}} -->
+                        </p>
+                        <b style="font-size:small; padding: 0rem;"> $ {{postulacion.vacante.sueldo}}.00 MXN</b>
 
-                    <p style="font-size:x-small; line-height: 150%;">
-                        <!-- {{postulacion.tipoHorario.dias}} -->/ {{postulacion.vacante.horario}} 
-                        <br style="margin: 0%; padding: 0%;">
-                    </p>
-                    <p style="font-size:x-small; line-height: 150%; text-align: justify;">
-                        {{postulacion.vacante.descripcion}}
-                    </p>
+                        <p style="font-size:x-small; line-height: 150%;">
+                            <!-- {{postulacion.tipoHorario.dias}} -->/ {{postulacion.vacante.horario}}
+                            <br style="margin: 0%; padding: 0%;">
+                        </p>
+                        <p style="font-size:x-small; line-height: 150%; text-align: justify;">
+                            {{postulacion.vacante.descripcion}}
+                        </p>
 
-                    <div style="padding-top: 1rem; display: flex;">
-                        <button type="button" class="btn btn-danger " style=" width: 100%; font-size: medium;"
-                            (click)="eliminarPostulacion(postulacion)">
-                            Eliminar Postulacion
-                        </button>
+                        <div style="padding-top: 1rem; display: flex;">
+                            <button type="button" class="btn btn-danger " style=" width: 100%; font-size: medium;"
+                                (click)="eliminarPostulacion(postulacion)">
+                                Eliminar Postulacion
+                            </button>
+                        </div>
                     </div>
                 </div>
+
             </div>
+            <ng-template #PantallaVacia>
+                <p style="text-align: center;">No hay nada aqui</p>
+            </ng-template>
 
         </div>
-        <ng-template #PantallaVacia>
-            <p style="text-align: center;">No hay nada aqui</p>
-        </ng-template>
         <!--  -->
     </div>
 
@@ -53,7 +56,8 @@
                 <hr>
             </div>
             <div *ngIf="cargarPantalla(); else PantallaVaciaSecundaria">
-                <button type="button" class="btn btn-danger" style="width: 100%; margin-bottom: 1rem;" (click)="quitarTodas()">ELIMINAR TODAS LAS
+                <button type="button" class="btn btn-danger" style="width: 100%; margin-bottom: 1rem;"
+                    (click)="quitarTodas()">ELIMINAR TODAS LAS
                     POSTULACIONES</button>
                 <button type="button" class="btn btn-warning" style="width: 100%; margin-bottom: 1rem;">MOSTRAR
                     POSTULACIONES DE ESTATUS ""</button>
@@ -61,7 +65,7 @@
                     POSTULACIONES DE ESTATUS ""</button>
 
             </div>
-          
+
 
         </div>
         <ng-template #PantallaVaciaSecundaria>

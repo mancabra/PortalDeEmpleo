@@ -8,6 +8,10 @@ import { RequestsComponent } from './Components/Interface/Candidate/requests/req
 import { AlertsComponent } from './Components/Interface/Candidate/alerts/alerts.component';
 import { ProfileComponent } from './Components/Interface/Candidate/profile/profile.component';
 import { UpdateComponent } from './Components/Interface/Candidate/profile/update/update.component';
+import { NewJobComponent } from './Components/Interface/Employer/new-job/new-job.component';
+import { CandidatesComponent } from './Components/Interface/Employer/candidates/candidates.component';
+import { ManageComponent } from './Components/Interface/Admin/manage/manage.component';
+import { RequestAdminComponent } from './Components/Interface/Admin/request-admin/request-admin.component';
 
 
 
@@ -15,12 +19,25 @@ import { UpdateComponent } from './Components/Interface/Candidate/profile/update
 
 const routes: Routes = [
   {path:'',redirectTo:'/start',pathMatch:'full'},
+
   {path:'start',component:StartComponent},
-  {path:'vacantes',component:JobsComponent},
-  {path:'postulaciones',component:RequestsComponent},
-  {path:'notificaciones',component:AlertsComponent},
-  {path:'perfil',component:ProfileComponent},
-  {path:'modificar',component:UpdateComponent},
+  {path:'interface/vacantes',component:JobsComponent},
+  {path:'interface/postulaciones',component:RequestsComponent},
+  {path:'interface/notificaciones',component:AlertsComponent},
+  {path:'interface/perfil',component:ProfileComponent},
+  {path:'interface/perfil/modificar',component:UpdateComponent},
+
+  // RUTAS EMPLEADOR
+  {path:'interface/publicar',component:NewJobComponent},
+  {path:'interface/publicaciones',component:CandidatesComponent},
+  //{path:'interface/publicaciones/modificar',component:},
+
+  // RUTAS ADMINISTRADOR
+  {path:'interface/administrar',component:ManageComponent},
+  {path:'interface/peticiones',component:RequestAdminComponent},
+
+  
+
 
   {path:'**',redirectTo:'/start',pathMatch:'full'}
 ];

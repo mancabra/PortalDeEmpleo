@@ -14,8 +14,8 @@ export class CandidateService {
   private postulaciones$ = new Subject<Postulacion[]>();
   postulaciones: Postulacion[] = [];
 
-  private candidato$ = new Subject<Candidato>();
-  candidato: Candidato = new Candidato;
+  //private candidato$ = new Subject<Candidato>();
+  //candidato: Candidato = new Candidato;
 
   constructor(private _http: HttpClient) {
 
@@ -118,7 +118,7 @@ export class CandidateService {
   }
 
   //OBSERVABLE USUARIO
-
+  /*
   getCandidate(): Observable<Candidato> {
     return this.candidato$.asObservable();
   }
@@ -138,6 +138,7 @@ export class CandidateService {
     this.candidato = usuario;
     this.candidato$.next(this.candidato);
   }
+*/
 
   //OBSERVABLE POSTULACIONES
 

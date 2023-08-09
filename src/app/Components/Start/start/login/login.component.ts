@@ -79,7 +79,7 @@ export class LoginComponent {
         this._UserRequest.guaradarCorreo(USUARIO.correoElectronico);
         this._UserRequest.cambiartipo();
         this._UserRequest.mostarNav();
-        this.router.navigate(['vacantes']);
+        //this.router.navigate(['vacantes']);
       }
     });
 

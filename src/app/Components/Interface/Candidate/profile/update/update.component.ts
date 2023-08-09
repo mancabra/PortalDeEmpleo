@@ -443,7 +443,7 @@ export class UpdateComponent implements OnInit, OnDestroy {
     this._CandidateRequest.modificar(usuarioModificado).then((data: any) => {
       if (data.estatus == true) {
         alert("Modificación Exitosa");
-        this.router.navigate(['perfil']);
+        this.router.navigate(['interface/perfil']);
 
       } else {
         alert("Algo Fallo");

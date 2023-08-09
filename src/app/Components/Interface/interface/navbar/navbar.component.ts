@@ -151,7 +151,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
     this.peticiones = true;
     this.publicaciones = true;
     this.publicarNueva = true;
-    this.router.navigate(['vacantes']);
+    this.router.navigate(['interface/vacantes']);
   }
 
   verPostulaciones() {
@@ -163,7 +163,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
     this.peticiones = true;
     this.publicaciones = true;
     this.publicarNueva = true;
-    this.router.navigate(['postulaciones']);
+    this.router.navigate(['interface/postulaciones']);
   }
 
   Notificaciones() {
@@ -175,7 +175,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
     this.peticiones = true;
     this.publicaciones = true;
     this.publicarNueva = true;
-    this.router.navigate(['notificaciones']);
+    this.router.navigate(['interface/notificaciones']);
   }
 
   verPerfil() {
@@ -187,7 +187,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
     this.peticiones = true;
     this.publicaciones = true;
     this.publicarNueva = true;
-    this.router.navigate(['perfil']);
+    this.router.navigate(['interface/perfil']);
   }
 
   verAdministrar() {
@@ -199,7 +199,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
     this.peticiones = true;
     this.publicaciones = true;
     this.publicarNueva = true;
-    this.router.navigate(['start']);
+    this.router.navigate(['interface/administrar']);
   }
 
   verPeticiones() {
@@ -211,7 +211,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
     this.peticiones = false;
     this.publicaciones = true;
     this.publicarNueva = true;
-    this.router.navigate(['start']);
+    this.router.navigate(['interface/peticiones']);
   }
 
   verPublicaciones() {
@@ -223,7 +223,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
     this.peticiones = true;
     this.publicaciones = false;
     this.publicarNueva = true;
-    this.router.navigate(['start']);
+    this.router.navigate(['interface/publicaciones']);
   }
 
   verNueva() {
@@ -235,11 +235,8 @@ export class NavbarComponent implements OnInit, OnDestroy {
     this.peticiones = true;
     this.publicaciones = true;
     this.publicarNueva = false;
-    this.router.navigate(['start']);
+    this.router.navigate(['interface/publicar']);
   }
-
-
-
 
 }
 
