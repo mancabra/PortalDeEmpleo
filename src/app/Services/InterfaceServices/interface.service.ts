@@ -11,6 +11,7 @@ import { Candidato } from '../Entity/candidato';
 @Injectable({
   providedIn: 'root'
 })
+
 export class InterfaceService {
 
   usuario:Candidato = new Candidato;

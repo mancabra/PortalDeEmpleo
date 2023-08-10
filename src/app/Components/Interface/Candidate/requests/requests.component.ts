@@ -99,7 +99,7 @@ export class RequestsComponent implements OnInit, OnDestroy {
     this._CandidateRequest.eliminarPostulacion(postulacion.id_postulacion).then((data:any) =>{
 
       if(data.estatus==true){
-        alert("La vacante fue eliminada correctamente");
+        alert("La postulacion fue eliminada correctamente");
         this.enviarAlertaExito(postulacion);
         this._CandidateRequest.updateRequest(this.usuario.id_candidato);
       } else{

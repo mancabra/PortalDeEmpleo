@@ -23,7 +23,7 @@ export class JobsComponent implements OnInit, OnDestroy {
 
   filtroActivo: boolean = false;
   filtro: string = "Filtros";
-  filtrosDisponibles = ["Cercanos a Mi", "Mejor Pagados",];
+  filtrosDisponibles = ["Ninguno","Cercanos a Mi", "Mejor Pagados",];
   jobsList: Vacante[] = [];
 
 
@@ -99,6 +99,11 @@ export class JobsComponent implements OnInit, OnDestroy {
   actualizarFiltro(filtroSelecionado: string) {
     this.filtro = filtroSelecionado;
     this.filtroActivo = true;
+    
+    if(this.filtro == "Ninguno"){
+      this.filtroActivo = false;
+      this.filtro = "Filtros";
+    }
   }
 
   buscarVacantes() {
@@ -110,7 +115,7 @@ export class JobsComponent implements OnInit, OnDestroy {
    } else if (this.busqueda == "" && this.filtroActivo == true){
     this.identificarFiltro();
    } else if (this.busqueda != "" && this.filtroActivo == true){
-
+    this.busquedaconFiltroYNombre();
    }
 
   }
@@ -121,6 +126,26 @@ export class JobsComponent implements OnInit, OnDestroy {
     } else if(this.filtro == "Mejor Pagados"){
       this.buscarPorSueldo();
     }
+  }
+
+  busquedaconFiltroYNombre(){
+    if(this.filtro == "Cercanos a Mi"){
+      this.buscarporNombreYMunicipio();
+    } else if(this.filtro == "Mejor Pagados"){
+
+    }
+  }
+
+
+  buscarporNombreYMunicipio(){
+    this._CandidateRequest.buscarporMunicipio_Nombre(this.usuario.municipio.id_municipio,this.busqueda).then((data: any) => {
+      if (data == null) {
+
+      } else {
+        this.jobsList = data;
+      }
+    });
+    this.cargarVacantes();
   }
 
   buscarPorMunicipio(){

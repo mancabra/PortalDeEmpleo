@@ -84,9 +84,15 @@ export class CandidateService {
     return this._http.get(cadena).toPromise();
   }
 
-  buscarporFiltro(BusquedaDTO: any) {
-    // VER COMO MANEJA SAMUEL LOS FILTROS
-    return this._http.get("http://localhost:8080/", BusquedaDTO).toPromise();
+  buscarporMunicipio_Nombre(id_municipio:number,filtroActivo:string) {
+     //prueba de funcionamiento
+     console.log("Proceso obtenerVacantesPorPalabra");
+     console.log("Info Enviada");
+     console.log(id_municipio);
+     console.log(filtroActivo);
+
+     let cadena = "http://localhost:8080/obtenerVacantesCercaYPorPalabraClave?id_municipio="+id_municipio+"&palabraClave="+filtroActivo;
+    return this._http.get(cadena).toPromise();
   }
 
   postularse(PostDTO: any) {

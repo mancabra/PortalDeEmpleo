@@ -665,7 +665,7 @@ export class CreateComponent {
       this.validarContrasenasIguales = true;
       usuario.contrasena = this.contrasena;
     }
-    this.cambiarFlujoDeRegistroIV(usuario);
+    this.cambiarFlujoDeRegistroV(usuario);
   }
 
   cambiarFlujoDeRegistroV(usuario: any) {
@@ -684,14 +684,14 @@ export class CreateComponent {
   registarCandidato(usuario: any) {
     if (this.Obligatorios != false) {
       this._CandidateRequest.registrar(usuario).then((data:any) =>{
-        if(data.id_candidato == 0){
+        if(data.estatus == false){
           alert("ha ocurrido un error");
         }else{
           this.limpiarCampos();
           this._UserRequest.guaradarCorreo(usuario.correoElectronico);
           this._UserRequest.cambiartipo();
           this._UserRequest.mostarNav();
-          this.router.navigate(['interface/vacantes']);
+          //this.router.navigate(['interface/vacantes']);
         }
       });
     } else {
@@ -717,13 +717,14 @@ export class CreateComponent {
   registarEmpleador(empleador: any) {
     if (this.Obligatorios != false) {
       this._EmployerRequest.registrar(empleador).then((data:any) =>{
-        if(data.id_empleador == 0){
+        if(data.estatus == false){
           alert("ha ocurrido un error");
         }else{
           this.limpiarCampos();
           this._UserRequest.guaradarCorreo(empleador.correoElectronico);
+          this._UserRequest.cambiartipo();
           this._UserRequest.mostarNav();
-          this.router.navigate(['start']);
+          //this.router.navigate(['start']);
         }
       });
     } else {
