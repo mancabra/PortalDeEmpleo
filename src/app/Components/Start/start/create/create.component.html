@@ -264,14 +264,16 @@
                                             <button class="btn btn-outline-secondary dropdown-toggle" type="button"
                                                 data-bs-toggle="dropdown" aria-expanded="false"
                                                 style="width: 100%;">{{estado.nombreEstado}}</button>
-                                            <div class="scrollMenu">
-                                                <ul class="dropdown-menu">
+
+                                            <ul class="dropdown-menu">
+                                                <div class="scrollMenu">
                                                     <li><button class="dropdown-item" type="button"
                                                             *ngFor="let estadoSeleccionado of estadosMexico"
                                                             (click)="actualizarEstado(estadoSeleccionado)">{{estadoSeleccionado.nombreEstado}}</button>
                                                     </li>
-                                                </ul>
-                                            </div>
+                                                </div>
+                                            </ul>
+
                                         </div>
                                     </div>
                                 </div>
@@ -297,14 +299,14 @@
                                             <button class="btn btn-outline-secondary dropdown-toggle" type="button"
                                                 data-bs-toggle="dropdown" aria-expanded="false" style="width: 100%;"
                                                 [ngStyle]="{'pointer-events':bloquearMunicipio}">{{municipio.nombreMunicipio}}</button>
-                                            <div class="scrollMenu">
-                                                <ul class="dropdown-menu">
+                                            <ul class="dropdown-menu">
+                                                <div class="scrollMenu">
                                                     <li><button class="dropdown-item" type="button"
                                                             *ngFor="let municipioSeleccionado of municipiosMexico"
                                                             (click)="actualizarMunicipio(municipioSeleccionado)">{{municipioSeleccionado.nombreMunicipio}}</button>
                                                     </li>
-                                                </ul>
-                                            </div>
+                                                </div>
+                                            </ul>
                                         </div>
                                     </div>
                                 </div>

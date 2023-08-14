@@ -1,1 +1,310 @@
-<p>new-job works!</p>
+<div style="display: flex;">
+    <div class="cajaIzquierda">
+        <div style="text-align: center; margin-bottom: .5rem; padding-left: 1rem; padding-right: 1rem;">
+            <b>DATOS DE LA VACANTE</b>
+            <hr>
+        </div>
+        <div style="padding: 1rem;">
+            <div style="display:grid; margin-bottom: 1rem;">
+                <div style="width: 100%;">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-9" style="padding-left: 0%; padding-bottom: .3rem;">
+                                Nombre de la vacante*
+                            </div>
+                            <div class="col" style="color: red; font-size: x-small; text-align: right;">
+                                Campo Obligatorio*
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div style="display: flex;">
+                    <div style="width: 100%;">
+                        <input class="form-control" type="text" placeholder="Maestro artesano"
+                            aria-label="default input example">
+                    </div>
+                </div>
+            </div>
+
+            <div style="display:grid; margin-bottom: 1rem;">
+                <div style="width: 100%;">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-9" style="padding-left: 0%; padding-bottom: .3rem;">
+                                Especialista requerido*
+                            </div>
+                            <div class="col" style="color: red; font-size: x-small; text-align: right;">
+                                Campo Obligatorio*
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div style="display: flex;">
+                    <div style="width: 100%;">
+                        <input class="form-control" type="text" placeholder="Carpintero"
+                            aria-label="default input example">
+                    </div>
+                </div>
+            </div>
+
+            <div style="display:grid; margin-bottom: 1rem;">
+                <div style="width: 100%;">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-9" style="padding-left: 0%; padding-bottom: .3rem;">
+                                Empresa que publica*
+                            </div>
+                            <div class="col" style="color: red; font-size: x-small; text-align: right;">
+                                Campo Obligatorio*
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="display: flex;">
+                    <div style="width: 100%;">
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="input-group">
+                                    <button class="btn btn-outline-secondary dropdown-toggle" type="button"
+                                        data-bs-toggle="dropdown" aria-expanded="false"
+                                        style="width: 100%;">{{empresaSelecionada.nombre}}</button>
+
+                                    <ul class="dropdown-menu">
+                                        <div class="scrollMenu">
+                                            <li><button class="dropdown-item" type="button"
+                                                    *ngFor="let estadoSeleccionado of estados">{{estadoSeleccionado}}</button>
+                                            </li>
+                                        </div>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div style="width: 100%;">
+                                    <label class="btn btn-danger" style="width: 100%; pointer-events: none;"> REGISTRAR
+                                        UNA EMPRESA</label>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div style="display: flex;">
+                <div style="display:grid; margin-bottom: 1rem; width: 50%; margin-right: .5rem;">
+                    <div style="width: 100%;" >
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-6" style="padding-left: 0%; padding-bottom: .3rem;">
+                                   Salario mensual*
+                                </div>
+                                <div class="col" style="color: red; font-size: x-small; text-align: right;">
+                                    Campo Obligatorio*
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="display: flex;">
+                        <div style="width: 100%;">
+                            <div class="input-group">
+                                <span class="input-group-text">$</span>
+                                <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" placeholder="10,000">
+                                <span class="input-group-text">.00</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="display:grid; margin-bottom: 1rem; width: 50%; margin-left: 1rem;">
+                    <div style="width: 100%;">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-6" style="padding-left: 0%; padding-bottom: .3rem;">
+                                   Ubicación*
+                                </div>
+                                <div class="col" style="color: red; font-size: x-small; text-align: right;">
+                                    Campo Obligatorio*
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="display: flex;">
+                        <div style="width: 100%;">
+                            <div class="input-group">
+                                <button class="btn btn-outline-secondary dropdown-toggle" type="button"
+                                    data-bs-toggle="dropdown" aria-expanded="false"
+                                    style="width: 100%;">{{empresaSelecionada.nombre}}</button>
+
+                                <ul class="dropdown-menu">
+                                    <div class="scrollMenu">
+                                        <li><button class="dropdown-item" type="button"
+                                                *ngFor="let estadoSeleccionado of estados">{{estadoSeleccionado}}</button>
+                                        </li>
+                                    </div>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- <div style="display: flex;">
+                        <div style="width: 100%;">
+                            <div class="input-group">
+                                <input type="text" class="form-control"  placeholder="8:00 - 17:00">
+                                <span class="input-group-text">hrs</span>
+                            </div>
+                        </div>
+                    </div> -->
+                </div>
+            </div>
+
+
+
+
+            <div style="display: flex;">
+                <div style="display:grid; margin-bottom: 1rem; width: 50%; margin-right: .5rem;">
+                    <div style="width: 100%;" >
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-6" style="padding-left: 0%; padding-bottom: .3rem;">
+                                   Salario mensual*
+                                </div>
+                                <div class="col" style="color: red; font-size: x-small; text-align: right;">
+                                    Campo Obligatorio*
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="display: flex;">
+                        <div style="width: 100%;">
+                            <div class="input-group">
+                                <button class="btn btn-outline-secondary dropdown-toggle" type="button"
+                                    data-bs-toggle="dropdown" aria-expanded="false"
+                                    style="width: 100%;">{{empresaSelecionada.nombre}}</button>
+
+                                <ul class="dropdown-menu">
+                                    <div class="scrollMenu">
+                                        <li><button class="dropdown-item" type="button"
+                                                *ngFor="let estadoSeleccionado of estados">{{estadoSeleccionado}}</button>
+                                        </li>
+                                    </div>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="display:grid; margin-bottom: 1rem; width: 50%; margin-left: 1rem;">
+                    <div style="width: 100%;">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-6" style="padding-left: 0%; padding-bottom: .3rem;">
+                                   Horario laboral*
+                                </div>
+                                <div class="col" style="color: red; font-size: x-small; text-align: right;">
+                                    Campo Obligatorio*
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="display: flex;">
+                        <div style="width: 100%;">
+                            <div class="input-group">
+                                <button class="btn btn-outline-secondary dropdown-toggle" type="button"
+                                    data-bs-toggle="dropdown" aria-expanded="false"
+                                    style="width: 100%;">{{empresaSelecionada.nombre}}</button>
+
+                                <ul class="dropdown-menu">
+                                    <div class="scrollMenu">
+                                        <li><button class="dropdown-item" type="button"
+                                                *ngFor="let estadoSeleccionado of estados">{{estadoSeleccionado}}</button>
+                                        </li>
+                                    </div>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div style="display: flex;">
+                <div style="display:grid; margin-bottom: 1rem; width: 50%; margin-right: .5rem;">
+                    <div style="width: 100%;" >
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-6" style="padding-left: 0%; padding-bottom: .3rem;">
+                                   Salario mensual*
+                                </div>
+                                <div class="col" style="color: red; font-size: x-small; text-align: right;">
+                                    Campo Obligatorio*
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="display: flex;">
+                        <div style="width: 100%;">
+                            <div class="input-group">
+                                <button class="btn btn-outline-secondary dropdown-toggle" type="button"
+                                    data-bs-toggle="dropdown" aria-expanded="false"
+                                    style="width: 100%;">{{empresaSelecionada.nombre}}</button>
+
+                                <ul class="dropdown-menu">
+                                    <div class="scrollMenu">
+                                        <li><button class="dropdown-item" type="button"
+                                                *ngFor="let estadoSeleccionado of estados">{{estadoSeleccionado}}</button>
+                                        </li>
+                                    </div>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="display:grid; margin-bottom: 1rem; width: 50%; margin-left: 1rem;">
+                    <div style="width: 100%;">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-6" style="padding-left: 0%; padding-bottom: .3rem;">
+                                   Horario laboral*
+                                </div>
+                                <div class="col" style="color: red; font-size: x-small; text-align: right;">
+                                    Campo Obligatorio*
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="display: flex;">
+                        <div style="width: 100%;">
+                           <div class="input-group">
+                                <button class="btn btn-outline-secondary dropdown-toggle" type="button"
+                                    data-bs-toggle="dropdown" aria-expanded="false"
+                                    style="width: 100%;">{{empresaSelecionada.nombre}}</button>
+
+                                <ul class="dropdown-menu">
+                                    <div class="scrollMenu">
+                                        <li><button class="dropdown-item" type="button"
+                                                *ngFor="let estadoSeleccionado of estados">{{estadoSeleccionado}}</button>
+                                        </li>
+                                    </div>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+
+
+
+    <div class="cajaDerecha">
+        <div style="text-align: center; margin-bottom: 2rem; padding-left: 1rem; padding-right: 1rem;">
+            <b>VISTA PREVIA</b>
+            <hr>
+        </div>
+    </div>
+</div>

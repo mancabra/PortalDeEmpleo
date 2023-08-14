@@ -136,14 +136,15 @@
                             <button class="form-select" type="button" id="inputGroupSelect01" data-bs-toggle="dropdown"
                                 aria-expanded="false"
                                 style="font-size: x-small; border-radius: 5px 0px 0px 5px;">{{nuevoEstado.nombreEstado}}</button>
-                            <div class="scrollMenu">
-                                <ul class="dropdown-menu">
+                            <ul class="dropdown-menu">
+                                <div class="scrollMenu">
                                     <li><button class="dropdown-item" type="button"
                                             *ngFor="let estadoSeleccionado of estadosMexico"
                                             (click)="actualizarEstado(estadoSeleccionado)">{{estadoSeleccionado.nombreEstado}}</button>
                                     </li>
-                                </ul>
-                            </div>
+                                </div>
+                            </ul>
+
                             <label class="input-group-text" for="inputGroupSelect01"
                                 style=" height: 1.8rem; width: 35%;">
                                 <b>
@@ -156,14 +157,14 @@
                             <button class="form-select" type="button" id="inputGroupSelect01" data-bs-toggle="dropdown"
                                 aria-expanded="false" style="font-size: x-small; border-radius: 5px 0px 0px 5px;"
                                 [ngStyle]="{'pointer-events':bloquearMunicipio}">{{nuevoMunicipio.nombreMunicipio}}</button>
-                            <div class="scrollMenu">
-                                <ul class="dropdown-menu">
+                            <ul class="dropdown-menu">
+                                <div class="scrollMenu">
                                     <li><button class="dropdown-item" type="button"
                                             *ngFor="let municipioSeleccionado of municipiosMexico"
                                             (click)="actualizarMunicipio(municipioSeleccionado)">{{municipioSeleccionado.nombreMunicipio}}</button>
                                     </li>
-                                </ul>
-                            </div>
+                                </div>
+                            </ul>
 
                             <label class="input-group-text" for="inputGroupSelect01"
                                 style=" height: 1.8rem; width: 35%;">
