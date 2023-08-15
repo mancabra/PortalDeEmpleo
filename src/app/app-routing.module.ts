@@ -12,6 +12,7 @@ import { NewJobComponent } from './Components/Interface/Employer/new-job/new-job
 import { CandidatesComponent } from './Components/Interface/Employer/candidates/candidates.component';
 import { ManageComponent } from './Components/Interface/Admin/manage/manage.component';
 import { RequestAdminComponent } from './Components/Interface/Admin/request-admin/request-admin.component';
+import { UpdateJobComponent } from './Components/Interface/Employer/candidates/update-job/update-job.component';
 
 
 
@@ -30,7 +31,7 @@ const routes: Routes = [
   // RUTAS EMPLEADOR
   {path:'interface/publicar',component:NewJobComponent},
   {path:'interface/publicaciones',component:CandidatesComponent},
-  //{path:'interface/publicaciones/modificar',component:},
+  {path:'interface/publicaciones/modificar',component:UpdateJobComponent},
 
   // RUTAS ADMINISTRADOR
   {path:'interface/administrar',component:ManageComponent},

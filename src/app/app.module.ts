@@ -20,6 +20,7 @@ import { ManageComponent } from './Components/Interface/Admin/manage/manage.comp
 import { RequestAdminComponent } from './Components/Interface/Admin/request-admin/request-admin.component';
 import { JobComponent } from './Components/Interface/Employer/candidates/job/job.component';
 import { UpdateComponent } from './Components/Interface/Candidate/profile/update/update.component';
+import { UpdateJobComponent } from './Components/Interface/Employer/candidates/update-job/update-job.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { UpdateComponent } from './Components/Interface/Candidate/profile/update
     ManageComponent,
     RequestAdminComponent,
     JobComponent,
-    UpdateComponent
+    UpdateComponent,
+    UpdateJobComponent
   ],
   imports: [
     BrowserModule,

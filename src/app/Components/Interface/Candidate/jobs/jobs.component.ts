@@ -18,6 +18,7 @@ export class JobsComponent implements OnInit, OnDestroy {
   usuario: Candidato = new Candidato;
   vacanteSeleccionada: Vacante = new Vacante;
   busqueda: string = "";
+  verSueldo: string = "none";
   textoBoton: string = "Iniciar Sesión"
   id_tipoUsuario: number = 0;
 
