@@ -84,7 +84,7 @@ export class CandidatesComponent implements OnInit{
 
   eliminarVacante(vacante: Vacante){
     this._EmployerRequest.eliminarVacante(vacante.id_vacante).then((data:any) =>{
-      if(data == "Vacante eliminada exitosamente") {
+      if(data.estatus == true) {
         alert("la vacante se ha eliminado correctamente");
         this.obtenerPublicaciones();
         this.cargarPantalla();
