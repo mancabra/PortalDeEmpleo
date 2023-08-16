@@ -84,7 +84,7 @@ export class NewJobComponent implements OnInit {
     this.municipioSeleccionado = { id_municipio: 0, nombreMunicipio: "Selecciona un Municipio", estado: new Estado };
     this.horarioSeleccionado = { id_tipoHorario: 0, dias: "Seleccione un Tipo de Horario", tipoHorario_vacantes: [] }
     this.contratacionSeleccionada = { id_tipoContratacion: 0, horario: "Seleccionar tipo de contratación", tipoContratacion_vacantes: [] }
-    this.modalidadSeleccionada = { id_modalidadTrabajo: 0, modalidad: "Seleccionar modalidad de trabajo", modalidadTrabajo_vacantes: [] }
+    this.modalidadSeleccionada = { id_modalidad: 0, modalidad: "Seleccionar modalidad de trabajo", modalidadTrabajo_vacantes: [] }
   }
 
   ngOnInit(): void {
@@ -235,7 +235,7 @@ export class NewJobComponent implements OnInit {
     this.errorContratacion = true;
     this.errorModalidad = true;
     this.errorDescripcion = true;
-    this.obligatorios = false;
+    this.obligatorios = true;
   }
 
   validarInformacion() {
@@ -243,17 +243,17 @@ export class NewJobComponent implements OnInit {
 
     const VACANTE = {
       id_vacante:this.vacante.id_vacante,
-      nombre: this.nombreVacante,
-      especialista: this.especialista,
-      sueldo: this.sueldo,
-      id_empresa: this.empresaSelecionada.id_empresa,
-      horario: this.horario,
-      id_municipo: this.municipioSeleccionado.id_municipio,
-      descripcion: this.descripcion,
-      id_empleador: this.empleador.id_empleador,
-      id_tipoHorario: this.horarioSeleccionado.id_tipoHorario,
-      id_tipoContratacion: this.contratacionSeleccionada.id_tipoContratacion,
-      id_modalidadTrabajo: this.modalidadSeleccionada.id_modalidadTrabajo,
+      nombreVacante:this.nombreVacante,
+      especialista:this.especialista,
+      sueldo:this.sueldo,
+      id_empresa:this.empresaSelecionada.id_empresa,
+      horario:this.horario,
+      id_municipio:this.municipioSeleccionado.id_municipio,
+      descripcion:this.descripcion,
+      id_empleador:this.empleador.id_empleador,
+      id_tipoHorario:this.horarioSeleccionado.id_tipoHorario,
+      id_tipoContratacion:this.contratacionSeleccionada.id_tipoContratacion,
+      id_modalidadTrabajo:this.modalidadSeleccionada.id_modalidad,
       domicilio: this.domicilio,
     }
 
@@ -327,7 +327,7 @@ export class NewJobComponent implements OnInit {
   }
 
   validarModalidad(VACANTE: any) {
-    if (this.modalidadSeleccionada.id_modalidadTrabajo == 0) {
+    if (this.modalidadSeleccionada.id_modalidad == 0) {
       this.obligatorios = false;
       this.errorModalidad = false;
 
@@ -400,7 +400,7 @@ export class NewJobComponent implements OnInit {
     if(this.vistaModificacion == true){
     this.modificarVacante(VACANTE);
     } else {
-      this.generarVacante(VACANTE);
+     this.generarVacante(VACANTE);
     }
   }
 
@@ -409,9 +409,11 @@ export class NewJobComponent implements OnInit {
       this._EmployerRequest.modificarVacante(VACANTE).then((data: any) => {
         if (data.estatus != true) {
           alert("ha ocurrido un error");
+          console.log(VACANTE);
           this.enviarAlertaErrorMod(VACANTE);
         } else {
           alert("la vacante fue modificada correctamente");
+          console.log(VACANTE);
           this.enviarAlertaExitoMod(VACANTE);
           this.limpiarCampos();
           this.router.navigate(['interface/publicaciones']);
@@ -424,19 +426,22 @@ export class NewJobComponent implements OnInit {
   }
 
   generarVacante(VACANTE: any) {
+    alert("hola3")
     if (this.obligatorios != false) {
       this._EmployerRequest.publicarVacante(VACANTE).then((id_vacante: any) => {
         if (id_vacante == 0) {
           alert("ha ocurrido un error");
+          console.log(VACANTE);
           this.enviarAlertaError(VACANTE);
         } else {
           alert("la vacante fue publicada correctamente");
+          console.log(VACANTE);
           this.enviarAlertaExito(VACANTE)
           this.limpiarCampos();
         }
       });
     } else {
-
+      alert("hola");
     }
   }
 
@@ -453,16 +458,17 @@ export class NewJobComponent implements OnInit {
     this.municipioSeleccionado = { id_municipio: 0, nombreMunicipio: "Selecciona un Municipio", estado: new Estado };
     this.horarioSeleccionado = { id_tipoHorario: 0, dias: "Seleccione un Tipo de Horario", tipoHorario_vacantes: [] }
     this.contratacionSeleccionada = { id_tipoContratacion: 0, horario: "Seleccionar tipo de contratación", tipoContratacion_vacantes: [] }
-    this.modalidadSeleccionada = { id_modalidadTrabajo: 0, modalidad: "Seleccionar modalidad de trabajo", modalidadTrabajo_vacantes: [] }
+    this.modalidadSeleccionada = { id_modalidad: 0, modalidad: "Seleccionar modalidad de trabajo", modalidadTrabajo_vacantes: [] }
   }
 
 
-  enviarAlertaExito(vacante: Vacante) {
+  enviarAlertaExito(vacante: any) {
+    console.log(vacante);
 
     const ALERTA = {
       nombreAlerta: "Vacante Publicada",
       textoAlerta: "Se ha publicado la vacante " + vacante.nombreVacante + 
-                   " bajo el nombre de la empresa " + vacante.empresa.nombre + 
+                   " bajo el nombre de la empresa " + this.empresaSelecionada.nombre + 
                    " si usted no hizo esta publicación o cometio un error durante la captura de los datos solicitados de la vacante"+
                    " podras eliminarla o modificarla desde el apartado PUBLICACIONES"
     }
@@ -470,12 +476,13 @@ export class NewJobComponent implements OnInit {
     this._UserRequest.agregarAlerta(ALERTA);
   }
 
-  enviarAlertaError(vacante: Vacante) {
+  enviarAlertaError(vacante:any) {
+    console.log(vacante);
 
     const ALERTA = {
       nombreAlerta: "Error de Publicación",
       textoAlerta: "La vacante " + vacante.nombreVacante +
-                   " de la empresa " + vacante.empresa.nombre +
+                   " de la empresa " + this.empresaSelecionada.nombre +
                    " no ha podido publicarse correctamente, te recomendamos intentarlo nuevamente, si el error persiste puedes contactar a soporte mediente el correo soporte@mail.com"
     }
 
@@ -483,11 +490,12 @@ export class NewJobComponent implements OnInit {
   }
 
   enviarAlertaExitoMod(vacante: Vacante) {
+    console.log(vacante);
 
     const ALERTA = {
       nombreAlerta: "Vacante Modificada",
       textoAlerta: "Se ha modificado la vacante " + vacante.nombreVacante + 
-                   " bajo el nombre de la empresa " + vacante.empresa.nombre + 
+                   " bajo el nombre de la empresa " + this.empresaSelecionada.nombre + 
                    " si usted no hizo esta modificacion o cometio un error durante la captura de los datos solicitados de la vacante"+
                    " podras eliminarla o modificarla desde el apartado PUBLICACIONES"
     }
@@ -495,12 +503,13 @@ export class NewJobComponent implements OnInit {
     this._UserRequest.agregarAlerta(ALERTA);
   }
 
-  enviarAlertaErrorMod(vacante: Vacante) {
+  enviarAlertaErrorMod(vacante: any) {
+    console.log(vacante);
 
     const ALERTA = {
       nombreAlerta: "Error de Modificación",
       textoAlerta: "La vacante " + vacante.nombreVacante +
-                   " de la empresa " + vacante.empresa.nombre +
+                   " de la empresa " + this.empresaSelecionada.nombre +
                    " no ha podido modificarse correctamente, te recomendamos intentarlo nuevamente, si el error persiste puedes contactar a soporte mediente el correo soporte@mail.com"
     }
 

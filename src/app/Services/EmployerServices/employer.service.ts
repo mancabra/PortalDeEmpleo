@@ -6,6 +6,7 @@ import { TipoHorario } from '../Entity/tipo-horario';
 import { TipoContratacion } from '../Entity/tipo-contratacion';
 import { ModalidadTrabajo } from '../Entity/modalidad-trabajo';
 import { Empleador } from '../Entity/empleador';
+import { Vacante } from '../Entity/vacante';
 
 @Injectable({
   providedIn: 'root'
@@ -39,6 +40,16 @@ export class EmployerService {
 
     let cadena = "http://localhost:8080/obtenerUsuarioCompleto/" + this.correo;
     return this._http.get<Empleador>(cadena).toPromise();
+  }
+
+  obtenerPublicaciones(EmployerRequest: any): Observable<Vacante[]> {
+    console.log("Proceso obtener publicaciones");
+    console.log("Info Enviada");
+    console.log(EmployerRequest);
+
+    let cadena ="http://localhost:8080/obtenerVacantesPorIdEmpleador/" + EmployerRequest;
+
+    return this._http.get<Vacante[]>(cadena);
   }
 
   obtenerEmpresas(): Observable<Empresa[]> {
