@@ -352,7 +352,7 @@ export class UpdateComponent implements OnInit, OnDestroy {
 
     } else if(usuarioModificado.profesion.length < 4){
       usuarioModificado.profesion = this.usuario.profesion;
-    } else if (usuarioModificado.profesion.length < 25){
+    } else if (usuarioModificado.profesion.length > 25){
       usuarioModificado.profesion = this.usuario.profesion;
     } else {
 

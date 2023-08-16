@@ -205,11 +205,18 @@ export class JobsComponent implements OnInit, OnDestroy {
   asignarPostulacion(PostDTO:any,vacante:Vacante) {
     this._CandidateRequest.postularse(PostDTO).then((data: any) => {
       this.postulacion = data;
+      let dataMensaje = data;
 
       if(this.postulacion.estatus == true){
         this.enviarAlertaExito(vacante);
       } else {
+
+      if(dataMensaje.mensaje=="El candidato ya se encuentra postulado a esta vacante"){
+        alert("ya te has postulado a esta vacante");
+      } else {
         this.enviarAlertaError(vacante);
+      }
+       
       }
 
     });
@@ -222,7 +229,7 @@ export class JobsComponent implements OnInit, OnDestroy {
       nombreAlerta: "Pustulacion Exitosa",
       textoAlerta: "La postulación a vacante " + vacante.nombreVacante + 
                    " de la empresa " + vacante.empresa.nombre + 
-                   " se ha realizado correctamente Si tÚ no has realizado esta acción podras eliminarla desde el apartado POSTULACIONES."
+                   " se ha realizado correctamente Si tú no has realizado esta acción podras eliminarla desde el apartado POSTULACIONES."
     }
 
     this._UserRequest.agregarAlerta(ALERTA);

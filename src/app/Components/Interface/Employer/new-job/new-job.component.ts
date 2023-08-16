@@ -265,7 +265,7 @@ export class NewJobComponent implements OnInit {
       this.textoErrorNombre = "Campo Obligatorio*"
       this.obligatorios = false;
       this.errorNombre = false;
-    } else if (this.nombreVacante.length < 5) {
+    } else if (this.nombreVacante.length < 4) {
       this.textoErrorNombre = "Valor Invalido*"
       this.obligatorios = false;
       this.errorNombre = false;

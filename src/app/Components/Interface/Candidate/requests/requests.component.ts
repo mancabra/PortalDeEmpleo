@@ -115,7 +115,7 @@ export class RequestsComponent implements OnInit, OnDestroy {
 
     const ALERTA = {
       nombreAlerta:"Postulacion Eliminada",
-      textoAlerta:"La postulación a vacante "+postulacion.vacante.nombreVacante+" de la empresa "+postulacion.vacante.empresa.nombre+" ha sido eliminada, si usted no ha realizado esta acció puede que el empleador eliminara la publicación."
+      textoAlerta:"La postulación a vacante "+postulacion.vacante.nombreVacante+" de la empresa "+postulacion.vacante.empresa.nombre+" ha sido eliminada, si usted no ha realizado esta acción puede que el empleador eliminara la publicación."
     }
     // SE AGREGO ESTAA LINEA PARA EL OBSERVABLE
     this._UserRequest.agregarAlerta(ALERTA);
