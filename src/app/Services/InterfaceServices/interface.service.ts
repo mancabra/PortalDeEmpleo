@@ -15,7 +15,7 @@ import { Candidato } from '../Entity/candidato';
 export class InterfaceService {
 
   usuario:Candidato = new Candidato;
-  correo: string  = "manuel97@gmail.com";
+  correo: string  = "";
 
   private alerts$ = new Subject<any>();
   alertas: any = [];
@@ -131,7 +131,7 @@ export class InterfaceService {
   }
 
   hacerVisitante(){
-    this.tipoUsuario = 3;
+    this.tipoUsuario = 0;
     this.tipo$.next(this.tipoUsuario);
   }
 

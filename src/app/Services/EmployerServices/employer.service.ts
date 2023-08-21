@@ -15,7 +15,7 @@ import { Candidato } from '../Entity/candidato';
 export class EmployerService {
 
   id_empleador: any = 0;
-  correo: string = "manuel97@gmail.com";
+  correo: string = "";
   vacante: Vacante = new Vacante;
   private vacante$ = new Subject<Vacante>();
 
