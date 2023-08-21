@@ -16,12 +16,13 @@ export class UpdateJobComponent implements OnInit , OnDestroy{
 
   constructor(private _EmployerRequest: EmployerService){
   this.subscription = this._EmployerRequest.getVacante().subscribe(data => {
-      this.actualizarVacante(data);
+    this.vacante = data
+      this.actualizarVacante(this.vacante);
     });
   }
  
   ngOnInit(): void {
-    
+    this._EmployerRequest.cargarVacante();
   }
 
   actualizarVacante(data: Vacante){

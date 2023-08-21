@@ -36,7 +36,7 @@ export class UpdateComponent implements OnInit, OnDestroy {
   nuevoCentroEducativo: string = "";
   nuevoPuesto: string = "";
   bloquearMunicipio: string = "all"
-
+  nuevaFecha: Date = new Date;
 
   nuevoCurriculum: any;
   nuevaImagenPerfil: any;
@@ -157,6 +157,7 @@ export class UpdateComponent implements OnInit, OnDestroy {
     this.nuevaImagenPerfil = "";
     this.nuevaImagenPortada = "";
     this.nuevaDescripcion = "";
+    this.nuevaFecha = new Date;
   }
 
   asignarDatos(usuario: Candidato) {
@@ -173,6 +174,7 @@ export class UpdateComponent implements OnInit, OnDestroy {
     this.nuevoMunicipio = usuario.municipio;
     this.nuevoCentroEducativo = usuario.centroEducativo;
     this.nuevoPuesto = usuario.puestoActual;
+    this.nuevaFecha = usuario.fechaNacimiento;
 
     this.validarLongitud();
   }
@@ -209,6 +211,7 @@ export class UpdateComponent implements OnInit, OnDestroy {
       telefono: this.nuevoTelefono,
       //edad:this.nuevaEdad,
       profesion: this.nuevaProfesion,
+      fechaNacimiento: this.nuevaFecha,
     
     }
 
@@ -293,14 +296,26 @@ export class UpdateComponent implements OnInit, OnDestroy {
 
   validarEdad(usuarioModificado: any){
     // FALATA AGREGAR FUNCION PARA REDONDEAR EDADES
-    if(usuarioModificado.edad == 0){
-      usuarioModificado.edad = this.usuario.edad;
-    } else if (usuarioModificado.edad < 18){
-      usuarioModificado.edad = this.usuario.edad;
-    } else if (usuarioModificado.edad > 70){
-      usuarioModificado.edad = this.usuario.edad;
-    } else {
 
+    var hoy = new Date();
+    var cumpleanos = new Date(this.nuevaFecha);
+    var edad = hoy.getFullYear() - cumpleanos.getFullYear();
+    var m = hoy.getMonth() - cumpleanos.getMonth();
+
+    if (m < 0 || (m === 0 && hoy.getDate() < cumpleanos.getDate())) {
+        edad--;
+    }
+
+    if (edad == 0) {
+      usuarioModificado.fechaNacimiento = this.usuario.fechaNacimiento;
+
+    } else if (edad < 18) {
+      usuarioModificado.fechaNacimiento = this.usuario.fechaNacimiento;
+
+    } else if (edad > 70){
+      usuarioModificado.fechaNacimiento = this.usuario.fechaNacimiento;
+    } else {
+      
     }
 
     this.validarDatosDomicilio(usuarioModificado);

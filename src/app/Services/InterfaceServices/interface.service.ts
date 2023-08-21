@@ -15,7 +15,7 @@ import { Candidato } from '../Entity/candidato';
 export class InterfaceService {
 
   usuario:Candidato = new Candidato;
-  correo: string  = "";
+  correo: string  = "manuel97@gmail.com";
 
   private alerts$ = new Subject<any>();
   alertas: any = [];
@@ -84,11 +84,17 @@ export class InterfaceService {
   }
 
   esparcirAlertas() {
+    this.alertas.reverse();
     this.alerts$.next(this.alertas);
   }
 
   agregarAlerta(alert: any) {
-    this.alertas.push(alert);
+    this.alertas.push(alert).reverse();
+    this.alerts$.next(this.alertas);
+  }
+
+  LimpiarAlertas() {
+    this.alertas = [];
     this.alerts$.next(this.alertas);
   }
 
@@ -125,7 +131,7 @@ export class InterfaceService {
   }
 
   hacerVisitante(){
-    this.tipoUsuario = 0;
+    this.tipoUsuario = 3;
     this.tipo$.next(this.tipoUsuario);
   }
 

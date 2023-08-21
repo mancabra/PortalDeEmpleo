@@ -1,12 +1,30 @@
 <div style="display: flex;">
     <div class="cajaIzquierda">
-        <div style="text-align: center; margin-bottom: .5rem; padding-left: 1rem; padding-right: 1rem;">
+        <div style="text-align: center;margin-bottom: 1rem; padding-left: 1rem; padding-right: 1rem;">
             <b>CANDIDATOS A LA VACANTE</b>
             <hr>
         </div>
+        
         <div style="padding: 1rem;">
             <div *ngIf="cargarPantallaI(); else pantallaVaciaI">
+                <div class="scrollMenu">
+                    <div class="card carta" *ngFor="let candidato of candidatos" style="margin-top: 1rem;">
+                        <div class="card-body">
+                            <h3 class="card-title">{{candidato.usuario.nombre}} {{candidato.usuario.apellidoP}} / {{candidato.profesion}}</h3>
+                            <p class="card-text textoInformativo" style="padding-bottom: 0rem;">
+                                <br> Ubicación: {{candidato.domicilio}}
+                                <br> {{candidato.municipio.nombreMunicipio}} estado de {{candidato.municipio.estado.nombreEstado}}.
+                                <!-- ver si colocamos el estado -->
+                            </p>
 
+                            <div class="d-grid" style="margin-top: 1rem;">
+                                <button type="button" class="btn btn-success" style="margin-bottom: .5rem;">ELEGIR CANDIDATO</button>
+                                <button type="button" class="btn btn-danger" style="margin-bottom: .5rem;" (click)="obtenerPostulacion(candidato)">QUITAR CANDIDATO</button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
             </div>
 
             <ng-template #pantallaVaciaI>

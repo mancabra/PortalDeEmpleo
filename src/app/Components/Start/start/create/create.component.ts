@@ -87,6 +87,7 @@ export class CreateComponent {
   correo: string = "";
   contrasena: string = "";
   contrasenaValidacion: string = "";
+  nacimiento:Date = new Date;
 
   // VALIDACION NOMBRE COMPLETO
 
@@ -365,7 +366,8 @@ export class CreateComponent {
       edad: this.edad,
       domicilio: this.ubicacion,
       id_estado: this.estado.id_estado,
-      id_municipio: this.municipio.id_municipio
+      id_municipio: this.municipio.id_municipio,
+      fecha: this.nacimiento
     }
     this.evaluarNombre(CANDIDATO);
   }
@@ -480,11 +482,21 @@ export class CreateComponent {
   }
 
   evaluarEdad(usuario: any) {
-    if (this.edad == 0) {
+
+    var hoy = new Date();
+    var cumpleanos = new Date(this.nacimiento);
+    var edad = hoy.getFullYear() - cumpleanos.getFullYear();
+    var m = hoy.getMonth() - cumpleanos.getMonth();
+
+    if (m < 0 || (m === 0 && hoy.getDate() < cumpleanos.getDate())) {
+        edad--;
+    }
+
+    if (edad == 0) {
       this.validarEdad = false;
       this.Obligatorios = false;
 
-    } else if (this.edad < 18) {
+    } else if (edad < 18) {
       this.mensajeEdad = "Valor Invalido*"
       this.validarEdad = false;
       this.Obligatorios = false;
@@ -492,10 +504,12 @@ export class CreateComponent {
 
     } else {
       this.validarEdad = true;
-      usuario.edad = this.edad;
+      usuario.edad = edad;
+      usuario.fecha = this.nacimiento;
     }
     this.evaluarTelefono(usuario);
   }
+  
 
   evaluarTelefono(usuario: any) {
 

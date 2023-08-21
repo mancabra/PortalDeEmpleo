@@ -15,7 +15,7 @@ import { Candidato } from '../Entity/candidato';
 export class EmployerService {
 
   id_empleador: any = 0;
-  correo: string = "";
+  correo: string = "manuel97@gmail.com";
   vacante: Vacante = new Vacante;
   private vacante$ = new Subject<Vacante>();
 
@@ -62,7 +62,7 @@ export class EmployerService {
     console.log("Info Enviada");
     console.log(EmployerRequest);
 
-    let cadena ="http://localhost:8080/obtenerVacantesPorIdEmpleador/" + EmployerRequest;
+    let cadena ="http://localhost:8080/obtenerCaandidatosVacante/" + EmployerRequest;
     return this._http.get<Candidato[]>(cadena);
   }
 
@@ -131,7 +131,7 @@ export class EmployerService {
 
   guardarVacante(EmployerRequest: Vacante){
     this.vacante = EmployerRequest;
-    this.vacante$.next(this.vacante);
+    this.cargarVacante();
   }
 
   cargarVacante(){

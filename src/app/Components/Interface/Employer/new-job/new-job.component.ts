@@ -108,6 +108,7 @@ export class NewJobComponent implements OnInit {
   }
 
   asignarValores(){
+   
     this.nombreVacante = this.vacante.nombreVacante;
     this.especialista = this.vacante.especialista;
     this.sueldo = this.vacante.sueldo;
@@ -426,7 +427,6 @@ export class NewJobComponent implements OnInit {
   }
 
   generarVacante(VACANTE: any) {
-    alert("hola3")
     if (this.obligatorios != false) {
       this._EmployerRequest.publicarVacante(VACANTE).then((id_vacante: any) => {
         if (id_vacante == 0) {
@@ -436,12 +436,12 @@ export class NewJobComponent implements OnInit {
         } else {
           alert("la vacante fue publicada correctamente");
           console.log(VACANTE);
-          this.enviarAlertaExito(VACANTE)
+          this.enviarAlertaExito(VACANTE);
           this.limpiarCampos();
         }
       });
     } else {
-      alert("hola");
+
     }
   }
 

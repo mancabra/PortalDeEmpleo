@@ -23,4 +23,6 @@ export class Candidato {
 
     profesion: string = "";
 
+    fechaNacimiento: Date = new Date;
+
 }

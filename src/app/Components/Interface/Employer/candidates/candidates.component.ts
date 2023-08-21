@@ -1,36 +1,61 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { CandidateService } from 'src/app/Services/CandidateServices/candidate.service';
 import { EmployerService } from 'src/app/Services/EmployerServices/employer.service';
 import { Candidato } from 'src/app/Services/Entity/candidato';
 import { Empleador } from 'src/app/Services/Entity/empleador';
 import { Empresa } from 'src/app/Services/Entity/empresa';
+import { Estado } from 'src/app/Services/Entity/estado';
 import { ModalidadTrabajo } from 'src/app/Services/Entity/modalidad-trabajo';
 import { Municipio } from 'src/app/Services/Entity/municipio';
+import { Postulacion } from 'src/app/Services/Entity/postulacion';
 import { TipoContratacion } from 'src/app/Services/Entity/tipo-contratacion';
 import { TipoHorario } from 'src/app/Services/Entity/tipo-horario';
+import { Usuario } from 'src/app/Services/Entity/usuario';
 import { Vacante } from 'src/app/Services/Entity/vacante';
+import { InterfaceService } from 'src/app/Services/InterfaceServices/interface.service';
 
 @Component({
   selector: 'app-candidates',
   templateUrl: './candidates.component.html',
   styleUrls: ['./candidates.component.css']
 })
-export class CandidatesComponent implements OnInit{
+export class CandidatesComponent implements OnInit {
 
   empleador: Empleador = new Empleador;
-  publicaciones: Vacante [] = [];
+  publicaciones: Vacante[] = [];
   candidatos: Candidato[] = [];
+  postulaciones: Postulacion[] = [];
+  vacanteActual: Vacante = new Vacante;
+  usuario: Usuario = {
+    id_usuario: 0,
+    nombre: "Saul",
+    correoElectronico: "",
+    contrasena: "",
+    tipoUsuario: 0,
+    apellidoP: "Salazar",
+    apellidoM: "Hernandez",
+    telefono: "",
+    estatusUsuario: false,
+    rutaImagenPerfil: "",
+    rutaImagenPortada: "",
 
-  constructor( private _EmployerRequest: EmployerService, private router: Router){
-    /*
-    this.publicaciones =[{ id_vacante: 0,
-      nombreVacante:"Taquero",
-      especialista:"Taquero",
-      sueldo:10000,
-      horario:"9:00 am - 10:00 pm",
+  }
+
+  constructor(private _EmployerRequest: EmployerService,
+    private router: Router,
+    private _CandidateRequest: CandidateService,
+    private _UserRequest: InterfaceService) {
+
+    this.publicaciones = [{
+      id_vacante: 0,
+      nombreVacante: "Taquero",
+      especialista: "Taquero",
+      sueldo: 10000,
+      horario: "9:00 am - 10:00 pm",
       domicilio: "Av.Primavera",
-      municipio: new Municipio ,
-      estatus:false,
+      municipio: new Municipio,
+      estatus: false,
       descripcion: "hola",
       empresa: new Empresa,
       empleador: new Empleador,
@@ -38,12 +63,29 @@ export class CandidatesComponent implements OnInit{
       tipoHorario: new TipoHorario,
       tipoContratacion: new TipoContratacion,
       modalidadTrabajo: new ModalidadTrabajo,
-      id_postulacion: 0}]
-      */
+      id_postulacion: 0
+    }]
+
+    this.candidatos = [{
+      id_candidato: 0,
+      edad: 0,
+      domicilio: "Av.Primavera",
+      puestoActual: "",
+      descripcion: "",
+      centroEducativo: "",
+      rutaCv: "",
+      usuario: this.usuario,
+      vacantes: [],
+      idiomas: [],
+      municipio: new Municipio,
+      estado: new Estado,
+      profesion: "Desarrollador",
+      fechaNacimiento: new Date
+    }];
   }
 
   ngOnInit(): void {
-   this.buscarUsuario();
+    this.buscarUsuario();
   }
 
   buscarUsuario() {
@@ -54,37 +96,37 @@ export class CandidatesComponent implements OnInit{
     });
   }
 
-  obtenerPublicaciones(){
+  obtenerPublicaciones() {
     this._EmployerRequest.obtenerPublicaciones(this.empleador.id_empleador).subscribe(data => {
       this.publicaciones = data;
       console.log(this.publicaciones);
     });
   }
 
-  cargarPantalla(){
-    if(this.publicaciones.length == 0){
+  cargarPantalla() {
+    if (this.publicaciones.length == 0) {
       return false;
     } else {
       return true;
     }
   }
 
-  cargarPantallaI(){
-    if(this.candidatos.length == 0){
+  cargarPantallaI() {
+    if (this.candidatos.length == 0) {
       return false;
     } else {
       return true;
     }
   }
 
-  modificarVacante(vacante: Vacante){
+  modificarVacante(vacante: Vacante) {
     this._EmployerRequest.guardarVacante(vacante);
     this.router.navigate(['interface/publicaciones/modificar']);
   }
 
-  eliminarVacante(vacante: Vacante){
-    this._EmployerRequest.eliminarVacante(vacante.id_vacante).then((data:any) =>{
-      if(data.estatus == true) {
+  eliminarVacante(vacante: Vacante) {
+    this._EmployerRequest.eliminarVacante(vacante.id_vacante).then((data: any) => {
+      if (data.estatus == true) {
         alert("la vacante se ha eliminado correctamente");
         this.obtenerPublicaciones();
         this.cargarPantalla();
@@ -94,11 +136,62 @@ export class CandidatesComponent implements OnInit{
     });
   }
 
-  mostrarCandidatos(vacante: Vacante){
+  mostrarCandidatos(vacante: Vacante) {
+    this.vacanteActual = vacante;
     this._EmployerRequest.ontenerCandidatosVacante(vacante.id_vacante).subscribe(data => {
       this.candidatos = data;
       console.log(this.candidatos);
     });
+  }
+
+  obtenerPostulacion(candidato: Candidato) {
+    this._CandidateRequest.obtenerPostulaciones(candidato.id_candidato).subscribe(data => {
+      this.postulaciones = data;
+      for (let i = 0; i < this.postulaciones.length; i++) {
+        const element = this.postulaciones[i];
+
+        if (this.postulaciones[i].vacante.id_vacante == this.vacanteActual.id_vacante) {
+          this.eliminarPostulacion(element, candidato);
+        } else {
+        }
+      }
+    });
+  }
+
+  eliminarPostulacion(postulacion: Postulacion, candidato: Candidato) {
+
+    this._CandidateRequest.eliminarPostulacion(postulacion.id_postulacion).then((data: any) => {
+
+      if (data.estatus == true) {
+        alert("La postulacion fue eliminada correctamente");
+        this.enviarAlertaExito(candidato);
+        this.mostrarCandidatos(this.vacanteActual);
+      } else {
+        alert("Algo Fallo");
+        this.enviarAlertaError(candidato);
+      }
+
+    });
+  }
+
+  enviarAlertaExito(candidato: Candidato) {
+
+    const ALERTA = {
+      nombreAlerta: "Postulacion Eliminada",
+      textoAlerta: "La postulación a la vacante " + this.vacanteActual.nombreVacante + " del candidato " + candidato.usuario.nombre + " " + candidato.usuario.apellidoP + " ha sido eliminada, si usted no ha realizado esta acción puede que el candidato eliminara la postulacion."
+    }
+    // SE AGREGO ESTAA LINEA PARA EL OBSERVABLE
+    this._UserRequest.agregarAlerta(ALERTA);
+  }
+
+  enviarAlertaError(candidato: Candidato) {
+
+    const ALERTA = {
+      nombreAlerta: "Eliminacion Fallida",
+      textoAlerta: "La postulación a la vacante " + this.vacanteActual.nombreVacante + " del candidato " + candidato.usuario.nombre + " " + candidato.usuario.apellidoP + " no ha podido ser Eliminada correctamente, te recomendamos intentarlo nuevamente, si el error persiste puedes contactar a soporte mediente el correo soporte@mail.com"
+    }
+
+    this._UserRequest.agregarAlerta(ALERTA);
   }
 
 
