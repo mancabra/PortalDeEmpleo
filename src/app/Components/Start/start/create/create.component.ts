@@ -1,4 +1,5 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { DatePipe } from '@angular/common';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { AdminService } from 'src/app/Services/AdminServices/admin.service';
 import { CandidateService } from 'src/app/Services/CandidateServices/candidate.service';
@@ -33,7 +34,7 @@ export class CreateComponent {
   // CUANDO LA VARIABLE usuarioAdmin ESTA ACTIVA INDICA QUE EL COMPONENTE ESTA EL EL MODULO ADMINISTRAR
   // CUANDO LA VARIABLE componetStart ESTA ACTIVA INDICA QUE EL COMPONENTE ESTA EL EL MODULO LOGIN
 
-  usuarioAdmin: boolean = false;
+  @Input() usuarioAdmin: boolean = false;
   componetStart: boolean = true;
 
   // LA VARIABLE tipoUsurio ALMACENA EL TIPO DE USUARIO QUE SE REGISTRARA (ADMIN, EMPRESA, CANDIDATO, EMPLEADOR) 
@@ -87,7 +88,9 @@ export class CreateComponent {
   correo: string = "";
   contrasena: string = "";
   contrasenaValidacion: string = "";
-  nacimiento:Date = new Date;
+  nacimiento: Date = new Date;
+  nacimientoSrt: any = "";
+  pipe = new DatePipe('en-US');
 
   // VALIDACION NOMBRE COMPLETO
 
@@ -212,6 +215,12 @@ export class CreateComponent {
     this.bloquearMunicipio = "none";
   }
 
+  bloquearMunicipiosII(){
+    this.estado = { id_estado: 0, nombreEstado: "Selecciona un Estado", municipios: [] };
+    this.municipio = { id_municipio: 0, nombreMunicipio: "Selecciona un Municipio", estado: new Estado };
+    this.bloquearMunicipio = "none";
+  }
+
   // FUNCION PARA GUARADAR EL ESTADO
   actualizarEstado(estado: any) {
 
@@ -264,7 +273,7 @@ export class CreateComponent {
   cambiarCuenta() {
 
     if (this.tipoUsurio == "candidato") {
-      this.bloquearMunicipios();
+      this.bloquearMunicipiosII();
       this.descripcionDelUSuario = "Al crear una cuenta del tipo candidato tendras acceso a todas las vacantes disponibles en nuestra plataforma,"
         + " podras postularte a ellas y gestionar dichas postulaciones en vistas exclusivas.";
       this.verApellidos = false;
@@ -299,7 +308,7 @@ export class CreateComponent {
 
     } else {
 
-      this.bloquearMunicipios();
+      this.bloquearMunicipiosII();
       this.descripcionDelUSuario = "Al crear una empersa debes tener en cuenta que estara disponible de manera instantanea en nuestra plataforma,"
         + " y sera visible para todos los empleadores durante la creacion de vacantes en el campo empresa.";
       this.textoUbicacion = "Calle y Número:*";
@@ -367,7 +376,7 @@ export class CreateComponent {
       domicilio: this.ubicacion,
       id_estado: this.estado.id_estado,
       id_municipio: this.municipio.id_municipio,
-      fecha: this.nacimiento
+      fechaNacimientoStr: this.nacimientoSrt
     }
     this.evaluarNombre(CANDIDATO);
   }
@@ -485,11 +494,15 @@ export class CreateComponent {
 
     var hoy = new Date();
     var cumpleanos = new Date(this.nacimiento);
+    let ChangedFormat = this.pipe.transform(this.nacimiento, 'dd/MM/YYYY');
+    this.nacimientoSrt = ChangedFormat;
+    console.log(this.nacimientoSrt);
+    this.nacimientoSrt
+
     var edad = hoy.getFullYear() - cumpleanos.getFullYear();
     var m = hoy.getMonth() - cumpleanos.getMonth();
-
     if (m < 0 || (m === 0 && hoy.getDate() < cumpleanos.getDate())) {
-        edad--;
+      edad--;
     }
 
     if (edad == 0) {
@@ -505,11 +518,11 @@ export class CreateComponent {
     } else {
       this.validarEdad = true;
       usuario.edad = edad;
-      usuario.fecha = this.nacimiento;
+      usuario.fechaNacimientoStr = this.nacimientoSrt?.toString();
     }
     this.evaluarTelefono(usuario);
   }
-  
+
 
   evaluarTelefono(usuario: any) {
 
@@ -519,7 +532,7 @@ export class CreateComponent {
       this.mensajeTel = "Campo obligatorio."
     } else {
       let numeroConLada = "";
-      numeroConLada = this.lada +" "+ this.numeroTelefonioco;
+      numeroConLada = this.lada + " " + this.numeroTelefonioco;
 
       if (numeroConLada.length < 18) {
         this.mensajeTel = "Tel. Invalido.";
@@ -544,7 +557,7 @@ export class CreateComponent {
     let numeroConFormato = "(" + this.lada + ")" + this.numeroTelefonioco;
     usuario.telefono = numeroConFormato;
 
-  } 
+  }
 
   cambiarFlujoDeRegistroIII(usuario: any) {
 
@@ -648,22 +661,22 @@ export class CreateComponent {
       this.Obligatorios = false;
 
     } else {
-      
+
     }
     this.filtroDeContrasena(usuario);
   }
 
-  filtroDeContrasena(usuario:any){
+  filtroDeContrasena(usuario: any) {
 
-    if (this.contrasena.length < 8){
+    if (this.contrasena.length < 8) {
       this.validarContrasena = false;
       this.mensajeContra = "Dato Invalido."
       this.Obligatorios = false;
-    } else if (this.contrasena.length > 25){
+    } else if (this.contrasena.length > 25) {
       this.mensajeContra = "Dato Invalido."
       this.Obligatorios = false;
     }
-    this.comprobarContrasena(usuario); 
+    this.comprobarContrasena(usuario);
   }
 
   comprobarContrasena(usuario: any) {
@@ -697,15 +710,24 @@ export class CreateComponent {
 
   registarCandidato(usuario: any) {
     if (this.Obligatorios != false) {
-      this._CandidateRequest.registrar(usuario).then((data:any) =>{
-        if(data.estatus == false){
-          alert("ha ocurrido un error");
-        }else{
-          this.limpiarCampos();
-          this._UserRequest.guaradarCorreo(usuario.correoElectronico);
-          this._UserRequest.cambiartipo();
-          this._UserRequest.mostarNav();
-          //this.router.navigate(['interface/vacantes']);
+      this._CandidateRequest.registrar(usuario).then((data: any) => {
+        if (this.usuarioAdmin == true) {
+          if (data.estatus == false) {
+            alert("ha ocurrido un error");
+          } else {
+            alert("el candidato se creo correctamente");
+            this.limpiarCampos();
+          }
+        } else {
+          if (data.estatus == false) {
+            alert("ha ocurrido un error");
+          } else {
+            this.limpiarCampos();
+            this._UserRequest.guaradarCorreo(usuario.correoElectronico);
+            this._UserRequest.cambiartipo();
+            this._UserRequest.mostarNav();
+            //this.router.navigate(['interface/vacantes']);
+          }
         }
       });
     } else {
@@ -715,10 +737,11 @@ export class CreateComponent {
 
   registarAdministrador(administrador: any) {
     if (this.Obligatorios != false) {
-      this._AdminRequest.registrar(administrador).then((data:any) =>{
-        if(data.estatus == false){
+      this._AdminRequest.registrar(administrador).then((data: any) => {
+        if (data.estatus == false) {
           alert("ha ocurrido un error");
-        }else{
+        } else {
+          alert("el administrador se creo correctamente");
           this.limpiarCampos();
         }
       });
@@ -730,15 +753,24 @@ export class CreateComponent {
 
   registarEmpleador(empleador: any) {
     if (this.Obligatorios != false) {
-      this._EmployerRequest.registrar(empleador).then((data:any) =>{
-        if(data.estatus == false){
-          alert("ha ocurrido un error");
-        }else{
-          this.limpiarCampos();
-          this._UserRequest.guaradarCorreo(empleador.correoElectronico);
-          this._UserRequest.cambiartipo();
-          this._UserRequest.mostarNav();
-          //this.router.navigate(['start']);
+      this._EmployerRequest.registrar(empleador).then((data: any) => {
+        if (this.usuarioAdmin == true) {
+          if (data.estatus == false) {
+            alert("ha ocurrido un error");
+          } else {
+            alert("el empleador se creo correctamente");
+            this.limpiarCampos();
+          }
+        } else {
+          if (data.estatus == false) {
+            alert("ha ocurrido un error");
+          } else {
+            this.limpiarCampos();
+            this._UserRequest.guaradarCorreo(empleador.correoElectronico);
+            this._UserRequest.cambiartipo();
+            this._UserRequest.mostarNav();
+            //this.router.navigate(['start']);
+          }
         }
       });
     } else {
@@ -748,10 +780,11 @@ export class CreateComponent {
 
   registarEmpresa(empresa: any) {
     if (this.Obligatorios != false) {
-      this._CompanyRequest.registrar(empresa).then((data:any) =>{
-        if(data.estatus == false){
+      this._CompanyRequest.registrar(empresa).then((data: any) => {
+        if (data.estatus == false) {
           alert("ha ocurrido un error");
-        }else{
+        } else {
+          alert("la empresa se creo correctamente");
           this.limpiarCampos();
         }
       });

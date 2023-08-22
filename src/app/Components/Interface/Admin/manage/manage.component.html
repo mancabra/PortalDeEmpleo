@@ -1,1 +1,19 @@
-<p>manage works!</p>
+<div style="display: flex;">
+
+    <div class="cajaIzquierda">
+
+        <div class="d-grid">
+            <button type="button" class="btn btn-success" style="margin-bottom: .5rem;" (click)="verCrear()">CREAR UN USUARIO</button>
+            <button type="button" class="btn btn-success" style="margin-bottom: .5rem;" (click)="verBorrar()">ELIMINAR USUARIO</button>
+            <button type="button" class="btn btn-success" style="margin-bottom: .5rem;" (click)="verBorrarV()">ELIMINAR VACANTE</button>
+        </div>
+    </div>
+
+    <div class="cajaDerecha">
+        <div style="margin-left: 3rem; margin-right: 3rem;">
+            <app-create [usuarioAdmin]="usuarioAdmin" [ngClass]="{'on':verCrearCuenta, '':!verCrearCuenta}"></app-create>
+            <app-jobs [usuarioAdmin]="usuarioAdmin" [ngClass]="{'on':verBorrarVacante, '':!verBorrarVacante}"></app-jobs>
+        </div>
+        
+    </div>
+</div>

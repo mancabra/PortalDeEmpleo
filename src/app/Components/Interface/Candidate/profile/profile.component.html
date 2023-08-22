@@ -27,8 +27,8 @@
                 <h6 style="margin-right: .3rem;" [ngClass]="{'view':perfilTipoEmpleador, '':!perfilTipoEmpleador}">
                     {{empleador.usuario.nombre}} {{empleador.usuario.apellidoP}} {{empleador.usuario.apellidoM}}</h6>
 
-                <!-- <h6 style="margin-right: .3rem;" [ngClass]="{'view':perfilTipoAdministrador, '':!perfilTipoAdministrador}">
-                    {{administrador.usuario.nombre}} {{administrador.usuario.apellidoP}} {{administrador.usuario.apellidoM}}</h6> -->
+                <h6 style="margin-right: .3rem;" [ngClass]="{'view':perfilTipoAdministrador, '':!perfilTipoAdministrador}">
+                    {{administrador.usuario.nombre}} {{administrador.usuario.apellidoP}} {{administrador.usuario.apellidoM}}</h6>
 
                 <h6 style="color: darkgray; font-style: oblique;"
                     [ngClass]="{'view':perfilTipoCandidato, '':!perfilTipoCandidato}"> ({{candidato.edad}})</h6>
@@ -56,12 +56,12 @@
                     Tel: {{candidato.usuario.telefono}}
                 </p>
 
-                <!-- <p style="font-size:x-small; line-height: 150%;"
+                <p style="font-size:x-small; line-height: 150%;"
                 [ngClass]="{'view':perfilTipoAdministrador, '':!perfilTipoAdministrador}">
                     {{administrador.usuario.correoElectronico}}
                     <br style="margin: 0%; padding: 0%;">
                     Tel: {{administrador.usuario.telefono}}
-                </p> -->
+                </p>
 
                 <p style="font-size:x-small; line-height: 150%;"
                 [ngClass]="{'view':perfilTipoEmpleador, '':!perfilTipoEmpleador}">

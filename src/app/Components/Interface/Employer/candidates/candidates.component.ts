@@ -27,7 +27,7 @@ export class CandidatesComponent implements OnInit {
   candidatos: Candidato[] = [];
   postulaciones: Postulacion[] = [];
   vacanteActual: Vacante = new Vacante;
-  usuario: Usuario = {
+  /*usuario: Usuario = {
     id_usuario: 0,
     nombre: "Saul",
     correoElectronico: "",
@@ -40,14 +40,14 @@ export class CandidatesComponent implements OnInit {
     rutaImagenPerfil: "",
     rutaImagenPortada: "",
 
-  }
+  }*/
 
   constructor(private _EmployerRequest: EmployerService,
     private router: Router,
     private _CandidateRequest: CandidateService,
     private _UserRequest: InterfaceService) {
 
-    this.publicaciones = [{
+   /* this.publicaciones = [{
       id_vacante: 0,
       nombreVacante: "Taquero",
       especialista: "Taquero",
@@ -64,9 +64,9 @@ export class CandidatesComponent implements OnInit {
       tipoContratacion: new TipoContratacion,
       modalidadTrabajo: new ModalidadTrabajo,
       id_postulacion: 0
-    }]
+    }]*/
 
-    this.candidatos = [{
+   /* this.candidatos = [{
       id_candidato: 0,
       edad: 0,
       domicilio: "Av.Primavera",
@@ -81,7 +81,7 @@ export class CandidatesComponent implements OnInit {
       estado: new Estado,
       profesion: "Desarrollador",
       fechaNacimiento: new Date
-    }];
+    }];*/
   }
 
   ngOnInit(): void {
@@ -158,6 +158,38 @@ export class CandidatesComponent implements OnInit {
     });
   }
 
+  aceptarCandidato(candidato: Candidato){
+    this._CandidateRequest.obtenerPostulaciones(candidato.id_candidato).subscribe(data => {
+      this.postulaciones = data;
+      for (let i = 0; i < this.postulaciones.length; i++) {
+        const element = this.postulaciones[i];
+
+        if (this.postulaciones[i].vacante.id_vacante == this.vacanteActual.id_vacante) {
+          this.aceptar(element,candidato);
+        } else {
+
+        }
+      }
+    });
+  }
+
+  aceptar(postulacion: Postulacion,candidato:Candidato){
+    const DTO ={
+      id_postulacion:postulacion.id_postulacion,
+    }
+    this._EmployerRequest.aceptarCandidato(DTO).then((data: any) => {
+
+      if (data.estatus == true) {
+        alert("Candidato Aceptado");
+        this.enviarAlertaExitoGC(candidato);
+        this.mostrarCandidatos(this.vacanteActual);
+      } else {
+        alert("Algo Fallo");
+        this.enviarAlertaErrorGC(candidato);
+      }
+    });
+  }
+
   eliminarPostulacion(postulacion: Postulacion, candidato: Candidato) {
 
     this._CandidateRequest.eliminarPostulacion(postulacion.id_postulacion).then((data: any) => {
@@ -189,6 +221,26 @@ export class CandidatesComponent implements OnInit {
     const ALERTA = {
       nombreAlerta: "Eliminacion Fallida",
       textoAlerta: "La postulación a la vacante " + this.vacanteActual.nombreVacante + " del candidato " + candidato.usuario.nombre + " " + candidato.usuario.apellidoP + " no ha podido ser Eliminada correctamente, te recomendamos intentarlo nuevamente, si el error persiste puedes contactar a soporte mediente el correo soporte@mail.com"
+    }
+
+    this._UserRequest.agregarAlerta(ALERTA);
+  }
+
+  enviarAlertaExitoGC(candidato: Candidato) {
+
+    const ALERTA = {
+      nombreAlerta: "Postulacion Aceptada",
+      textoAlerta: "La postulación a la vacante " + this.vacanteActual.nombreVacante + " del candidato " + candidato.usuario.nombre + " " + candidato.usuario.apellidoP + " ha sido aceptada, le sugerimos contactar al candidato el correo "+ candidato.usuario.correoElectronico+ " o bien comunicarse al número: "+candidato.usuario.telefono+"."
+    }
+    // SE AGREGO ESTAA LINEA PARA EL OBSERVABLE
+    this._UserRequest.agregarAlerta(ALERTA);
+  }
+
+  enviarAlertaErrorGC(candidato: Candidato) {
+
+    const ALERTA = {
+      nombreAlerta: "Proceso Fallido",
+      textoAlerta: "La postulación a la vacante " + this.vacanteActual.nombreVacante + " del candidato " + candidato.usuario.nombre + " " + candidato.usuario.apellidoP + " no pudo ser aceptada, te recomendamos intentarlo nuevamente, si el error persiste puedes contactar a soporte mediente el correo soporte@mail.com"
     }
 
     this._UserRequest.agregarAlerta(ALERTA);

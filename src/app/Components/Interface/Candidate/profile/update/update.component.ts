@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CandidateService } from 'src/app/Services/CandidateServices/candidate.service';
@@ -38,10 +39,14 @@ export class UpdateComponent implements OnInit, OnDestroy {
   bloquearMunicipio: string = "all"
   nuevaFecha: Date = new Date;
 
+  nacimientoSrt: any = "";
+  pipe = new DatePipe('en-US');
+
   nuevoCurriculum: any;
   nuevaImagenPerfil: any;
   nuevaImagenPortada: any;
   nuevaDescripcion: string = "";
+
 
   estadosMexico: Estado[] = [];
   municipiosMexico: Municipio[] = [];
@@ -211,7 +216,7 @@ export class UpdateComponent implements OnInit, OnDestroy {
       telefono: this.nuevoTelefono,
       //edad:this.nuevaEdad,
       profesion: this.nuevaProfesion,
-      fechaNacimiento: this.nuevaFecha,
+      fechaNacimientoStr: this.nacimientoSrt,
     
     }
 
@@ -299,23 +304,28 @@ export class UpdateComponent implements OnInit, OnDestroy {
 
     var hoy = new Date();
     var cumpleanos = new Date(this.nuevaFecha);
-    var edad = hoy.getFullYear() - cumpleanos.getFullYear();
-    var m = hoy.getMonth() - cumpleanos.getMonth();
+    let ChangedFormat = this.pipe.transform(this.nuevaFecha, 'dd/MM/YYYY');
+    this.nacimientoSrt = ChangedFormat;
+    console.log(this.nacimientoSrt);
+    this.nacimientoSrt
+
+    var edad = hoy.getFullYear() -  cumpleanos.getFullYear();
+    var m = hoy.getMonth() -  cumpleanos.getMonth();
 
     if (m < 0 || (m === 0 && hoy.getDate() < cumpleanos.getDate())) {
         edad--;
     }
 
     if (edad == 0) {
-      usuarioModificado.fechaNacimiento = this.usuario.fechaNacimiento;
+      usuarioModificado.fechaNacimientoStr = this.usuario.fechaNacimiento.toString();
 
     } else if (edad < 18) {
-      usuarioModificado.fechaNacimiento = this.usuario.fechaNacimiento;
+      usuarioModificado.fechaNacimientoStr = this.usuario.fechaNacimiento.toString();
 
     } else if (edad > 70){
-      usuarioModificado.fechaNacimiento = this.usuario.fechaNacimiento;
+      usuarioModificado.fechaNacimientoStr = this.usuario.fechaNacimiento.toString();
     } else {
-      
+      usuarioModificado.fechaNacimientoStr = this.nacimientoSrt?.toString();
     }
 
     this.validarDatosDomicilio(usuarioModificado);

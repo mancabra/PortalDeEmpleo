@@ -25,7 +25,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
   empresa: Empresa = new Empresa;
 
   id_tipoUsuario: number = 0;
-  empresas: Vacante[];
+  empresas: Vacante[] = [];
 
   //varibale de input administrar
   vistaAdministrar: boolean = false;
@@ -36,7 +36,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
 
   constructor(private _CandidateRequest: CandidateService, private _UserRequest: InterfaceService, private router: Router, private _EmployerRequest:EmployerService) {
-
+/*
     this.empresas = [{
       id_vacante: 0,
       nombreVacante: "Taquero",
@@ -54,7 +54,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
       tipoContratacion: new TipoContratacion,
       modalidadTrabajo: new ModalidadTrabajo,
       id_postulacion: 0
-    }]
+    }]*/
   }
 
   ngOnInit(): void {
@@ -131,7 +131,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
       this.perfilTipoEmpleador = true;
       this.perfilTipoEmpresa = true;
       
-      this.obtenerEdad();
+      //this.obtenerEdad();
 
     } else if (this.id_tipoUsuario == 3) {
 

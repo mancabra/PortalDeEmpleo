@@ -62,8 +62,16 @@ export class EmployerService {
     console.log("Info Enviada");
     console.log(EmployerRequest);
 
-    let cadena ="http://localhost:8080/obtenerCaandidatosVacante/" + EmployerRequest;
+    let cadena ="http://localhost:8080/obtenerCandidatosVacante/" + EmployerRequest;
     return this._http.get<Candidato[]>(cadena);
+  }
+
+  aceptarCandidato(EmployerRequest:any){
+    console.log("Proceso obtener Aceptarcandidato");
+    console.log("Info Enviada");
+    console.log(EmployerRequest);
+
+    return this._http.put("http://localhost:8080/aceptarPostulacion",EmployerRequest).toPromise();
   }
 
   // ELIMINAR VACANTE

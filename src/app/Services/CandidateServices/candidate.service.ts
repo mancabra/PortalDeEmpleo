@@ -84,14 +84,23 @@ export class CandidateService {
     return this._http.get(cadena).toPromise();
   }
 
-  buscarporMunicipio_Nombre(id_municipio:number,filtroActivo:string) {
-     //prueba de funcionamiento
-     console.log("Proceso obtenerVacantesPorPalabra");
-     console.log("Info Enviada");
-     console.log(id_municipio);
-     console.log(filtroActivo);
+  buscarporMunicipio_Nombre(id_municipio: number, filtroActivo: string) {
+    //prueba de funcionamiento
+    console.log("Proceso obtenerVacantesPorPalabra");
+    console.log("Info Enviada");
+    console.log(id_municipio);
+    console.log(filtroActivo);
 
-     let cadena = "http://localhost:8080/obtenerVacantesCercaYPorPalabraClave?id_municipio="+id_municipio+"&palabraClave="+filtroActivo;
+    let cadena = "http://localhost:8080/obtenerVacantesCercaYPorPalabraClave?id_municipio=" + id_municipio + "&palabraClave=" + filtroActivo;
+    return this._http.get(cadena).toPromise();
+  }
+
+  buscarporEstado(id_estado: number) {
+    //prueba de funcionamiento
+    console.log("Proceso obtenerVacantesPorEsatdo");
+    console.log("Info Enviada");
+    console.log(id_estado);
+    let cadena = "http://localhost:8080/obtenerVacantesEstado/"+id_estado;
     return this._http.get(cadena).toPromise();
   }
 

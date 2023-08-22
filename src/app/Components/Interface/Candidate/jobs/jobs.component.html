@@ -1,6 +1,6 @@
 <div style="display: flex;">
 
-    <div class="cajaIzquierda">
+    <div class="cajaIzquierda" [ngClass]="{'long':usuarioAdmin, '':!usuarioAdmin}">
         <div *ngIf="cargarPantallaPrincipal(); else PantallaVacia">
 
 
@@ -15,9 +15,18 @@
                             (click)="actualizarFiltro(filtroSelecionado)">{{filtroSelecionado}}</button>
                     </li>
                 </ul>
+                <!-- menu estados -->
+                <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                    aria-expanded="false" [ngClass]="{'on':filtroEstado, '':!filtroEstado}" >{{estado.nombreEstado}}</button>
+                <ul class="dropdown-menu">
+                    <li><button class="dropdown-item" type="button" *ngFor="let estadoSeleccionado of estadosMexico"
+                            (click)="actualizarEstado(estadoSeleccionado)">{{estadoSeleccionado.nombreEstado}}</button>
+                    </li>
+                </ul>
+                
                 <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)"
                     placeholder="Ingresa el nombre de tu trabajo ideal" [(ngModel)]="busqueda">
-                <button class="input-group-text" type="button" (click)="buscarVacantes()">Buscar Vacantes </button>
+                <button class="input-group-text" type="button" (click)="buscarVacantes()">Buscar </button>
             </div>
 
             <div class="scrollMenu">
@@ -46,7 +55,7 @@
                                         <a class="btn btn-success botonInformativo" style="font-size: small;"> sueldo: $
                                             {{vacante.sueldo}} mxn </a>
                                         <a class="btn btn-warning botonInformativo2" style="font-size: small;"
-                                            (click)="verVacanteCompleta(vacante)">+</a>
+                                            (click)="verVacanteCompleta(vacante)" [ngClass]="{'on':usuarioAdmin, '':!usuarioAdmin}">+</a>
                                     </div>
                                     <div class="col">
                                         <a class="btn btn-secondary botonPostular"
@@ -73,7 +82,7 @@
     </div>
 
 
-    <div class="cajaDerecha">
+    <div class="cajaDerecha" [ngClass]="{'on':usuarioAdmin, '':!usuarioAdmin}">
 
         <div *ngIf="cargarPantalla(); else pantallaVacia">
             <div class="card" style="width: 100%;">

@@ -1,6 +1,6 @@
 
 .cajaIzquierda{
-    display: grid;
+    display: inline;
     margin-right: .5rem;
     width: 50%;
     height: 100%;
@@ -42,4 +42,7 @@
 
 .on{
     display: none;
+}
+.long{
+    width: 100%;
 }

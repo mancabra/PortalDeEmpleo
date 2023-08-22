@@ -1,0 +1,23 @@
+
+.cajaIzquierda{
+    display: grid;
+    margin-right: .5rem;
+    width: 30%;
+    height: 100%;
+   
+}
+.cajaDerecha{
+    display: inline;
+    margin-left: .5rem;
+    width: 70%;
+}
+
+.scrollMenu{
+    width: 100%;
+    height: 400px;
+    overflow-y: scroll;
+}
+
+.on{
+    display:none;
+}
