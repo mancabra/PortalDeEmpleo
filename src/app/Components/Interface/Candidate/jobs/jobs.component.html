@@ -19,9 +19,11 @@
                 <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
                     aria-expanded="false" [ngClass]="{'on':filtroEstado, '':!filtroEstado}" >{{estado.nombreEstado}}</button>
                 <ul class="dropdown-menu">
-                    <li><button class="dropdown-item" type="button" *ngFor="let estadoSeleccionado of estadosMexico"
+                    <div class="scrollMenu">
+                        <li><button class="dropdown-item" type="button" *ngFor="let estadoSeleccionado of estadosMexico"
                             (click)="actualizarEstado(estadoSeleccionado)">{{estadoSeleccionado.nombreEstado}}</button>
                     </li>
+                    </div>
                 </ul>
                 
                 <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)"

@@ -152,6 +152,7 @@ export class CandidatesComponent implements OnInit {
 
         if (this.postulaciones[i].vacante.id_vacante == this.vacanteActual.id_vacante) {
           this.eliminarPostulacion(element, candidato);
+          break;
         } else {
         }
       }
@@ -166,6 +167,7 @@ export class CandidatesComponent implements OnInit {
 
         if (this.postulaciones[i].vacante.id_vacante == this.vacanteActual.id_vacante) {
           this.aceptar(element,candidato);
+          break;
         } else {
 
         }
