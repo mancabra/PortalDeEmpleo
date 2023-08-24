@@ -24,6 +24,7 @@ export class CandidatesComponent implements OnInit {
 
   empleador: Empleador = new Empleador;
   publicaciones: Vacante[] = [];
+  publicacionesSin: Vacante[] = [];
   candidatos: Candidato[] = [];
   postulaciones: Postulacion[] = [];
   vacanteActual: Vacante = new Vacante;
@@ -39,15 +40,14 @@ export class CandidatesComponent implements OnInit {
     estatusUsuario: false,
     rutaImagenPerfil: "",
     rutaImagenPortada: "",
-
   }*/
 
   constructor(private _EmployerRequest: EmployerService,
     private router: Router,
     private _CandidateRequest: CandidateService,
     private _UserRequest: InterfaceService) {
-
-   /* this.publicaciones = [{
+/*
+    this.publicaciones = [{
       id_vacante: 0,
       nombreVacante: "Taquero",
       especialista: "Taquero",
@@ -64,9 +64,9 @@ export class CandidatesComponent implements OnInit {
       tipoContratacion: new TipoContratacion,
       modalidadTrabajo: new ModalidadTrabajo,
       id_postulacion: 0
-    }]*/
+    }]
 
-   /* this.candidatos = [{
+    this.candidatos = [{
       id_candidato: 0,
       edad: 0,
       domicilio: "Av.Primavera",
@@ -98,8 +98,22 @@ export class CandidatesComponent implements OnInit {
 
   obtenerPublicaciones() {
     this._EmployerRequest.obtenerPublicaciones(this.empleador.id_empleador).subscribe(data => {
-      this.publicaciones = data;
+      this.publicacionesSin = data;
+      this.ordenarPublicaciones(this.publicacionesSin);
       console.log(this.publicaciones);
+    });
+  }
+
+  ordenarPublicaciones(publicaciones:Vacante[]){
+    this.publicaciones = publicaciones.sort(function (v1, v2) {
+      if (v1.diasPublicada > v2.diasPublicada) {
+        return 1;
+      }
+      if (v1.diasPublicada < v2.diasPublicada) {
+        return -1;
+      }
+      // a must be equal to b
+      return 0;
     });
   }
 

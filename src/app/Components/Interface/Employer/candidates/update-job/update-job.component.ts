@@ -13,6 +13,7 @@ export class UpdateJobComponent implements OnInit , OnDestroy{
   subscription:Subscription;
   vacante: Vacante = new Vacante;
   vistaModificacion: boolean = true;
+  programarP: boolean = true;
 
   constructor(private _EmployerRequest: EmployerService){
   this.subscription = this._EmployerRequest.getVacante().subscribe(data => {

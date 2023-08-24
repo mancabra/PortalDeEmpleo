@@ -24,5 +24,7 @@ export class Vacante {
     tipoContratacion: TipoContratacion = new TipoContratacion;
     modalidadTrabajo: ModalidadTrabajo = new ModalidadTrabajo;
     id_postulacion: number = 0;
+    fechaPublicacionSrt: Date = new Date;
+    diasPublicada:number = 0;
 
 }

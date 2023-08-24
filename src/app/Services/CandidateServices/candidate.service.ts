@@ -86,7 +86,7 @@ export class CandidateService {
 
   buscarporMunicipio_Nombre(id_municipio: number, filtroActivo: string) {
     //prueba de funcionamiento
-    console.log("Proceso obtenerVacantesPorPalabra");
+    console.log("Proceso obtenerVacantesPorPalabraYMunicipio");
     console.log("Info Enviada");
     console.log(id_municipio);
     console.log(filtroActivo);
@@ -97,11 +97,19 @@ export class CandidateService {
 
   buscarporEstado(id_estado: number) {
     //prueba de funcionamiento
-    console.log("Proceso obtenerVacantesPorEsatdo");
+    console.log("Proceso obtenerVacantesPorEstado");
     console.log("Info Enviada");
     console.log(id_estado);
     let cadena = "http://localhost:8080/obtenerVacantesEstado/"+id_estado;
     return this._http.get(cadena).toPromise();
+  }
+
+  buscarporEstado_Nombre(CandidateRequest: any) {
+    //prueba de funcionamiento
+    console.log("Proceso obtenerVacantesPorPalabraYEstado");
+    console.log("Info Enviada");
+    console.log(CandidateRequest);
+    return this._http.get("http://localhost:8080/obtenerVacantesEstadoYPorPalabraCalve",CandidateRequest).toPromise();
   }
 
   postularse(PostDTO: any) {
@@ -131,29 +139,6 @@ export class CandidateService {
     return this._http.delete(cadena).toPromise();
 
   }
-
-  //OBSERVABLE USUARIO
-  /*
-  getCandidate(): Observable<Candidato> {
-    return this.candidato$.asObservable();
-  }
-
-  updateCandidate() {
-    this.obtener().then((data: any) => {
-      this.candidato = data;
-      this.esparcir(this.candidato);
-    });
-  }
-
-  esparcir(candidato: Candidato) {
-    this.candidato$.next(candidato);
-  }
-
-  guaradarUsuario(usuario: Candidato) {
-    this.candidato = usuario;
-    this.candidato$.next(this.candidato);
-  }
-*/
 
   //OBSERVABLE POSTULACIONES
 

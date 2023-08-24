@@ -36,8 +36,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
 
   constructor(private _CandidateRequest: CandidateService, private _UserRequest: InterfaceService, private router: Router, private _EmployerRequest:EmployerService) {
-/*
-    this.empresas = [{
+    /*this.empresas = [{
       id_vacante: 0,
       nombreVacante: "Taquero",
       especialista: "Taquero",

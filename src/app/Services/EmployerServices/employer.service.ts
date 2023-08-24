@@ -131,6 +131,14 @@ export class EmployerService {
     return this._http.put("http://localhost:8080/modificarVacante", EmployerRequest).toPromise();
   }
 
+  programarVacante(EmployerRequest: any){
+    console.log("Proceso programarVacante");
+    console.log("Info Enviada");
+    console.log(EmployerRequest);
+
+    return this._http.put("http://localhost:8080/", EmployerRequest).toPromise();
+  }
+
   
 
   getVacante(): Observable<Vacante> {

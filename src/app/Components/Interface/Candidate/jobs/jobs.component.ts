@@ -36,7 +36,7 @@ export class JobsComponent implements OnInit, OnDestroy {
 
 
   constructor(private _CandidateRequest: CandidateService, private _UserRequest: InterfaceService, private router: Router,
-    private _EmployerRequest:EmployerService) {
+    private _EmployerRequest: EmployerService) {
     this.estado = { id_estado: 0, nombreEstado: "Estado", municipios: [] };
   }
 
@@ -158,7 +158,12 @@ export class JobsComponent implements OnInit, OnDestroy {
     } else if (this.filtro == "Mejor Pagados") {
       this.buscarPorSueldo();
     } else if (this.filtro == "Estado") {
-      this.buscarPorEsatdo();
+      if (this.estado.nombreEstado == "Estado") {
+        alert("no se ha seleccionado un estado");
+      } else {
+        this.buscarPorEsatdo();
+      }
+
     }
   }
 
@@ -167,8 +172,12 @@ export class JobsComponent implements OnInit, OnDestroy {
       this.buscarporNombreYMunicipio();
     } else if (this.filtro == "Mejor Pagados") {
 
-    } else if (this.filtro == "Estado"){
-      
+    } else if (this.filtro == "Estado") {
+      if (this.estado.nombreEstado == "Estado") {
+        alert("no se ha seleccionado un estado");
+      } else {
+        this.buscarporNombreYEstado();
+      }
     }
   }
 
@@ -191,6 +200,24 @@ export class JobsComponent implements OnInit, OnDestroy {
         this.jobsList = data;
       }
     });
+    this.cargarVacantes();
+  }
+
+  buscarporNombreYEstado() {
+
+    const BUSQUEDA = {
+      id_estado: this.estado.id_estado,
+      palabraClave: this.busqueda
+    }
+
+    this._CandidateRequest.buscarporEstado_Nombre(BUSQUEDA).then((data: any) => {
+      if (data == null) {
+
+      } else {
+        this.jobsList = data;
+      }
+    });
+
     this.cargarVacantes();
   }
 
@@ -249,7 +276,7 @@ export class JobsComponent implements OnInit, OnDestroy {
     this.asignarPostulacion(PostDTO, vacante);
   }
 
-  eliminarVacante(vacante: Vacante){
+  eliminarVacante(vacante: Vacante) {
     this._EmployerRequest.eliminarVacante(vacante.id_vacante).then((data: any) => {
       if (data.estatus == true) {
         alert("la vacante se ha eliminado correctamente");

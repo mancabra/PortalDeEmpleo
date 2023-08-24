@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CandidateService } from 'src/app/Services/CandidateServices/candidate.service';
@@ -38,11 +39,17 @@ export class NewJobComponent implements OnInit {
   tiposDeModalidad: ModalidadTrabajo[] = [];
   modalidadSeleccionada: ModalidadTrabajo;
 
+  @Input() programarP: boolean = false;
+  programarPB: boolean = true;
+
+  esProgramada:boolean = false;
+
   textoBoton: string = "PUBLICAR";
+  textoBotonF: string = "PROGRAMAR";
 
   //DATOS DE LA VACANTE
   @Input() vistaModificacion: boolean = false;
-  @Input () vacante : Vacante = new Vacante;
+  @Input() vacante: Vacante = new Vacante;
 
   nombreVacante: string = "";
   textoErrorNombre: string = "Campo Obligatorio*";
@@ -64,6 +71,11 @@ export class NewJobComponent implements OnInit {
   empleador: Empleador = new Empleador;
   verSueldo: string = "none";
 
+  fechaPublicacion: Date = new Date;
+  fechaProgramada: Date = new Date;
+  fechaPublicacionSrt: any = "";
+  pipe = new DatePipe('en-US');
+
   // VARIABLES PARA LA VALIDACION DE ERRORES
   errorNombre: boolean = true;
   errorEmpresa: boolean = true;
@@ -78,7 +90,7 @@ export class NewJobComponent implements OnInit {
   errorDescripcion: boolean = true;
   obligatorios: boolean = false;
 
-  constructor(private _UserRequest: InterfaceService, private _EmployerRequest: EmployerService, private router:Router) {
+  constructor(private _UserRequest: InterfaceService, private _EmployerRequest: EmployerService, private router: Router) {
     this.empresaSelecionada = { id_empresa: 0, nombre: "Seleccione una Empresa", descripcion: "", vacantes_empresa: [] }
     this.estadoSeleccionado = { id_estado: 0, nombreEstado: "Selecciona un Estado", municipios: [] };
     this.municipioSeleccionado = { id_municipio: 0, nombreMunicipio: "Selecciona un Municipio", estado: new Estado };
@@ -96,10 +108,11 @@ export class NewJobComponent implements OnInit {
     this.obtenerTiposDeHorario();
     this.obtenerModalidades();
     this.identificarVista();
+    this.formatearFecha();
   }
 
-  identificarVista(){
-    if(this.vistaModificacion == true){
+  identificarVista() {
+    if (this.vistaModificacion == true) {
       this.textoBoton = "ACTUALIZAR";
       this.asignarValores();
     } else {
@@ -107,8 +120,8 @@ export class NewJobComponent implements OnInit {
     }
   }
 
-  asignarValores(){
-   
+  asignarValores() {
+
     this.nombreVacante = this.vacante.nombreVacante;
     this.especialista = this.vacante.especialista;
     this.sueldo = this.vacante.sueldo;
@@ -122,6 +135,13 @@ export class NewJobComponent implements OnInit {
     this.contratacionSeleccionada = this.vacante.tipoContratacion;
     this.modalidadSeleccionada = this.vacante.modalidadTrabajo;
     this.bloquearMunicipio = "all";
+  }
+
+  formatearFecha() {
+    this.fechaPublicacion = new Date;
+    let ChangedFormat = this.pipe.transform(this.fechaPublicacion, 'dd/MM/YYYY');
+    this.fechaPublicacionSrt = ChangedFormat;
+    console.log(this.fechaPublicacionSrt);
   }
 
   cargarPantalla() {
@@ -224,6 +244,12 @@ export class NewJobComponent implements OnInit {
     this.modalidadSeleccionada = modalidad;
   }
 
+  verProgramar() {
+    this.fechaProgramada = new Date;
+    this.programarPB = false;
+    this.programarP = true;
+  }
+
   activartodo() {
     this.errorNombre = true;
     this.errorEmpresa = true;
@@ -239,23 +265,96 @@ export class NewJobComponent implements OnInit {
     this.obligatorios = true;
   }
 
+  validarProgramar() {
+    this.activartodo();
+    var hoy = new Date;
+    var fechaP = new Date(this.fechaProgramada);
+    let ChangedFormat = this.pipe.transform(this.fechaProgramada, 'dd/MM/YYYY');
+    let ChangedFormat2 = this.pipe.transform(hoy, 'dd/MM/YYYY');
+
+    let anioH = hoy.getFullYear();
+    let anioP = fechaP.getFullYear();
+
+    let mesH = hoy.getMonth();
+    let mesP = fechaP.getMonth();
+
+    let diaH = hoy.getDay();
+    let diaP = fechaP.getDay();
+
+
+    if (ChangedFormat2 == ChangedFormat) {
+      alert("no se pueden programar vacantes para hoy");
+      this.obligatorios = false;
+    } else {
+      if (anioH != anioP) {
+        if (anioH > anioP) {
+          alert("no se pueden programar vacantes para años pasados");
+          this.obligatorios = false;
+        } else {
+          alert("no se pueden programar vacantes para años futuros");
+          this.obligatorios = false;
+        }
+      } else {
+        if (mesH == mesP) {
+          if (diaH > diaP) {
+            alert("no se pueden programar vacantes para dias pasados");
+            this.obligatorios = false;
+          } else {
+            this.fechaPublicacionSrt = ChangedFormat;
+          }
+        } else if (mesH > mesP) {
+          alert("no se pueden programar vacantes para meses pasados");
+          this.obligatorios = false;
+        } else {
+          this.fechaPublicacionSrt = ChangedFormat;
+        }
+      }
+    }
+
+    this.validarInformacionII();
+  }
+
+  validarInformacionII() {
+    this.activartodo();
+    const VACANTE = {
+      id_vacante: this.vacante.id_vacante,
+      nombreVacante: this.nombreVacante,
+      especialista: this.especialista,
+      sueldo: this.sueldo,
+      id_empresa: this.empresaSelecionada.id_empresa,
+      horario: this.horario,
+      id_municipio: this.municipioSeleccionado.id_municipio,
+      descripcion: this.descripcion,
+      id_empleador: this.empleador.id_empleador,
+      id_tipoHorario: this.horarioSeleccionado.id_tipoHorario,
+      id_tipoContratacion: this.contratacionSeleccionada.id_tipoContratacion,
+      id_modalidadTrabajo: this.modalidadSeleccionada.id_modalidad,
+      domicilio: this.domicilio,
+      fechaPublicacionSrt: this.fechaPublicacionSrt?.toString()
+    }
+
+    this.validarNombre(VACANTE);
+  }
+
   validarInformacion() {
     this.activartodo();
+    this.formatearFecha();
 
     const VACANTE = {
-      id_vacante:this.vacante.id_vacante,
-      nombreVacante:this.nombreVacante,
-      especialista:this.especialista,
-      sueldo:this.sueldo,
-      id_empresa:this.empresaSelecionada.id_empresa,
-      horario:this.horario,
-      id_municipio:this.municipioSeleccionado.id_municipio,
-      descripcion:this.descripcion,
-      id_empleador:this.empleador.id_empleador,
-      id_tipoHorario:this.horarioSeleccionado.id_tipoHorario,
-      id_tipoContratacion:this.contratacionSeleccionada.id_tipoContratacion,
-      id_modalidadTrabajo:this.modalidadSeleccionada.id_modalidad,
+      id_vacante: this.vacante.id_vacante,
+      nombreVacante: this.nombreVacante,
+      especialista: this.especialista,
+      sueldo: this.sueldo,
+      id_empresa: this.empresaSelecionada.id_empresa,
+      horario: this.horario,
+      id_municipio: this.municipioSeleccionado.id_municipio,
+      descripcion: this.descripcion,
+      id_empleador: this.empleador.id_empleador,
+      id_tipoHorario: this.horarioSeleccionado.id_tipoHorario,
+      id_tipoContratacion: this.contratacionSeleccionada.id_tipoContratacion,
+      id_modalidadTrabajo: this.modalidadSeleccionada.id_modalidad,
       domicilio: this.domicilio,
+      fechaPublicacionSrt: this.fechaPublicacionSrt?.toString()
     }
 
     this.validarNombre(VACANTE);
@@ -397,15 +496,39 @@ export class NewJobComponent implements OnInit {
     this.cambiarFlujo(VACANTE);
   }
 
-  cambiarFlujo(VACANTE: any){
-    if(this.vistaModificacion == true){
-    this.modificarVacante(VACANTE);
+  cambiarFlujo(VACANTE: any) {
+    if (this.vistaModificacion == true) {
+      this.modificarVacante(VACANTE);
     } else {
-     this.generarVacante(VACANTE);
+      if(this.esProgramada == true){
+        this.programarVacante(VACANTE);
+      } else {
+      this.generarVacante(VACANTE);
+      }
     }
   }
 
-  modificarVacante(VACANTE:any){
+  programarVacante(VACANTE:any){
+    if (this.obligatorios != false) {
+      this._EmployerRequest.programarVacante(VACANTE).then((data: any) => {
+        if (data.estatus != true) {
+          alert("ha ocurrido un error");
+          console.log(VACANTE);
+          this.enviarAlertaErrorProg(VACANTE);
+        } else {
+          alert("la vacante sera publicada en la fecha señalada");
+          console.log(VACANTE);
+          this.enviarAlertaExitoProg(VACANTE);
+          this.limpiarCampos();
+
+        }
+      });
+    } else {
+
+    }
+  }
+
+  modificarVacante(VACANTE: any) {
     if (this.obligatorios != false) {
       this._EmployerRequest.modificarVacante(VACANTE).then((data: any) => {
         if (data.estatus != true) {
@@ -467,23 +590,23 @@ export class NewJobComponent implements OnInit {
 
     const ALERTA = {
       nombreAlerta: "Vacante Publicada",
-      textoAlerta: "Se ha publicado la vacante " + vacante.nombreVacante + 
-                   " bajo el nombre de la empresa " + this.empresaSelecionada.nombre + 
-                   " si usted no hizo esta publicación o cometio un error durante la captura de los datos solicitados de la vacante"+
-                   " podras eliminarla o modificarla desde el apartado PUBLICACIONES"
+      textoAlerta: "Se ha publicado la vacante " + vacante.nombreVacante +
+        " bajo el nombre de la empresa " + this.empresaSelecionada.nombre +
+        " si usted no hizo esta publicación o cometio un error durante la captura de los datos solicitados de la vacante" +
+        " podras eliminarla o modificarla desde el apartado PUBLICACIONES"
     }
 
     this._UserRequest.agregarAlerta(ALERTA);
   }
 
-  enviarAlertaError(vacante:any) {
+  enviarAlertaError(vacante: any) {
     console.log(vacante);
 
     const ALERTA = {
       nombreAlerta: "Error de Publicación",
       textoAlerta: "La vacante " + vacante.nombreVacante +
-                   " de la empresa " + this.empresaSelecionada.nombre +
-                   " no ha podido publicarse correctamente, te recomendamos intentarlo nuevamente, si el error persiste puedes contactar a soporte mediente el correo soporte@mail.com"
+        " de la empresa " + this.empresaSelecionada.nombre +
+        " no ha podido publicarse correctamente, te recomendamos intentarlo nuevamente, si el error persiste puedes contactar a soporte mediente el correo soporte@mail.com"
     }
 
     this._UserRequest.agregarAlerta(ALERTA);
@@ -494,10 +617,10 @@ export class NewJobComponent implements OnInit {
 
     const ALERTA = {
       nombreAlerta: "Vacante Modificada",
-      textoAlerta: "Se ha modificado la vacante " + vacante.nombreVacante + 
-                   " bajo el nombre de la empresa " + this.empresaSelecionada.nombre + 
-                   " si usted no hizo esta modificacion o cometio un error durante la captura de los datos solicitados de la vacante"+
-                   " podras eliminarla o modificarla desde el apartado PUBLICACIONES"
+      textoAlerta: "Se ha modificado la vacante " + vacante.nombreVacante +
+        " bajo el nombre de la empresa " + this.empresaSelecionada.nombre +
+        " si usted no hizo esta modificacion o cometio un error durante la captura de los datos solicitados de la vacante" +
+        " podras eliminarla o modificarla desde el apartado PUBLICACIONES"
     }
 
     this._UserRequest.agregarAlerta(ALERTA);
@@ -509,8 +632,35 @@ export class NewJobComponent implements OnInit {
     const ALERTA = {
       nombreAlerta: "Error de Modificación",
       textoAlerta: "La vacante " + vacante.nombreVacante +
-                   " de la empresa " + this.empresaSelecionada.nombre +
-                   " no ha podido modificarse correctamente, te recomendamos intentarlo nuevamente, si el error persiste puedes contactar a soporte mediente el correo soporte@mail.com"
+        " de la empresa " + this.empresaSelecionada.nombre +
+        " no ha podido modificarse correctamente, te recomendamos intentarlo nuevamente, si el error persiste puedes contactar a soporte mediente el correo soporte@mail.com"
+    }
+
+    this._UserRequest.agregarAlerta(ALERTA);
+  }
+
+  enviarAlertaErrorProg(vacante: any) {
+    console.log(vacante);
+
+    const ALERTA = {
+      nombreAlerta: "Error de Carga",
+      textoAlerta: "La vacante " + vacante.nombreVacante +
+        " de la empresa " + this.empresaSelecionada.nombre +
+        " no ha podido cargarse correctamente, te recomendamos intentarlo nuevamente, si el error persiste puedes contactar a soporte mediente el correo soporte@mail.com"
+    }
+
+    this._UserRequest.agregarAlerta(ALERTA);
+  }
+
+  enviarAlertaExitoProg(vacante: any) {
+    console.log(vacante);
+
+    const ALERTA = {
+      nombreAlerta: "Vacante Programada con Exito",
+      textoAlerta: "La vacante " + vacante.nombreVacante +
+        " de la empresa " + this.empresaSelecionada.nombre +
+        " ha sido cargada correctamente y sera publicada en la fecha seleccionada ("+this.fechaPublicacionSrt?.toString()+") a primera hora. Si tu no has realizado esta acción podras "+
+        "eliminar esta vacante desde el apartado PUBLICACIONES en el apartado vacantes por publicar"
     }
 
     this._UserRequest.agregarAlerta(ALERTA);

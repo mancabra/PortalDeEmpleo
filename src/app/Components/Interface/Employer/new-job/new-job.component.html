@@ -397,6 +397,16 @@
                     </div>
                     <div class="d-grid" style="margin-top: 1rem;">
                         <button type="button" class="btn btn-outline-success" (click)="validarInformacion()">{{textoBoton}}</button>
+                        <div [ngClass]="{'view':programarPB, '':!programarPB}">
+                            <input class="form-control" type="date"
+                            aria-label="default input example" [(ngModel)]="fechaProgramada" style="margin-top: .5rem; width: 100%;">
+                        </div>
+                        <div [ngClass]="{'view':programarP, '':!programarP}">
+                            <button type="button" class="btn btn-outline-warning d-grid" (click)="verProgramar()"  style="margin-top: .5rem; width: 100%;">{{textoBotonF}}</button>
+                        </div>
+                        <div [ngClass]="{'view':programarPB, '':!programarPB}">
+                            <button type="button" class="btn btn-outline-warning d-grid" (click)="validarProgramar()"  style="margin-top: .5rem; width: 100%;">{{textoBotonF}}</button>
+                        </div>
                     </div>
                 </div>
               
