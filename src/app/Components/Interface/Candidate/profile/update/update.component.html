@@ -283,21 +283,21 @@
                     </h2>
 
                     <div class="input-group input-group-sm" style="margin-bottom: .5rem;">
-                        <input class="form-control form-control-sm" id="formFileSm" type="file">
+                        <input class="form-control form-control-sm" id="formFileSm" type="file" (change)="uploadCV($event)">
                         <button class="input-group-text" id="inputGroup-sizing-sm"
                             style="width: 35%; text-align: center;">
                             <b> CURRICULUM VITAE</b> </button>
                     </div>
 
                     <div class="input-group input-group-sm" style="margin-bottom: .5rem;">
-                        <input class="form-control form-control-sm" id="formFileSm" type="file">
+                        <input class="form-control form-control-sm" id="formFileSm" type="file" (change)="uploadImage($event)">
                         <button class="input-group-text" id="inputGroup-sizing-sm"
                             style="width: 35%; text-align: center;">
                             <b> IMAGEN DE PERFIL</b> </button>
                     </div>
 
                     <div class="input-group input-group-sm" style="margin-bottom: .5rem;">
-                        <input class="form-control form-control-sm" id="formFileSm" type="file">
+                        <input class="form-control form-control-sm" id="formFileSm" type="file" (change)="uploadImagePortada($event)">
                         <button class="input-group-text" id="inputGroup-sizing-sm"
                             style="width: 35%; text-align: center;">
                             <b> IMAGEN DE PORTADA</b> </button>

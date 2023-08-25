@@ -6,6 +6,7 @@ import { Candidato } from 'src/app/Services/Entity/candidato';
 import { Estado } from 'src/app/Services/Entity/estado';
 import { Municipio } from 'src/app/Services/Entity/municipio';
 import { InterfaceService } from 'src/app/Services/InterfaceServices/interface.service';
+import { Storage, ref, uploadBytes, listAll, getDownloadURL} from '@angular/fire/storage';
 
 @Component({
   selector: 'app-update',
@@ -42,16 +43,18 @@ export class UpdateComponent implements OnInit, OnDestroy {
   nacimientoSrt: any = "";
   pipe = new DatePipe('en-US');
 
-  nuevoCurriculum: any;
-  nuevaImagenPerfil: any;
-  nuevaImagenPortada: any;
+  nuevoCurriculum: string = "";
+  nuevaImagenPerfil: string = "";
+
+  nuevaImagenPortada: string = "";
   nuevaDescripcion: string = "";
 
 
   estadosMexico: Estado[] = [];
   municipiosMexico: Municipio[] = [];
 
-  constructor(private _UserRequest: InterfaceService, private _CandidateRequest: CandidateService, private router: Router) {
+  constructor(private _UserRequest: InterfaceService, private _CandidateRequest: CandidateService, private router: Router,
+    private _firebase: Storage) {
 
     this.lada = "+52";
     this.nuevoEstado = { id_estado: 0, nombreEstado: "Selecciona un Estado", municipios: [] };
@@ -453,16 +456,6 @@ export class UpdateComponent implements OnInit, OnDestroy {
 
   }
 
-  // MODIFICACION DE IMAGENES
-  capturarSecundarios() {
-    const USUARIO_MODIFICADO = {
-
-    }
-
-  }
-
-
-
   guardarModPrincipales(usuarioModificado: any) {
 
     this._CandidateRequest.modificar(usuarioModificado).then((data: any) => {
@@ -476,6 +469,83 @@ export class UpdateComponent implements OnInit, OnDestroy {
     });
 
   }
+
+
+  // IMAGENES PERFIL
+  img: any;
+  imgReff:any;
+
+  uploadImage($event: any){
+    //const image = $event.target.files[0];
+    this.img =  $event.target.files[0];
+    //console.log(image);
+    const name = this.usuario.usuario.nombre +this.usuario.usuario.apellidoP+this.usuario.usuario.apellidoM;
+    //const ruta = `images${name}/perfil/`;
+    this.nuevaImagenPerfil = this.img.name;
+    //const imgRef = ref(this._firebase,`images${name}/perfil/${image.name}`);
+    this.imgReff = ref(this._firebase,`images${name}/perfil/${this.img.name}`);
+  }
+
+  // IMAGENES PORTADA
+  imgP: any;
+  imgReffP:any;
+
+  uploadImagePortada($event: any){
+    //const image = $event.target.files[0];
+    this.imgP =  $event.target.files[0];
+    //console.log(image);
+    const name = this.usuario.usuario.nombre +this.usuario.usuario.apellidoP+this.usuario.usuario.apellidoM;
+    //const ruta = `images${name}/portada/`;
+    this.nuevaImagenPortada = this.imgP.name;
+    //const imgRef = ref(this._firebase,`images${name}/portada/${image.name}`);
+    this.imgReffP = ref(this._firebase,`images${name}/portada/${this.imgP.name}`);
+  }
+
+  // ARCHIVOS CV
+  document: any;
+  documentRef:any;
+
+  uploadCV($event: any){
+    this.document =  $event.target.files[0];
+    const name = this.usuario.usuario.nombre +this.usuario.usuario.apellidoP+this.usuario.usuario.apellidoM;
+    this.nuevoCurriculum = this.document.name;
+    this.documentRef = ref(this._firebase,`documentos${name}/cv/${this.document.name}`);
+
+  }
+
+    // MODIFICACION DE IMAGENES
+    capturarSecundarios() {
+      // CARGAR PERFIL
+      if(this.nuevaImagenPerfil != ""){
+        uploadBytes(this.imgReff,this.img)
+        .then(response => console.log(response))
+        .catch(error => console.log(error));
+      }
+
+      // CARGAR PORTADA
+      if(this.nuevaImagenPortada != ""){
+        uploadBytes(this.imgReffP,this.imgP)
+        .then(response => console.log(response))
+        .catch(error => console.log(error));
+      }
+
+      // CARGAR CV
+      if(this.nuevoCurriculum != ""){
+        uploadBytes(this.documentRef,this.document)
+        .then(response => console.log(response))
+        .catch(error => console.log(error));
+      }
+      
+      const USUARIOMOD = {
+        rutaImagenPerfil:this.nuevaImagenPerfil,
+        rutaImagenPortada:this.nuevaImagenPortada,
+        rutaCv:this.nuevoCurriculum,
+      }
+
+      console.log(USUARIOMOD);
+    }
+
+    
 
 
 

@@ -21,6 +21,9 @@ import { RequestAdminComponent } from './Components/Interface/Admin/request-admi
 import { JobComponent } from './Components/Interface/Employer/candidates/job/job.component';
 import { UpdateComponent } from './Components/Interface/Candidate/profile/update/update.component';
 import { UpdateJobComponent } from './Components/Interface/Employer/candidates/update-job/update-job.component';
+import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
+import { environment } from '../environments/environment';
+import { provideStorage,getStorage } from '@angular/fire/storage';
 
 @NgModule({
   declarations: [
@@ -47,8 +50,11 @@ import { UpdateJobComponent } from './Components/Interface/Employer/candidates/u
     AppRoutingModule,  
     FormsModule,
     HttpClientModule,
+    provideFirebaseApp(() => initializeApp(environment.firebase)),
+    provideStorage(() => getStorage()),
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+ 

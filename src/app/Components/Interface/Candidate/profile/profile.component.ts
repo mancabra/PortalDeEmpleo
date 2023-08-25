@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Storage ,getDownloadURL, listAll, ref } from '@angular/fire/storage';
 import { Router } from '@angular/router';
 import { CandidateService } from 'src/app/Services/CandidateServices/candidate.service';
 import { EmployerService } from 'src/app/Services/EmployerServices/employer.service';
@@ -34,8 +35,12 @@ export class ProfileComponent implements OnInit, OnDestroy {
   perfilTipoEmpleador: boolean = true;
   perfilTipoEmpresa: boolean = true;
 
+  imgPerfil:string[] = [];
+  imgPortada:string[] = [];
 
-  constructor(private _CandidateRequest: CandidateService, private _UserRequest: InterfaceService, private router: Router, private _EmployerRequest:EmployerService) {
+
+  constructor(private _CandidateRequest: CandidateService, private _UserRequest: InterfaceService, 
+    private router: Router, private _EmployerRequest:EmployerService, private _firebaseII: Storage,) {
     /*this.empresas = [{
       id_vacante: 0,
       nombreVacante: "Taquero",
@@ -57,6 +62,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+   // this.generarRuta();
     this.buscarUsuario();
   }
 
@@ -82,6 +88,33 @@ export class ProfileComponent implements OnInit, OnDestroy {
       }
       this.identificarTipoDePerfil();
     });
+  }
+
+  generarRuta(){
+    if(this.id_tipoUsuario==1){
+      const name = this.administrador.usuario.nombre +this.administrador.usuario.apellidoP+this.administrador.usuario.apellidoM;
+      const ruta = `images${name}/perfil/`;
+      const rutaII = `images${name}/portada/`;
+      this.getImages(ruta,this.administrador.usuario.rutaImagenPerfil);
+      this.getImagesPortada(rutaII,this.administrador.usuario.rutaImagenPortada);
+    } else if (this.id_tipoUsuario==2){
+   const name = this.candidato.usuario.nombre +this.candidato.usuario.apellidoP+this.candidato.usuario.apellidoM;
+      const ruta = `images${name}/perfil/`;
+      const rutaII = `images${name}/portada/`;
+      this.getImages(ruta,this.candidato.usuario.rutaImagenPerfil);
+      this.getImagesPortada(rutaII,this.candidato.usuario.rutaImagenPortada);
+    } else if (this.id_tipoUsuario==3){
+      const name = this.empleador.usuario.nombre +this.empleador.usuario.apellidoP+this.empleador.usuario.apellidoM;
+      const ruta = `images${name}/perfil/`;
+      const rutaII = `images${name}/portada/`;
+      this.getImages(ruta,this.empleador.usuario.rutaImagenPerfil);
+      this.getImagesPortada(rutaII,this.empleador.usuario.rutaImagenPortada);
+    } else {
+      const ruta = `images/perfil/`;
+      const rutaII = `images/portada/`;
+      //this.getImages(ruta,"Captura de pantalla 2023-08-17 a la(s) 12.20.31.png");
+      //this.getImagesPortada(rutaII,"Captura de pantalla 2023-08-17 a la(s) 12.20.31.png");
+    }
   }
 
   obtenerPublicaciones(){
@@ -148,6 +181,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
       this.perfilTipoEmpleador = true;
       this.perfilTipoEmpresa = false;
     }
+    this.generarRuta();
   }
 
 //FUNCION EDAD
@@ -173,5 +207,36 @@ obtenerEdad(){
     this._UserRequest.LimpiarAlertas();
   }
 
+  getImages(ruta : any, nombre: string){
+    const imageRef = ref(this._firebaseII,ruta);
+    listAll(imageRef)
+    .then( async response =>{
+      console.log(response);
+      this.imgPerfil = [];
+      for( let item of response.items){
+        const url = await getDownloadURL(item);
+        if(item.name == nombre){
+          this.imgPerfil.push(url);
+        }
+      }
+    })
+    .catch(error => console.log(error));
+  }
+
+  getImagesPortada(ruta : any, nombre: string){
+    const imageRef = ref(this._firebaseII,ruta);
+    listAll(imageRef)
+    .then( async response =>{
+      console.log(response);
+      this.imgPortada = [];
+      for( let item of response.items){
+        const url = await getDownloadURL(item);
+        if(item.name == nombre){
+          this.imgPortada.push(url);
+        }
+      }
+    })
+    .catch(error => console.log(error));
+  }
 
 }
