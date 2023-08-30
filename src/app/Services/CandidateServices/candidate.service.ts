@@ -3,6 +3,8 @@ import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { Candidato } from '../Entity/candidato';
 import { Postulacion } from '../Entity/postulacion';
+import { Habilidad } from '../Entity/habilidad';
+import { Idioma } from '../Entity/idioma';
 
 @Injectable({
   providedIn: 'root'
@@ -53,6 +55,15 @@ export class CandidateService {
     return this._http.put("http://localhost:8080/modificarCandidato", CandidatoDTO).toPromise();
   }
 
+  modificarSecundarios(CandidatoDTO: any) {
+    //prueba de funcionamiento
+    console.log("Proceso ModificarSecundarios");
+    console.log("Info Enviada");
+    console.log(CandidatoDTO);
+
+    return this._http.put("http://localhost:8080/guardarArchivo", CandidatoDTO).toPromise();
+  }
+
   obtenerVacantes() {
     //prueba de funcionamiento
     console.log("Proceso ObternerVacantes");
@@ -100,7 +111,7 @@ export class CandidateService {
     console.log("Proceso obtenerVacantesPorEstado");
     console.log("Info Enviada");
     console.log(id_estado);
-    let cadena = "http://localhost:8080/obtenerVacantesEstado/"+id_estado;
+    let cadena = "http://localhost:8080/obtenerVacantesEstado/" + id_estado;
     return this._http.get(cadena).toPromise();
   }
 
@@ -109,7 +120,7 @@ export class CandidateService {
     console.log("Proceso obtenerVacantesPorPalabraYEstado");
     console.log("Info Enviada");
     console.log(CandidateRequest);
-    return this._http.get("http://localhost:8080/obtenerVacantesEstadoYPorPalabraCalve",CandidateRequest).toPromise();
+    return this._http.get("http://localhost:8080/obtenerVacantesEstadoYPorPalabraCalve", CandidateRequest).toPromise();
   }
 
   postularse(PostDTO: any) {
@@ -138,6 +149,18 @@ export class CandidateService {
     let cadena = "http://localhost:8080/eliminarPostulacion/" + idRequest;
     return this._http.delete(cadena).toPromise();
 
+  }
+
+  obtenerHabilidades(): Observable<Habilidad[]> {
+    //prueba de funcionamiento
+    console.log("Proceso obtenerHabilidades");
+    return this._http.get<Habilidad[]>("obtenerListaHabilidades");
+  }
+
+  obtenerIdiomas(): Observable<Idioma[]> {
+    //prueba de funcionamiento
+    console.log("Proceso obtenerIdiomas");
+    return this._http.get<Idioma[]>("obtenerListaIdiomas");
   }
 
   //OBSERVABLE POSTULACIONES

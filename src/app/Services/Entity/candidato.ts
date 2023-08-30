@@ -1,4 +1,5 @@
 import { Estado } from "./estado";
+import { Habilidad } from "./habilidad";
 import { Idioma } from "./idioma";
 import { Municipio } from "./municipio";
 import { Usuario } from "./usuario";
@@ -18,11 +19,13 @@ export class Candidato {
     vacantes: Vacante[] = [];
     idiomas: Idioma[] = [];
 
+
     municipio: Municipio = new Municipio;
     estado: Estado = new Estado;
 
     profesion: string = "";
 
     fechaNacimiento: Date = new Date;
+    habiliadades: Habilidad [] = [];
 
 }

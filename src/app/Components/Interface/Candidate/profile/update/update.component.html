@@ -71,7 +71,7 @@
                                         aria-describedby="inputGroup-sizing-sm" style="border-radius: 0px 5px 5px 0px;"
                                         placeholder="Ingresa la nueva edad" [(ngModel)]="nuevaEdad"> -->
 
-                                        <input type="date" class="form-control" aria-label="Sizing example input"
+                                    <input type="date" class="form-control" aria-label="Sizing example input"
                                         aria-describedby="inputGroup-sizing-sm" style="border-radius: 0px 5px 5px 0px;"
                                         placeholder="Ingresa la nueva edad" [(ngModel)]="nuevaFecha">
                                 </div>
@@ -258,6 +258,49 @@
 
 </div>
 
+<div style="display: block; margin-top: 2rem;">
+
+
+    <!-- habilidades -->
+
+
+    <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+        <div class="accordion-body">
+
+            <h2 class="accordion-header ">
+                <button class="accordion-button " type="button" data-bs-toggle="collapse" data-bs-target=""
+                    aria-expanded="true" aria-controls="" style="color:rgb(89, 92, 94); height: 1.8rem;">
+                    SELECCION DE HABILIDADES
+                    <hr>
+                </button>
+            </h2>
+
+            <form name="f1" id="formElement">
+                <div class="form-check form-check-inline" *ngFor="let h of habilidades">
+                    <input class="form-check-input" type="checkbox" id="{{h.nombreHabilidad}}"
+                        [value]="h.nombreHabilidad">
+                    <label class="form-check-label" for="{{h.nombreHabilidad}}">{{h.nombreHabilidad}}</label>
+                </div>
+            </form>
+
+            <!-- idiomas -->
+
+            <h2 class="accordion-header ">
+                <button class="accordion-button " type="button" data-bs-toggle="collapse" data-bs-target=""
+                    aria-expanded="true" aria-controls="" style="color:rgb(89, 92, 94); height: 1.8rem;">
+                    SELECCION DE IDIOMAS
+                    <hr>
+                </button>
+            </h2>
+            <form name="f2">
+                <div class="form-check form-check-inline" *ngFor="let i of idiomas">
+                    <input class="form-check-input" type="checkbox" id="{{i.nombreIdioma}}" name="{{i.nombreIdioma}}" [value]="i.nombreIdioma">
+                    <label class="form-check-label" for="{{i.nombreIdioma}}">{{i.nombreIdioma}}</label>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 <div>
 
     <div class="" id="accordion" style="margin-bottom: .5rem; margin-top: .5rem;">
@@ -283,21 +326,24 @@
                     </h2>
 
                     <div class="input-group input-group-sm" style="margin-bottom: .5rem;">
-                        <input class="form-control form-control-sm" id="formFileSm" type="file" (change)="uploadCV($event)">
+                        <input class="form-control form-control-sm" id="formFileSm" type="file"
+                            (change)="uploadCV($event)">
                         <button class="input-group-text" id="inputGroup-sizing-sm"
                             style="width: 35%; text-align: center;">
                             <b> CURRICULUM VITAE</b> </button>
                     </div>
 
                     <div class="input-group input-group-sm" style="margin-bottom: .5rem;">
-                        <input class="form-control form-control-sm" id="formFileSm" type="file" (change)="uploadImage($event)">
+                        <input class="form-control form-control-sm" id="formFileSm" type="file"
+                            (change)="uploadImage($event)">
                         <button class="input-group-text" id="inputGroup-sizing-sm"
                             style="width: 35%; text-align: center;">
                             <b> IMAGEN DE PERFIL</b> </button>
                     </div>
 
                     <div class="input-group input-group-sm" style="margin-bottom: .5rem;">
-                        <input class="form-control form-control-sm" id="formFileSm" type="file" (change)="uploadImagePortada($event)">
+                        <input class="form-control form-control-sm" id="formFileSm" type="file"
+                            (change)="uploadImagePortada($event)">
                         <button class="input-group-text" id="inputGroup-sizing-sm"
                             style="width: 35%; text-align: center;">
                             <b> IMAGEN DE PORTADA</b> </button>

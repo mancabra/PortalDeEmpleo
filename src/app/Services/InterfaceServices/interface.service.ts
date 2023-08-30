@@ -131,7 +131,7 @@ export class InterfaceService {
   }
 
   hacerVisitante(){
-    this.tipoUsuario = 3;
+    this.tipoUsuario = 2;
     this.tipo$.next(this.tipoUsuario);
   }
 

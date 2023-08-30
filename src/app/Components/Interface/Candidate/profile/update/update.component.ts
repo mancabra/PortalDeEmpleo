@@ -6,7 +6,9 @@ import { Candidato } from 'src/app/Services/Entity/candidato';
 import { Estado } from 'src/app/Services/Entity/estado';
 import { Municipio } from 'src/app/Services/Entity/municipio';
 import { InterfaceService } from 'src/app/Services/InterfaceServices/interface.service';
-import { Storage, ref, uploadBytes, listAll, getDownloadURL} from '@angular/fire/storage';
+import { Storage, ref, uploadBytes, listAll, getDownloadURL } from '@angular/fire/storage';
+import { Idioma } from 'src/app/Services/Entity/idioma';
+import { Habilidad } from 'src/app/Services/Entity/habilidad';
 
 @Component({
   selector: 'app-update',
@@ -28,7 +30,7 @@ export class UpdateComponent implements OnInit, OnDestroy {
   nuevoNombre: string = "";
   nuevoApellidoP: string = "";
   nuevoApellidoM: string = "";
-  nuevoTelefono: string  = "";
+  nuevoTelefono: string = "";
   nuevaEdad: number = 0;
   nuevaProfesion: string = "";
 
@@ -43,15 +45,17 @@ export class UpdateComponent implements OnInit, OnDestroy {
   nacimientoSrt: any = "";
   pipe = new DatePipe('en-US');
 
-  nuevoCurriculum: string = "";
-  nuevaImagenPerfil: string = "";
+  nuevoCurriculum: string = "default.jpg";
+  nuevaImagenPerfil: string = "default.jpg";
 
-  nuevaImagenPortada: string = "";
+  nuevaImagenPortada: string = "default.jpg";
   nuevaDescripcion: string = "";
 
 
   estadosMexico: Estado[] = [];
   municipiosMexico: Municipio[] = [];
+  idiomas: Idioma[] = [];
+  habilidades: Habilidad[] = [];
 
   constructor(private _UserRequest: InterfaceService, private _CandidateRequest: CandidateService, private router: Router,
     private _firebase: Storage) {
@@ -60,23 +64,28 @@ export class UpdateComponent implements OnInit, OnDestroy {
     this.nuevoEstado = { id_estado: 0, nombreEstado: "Selecciona un Estado", municipios: [] };
     this.nuevoMunicipio = { id_municipio: 0, nombreMunicipio: "Selecciona un Municipio", estado: new Estado }
 
+
+    this.idiomas = [{ id_idioma: 0, nombreIdioma: "Ingles", candidatos: [] }, { id_idioma: 1, nombreIdioma: "aleman", candidatos: [] }];
+    this.habilidades = [{ id_habilidad: 0, nombreHabilidad: "nadar", candidatos: [] }]
+
   }
 
   ngOnInit(): void {
-    this.buscarUsuario();
-    this.bloquearMunicipios();
+    //this.buscarUsuario();
+    //this.bloquearMunicipios();
+    this.asignarIdiomasYhabilidades();
   }
 
-  validarLongitud(){
-    if(this.nuevoTelefono.length == 10){
+  validarLongitud() {
+    if (this.nuevoTelefono.length == 10) {
 
-    } else if(this.nuevoTelefono.length == 17){
+    } else if (this.nuevoTelefono.length == 17) {
       this.nuevoTelefono = this.nuevoTelefono.slice(3, 17);
 
-    } else if(this.nuevoTelefono.length == 18){
+    } else if (this.nuevoTelefono.length == 18) {
       this.nuevoTelefono = this.nuevoTelefono.slice(4, 18);
 
-    } else if(this.nuevoTelefono.length == 19){
+    } else if (this.nuevoTelefono.length == 19) {
       this.nuevoTelefono = this.nuevoTelefono.slice(5, 19);
     } else {
 
@@ -92,6 +101,20 @@ export class UpdateComponent implements OnInit, OnDestroy {
       this.usuario = data
       this.asignarDatos(this.usuario);
       console.log(this.usuario)
+    });
+  }
+
+  obtenrIdiomas() {
+    this._CandidateRequest.obtenerIdiomas().subscribe(data => {
+      this.idiomas = data;
+      console.log(this.idiomas);
+    });
+  }
+
+  obtenerHabilidades() {
+    this._CandidateRequest.obtenerHabilidades().subscribe(data => {
+      this.habilidades = data;
+      console.log(this.habilidades);
     });
   }
 
@@ -153,7 +176,7 @@ export class UpdateComponent implements OnInit, OnDestroy {
     this.nuevoNombre = "";
     this.nuevoApellidoP = "";
     this.nuevoApellidoM = "";
-    this.nuevoTelefono  = "";
+    this.nuevoTelefono = "";
     this.nuevaEdad = 0;
     this.nuevaProfesion = "";
 
@@ -169,6 +192,7 @@ export class UpdateComponent implements OnInit, OnDestroy {
   }
 
   asignarDatos(usuario: Candidato) {
+
     this.guardarObjeto(usuario);
     this.nuevoNombre = usuario.usuario.nombre;
     this.nuevoApellidoP = usuario.usuario.apellidoP;
@@ -183,8 +207,45 @@ export class UpdateComponent implements OnInit, OnDestroy {
     this.nuevoCentroEducativo = usuario.centroEducativo;
     this.nuevoPuesto = usuario.puestoActual;
     this.nuevaFecha = usuario.fechaNacimiento;
+    this.nuevaImagenPortada = usuario.usuario.rutaImagenPortada;
+    this.nuevaImagenPerfil = usuario.usuario.rutaImagenPerfil;
+    this.nuevoCurriculum = usuario.rutaCv;
+    this.idiomas = usuario.idiomas;
+    this.habilidades = usuario.habiliadades;
+
+    if (this.nuevoCurriculum == "") {
+      this.nuevoCurriculum = "default.jpg";
+    }
+
+    if (this.nuevaImagenPerfil == "") {
+      this.nuevaImagenPerfil = "default.jpg";
+    }
+
+    if (this.nuevaImagenPortada == "") {
+      this.nuevaImagenPortada = "default.jpg";
+    }
+
 
     this.validarLongitud();
+    this.asignarIdiomasYhabilidades();
+  }
+
+  asignarIdiomasYhabilidades() {
+  
+        for (let j = 0; j < this.idiomas.length; j++) {
+          this.buscarIdioma(this.idiomas[j].nombreIdioma); 
+      }
+  
+  }
+
+  idiomasActivos:any [] = [];
+
+  buscarIdioma(idioma: string) {
+    this.idiomasActivos.push(document.getElementsByName(idioma));
+    console.log(this.idiomasActivos);
+    for(let b of this.idiomasActivos){
+      b.checked = true;
+    }
   }
 
   guardarObjeto(usuario: Candidato) {
@@ -197,7 +258,7 @@ export class UpdateComponent implements OnInit, OnDestroy {
     } else if (this.datosPrincipales == false && this.datosSecundarios == true) {
       this.capturarSecundarios();
     } else {
-      alert("No se selecciono una opcion"); 
+      alert("No se selecciono una opcion");
     }
 
   }
@@ -220,7 +281,7 @@ export class UpdateComponent implements OnInit, OnDestroy {
       //edad:this.nuevaEdad,
       profesion: this.nuevaProfesion,
       fechaNacimientoStr: this.nacimientoSrt,
-    
+
     }
 
     this.validarDatosNombre(USUARIO_MODIFICADO);
@@ -279,16 +340,16 @@ export class UpdateComponent implements OnInit, OnDestroy {
 
     }
 
-   this.validarTelefono(usuarioModificado);
+    this.validarTelefono(usuarioModificado);
   }
 
-  validarTelefono(usuarioModificado: any){
+  validarTelefono(usuarioModificado: any) {
 
     if (this.nuevoTelefono == "") {
       usuarioModificado.telefono = this.usuario.usuario.telefono
     } else {
       let numeroConLada = "";
-      numeroConLada = this.lada +" "+ this.nuevoTelefono;
+      numeroConLada = this.lada + " " + this.nuevoTelefono;
 
       if (numeroConLada.length < 18) {
         usuarioModificado.telefono = this.usuario.usuario.telefono
@@ -302,7 +363,7 @@ export class UpdateComponent implements OnInit, OnDestroy {
     this.validarEdad(usuarioModificado);
   }
 
-  validarEdad(usuarioModificado: any){
+  validarEdad(usuarioModificado: any) {
     // FALATA AGREGAR FUNCION PARA REDONDEAR EDADES
 
     var hoy = new Date();
@@ -312,11 +373,11 @@ export class UpdateComponent implements OnInit, OnDestroy {
     console.log(this.nacimientoSrt);
     this.nacimientoSrt
 
-    var edad = hoy.getFullYear() -  cumpleanos.getFullYear();
-    var m = hoy.getMonth() -  cumpleanos.getMonth();
+    var edad = hoy.getFullYear() - cumpleanos.getFullYear();
+    var m = hoy.getMonth() - cumpleanos.getMonth();
 
     if (m < 0 || (m === 0 && hoy.getDate() < cumpleanos.getDate())) {
-        edad--;
+      edad--;
     }
 
     if (edad == 0) {
@@ -325,7 +386,7 @@ export class UpdateComponent implements OnInit, OnDestroy {
     } else if (edad < 18) {
       usuarioModificado.fechaNacimientoStr = this.usuario.fechaNacimiento.toString();
 
-    } else if (edad > 70){
+    } else if (edad > 70) {
       usuarioModificado.fechaNacimientoStr = this.usuario.fechaNacimiento.toString();
     } else {
       usuarioModificado.fechaNacimientoStr = this.nacimientoSrt?.toString();
@@ -371,16 +432,16 @@ export class UpdateComponent implements OnInit, OnDestroy {
     this.validarProfesion(usuarioModificado);
   }
 
-  validarProfesion(usuarioModificado:any){
-    if (usuarioModificado.profesion == ""){
+  validarProfesion(usuarioModificado: any) {
+    if (usuarioModificado.profesion == "") {
       usuarioModificado.profesion = this.usuario.profesion;
 
-    } else if(usuarioModificado.profesion == null){
+    } else if (usuarioModificado.profesion == null) {
       usuarioModificado.profesion = this.usuario.profesion;
 
-    } else if(usuarioModificado.profesion.length < 4){
+    } else if (usuarioModificado.profesion.length < 4) {
       usuarioModificado.profesion = this.usuario.profesion;
-    } else if (usuarioModificado.profesion.length > 25){
+    } else if (usuarioModificado.profesion.length > 25) {
       usuarioModificado.profesion = this.usuario.profesion;
     } else {
 
@@ -441,10 +502,10 @@ export class UpdateComponent implements OnInit, OnDestroy {
     } else if (usuarioModificado.id_estado != this.usuario.estado.id_estado) {
       this.validarMunicipio(usuarioModificado);
     }
-    this.guardarModPrincipales(usuarioModificado);  
+    this.guardarModPrincipales(usuarioModificado);
   }
 
-  validarMunicipio(usuarioModificado:any){
+  validarMunicipio(usuarioModificado: any) {
 
     if (usuarioModificado.id_municipio == 0) {
       alert("NO SE SELECCIONO UN MUNICIPIO. Los datos del municipio y estado NO han cambiado");
@@ -473,79 +534,90 @@ export class UpdateComponent implements OnInit, OnDestroy {
 
   // IMAGENES PERFIL
   img: any;
-  imgReff:any;
+  imgReff: any;
 
-  uploadImage($event: any){
+  uploadImage($event: any) {
     //const image = $event.target.files[0];
-    this.img =  $event.target.files[0];
+    this.img = $event.target.files[0];
     //console.log(image);
-    const name = this.usuario.usuario.nombre +this.usuario.usuario.apellidoP+this.usuario.usuario.apellidoM;
+    const name = this.usuario.usuario.nombre + this.usuario.usuario.apellidoP + this.usuario.usuario.apellidoM;
     //const ruta = `images${name}/perfil/`;
     this.nuevaImagenPerfil = this.img.name;
     //const imgRef = ref(this._firebase,`images${name}/perfil/${image.name}`);
-    this.imgReff = ref(this._firebase,`images${name}/perfil/${this.img.name}`);
+    this.imgReff = ref(this._firebase, `images${name}/perfil/${this.img.name}`);
   }
 
   // IMAGENES PORTADA
   imgP: any;
-  imgReffP:any;
+  imgReffP: any;
 
-  uploadImagePortada($event: any){
+  uploadImagePortada($event: any) {
     //const image = $event.target.files[0];
-    this.imgP =  $event.target.files[0];
+    this.imgP = $event.target.files[0];
     //console.log(image);
-    const name = this.usuario.usuario.nombre +this.usuario.usuario.apellidoP+this.usuario.usuario.apellidoM;
+    const name = this.usuario.usuario.nombre + this.usuario.usuario.apellidoP + this.usuario.usuario.apellidoM;
     //const ruta = `images${name}/portada/`;
     this.nuevaImagenPortada = this.imgP.name;
     //const imgRef = ref(this._firebase,`images${name}/portada/${image.name}`);
-    this.imgReffP = ref(this._firebase,`images${name}/portada/${this.imgP.name}`);
+    this.imgReffP = ref(this._firebase, `images${name}/portada/${this.imgP.name}`);
   }
 
   // ARCHIVOS CV
   document: any;
-  documentRef:any;
+  documentRef: any;
 
-  uploadCV($event: any){
-    this.document =  $event.target.files[0];
-    const name = this.usuario.usuario.nombre +this.usuario.usuario.apellidoP+this.usuario.usuario.apellidoM;
+  uploadCV($event: any) {
+    this.document = $event.target.files[0];
+    const name = this.usuario.usuario.nombre + this.usuario.usuario.apellidoP + this.usuario.usuario.apellidoM;
     this.nuevoCurriculum = this.document.name;
-    this.documentRef = ref(this._firebase,`documentos${name}/cv/${this.document.name}`);
+    this.documentRef = ref(this._firebase, `documentos${name}/cv/${this.document.name}`);
 
   }
 
-    // MODIFICACION DE IMAGENES
-    capturarSecundarios() {
-      // CARGAR PERFIL
-      if(this.nuevaImagenPerfil != ""){
-        uploadBytes(this.imgReff,this.img)
+  // MODIFICACION DE IMAGENES
+  capturarSecundarios() {
+    // CARGAR PERFIL
+    if (this.nuevaImagenPerfil != "default.jpg") {
+      uploadBytes(this.imgReff, this.img)
         .then(response => console.log(response))
         .catch(error => console.log(error));
-      }
-
-      // CARGAR PORTADA
-      if(this.nuevaImagenPortada != ""){
-        uploadBytes(this.imgReffP,this.imgP)
-        .then(response => console.log(response))
-        .catch(error => console.log(error));
-      }
-
-      // CARGAR CV
-      if(this.nuevoCurriculum != ""){
-        uploadBytes(this.documentRef,this.document)
-        .then(response => console.log(response))
-        .catch(error => console.log(error));
-      }
-      
-      const USUARIOMOD = {
-        rutaImagenPerfil:this.nuevaImagenPerfil,
-        rutaImagenPortada:this.nuevaImagenPortada,
-        rutaCv:this.nuevoCurriculum,
-      }
-
-      console.log(USUARIOMOD);
     }
 
-    
+    // CARGAR PORTADA
+    if (this.nuevaImagenPortada != "default.jpg") {
+      uploadBytes(this.imgReffP, this.imgP)
+        .then(response => console.log(response))
+        .catch(error => console.log(error));
+    }
+
+    // CARGAR CV
+    if (this.nuevoCurriculum != "") {
+      uploadBytes(this.documentRef, this.document)
+        .then(response => console.log(response))
+        .catch(error => console.log(error));
+    }
+
+    const USUARIOMOD = {
+      id_usuario: this.usuario.usuario.id_usuario,
+      rutaImagenPerfil: this.nuevaImagenPerfil,
+      rutaImagenPortada: this.nuevaImagenPortada,
+      rutaCv: this.nuevoCurriculum,
+    }
+
+    this.guardarArchivos(USUARIOMOD);
+  }
+
+  guardarArchivos(archivos: any) {
+    this._CandidateRequest.modificarSecundarios(archivos).then((data: any) => {
+      if (data.estatus == true) {
+        alert("Modificación Exitosa");
+        this.router.navigate(['interface/perfil']);
+
+      } else {
+        alert("Algo Fallo");
+      }
+    });
+  }
 
 
 
