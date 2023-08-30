@@ -65,8 +65,8 @@ export class UpdateComponent implements OnInit, OnDestroy {
     this.nuevoMunicipio = { id_municipio: 0, nombreMunicipio: "Selecciona un Municipio", estado: new Estado }
 
 
-    this.idiomas = [{ id_idioma: 0, nombreIdioma: "Ingles", candidatos: [] }, { id_idioma: 1, nombreIdioma: "aleman", candidatos: [] }];
-    this.habilidades = [{ id_habilidad: 0, nombreHabilidad: "nadar", candidatos: [] }]
+    //this.idiomas = [{ id_idioma: 0, nombreIdioma: "Ingles", candidatos: [] }, { id_idioma: 1, nombreIdioma: "aleman", candidatos: [] }];
+    //this.habilidades = [{ id_habilidad: 0, nombreHabilidad: "nadar", candidatos: [] }]
 
   }
 
