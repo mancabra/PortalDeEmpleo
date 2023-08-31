@@ -1,0 +1,1 @@
+{"ast":null,"code":"export class Empleador {}","map":{"version":3,"names":["Empleador"],"sources":["/Users/mancabra/Documents/PortalDeEmpleo/src/app/Services/Entity/empleador.ts"],"sourcesContent":["export class Empleador {\n}\n"],"mappings":"AAAA,OAAM,MAAOA,SAAS"},"metadata":{},"sourceType":"module","externalDependencies":[]}

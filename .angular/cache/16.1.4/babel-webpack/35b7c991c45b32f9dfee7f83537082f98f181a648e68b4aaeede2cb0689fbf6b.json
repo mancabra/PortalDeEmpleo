@@ -1,0 +1,1 @@
+{"ast":null,"code":"export class Administrador {}","map":{"version":3,"names":["Administrador"],"sources":["/Users/mancabra/Documents/PortalDeEmpleo/src/app/Services/Entity/administrador.ts"],"sourcesContent":["export class Administrador {\n}\n"],"mappings":"AAAA,OAAM,MAAOA,aAAa"},"metadata":{},"sourceType":"module","externalDependencies":[]}

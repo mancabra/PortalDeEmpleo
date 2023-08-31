@@ -278,7 +278,7 @@
             <form name="f1" id="formElement">
                 <div class="form-check form-check-inline" *ngFor="let h of habilidades">
                     <input class="form-check-input" type="checkbox" id="{{h.nombreHabilidad}}"
-                        [value]="h.nombreHabilidad">
+                        [value]="h.nombreHabilidad" onclick="seleccionar(i)">
                     <label class="form-check-label" for="{{h.nombreHabilidad}}">{{h.nombreHabilidad}}</label>
                 </div>
             </form>
@@ -294,7 +294,8 @@
             </h2>
             <form name="f2">
                 <div class="form-check form-check-inline" *ngFor="let i of idiomas">
-                    <input class="form-check-input" type="checkbox" id="{{i.nombreIdioma}}" name="{{i.nombreIdioma}}" [value]="i.nombreIdioma">
+                    <input class="form-check-input" type="checkbox" id="{{i.nombreIdioma}}" name="{{i.nombreIdioma}}" 
+                    [value]="i.nombreIdioma" onclick="seleccionar(this)">
                     <label class="form-check-label" for="{{i.nombreIdioma}}">{{i.nombreIdioma}}</label>
                 </div>
             </form>

@@ -65,14 +65,14 @@ export class UpdateComponent implements OnInit, OnDestroy {
     this.nuevoMunicipio = { id_municipio: 0, nombreMunicipio: "Selecciona un Municipio", estado: new Estado }
 
 
-    //this.idiomas = [{ id_idioma: 0, nombreIdioma: "Ingles", candidatos: [] }, { id_idioma: 1, nombreIdioma: "aleman", candidatos: [] }];
-    //this.habilidades = [{ id_habilidad: 0, nombreHabilidad: "nadar", candidatos: [] }]
+    this.idiomas = [{ id_idioma: 0, nombreIdioma: "Ingles", candidatos: [] }, { id_idioma: 1, nombreIdioma: "aleman", candidatos: [] }];
+    this.habilidades = [{ id_habilidad: 0, nombreHabilidad: "nadar", candidatos: [] }]
 
   }
 
   ngOnInit(): void {
-    //this.buscarUsuario();
-    //this.bloquearMunicipios();
+    this.buscarUsuario();
+    this.bloquearMunicipios();
     this.asignarIdiomasYhabilidades();
   }
 
@@ -246,6 +246,32 @@ export class UpdateComponent implements OnInit, OnDestroy {
     for(let b of this.idiomasActivos){
       b.checked = true;
     }
+  }
+
+  nuevosIdiomas: Idioma [] = [] 
+
+  seleccionar(idioma : Idioma){
+
+    let existe = false;
+    let index = 0;
+
+    for(let i = 0; i < this.nuevosIdiomas.length; i++){
+      const idiomaActual = this.idiomas[i];
+      index =  i;
+
+      if (idiomaActual.id_idioma == idioma.id_idioma){
+        existe = true;
+        break;
+      }
+    }
+
+
+    if (existe == false ){
+      this.nuevosIdiomas.push(idioma)
+    } else {
+      this.nuevosIdiomas.splice(index, 1);
+    }
+    console.log(this.nuevosIdiomas);
   }
 
   guardarObjeto(usuario: Candidato) {
