@@ -45,9 +45,8 @@ export class UpdateComponent implements OnInit, OnDestroy {
   nacimientoSrt: any = "";
   pipe = new DatePipe('en-US');
 
-  nuevoCurriculum: string = "default.jpg";
+  nuevoCurriculum: string = "";
   nuevaImagenPerfil: string = "default.jpg";
-
   nuevaImagenPortada: string = "default.jpg";
   nuevaDescripcion: string = "";
 
@@ -57,6 +56,9 @@ export class UpdateComponent implements OnInit, OnDestroy {
   idiomas: Idioma[] = [];
   habilidades: Habilidad[] = [];
 
+  idiomasCandidato: Idioma [] = [];
+  habilidadesCandidato: Habilidad [] = [];
+
   constructor(private _UserRequest: InterfaceService, private _CandidateRequest: CandidateService, private router: Router,
     private _firebase: Storage) {
 
@@ -65,15 +67,19 @@ export class UpdateComponent implements OnInit, OnDestroy {
     this.nuevoMunicipio = { id_municipio: 0, nombreMunicipio: "Selecciona un Municipio", estado: new Estado }
 
 
-    this.idiomas = [{ id_idioma: 0, nombreIdioma: "Ingles", candidatos: [] }, { id_idioma: 1, nombreIdioma: "aleman", candidatos: [] }];
-    this.habilidades = [{ id_habilidad: 0, nombreHabilidad: "nadar", candidatos: [] }]
+    this.idiomas = [{ id_idioma: 0, nombreIdioma: "Ingles", candidatos: [] }, { id_idioma: 1, nombreIdioma: "aleman", candidatos: [] } ];
+    this.habilidades = [{ id_habilidad: 0, nombreHabilidad: "nadar", candidatos: [] },{ id_habilidad: 1, nombreHabilidad: "volar", candidatos: [] }];
 
   }
 
   ngOnInit(): void {
     this.buscarUsuario();
     this.bloquearMunicipios();
-    this.asignarIdiomasYhabilidades();
+  }
+
+  ngAfterViewInit() {
+    this.asignarIdiomas();
+    this.asignarHabilidades();
   }
 
   validarLongitud() {
@@ -210,12 +216,8 @@ export class UpdateComponent implements OnInit, OnDestroy {
     this.nuevaImagenPortada = usuario.usuario.rutaImagenPortada;
     this.nuevaImagenPerfil = usuario.usuario.rutaImagenPerfil;
     this.nuevoCurriculum = usuario.rutaCv;
-    this.idiomas = usuario.idiomas;
-    this.habilidades = usuario.habiliadades;
-
-    if (this.nuevoCurriculum == "") {
-      this.nuevoCurriculum = "default.jpg";
-    }
+    this.idiomasCandidato = usuario.idiomas;
+    this.habilidadesCandidato = usuario.habiliadades;
 
     if (this.nuevaImagenPerfil == "") {
       this.nuevaImagenPerfil = "default.jpg";
@@ -225,54 +227,79 @@ export class UpdateComponent implements OnInit, OnDestroy {
       this.nuevaImagenPortada = "default.jpg";
     }
 
-
     this.validarLongitud();
-    this.asignarIdiomasYhabilidades();
   }
 
-  asignarIdiomasYhabilidades() {
-  
-        for (let j = 0; j < this.idiomas.length; j++) {
-          this.buscarIdioma(this.idiomas[j].nombreIdioma); 
-      }
-  
+  asignarIdiomas() {
+    for (let j = 0; j < this.idiomasCandidato.length; j++) {
+      this.buscarIdioma(this.idiomasCandidato[j].nombreIdioma);
+    }
   }
-
-  idiomasActivos:any [] = [];
 
   buscarIdioma(idioma: string) {
-    this.idiomasActivos.push(document.getElementsByName(idioma));
-    console.log(this.idiomasActivos);
-    for(let b of this.idiomasActivos){
-      b.checked = true;
-    }
+    const elem = document.getElementById(idioma);
+    elem?.click();
   }
 
-  nuevosIdiomas: Idioma [] = [] 
+  asignarHabilidades(){
+    for (let j = 0; j < this.habilidadesCandidato.length; j++) {
+      this.buscarHabilidad(this.habilidadesCandidato[j].nombreHabilidad);
+    } 
+  }
 
-  seleccionar(idioma : Idioma){
+  buscarHabilidad(habilidad: string) {
+    const elem = document.getElementById(habilidad);
+    elem?.click();
+  }
 
-    let existe = false;
-    let index = 0;
+  guardarIdiomas(){
+    this.idiomasCandidato = [];
+    for (let j = 0; j < this.idiomas.length; j++) {
+      const idiomaActual = this.idiomas[j];
+      var idioma = <HTMLInputElement> document.getElementById(idiomaActual.nombreIdioma);
+      var idiomaBoolean = idioma.checked;
 
-    for(let i = 0; i < this.nuevosIdiomas.length; i++){
-      const idiomaActual = this.idiomas[i];
-      index =  i;
-
-      if (idiomaActual.id_idioma == idioma.id_idioma){
-        existe = true;
-        break;
+      if(idiomaBoolean == true){
+        const DTO ={
+          id_candidato: this.usuario.id_candidato,
+          id_idioma: idiomaActual.id_idioma
+        }
+        
+        this._CandidateRequest.guardarIdiomas(DTO).then((data: any) => {
+          if (data.estatus == true) {
+    
+          } else {
+            alert("Uno de los idiomas no ha sido cargado a base de datos");
+          }
+        });
       }
     }
-
-
-    if (existe == false ){
-      this.nuevosIdiomas.push(idioma)
-    } else {
-      this.nuevosIdiomas.splice(index, 1);
-    }
-    console.log(this.nuevosIdiomas);
   }
+
+  guardarHabilidades(){
+    this.habilidadesCandidato = [];
+    for (let j = 0; j < this.habilidades.length; j++) {
+      const habilidadActual = this.habilidades[j];
+      var habilidad = <HTMLInputElement> document.getElementById(habilidadActual.nombreHabilidad);
+      var habiliadadBoolean = habilidad.checked;
+
+      if(habiliadadBoolean == true){
+        const DTO ={
+          id_candidato: this.usuario.id_candidato,
+          id_habilidad: habilidadActual.id_habilidad
+        }
+
+        this._CandidateRequest.guardarHabilidades(DTO).then((data: any) => {
+          if (data.estatus == true) {
+    
+          } else {
+            alert("Una de las habilidades no ha sido cargada a base de datos");
+          }
+        });
+      }
+    }
+  }
+     
 
   guardarObjeto(usuario: Candidato) {
     this.usuario = usuario;
@@ -544,6 +571,8 @@ export class UpdateComponent implements OnInit, OnDestroy {
   }
 
   guardarModPrincipales(usuarioModificado: any) {
+    this.guardarIdiomas();
+    this.guardarHabilidades();
 
     this._CandidateRequest.modificar(usuarioModificado).then((data: any) => {
       if (data.estatus == true) {
@@ -556,6 +585,9 @@ export class UpdateComponent implements OnInit, OnDestroy {
     });
 
   }
+
+
+  
 
 
   // IMAGENES PERFIL

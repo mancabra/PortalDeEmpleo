@@ -4,7 +4,7 @@
         <div class="card" style="width: 100%; height: 100%; padding: .5rem;">
             <div style=" position: relative;">
                 <div class="bajo">
-                    <div class="card text-bg-dark" style="height: 150px;">
+                    <div class="card text" style="height: 150px;">
                         <img [src]="imagenPort" *ngFor="let imagenPort of imgPortada" class="card-img" alt="..."
                             style="height: 150px;">
                         <div class="card-img-overlay">
@@ -20,8 +20,6 @@
                     </div>
                 </div>
             </div>
-
-            <!-- <iframe src="" style="width:100%; height:700px;" frameborder="0"></iframe> -->
 
             <div class="info">
                 <h6 style="margin-right: .3rem;" [ngClass]="{'view':perfilTipoCandidato, '':!perfilTipoCandidato}">
@@ -83,9 +81,9 @@
 
             </div>
             <div class="infoCuerpo" [ngClass]="{'view':perfilTipoCandidato, '':!perfilTipoCandidato}">
-                <!-- SE CAMBIARA POR UN NGFOR DE LAS HABILIDADES DEL USUARIO REGISTRADAS EN BASE DE DATOS -->
+
                 <span class="badge rounded-pill text-bg-secondary"
-                    style="margin-right: .5rem;margin-bottom: .5rem;">habilidad</span>
+                    style="margin-right: .5rem;margin-bottom: .5rem;" *ngFor="let habilidad of habilidadesUsusario">{{habilidad.nombreHabilidad}}</span>
             </div>
 
             <div [ngClass]="{'view':perfilTipoEmpleador, '':!perfilTipoEmpleador}">
@@ -110,7 +108,42 @@
             </div>
         </div>
 
+        <div style="padding-top:5rem; text-align: center; margin-right: .5rem;" [ngClass]="{'view':perfilTipoCandidato, '':!perfilTipoCandidato}">
+            <div style="display: inline; width: 100%;">
+                <button class="btn btn-light botonSinEfecto" style="background-color: white; border-color: darkgrey;">
+                    <div>
+                        <div style="display: block;">
+                            <img src="https://firebasestorage.googleapis.com/v0/b/gdi-portalempleo.appspot.com/o/images%2FPDFimg.png?alt=media&token=155be6d8-1f55-42f1-9bc8-df0ea748cc43"
+                                alt="">
+                        </div>
+                        <div style="padding-top: .5rem;">
+                          
+                            <a class="documento" [href]="rutaCv" target="_blank">
+                                <H6> <b> CURRICULUM </b></H6>
+                                <H6> <b> VISUALIZAR EL PDF </b></H6>
+                            </a>
+                        </div>
+                    </div>
+                </button>
+            </div>
 
+            <div style="display: inline; width: 100%; margin-left: .5rem;">
+                <button class="btn btn-light botonSinEfecto" style="background-color: white; border-color: darkgrey;">
+                    <div>
+                        <div style="display: block;">
+                            <img src="https://firebasestorage.googleapis.com/v0/b/gdi-portalempleo.appspot.com/o/images%2FPDFimg.png?alt=media&token=155be6d8-1f55-42f1-9bc8-df0ea748cc43"
+                                alt="">
+                        </div>
+                        <div style="padding-top: .5rem;">
+                            <a class="documento" [href]="rutaEspecialidad" target="_blank">
+                                <H6> <b> ESPECIALIDAD </b></H6>
+                                <H6> <b> VISUALIZAR EL PDF </b></H6>
+                            </a>
+                        </div>
+                    </div>
+                </button>
+            </div>
+        </div>
 
 
     </div>

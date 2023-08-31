@@ -7,6 +7,8 @@ import { Administrador } from 'src/app/Services/Entity/administrador';
 import { Candidato } from 'src/app/Services/Entity/candidato';
 import { Empleador } from 'src/app/Services/Entity/empleador';
 import { Empresa } from 'src/app/Services/Entity/empresa';
+import { Habilidad } from 'src/app/Services/Entity/habilidad';
+import { Idioma } from 'src/app/Services/Entity/idioma';
 import { ModalidadTrabajo } from 'src/app/Services/Entity/modalidad-trabajo';
 import { Municipio } from 'src/app/Services/Entity/municipio';
 import { TipoContratacion } from 'src/app/Services/Entity/tipo-contratacion';
@@ -37,32 +39,19 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
   imgPerfil:string[] = [];
   imgPortada:string[] = [];
+  rutaCv: string  = "https://firebasestorage.googleapis.com/v0/b/gdi-portalempleo.appspot.com/o/documentos%2Fcv%2Fcuadernillo_MarcoAntonioCruz.pdf?alt=media&token=830f5a01-eb69-4d5e-8022-46f82fe929fe";
+  rutaEspecialidad: string = "";
 
+  idiomasUsuario: Idioma [] = [];
+  habilidadesUsusario: Habilidad [] = [];
+  
 
   constructor(private _CandidateRequest: CandidateService, private _UserRequest: InterfaceService, 
     private router: Router, private _EmployerRequest:EmployerService, private _firebaseII: Storage,) {
-    /*this.empresas = [{
-      id_vacante: 0,
-      nombreVacante: "Taquero",
-      especialista: "Taquero",
-      sueldo: 10000,
-      horario: "9:00 am - 10:00 pm",
-      domicilio: "Av.Primavera",
-      municipio: new Municipio,
-      estatus: false,
-      descripcion: "hola",
-      empresa: { id_empresa: 0, nombre: "bombo", descripcion: "lideres en panes", vacantes_empresa: [] },
-      empleador: new Empleador,
-      candidatos: [],
-      tipoHorario: new TipoHorario,
-      tipoContratacion: new TipoContratacion,
-      modalidadTrabajo: new ModalidadTrabajo,
-      id_postulacion: 0
-    }]*/
   }
 
   ngOnInit(): void {
-   // this.generarRuta();
+   this.generarRuta();
     this.buscarUsuario();
   }
 
@@ -112,8 +101,8 @@ export class ProfileComponent implements OnInit, OnDestroy {
     } else {
       const ruta = `images/perfil/`;
       const rutaII = `images/portada/`;
-      //this.getImages(ruta,"Captura de pantalla 2023-08-17 a la(s) 12.20.31.png");
-      //this.getImagesPortada(rutaII,"Captura de pantalla 2023-08-17 a la(s) 12.20.31.png");
+      this.getImages(ruta,"default.png");
+      this.getImagesPortada(rutaII,"default.png");
     }
   }
 
@@ -164,6 +153,9 @@ export class ProfileComponent implements OnInit, OnDestroy {
       this.perfilTipoEmpresa = true;
       
       //this.obtenerEdad();
+      this.rutaCv = this.candidato.rutaCv;
+      this.habilidadesUsusario = this.candidato.habiliadades;
+      this.idiomasUsuario = this.candidato.idiomas;
 
     } else if (this.id_tipoUsuario == 3) {
 

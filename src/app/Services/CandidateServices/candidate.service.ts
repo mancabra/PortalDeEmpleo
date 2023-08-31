@@ -157,6 +157,24 @@ export class CandidateService {
     return this._http.get<Habilidad[]>("obtenerListaHabilidades");
   }
 
+  guardarIdiomas(CandidateRequest: any) {
+    //prueba de funcionamiento
+    console.log("Proceso guardarIdioma");
+    console.log("Info Enviada");
+    console.log(CandidateRequest);
+
+    return this._http.put("http://localhost:8080/", CandidateRequest).toPromise();
+  }
+
+  guardarHabilidades(CandidateRequest: any) {
+    //prueba de funcionamiento
+    console.log("Proceso guardarHabilidad");
+    console.log("Info Enviada");
+    console.log(CandidateRequest);
+    
+    return this._http.put("http://localhost:8080/", CandidateRequest).toPromise();
+  }
+
   obtenerIdiomas(): Observable<Idioma[]> {
     //prueba de funcionamiento
     console.log("Proceso obtenerIdiomas");
