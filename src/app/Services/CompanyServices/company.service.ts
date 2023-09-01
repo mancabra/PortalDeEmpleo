@@ -17,6 +17,6 @@ export class CompanyService {
     console.log("Info Enviada");
     console.log(CompanyRequest);
 
-    return this._http.put("http://localhost:8080/", CompanyRequest).toPromise();
+    return this._http.put("app/", CompanyRequest).toPromise();
   }
 }

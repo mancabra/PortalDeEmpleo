@@ -21,7 +21,7 @@ export class AdminService {
     console.log("Info Enviada");
     console.log(AdminRequest);
 
-    return this._http.put("http://localhost:8080/", AdminRequest).toPromise();
+    return this._http.put("app/", AdminRequest).toPromise();
   }
 
 
