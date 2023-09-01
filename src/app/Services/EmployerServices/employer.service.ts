@@ -33,7 +33,7 @@ export class EmployerService {
     console.log("Info Enviada");
     console.log(EmployerRequest);
 
-    return this._http.put("http://localhost:8080/registroEmpleador", EmployerRequest).toPromise();
+    return this._http.put("app/registroEmpleador", EmployerRequest).toPromise();
   }
 
   obtener() {
@@ -41,7 +41,7 @@ export class EmployerService {
     console.log("Info Enviada");
     console.log(this.correo);
 
-    let cadena = "http://localhost:8080/obtenerUsuarioCompleto/" + this.correo;
+    let cadena = "app/obtenerUsuarioCompleto/" + this.correo;
     return this._http.get<Empleador>(cadena).toPromise();
   }
 
@@ -51,7 +51,7 @@ export class EmployerService {
     console.log("Info Enviada");
     console.log(EmployerRequest);
 
-    let cadena ="http://localhost:8080/obtenerVacantesPorIdEmpleador/" + EmployerRequest;
+    let cadena ="app/obtenerVacantesPorIdEmpleador/" + EmployerRequest;
 
     return this._http.get<Vacante[]>(cadena);
   }
@@ -62,7 +62,7 @@ export class EmployerService {
     console.log("Info Enviada");
     console.log(EmployerRequest);
 
-    let cadena ="http://localhost:8080/obtenerCandidatosVacante/" + EmployerRequest;
+    let cadena ="app/obtenerCandidatosVacante/" + EmployerRequest;
     return this._http.get<Candidato[]>(cadena);
   }
 
@@ -71,7 +71,7 @@ export class EmployerService {
     console.log("Info Enviada");
     console.log(EmployerRequest);
 
-    return this._http.put("http://localhost:8080/aceptarPostulacion",EmployerRequest).toPromise();
+    return this._http.put("app/aceptarPostulacion",EmployerRequest).toPromise();
   }
 
   // ELIMINAR VACANTE
@@ -80,7 +80,7 @@ export class EmployerService {
     console.log("Info Enviada");
     console.log(EmployerRequest);
 
-    let cadena = "http://localhost:8080/eliminarVacante/"+EmployerRequest;
+    let cadena = "app/eliminarVacante/"+EmployerRequest;
 
     return this._http.delete(cadena).toPromise();
   }
@@ -90,28 +90,28 @@ export class EmployerService {
     //prueba de funcionamiento
     console.log("Proceso obtenerEmpresas");
 
-    return this._http.get<Empresa[]>("http://localhost:8080/obtenerListaEmpresas");
+    return this._http.get<Empresa[]>("app/obtenerListaEmpresas");
   }
 
   obtenerTiposDehorario(): Observable<TipoHorario[]> {
     //prueba de funcionamiento
     console.log("Proceso obtenerTiposHorario");
 
-    return this._http.get<TipoHorario[]>("http://localhost:8080/obtenerTiposHorario");
+    return this._http.get<TipoHorario[]>("app/obtenerTiposHorario");
   }
 
   obtenerTiposContratacion(): Observable<TipoContratacion[]> {
     //prueba de funcionamiento
     console.log("Proceso obtenerTiposContratacion");
 
-    return this._http.get<TipoContratacion[]>("http://localhost:8080/obtenerTiposContratacion");
+    return this._http.get<TipoContratacion[]>("app/obtenerTiposContratacion");
   }
 
   obtenerModalidades(): Observable<ModalidadTrabajo[]> {
     //prueba de funcionamiento
     console.log("Proceso obtenerModalidades");
 
-    return this._http.get<ModalidadTrabajo[]>("http://localhost:8080/obtenerModalidadesTrabajo");
+    return this._http.get<ModalidadTrabajo[]>("app/obtenerModalidadesTrabajo");
   }
 
   publicarVacante(EmployerRequest: any){
@@ -119,7 +119,7 @@ export class EmployerService {
     console.log("Info Enviada");
     console.log(EmployerRequest);
 
-    return this._http.put("http://localhost:8080/crearVacante", EmployerRequest).toPromise();
+    return this._http.put("app/crearVacante", EmployerRequest).toPromise();
 
   }
 
@@ -128,7 +128,7 @@ export class EmployerService {
     console.log("Info Enviada");
     console.log(EmployerRequest);
 
-    return this._http.put("http://localhost:8080/modificarVacante", EmployerRequest).toPromise();
+    return this._http.put("app/modificarVacante", EmployerRequest).toPromise();
   }
 
   programarVacante(EmployerRequest: any){
@@ -136,7 +136,7 @@ export class EmployerService {
     console.log("Info Enviada");
     console.log(EmployerRequest);
 
-    return this._http.put("http://localhost:8080/", EmployerRequest).toPromise();
+    return this._http.put("app/", EmployerRequest).toPromise();
   }
 
   

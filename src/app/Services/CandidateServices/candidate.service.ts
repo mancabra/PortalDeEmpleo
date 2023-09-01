@@ -33,7 +33,7 @@ export class CandidateService {
     console.log("Info Enviada");
     console.log(this.correo);
 
-    let cadena = "http://localhost:8080/obtenerUsuarioCompleto/" + this.correo;
+    let cadena = "app/obtenerUsuarioCompleto/" + this.correo;
     return this._http.get<Candidato>(cadena).toPromise();
   }
 
@@ -43,7 +43,7 @@ export class CandidateService {
     console.log("Info Enviada");
     console.log(CandidateRequest);
 
-    return this._http.put("http://localhost:8080/registroCandidato", CandidateRequest).toPromise();
+    return this._http.put("app/registroCandidato", CandidateRequest).toPromise();
   }
 
   modificar(CandidatoDTO: any) {
@@ -52,7 +52,7 @@ export class CandidateService {
     console.log("Info Enviada");
     console.log(CandidatoDTO);
 
-    return this._http.put("http://localhost:8080/modificarCandidato", CandidatoDTO).toPromise();
+    return this._http.put("app/modificarCandidato", CandidatoDTO).toPromise();
   }
 
   modificarSecundarios(CandidatoDTO: any) {
@@ -61,13 +61,13 @@ export class CandidateService {
     console.log("Info Enviada");
     console.log(CandidatoDTO);
 
-    return this._http.put("http://localhost:8080/guardarArchivo", CandidatoDTO).toPromise();
+    return this._http.put("app/guardarArchivo", CandidatoDTO).toPromise();
   }
 
   obtenerVacantes() {
     //prueba de funcionamiento
     console.log("Proceso ObternerVacantes");
-    return this._http.get("http://localhost:8080/obtenerListaVacantes").toPromise();
+    return this._http.get("app/obtenerListaVacantes").toPromise();
   }
 
   obtenerVacantesCercanas(CandidateRequest: number) {
@@ -76,14 +76,14 @@ export class CandidateService {
     console.log("Info Enviada");
     console.log(CandidateRequest);
 
-    let cadena = "http://localhost:8080/obtenerVacantesCerca/" + CandidateRequest;
+    let cadena = "app/obtenerVacantesCerca/" + CandidateRequest;
     return this._http.get(cadena).toPromise();
   }
 
   obtenerVacantesMejorPagadas() {
     //prueba de funcionamiento
     console.log("Proceso obtenerVacantesMejorPagadas");
-    return this._http.get("http://localhost:8080/obtenerVacantesPorSueldo").toPromise();
+    return this._http.get("app/obtenerVacantesPorSueldo").toPromise();
   }
 
   obtenerVacantesPorPalabra(CandidateRequest: string) {
@@ -91,7 +91,7 @@ export class CandidateService {
     console.log("Proceso obtenerVacantesPorPalabra");
     console.log("Info Enviada");
     console.log(CandidateRequest);
-    let cadena = "http://localhost:8080/obtenerVacantesPorPalabraClave/" + CandidateRequest;
+    let cadena = "app/obtenerVacantesPorPalabraClave/" + CandidateRequest;
     return this._http.get(cadena).toPromise();
   }
 
@@ -102,7 +102,7 @@ export class CandidateService {
     console.log(id_municipio);
     console.log(filtroActivo);
 
-    let cadena = "http://localhost:8080/obtenerVacantesCercaYPorPalabraClave?id_municipio=" + id_municipio + "&palabraClave=" + filtroActivo;
+    let cadena = "app/obtenerVacantesCercaYPorPalabraClave?id_municipio=" + id_municipio + "&palabraClave=" + filtroActivo;
     return this._http.get(cadena).toPromise();
   }
 
@@ -111,7 +111,7 @@ export class CandidateService {
     console.log("Proceso obtenerVacantesPorEstado");
     console.log("Info Enviada");
     console.log(id_estado);
-    let cadena = "http://localhost:8080/obtenerVacantesEstado/" + id_estado;
+    let cadena = "app/obtenerVacantesEstado/" + id_estado;
     return this._http.get(cadena).toPromise();
   }
 
@@ -120,7 +120,7 @@ export class CandidateService {
     console.log("Proceso obtenerVacantesPorPalabraYEstado");
     console.log("Info Enviada");
     console.log(CandidateRequest);
-    return this._http.get("http://localhost:8080/obtenerVacantesEstadoYPorPalabraCalve", CandidateRequest).toPromise();
+    return this._http.get("app/obtenerVacantesEstadoYPorPalabraCalve", CandidateRequest).toPromise();
   }
 
   postularse(PostDTO: any) {
@@ -129,7 +129,7 @@ export class CandidateService {
     console.log("Info Enviada");
     console.log(PostDTO);
 
-    return this._http.put("http://localhost:8080/postulacion", PostDTO).toPromise();
+    return this._http.put("app/postulacion", PostDTO).toPromise();
   }
 
   obtenerPostulaciones(idRequest: number): Observable<Postulacion[]> {
@@ -137,7 +137,7 @@ export class CandidateService {
     console.log("Proceso ObtenerPostulaciones");
     console.log("Info Enviada id_candidato" + idRequest);
 
-    let cadena = "http://localhost:8080/obtenerPostulacionesPorIdDeCandidato/" + idRequest;
+    let cadena = "app/obtenerPostulacionesPorIdDeCandidato/" + idRequest;
     return this._http.get<Postulacion[]>(cadena);
   }
 
@@ -146,7 +146,7 @@ export class CandidateService {
     console.log("Proceso EliminarPostulacion");
     console.log("Info Enviada id_postulacion" + idRequest);
 
-    let cadena = "http://localhost:8080/eliminarPostulacion/" + idRequest;
+    let cadena = "app/eliminarPostulacion/" + idRequest;
     return this._http.delete(cadena).toPromise();
 
   }
@@ -163,7 +163,7 @@ export class CandidateService {
     console.log("Info Enviada");
     console.log(CandidateRequest);
 
-    return this._http.put("http://localhost:8080/", CandidateRequest).toPromise();
+    return this._http.put("app/", CandidateRequest).toPromise();
   }
 
   guardarHabilidades(CandidateRequest: any) {
@@ -172,7 +172,7 @@ export class CandidateService {
     console.log("Info Enviada");
     console.log(CandidateRequest);
     
-    return this._http.put("http://localhost:8080/", CandidateRequest).toPromise();
+    return this._http.put("app/", CandidateRequest).toPromise();
   }
 
   obtenerIdiomas(): Observable<Idioma[]> {

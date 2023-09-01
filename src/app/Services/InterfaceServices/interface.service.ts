@@ -44,7 +44,7 @@ export class InterfaceService {
     console.log("Info Enviada");
     console.log(userRequest);
 
-    return this._http.post("http://localhost:8080/Login", userRequest).toPromise();
+    return this._http.post("app/Login", userRequest).toPromise();
   }
 
   obtener() {
@@ -52,7 +52,7 @@ export class InterfaceService {
     console.log("Info Enviada");
     console.log(this.correo);
 
-    let cadena = "http://localhost:8080/obtenerUsuarioCompleto/" + this.correo;
+    let cadena = "app/obtenerUsuarioCompleto/" + this.correo;
     return this._http.get(cadena).toPromise();
   }
 
@@ -67,14 +67,14 @@ export class InterfaceService {
     //prueba de funcionamiento
     console.log("Proceso obtenerEstados");
 
-    return this._http.get<Estado[]>("http://localhost:8080/obtenerListaEstados");
+    return this._http.get<Estado[]>("app/obtenerListaEstados");
   }
 
   obtenerMunicipios(idRequest: number):Observable<Municipio[]> {
     console.log("Proceso obtenerMunicipios");
     console.log("Info Enviada");
     console.log(idRequest);
-    let cadena = "http://localhost:8080/obtenerMunicipiosDeEstado/" + idRequest;
+    let cadena = "app/obtenerMunicipiosDeEstado/" + idRequest;
     return this._http.get<Municipio[]>(cadena);
   }
 
