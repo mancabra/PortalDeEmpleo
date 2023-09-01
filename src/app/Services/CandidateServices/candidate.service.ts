@@ -154,7 +154,7 @@ export class CandidateService {
   obtenerHabilidades(): Observable<Habilidad[]> {
     //prueba de funcionamiento
     console.log("Proceso obtenerHabilidades");
-    return this._http.get<Habilidad[]>("obtenerListaHabilidades");
+    return this._http.get<Habilidad[]>("app/obtenerListaHabilidades");
   }
 
   guardarIdiomas(CandidateRequest: any) {
@@ -163,7 +163,7 @@ export class CandidateService {
     console.log("Info Enviada");
     console.log(CandidateRequest);
 
-    return this._http.put("http://localhost:8080/", CandidateRequest).toPromise();
+    return this._http.put("app:/", CandidateRequest).toPromise();
   }
 
   guardarHabilidades(CandidateRequest: any) {
@@ -172,7 +172,7 @@ export class CandidateService {
     console.log("Info Enviada");
     console.log(CandidateRequest);
 
-    return this._http.put("http://localhost:8080/", CandidateRequest).toPromise();
+    //return this._http.put("http://localhost:8080/", CandidateRequest).toPromise();
     
     return this._http.put("app/", CandidateRequest).toPromise();
   }
@@ -182,13 +182,13 @@ export class CandidateService {
      console.log("Proceso suspender");
      console.log("Info Enviada");
      console.log(idRequest);
-     return this._http.put( "http://localhost:8080/suspenderUsuario",idRequest).toPromise();
+     return this._http.put( "app/suspenderUsuario",idRequest).toPromise();
   }
 
   obtenerIdiomas(): Observable<Idioma[]> {
     //prueba de funcionamiento
     console.log("Proceso obtenerIdiomas");
-    return this._http.get<Idioma[]>("obtenerListaIdiomas");
+    return this._http.get<Idioma[]>("app/obtenerListaIdiomas");
   }
 
   //OBSERVABLE POSTULACIONES
