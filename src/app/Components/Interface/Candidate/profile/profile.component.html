@@ -73,18 +73,32 @@
                     Tel: {{empleador.usuario.telefono}}
                 </p>
 
+                <div [ngClass]="{'view':perfilTipoCandidato, '':!perfilTipoCandidato}">
+                    <p>Idiomas dominados:</p>
+                    <div *ngFor="let idiomaUS of idiomasUsuario">
+                        <p style="font-size:x-small; line-height: 10%;"> - {{idiomaUS.nombreIdioma}}</p>
+                    </div>
+                </div>
+
                 <b [ngClass]="{'view':perfilTipoCandidato, '':!perfilTipoCandidato}">Descripción</b>
                 <p style="font-size:x-small; line-height: 150%; text-align: justify;"
                     [ngClass]="{'view':perfilTipoCandidato, '':!perfilTipoCandidato}">
                     {{candidato.descripcion}}
                 </p>
 
-            </div>
-            <div class="infoCuerpo" [ngClass]="{'view':perfilTipoCandidato, '':!perfilTipoCandidato}">
+                <div [ngClass]="{'view':perfilTipoCandidato, '':!perfilTipoCandidato}" >
+                    <div style="display: flex;">
+                        <div *ngFor="let habilidadUs of habilidadesUsuario">
+                            <span class="badge rounded-pill text-bg-secondary"
+                            style="margin-right: .5rem; margin-bottom: .5rem;" >{{habilidadUs.nombreHabilidad}}</span>
+                        </div>
+                    </div>
+                </div>
+                
 
-                <span class="badge rounded-pill text-bg-secondary"
-                    style="margin-right: .5rem;margin-bottom: .5rem;" *ngFor="let habilidad of habilidadesUsusario">{{habilidad.nombreHabilidad}}</span>
             </div>
+
+           
 
             <div [ngClass]="{'view':perfilTipoEmpleador, '':!perfilTipoEmpleador}">
                 <div style="text-align: center; margin-bottom: 2rem; padding-left: 1rem; padding-right: 1rem;">
@@ -106,44 +120,45 @@
                     </div>
                 </div>
             </div>
+            <div style="padding-top:5rem; text-align: center; margin-right: .5rem;" [ngClass]="{'view':perfilTipoCandidato, '':!perfilTipoCandidato}">
+                <div style="display: inline; width: 100%;">
+                    <button class="btn btn-light botonSinEfecto" style="background-color: white; border-color: darkgrey;">
+                        <div>
+                            <div style="display: block;">
+                                <img src="https://firebasestorage.googleapis.com/v0/b/gdi-portalempleo.appspot.com/o/images%2FPDFimg.png?alt=media&token=951eb573-a9f3-4b48-9f04-dc08f7ef01fd"
+                                    alt="">
+                            </div>
+                            <div style="padding-top: .5rem;">
+                              
+                                <a class="documento" [href]="rutaCv" target="_blank">
+                                    <H6> <b> CURRICULUM </b></H6>
+                                    <H6> <b> VISUALIZAR EL PDF </b></H6>
+                                </a>
+                            </div>
+                        </div>
+                    </button>
+                </div>
+    
+                <div style="display: inline; width: 100%; margin-left: .5rem;">
+                    <button class="btn btn-light botonSinEfecto" style="background-color: white; border-color: darkgrey;">
+                        <div>
+                            <div style="display: block;">
+                                <img src="https://firebasestorage.googleapis.com/v0/b/gdi-portalempleo.appspot.com/o/images%2FPDFimg.png?alt=media&token=951eb573-a9f3-4b48-9f04-dc08f7ef01fd"
+                                    alt="">
+                            </div>
+                            <div style="padding-top: .5rem;">
+                                <a class="documento" [href]="rutaEspecialidad" target="_blank">
+                                    <H6> <b> ESPECIALIDAD </b></H6>
+                                    <H6> <b> VISUALIZAR EL PDF </b></H6>
+                                </a>
+                            </div>
+                        </div>
+                    </button>
+                </div>
+            </div>
         </div>
 
-        <div style="padding-top:5rem; text-align: center; margin-right: .5rem;" [ngClass]="{'view':perfilTipoCandidato, '':!perfilTipoCandidato}">
-            <div style="display: inline; width: 100%;">
-                <button class="btn btn-light botonSinEfecto" style="background-color: white; border-color: darkgrey;">
-                    <div>
-                        <div style="display: block;">
-                            <img src="https://firebasestorage.googleapis.com/v0/b/gdi-portalempleo.appspot.com/o/images%2FPDFimg.png?alt=media&token=155be6d8-1f55-42f1-9bc8-df0ea748cc43"
-                                alt="">
-                        </div>
-                        <div style="padding-top: .5rem;">
-                          
-                            <a class="documento" [href]="rutaCv" target="_blank">
-                                <H6> <b> CURRICULUM </b></H6>
-                                <H6> <b> VISUALIZAR EL PDF </b></H6>
-                            </a>
-                        </div>
-                    </div>
-                </button>
-            </div>
-
-            <div style="display: inline; width: 100%; margin-left: .5rem;">
-                <button class="btn btn-light botonSinEfecto" style="background-color: white; border-color: darkgrey;">
-                    <div>
-                        <div style="display: block;">
-                            <img src="https://firebasestorage.googleapis.com/v0/b/gdi-portalempleo.appspot.com/o/images%2FPDFimg.png?alt=media&token=155be6d8-1f55-42f1-9bc8-df0ea748cc43"
-                                alt="">
-                        </div>
-                        <div style="padding-top: .5rem;">
-                            <a class="documento" [href]="rutaEspecialidad" target="_blank">
-                                <H6> <b> ESPECIALIDAD </b></H6>
-                                <H6> <b> VISUALIZAR EL PDF </b></H6>
-                            </a>
-                        </div>
-                    </div>
-                </button>
-            </div>
-        </div>
+        
 
 
     </div>
@@ -155,7 +170,7 @@
                 [ngClass]="{'':perfilTipoEmpresa, 'view':!perfilTipoEmpresa}" (click)="cerrarSesion();">CERRAR
                 SESIÓN</button>
             <button type="button" class="btn btn-danger" style="width: 100%; margin-top: 1rem;"
-                [ngClass]="{'':perfilTipoEmpresa, 'view':!perfilTipoEmpresa}">SUSPENDER CUENTA</button>
+                [ngClass]="{'':perfilTipoEmpresa, 'view':!perfilTipoEmpresa}" (click)="suspenderCuenta();">SUSPENDER CUENTA</button>
             <button type="button" class="btn btn-warning" style="width: 100%; margin-top: 1rem;"
                 [ngClass]="{'':perfilTipoEmpresa, 'view':!perfilTipoEmpresa}" (click)="modificarDatosPerfil()">MODIFICAR
                 CUENTA</button>

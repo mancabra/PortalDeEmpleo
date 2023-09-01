@@ -43,16 +43,19 @@ export class ProfileComponent implements OnInit, OnDestroy {
   rutaEspecialidad: string = "";
 
   idiomasUsuario: Idioma [] = [];
-  habilidadesUsusario: Habilidad [] = [];
+  habilidadesUsuario: Habilidad [] = [];
   
 
   constructor(private _CandidateRequest: CandidateService, private _UserRequest: InterfaceService, 
     private router: Router, private _EmployerRequest:EmployerService, private _firebaseII: Storage,) {
+
+      //this.idiomasUsuario = [{ id_idioma: 0, nombreIdioma: "Ingles", candidatos: [] }, { id_idioma: 1, nombreIdioma: "aleman", candidatos: [] } ];
+      //this.habilidadesUsuario = [{ id_habilidad: 0, nombreHabilidad: "nadar", candidatos: [] },{ id_habilidad: 1, nombreHabilidad: "volar", candidatos: [] }];
   }
 
   ngOnInit(): void {
-   this.generarRuta();
-    this.buscarUsuario();
+   this.buscarUsuario();
+    this.identificarTipoDePerfil();
   }
 
   ngOnDestroy(): void {
@@ -87,7 +90,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
       this.getImages(ruta,this.administrador.usuario.rutaImagenPerfil);
       this.getImagesPortada(rutaII,this.administrador.usuario.rutaImagenPortada);
     } else if (this.id_tipoUsuario==2){
-   const name = this.candidato.usuario.nombre +this.candidato.usuario.apellidoP+this.candidato.usuario.apellidoM;
+      const name = this.candidato.usuario.nombre +this.candidato.usuario.apellidoP+this.candidato.usuario.apellidoM;
       const ruta = `images${name}/perfil/`;
       const rutaII = `images${name}/portada/`;
       this.getImages(ruta,this.candidato.usuario.rutaImagenPerfil);
@@ -154,7 +157,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
       
       //this.obtenerEdad();
       this.rutaCv = this.candidato.rutaCv;
-      this.habilidadesUsusario = this.candidato.habiliadades;
+      this.habilidadesUsuario = this.candidato.habiliadades;
       this.idiomasUsuario = this.candidato.idiomas;
 
     } else if (this.id_tipoUsuario == 3) {
@@ -199,6 +202,34 @@ obtenerEdad(){
     this._UserRequest.LimpiarAlertas();
   }
 
+  suspenderCuenta(){
+    let id = 0;
+
+    if(this.id_tipoUsuario == 1){
+      id = this.administrador.usuario.id_usuario;
+    } else if (this.id_tipoUsuario == 2){
+      id = this.candidato.usuario.id_usuario;
+    } else if (this.id_tipoUsuario == 3){
+      id = this.empleador.usuario.id_usuario;
+    } else {
+
+    }
+
+    const DTO = {
+      id_usuario:id
+    }
+    
+    this._CandidateRequest.suspenderCuenta(DTO).then((data: any) => {
+      if (data.estatus == true) {
+        alert("La cuenta ha sido suspendida");
+
+      } else {
+        alert("Algo Fallo");
+      }
+    });
+
+  }
+
   getImages(ruta : any, nombre: string){
     const imageRef = ref(this._firebaseII,ruta);
     listAll(imageRef)
@@ -214,6 +245,7 @@ obtenerEdad(){
     })
     .catch(error => console.log(error));
   }
+  
 
   getImagesPortada(ruta : any, nombre: string){
     const imageRef = ref(this._firebaseII,ruta);
@@ -230,5 +262,7 @@ obtenerEdad(){
     })
     .catch(error => console.log(error));
   }
+
+  
 
 }

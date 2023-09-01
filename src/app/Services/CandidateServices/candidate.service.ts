@@ -171,8 +171,16 @@ export class CandidateService {
     console.log("Proceso guardarHabilidad");
     console.log("Info Enviada");
     console.log(CandidateRequest);
-    
+
     return this._http.put("http://localhost:8080/", CandidateRequest).toPromise();
+  }
+
+  suspenderCuenta(idRequest: any){
+     //prueba de funcionamiento
+     console.log("Proceso suspender");
+     console.log("Info Enviada");
+     console.log(idRequest);
+     return this._http.put( "http://localhost:8080/suspenderUsuario",idRequest).toPromise();
   }
 
   obtenerIdiomas(): Observable<Idioma[]> {
