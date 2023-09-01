@@ -73,6 +73,7 @@ export class UpdateComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+
     this.buscarUsuario();
     this.bloquearMunicipios();
   }
