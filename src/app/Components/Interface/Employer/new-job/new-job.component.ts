@@ -244,10 +244,14 @@ export class NewJobComponent implements OnInit {
     this.modalidadSeleccionada = modalidad;
   }
 
+  publicarAhora:boolean = true;
+
   verProgramar() {
+
     this.fechaProgramada = new Date;
     this.programarPB = false;
     this.programarP = true;
+    this.publicarAhora = false;
   }
 
   activartodo() {
@@ -315,6 +319,7 @@ export class NewJobComponent implements OnInit {
   }
 
   validarInformacionII() {
+    this.publicarAhora = false;
     this.activartodo();
     const VACANTE = {
       id_vacante: this.vacante.id_vacante,
@@ -336,7 +341,9 @@ export class NewJobComponent implements OnInit {
     this.validarNombre(VACANTE);
   }
 
+
   validarInformacion() {
+    this.publicarAhora = true;
     this.activartodo();
     this.formatearFecha();
 
@@ -354,7 +361,8 @@ export class NewJobComponent implements OnInit {
       id_tipoContratacion: this.contratacionSeleccionada.id_tipoContratacion,
       id_modalidadTrabajo: this.modalidadSeleccionada.id_modalidad,
       domicilio: this.domicilio,
-      fechaPublicacionSrt: this.fechaPublicacionSrt?.toString()
+      fechaPublicacionSrt: this.fechaPublicacionSrt?.toString(),
+      publicarAhora:this.publicarAhora,
     }
 
     this.validarNombre(VACANTE);

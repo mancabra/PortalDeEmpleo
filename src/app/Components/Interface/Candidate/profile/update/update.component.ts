@@ -76,6 +76,9 @@ export class UpdateComponent implements OnInit, OnDestroy {
 
     this.buscarUsuario();
     this.bloquearMunicipios();
+
+    this.obtenrIdiomas();
+    this.obtenerHabilidades();
   }
 
   ngAfterViewInit() {

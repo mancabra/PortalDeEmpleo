@@ -93,8 +93,10 @@ export class ProfileComponent implements OnInit, OnDestroy {
       const name = this.candidato.usuario.nombre +this.candidato.usuario.apellidoP+this.candidato.usuario.apellidoM;
       const ruta = `images${name}/perfil/`;
       const rutaII = `images${name}/portada/`;
+      const rutaIII = `documentos${name}/cv/`;
       this.getImages(ruta,this.candidato.usuario.rutaImagenPerfil);
       this.getImagesPortada(rutaII,this.candidato.usuario.rutaImagenPortada);
+      this.getCV(rutaIII,this.candidato.rutaCv);
     } else if (this.id_tipoUsuario==3){
       const name = this.empleador.usuario.nombre +this.empleador.usuario.apellidoP+this.empleador.usuario.apellidoM;
       const ruta = `images${name}/perfil/`;
@@ -102,10 +104,10 @@ export class ProfileComponent implements OnInit, OnDestroy {
       this.getImages(ruta,this.empleador.usuario.rutaImagenPerfil);
       this.getImagesPortada(rutaII,this.empleador.usuario.rutaImagenPortada);
     } else {
-      const ruta = `images/perfil/`;
+      /*const ruta = `images/perfil/`;
       const rutaII = `images/portada/`;
       this.getImages(ruta,"default.png");
-      this.getImagesPortada(rutaII,"default.png");
+      this.getImagesPortada(rutaII,"default.png");*/
     }
   }
 
@@ -156,7 +158,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
       this.perfilTipoEmpresa = true;
       
       //this.obtenerEdad();
-      this.rutaCv = this.candidato.rutaCv;
       this.habilidadesUsuario = this.candidato.habiliadades;
       this.idiomasUsuario = this.candidato.idiomas;
 
@@ -176,7 +177,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
       this.perfilTipoEmpleador = true;
       this.perfilTipoEmpresa = false;
     }
-    this.generarRuta();
   }
 
 //FUNCION EDAD
@@ -263,6 +263,21 @@ obtenerEdad(){
     .catch(error => console.log(error));
   }
 
-  
+
+  getCV(ruta : any, nombre: string){
+    const cvRef = ref(this._firebaseII,ruta);
+    listAll(cvRef)
+    .then( async response =>{
+      console.log(response);
+      this.imgPortada = [];
+      for( let item of response.items){
+        const url = await getDownloadURL(item);
+        if(item.name == nombre){
+          this.rutaCv = url;
+        }
+      }
+    })
+    .catch(error => console.log(error));
+  }
 
 }
