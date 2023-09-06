@@ -65,7 +65,7 @@ export class CandidateService {
     console.log("Info Enviada");
     console.log(idiomas);
 
-    return this._http.put("app:/agregarIdiomas", idiomas).toPromise();
+    return this._http.put("app/agregarIdiomas", idiomas).toPromise();
   }
 
   // GUARDAR HABILIDADES

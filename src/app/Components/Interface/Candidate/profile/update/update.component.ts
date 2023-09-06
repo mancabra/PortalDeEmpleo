@@ -349,7 +349,8 @@ export class UpdateComponent implements OnInit, OnDestroy {
       if (idiomaBoolean == true) {
         this.nuevosIdiomas.push(idiomaActual);
       }
-
+     }
+     
       const DTO = {
         id_candidato: this.candidato.id_candidato,
         idiomas: this.nuevosIdiomas
@@ -362,7 +363,6 @@ export class UpdateComponent implements OnInit, OnDestroy {
           alert("Algo Fallo Durante la Modificación de Idiomas");
         }
       });
-    }
   }
 
   // FUNCION PARA ENVIAR LA NUEVA LISTA DE HABILIDADES
