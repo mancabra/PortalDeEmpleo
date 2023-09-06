@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -7,6 +8,9 @@ import { Injectable } from '@angular/core';
 export class AdminService {
   id_administrador: any = 0;
   correo: string = "";
+
+  usuario: any;
+  private usuario$ = new Subject<any>();
 
   constructor(private _http: HttpClient) { }
 
@@ -38,5 +42,16 @@ export class AdminService {
     let cadena = "app/obtenerUsuarioCompleto/" + mail;
     return this._http.get(cadena).toPromise();
   }
+
+  // FUNCION PARA OBSERVABLE DE USUARIO
+
+  getUsuario(): Observable<any> {
+    return this.usuario$.asObservable();
+  }
+
+  usuarioActivo(usuario:any){
+    this.usuario$.next(usuario);
+  }
+
 
 }

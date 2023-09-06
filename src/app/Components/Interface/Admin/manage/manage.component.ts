@@ -52,6 +52,7 @@ export class ManageComponent implements OnInit {
         this.id_usuario = this.usuario.usuario.id_usuario;
         this.ocultarBotonesDeUsusario = false;
         this.ocultarUsuarios = false;
+        this._AdminRequest.usuarioActivo(this.usuario);
       } else {
         alert("Algo Fallo");
       }

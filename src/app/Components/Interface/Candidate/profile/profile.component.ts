@@ -1,6 +1,8 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Storage ,getDownloadURL, listAll, ref } from '@angular/fire/storage';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
+import { AdminService } from 'src/app/Services/AdminServices/admin.service';
 import { CandidateService } from 'src/app/Services/CandidateServices/candidate.service';
 import { EmployerService } from 'src/app/Services/EmployerServices/employer.service';
 import { Administrador } from 'src/app/Services/Entity/administrador';
@@ -29,7 +31,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
   empresa: Empresa = new Empresa;
 
   @Input() vistaAdministrar: boolean = false;
-  @Input() usuario : any;
+  usuario : any;
   
   id_tipoUsuario: number = 0;
   empresas: Vacante[] = [];
@@ -49,9 +51,15 @@ export class ProfileComponent implements OnInit, OnDestroy {
   idiomasUsuario: Idioma [] = [];
   habilidadesUsuario: Habilidad [] = [];
   
+  subscription:Subscription;
 
   constructor(private _CandidateRequest: CandidateService, private _UserRequest: InterfaceService, 
-    private router: Router, private _EmployerRequest:EmployerService, private _firebaseII: Storage,) {
+    private router: Router, private _EmployerRequest:EmployerService, private _firebaseII: Storage, private _AdminRequest: AdminService) {
+
+      this.subscription = this._AdminRequest.getUsuario().subscribe(data => {
+        this.usuario = data;
+        this.identificarVista();
+      });
 
       //this.idiomasUsuario = [{ id_idioma: 0, nombreIdioma: "Ingles", candidatos: [] }, { id_idioma: 1, nombreIdioma: "aleman", candidatos: [] } ];
       //this.habilidadesUsuario = [{ id_habilidad: 0, nombreHabilidad: "nadar", candidatos: [] },{ id_habilidad: 1, nombreHabilidad: "volar", candidatos: [] }];
@@ -62,6 +70,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 
   identificarVista(){
