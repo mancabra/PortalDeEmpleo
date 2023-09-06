@@ -65,7 +65,7 @@ export class CandidateService {
     console.log("Info Enviada");
     console.log(idiomas);
 
-    return this._http.put("app:/añadirIdiomas", idiomas).toPromise();
+    return this._http.put("app:/agregarIdiomas", idiomas).toPromise();
   }
 
   // GUARDAR HABILIDADES
@@ -75,7 +75,7 @@ export class CandidateService {
     console.log("Info Enviada");
     console.log(habiliadades);
 
-    return this._http.put("app/añadirHabilidades", habiliadades).toPromise();
+    return this._http.put("app/agregarHabilidades", habiliadades).toPromise();
   }
 
   // FUNCIONES PARA OBTENER DATOS --------------------------
