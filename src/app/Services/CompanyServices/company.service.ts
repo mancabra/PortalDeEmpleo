@@ -17,6 +17,6 @@ export class CompanyService {
     console.log("Info Enviada");
     console.log(CompanyRequest);
 
-    return this._http.put("app/crearEmpresa", CompanyRequest).toPromise();
+    return this._http.post("app/crearEmpresa", CompanyRequest).toPromise();
   }
 }

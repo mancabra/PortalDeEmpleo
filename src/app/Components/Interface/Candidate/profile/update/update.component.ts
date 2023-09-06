@@ -105,16 +105,19 @@ export class UpdateComponent implements OnInit, OnDestroy {
     this._UserRequest.obtener().then((data: any) => {
       if (data.usuario.tipoUsuario == 1) {
         this.administrador = data;
+        this.usuario = this.administrador
         this.id_tipoUsuario = this.administrador.usuario.tipoUsuario;
         this.asignarGenerales(this.administrador);
         console.log("admin");
       } else if (data.usuario.tipoUsuario == 2) {
         this.candidato = data;
+        this.usuario = this.candidato;
         this.id_tipoUsuario = this.candidato.usuario.tipoUsuario;
         this.asignarGenerales(this.candidato);
         console.log("candidato");
       } else if (data.usuario.tipoUsuario == 3) {
         this.empleador = data;
+        this.usuario = this.empleador;
         this.id_tipoUsuario = this.empleador.usuario.tipoUsuario;
         console.log("empleador");
         this.asignarGenerales(this.empleador);

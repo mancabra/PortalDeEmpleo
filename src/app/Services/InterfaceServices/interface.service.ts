@@ -94,12 +94,12 @@ export class InterfaceService {
   }
 
   esparcirAlertas() {
-    this.alertas.reverse();
+    //this.alertas.reverse();
     this.alerts$.next(this.alertas);
   }
 
   agregarAlerta(alert: any) {
-    this.alertas.push(alert).reverse();
+    this.alertas.push(alert);
     this.alerts$.next(this.alertas);
   }
 
