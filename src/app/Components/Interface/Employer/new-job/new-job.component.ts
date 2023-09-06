@@ -1,6 +1,7 @@
 import { DatePipe } from '@angular/common';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { CandidateService } from 'src/app/Services/CandidateServices/candidate.service';
 import { EmployerService } from 'src/app/Services/EmployerServices/employer.service';
 import { Empleador } from 'src/app/Services/Entity/empleador';
@@ -18,7 +19,7 @@ import { InterfaceService } from 'src/app/Services/InterfaceServices/interface.s
   templateUrl: './new-job.component.html',
   styleUrls: ['./new-job.component.css']
 })
-export class NewJobComponent implements OnInit {
+export class NewJobComponent implements OnInit, OnDestroy {
 
   estadosDeMexico: Estado[] = [];
   estadoSeleccionado: Estado = new Estado;
@@ -27,6 +28,7 @@ export class NewJobComponent implements OnInit {
   municipioSeleccionado: Municipio = new Municipio;
   bloquearMunicipio: string = "none"
 
+  subscription:Subscription;
   empresasRegistradas: Empresa[] = [];
   empresaSelecionada: Empresa;
 
@@ -90,6 +92,9 @@ export class NewJobComponent implements OnInit {
   errorDescripcion: boolean = true;
   obligatorios: boolean = false;
 
+  vistaEmpleo: boolean = true;
+  ocultarRegistro: boolean  = true;
+  
   constructor(private _UserRequest: InterfaceService, private _EmployerRequest: EmployerService, private router: Router) {
     this.empresaSelecionada = { id_empresa: 0, nombre: "Seleccione una Empresa", descripcion: "", vacantes_empresa: [] }
     this.estadoSeleccionado = { id_estado: 0, nombreEstado: "Selecciona un Estado", municipios: [] };
@@ -97,13 +102,20 @@ export class NewJobComponent implements OnInit {
     this.horarioSeleccionado = { id_tipoHorario: 0, dias: "Seleccione un Tipo de Horario", tipoHorario_vacantes: [] }
     this.contratacionSeleccionada = { id_tipoContratacion: 0, horario: "Seleccionar tipo de contratación", tipoContratacion_vacantes: [] }
     this.modalidadSeleccionada = { id_modalidad: 0, modalidad: "Seleccionar modalidad de trabajo", modalidadTrabajo_vacantes: [] }
+
+    this.subscription = this._EmployerRequest.getEmpresas().subscribe(data => {
+      this.empresasRegistradas = data;
+    });
+  }
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 
   ngOnInit(): void {
 
     this.buscarUsuario();
     this.obtenerEstados();
-    this.obtenerEmpresas();
+    this._EmployerRequest.obtenerEmpresasOb();
     this.obtenerTiposContratacion();
     this.obtenerTiposDeHorario();
     this.obtenerModalidades();
@@ -170,14 +182,6 @@ export class NewJobComponent implements OnInit {
     this._UserRequest.obtenerEstados().subscribe(data => {
       this.estadosDeMexico = data;
       console.log(this.estadosDeMexico);
-    });
-  }
-
-  // FUINCION PARA OBTENER LAS EMPRESAS DE BASE DE DATOS
-  obtenerEmpresas() {
-    this._EmployerRequest.obtenerEmpresas().subscribe(data => {
-      this.empresasRegistradas = data;
-      console.log(this.empresasRegistradas);
     });
   }
 
@@ -269,6 +273,10 @@ export class NewJobComponent implements OnInit {
     this.obligatorios = true;
   }
 
+  // FUNCION PARA MOSTRAR LA VISTA REGISTRO DE MEPRESA
+  RegistarEmpresa(){
+    this.ocultarRegistro = false;
+  }
   validarProgramar() {
     this.activartodo();
     var hoy = new Date;

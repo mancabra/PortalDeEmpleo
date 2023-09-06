@@ -2,18 +2,82 @@
 
     <div class="cajaIzquierda">
 
-        <div class="d-grid">
-            <button type="button" class="btn btn-success" style="margin-bottom: .5rem;" (click)="verCrear()">CREAR UN USUARIO</button>
-            <button type="button" class="btn btn-success" style="margin-bottom: .5rem;" (click)="verBorrar()">ELIMINAR USUARIO</button>
-            <button type="button" class="btn btn-success" style="margin-bottom: .5rem;" (click)="verBorrarV()">ELIMINAR VACANTE</button>
+        <div style="display: block;">
+            <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+
+                    <h2 class="accordion-header">
+                        <button class="accordion-button " type="button" data-bs-toggle="collapse" data-bs-target=""
+                            aria-expanded="true" aria-controls="" style="color:rgb(89, 92, 94); height: 1.8rem;">
+                            CUENTAS
+                            <hr>
+                        </button>
+                    </h2>
+                    <div class="d-grid" style="margin-top: 1rem;">
+                        <button type="button" class="btn btn-success" style="margin-bottom: .5rem;"
+                            (click)="verCrear()">CREAR UNA CUENTA</button>
+                    </div>
+
+                    <h2 class="accordion-header" style="margin-top: 3rem;">
+                        <button class="accordion-button " type="button" data-bs-toggle="collapse" data-bs-target=""
+                            aria-expanded="true" aria-controls="" style="color:rgb(89, 92, 94); height: 1.8rem;">
+                            USUARIOS
+                            <hr>
+                        </button>
+                    </h2>
+
+                    <div class="d-grid" style="margin-top: 1rem;">
+
+                        <div
+                            style="background-color: rgb(198, 203, 206); padding: .5rem; border-radius: 5px; margin-bottom: .5rem;">
+                            <div style="display: flex;">
+                                <input class="form-control me-2" type="text" placeholder="Ingresa el correo del usuario"
+                                aria-label="Search" [(ngModel)]="correoDeUsuario">
+                            <button class="btn btn-success" type="button" (click)="buscar()">buscar</button>
+                            </div>
+                           
+                        </div>
+
+                        <button type="button" class="btn btn-warning" style="margin-bottom: .5rem;" (click)="modificar"
+                            [ngClass]="{'on':ocultarBotonesDeUsusario, '':!ocultarBotonesDeUsusario}">MODIFICAR
+                            USUARIO</button>
+                        <button type="button" class="btn btn-danger" style="margin-bottom: .5rem;" (click)="suspender()"
+                            [ngClass]="{'on':ocultarBotonesDeUsusario, '':!ocultarBotonesDeUsusario}">SUSPENDER
+                            USUARIO</button>
+                        <button type="button" class="btn btn-danger" style="margin-bottom: .5rem;" (click)="Borrar()"
+                            [ngClass]="{'on':ocultarBotonesDeUsusario, '':!ocultarBotonesDeUsusario}">ELIMINAR
+                            USUARIO</button>
+                    </div>
+
+                    <!-- idiomas -->
+
+                    <h2 class="accordion-header" style="margin-top: 3rem;">
+                        <button class="accordion-button " type="button" data-bs-toggle="collapse" data-bs-target=""
+                            aria-expanded="true" aria-controls="" style="color:rgb(89, 92, 94); height: 1.8rem;">
+                            VACANTES
+                            <hr>
+                        </button>
+                    </h2>
+                    <div class="d-grid" style="margin-top: 1rem;">
+                        <button type="button" class="btn btn-danger" style="margin-bottom: .5rem;"
+                            (click)="verBorrarV()">ELIMINAR VACANTE</button>
+                    </div>
+                </div>
+            </div>
         </div>
+
+
     </div>
 
     <div class="cajaDerecha">
         <div style="margin-left: 3rem; margin-right: 3rem;">
-            <app-create [usuarioAdmin]="usuarioAdmin" [ngClass]="{'on':verCrearCuenta, '':!verCrearCuenta}"></app-create>
-            <app-jobs [usuarioAdmin]="usuarioAdmin" [ngClass]="{'on':verBorrarVacante, '':!verBorrarVacante}"></app-jobs>
+            <app-create [usuarioAdmin]="usuarioAdmin"
+                [ngClass]="{'on':verCrearCuenta, '':!verCrearCuenta}"></app-create>
+            <app-jobs [usuarioAdmin]="usuarioAdmin"
+                [ngClass]="{'on':verBorrarVacante, '':!verBorrarVacante}"></app-jobs>
+            <app-profile [vistaAdministrar]="vistaAdministrar" [usuario]="usuario"
+                [ngClass]="{'on':ocultarUsuarios, '':!ocultarUsuarios}"></app-profile>
         </div>
-        
+
     </div>
 </div>

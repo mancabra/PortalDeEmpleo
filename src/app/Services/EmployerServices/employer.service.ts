@@ -19,6 +19,9 @@ export class EmployerService {
   vacante: Vacante = new Vacante;
   private vacante$ = new Subject<Vacante>();
 
+  empresas: Empresa[] = [];
+  private empresas$ = new Subject<Empresa[]>();
+
   constructor(private _http: HttpClient) { }
 
   guaradarCorreo(correo: any) {
@@ -51,36 +54,36 @@ export class EmployerService {
     console.log("Info Enviada");
     console.log(EmployerRequest);
 
-    let cadena ="app/obtenerVacantesPorIdEmpleador/" + EmployerRequest;
+    let cadena = "app/obtenerVacantesPorIdEmpleador/" + EmployerRequest;
 
     return this._http.get<Vacante[]>(cadena);
   }
 
   // OBTENER CANDIDATOS DE LA VACANTE
-  ontenerCandidatosVacante(EmployerRequest: number): Observable<Candidato[]>{
+  ontenerCandidatosVacante(EmployerRequest: number): Observable<Candidato[]> {
     console.log("Proceso obtener CandidatosVacante");
     console.log("Info Enviada");
     console.log(EmployerRequest);
 
-    let cadena ="app/obtenerCandidatosVacante/" + EmployerRequest;
+    let cadena = "app/obtenerCandidatosVacante/" + EmployerRequest;
     return this._http.get<Candidato[]>(cadena);
   }
 
-  aceptarCandidato(EmployerRequest:any){
+  aceptarCandidato(EmployerRequest: any) {
     console.log("Proceso obtener Aceptarcandidato");
     console.log("Info Enviada");
     console.log(EmployerRequest);
 
-    return this._http.put("app/aceptarPostulacion",EmployerRequest).toPromise();
+    return this._http.put("app/aceptarPostulacion", EmployerRequest).toPromise();
   }
 
   // ELIMINAR VACANTE
-  eliminarVacante(EmployerRequest: number){
+  eliminarVacante(EmployerRequest: number) {
     console.log("Proceso eliminarVacante");
     console.log("Info Enviada");
     console.log(EmployerRequest);
 
-    let cadena = "app/eliminarVacante/"+EmployerRequest;
+    let cadena = "app/eliminarVacante/" + EmployerRequest;
 
     return this._http.delete(cadena).toPromise();
   }
@@ -114,7 +117,7 @@ export class EmployerService {
     return this._http.get<ModalidadTrabajo[]>("app/obtenerModalidadesTrabajo");
   }
 
-  publicarVacante(EmployerRequest: any){
+  publicarVacante(EmployerRequest: any) {
     console.log("Proceso publicarVcanate");
     console.log("Info Enviada");
     console.log(EmployerRequest);
@@ -123,7 +126,7 @@ export class EmployerService {
 
   }
 
-  modificarVacante(EmployerRequest: any){
+  modificarVacante(EmployerRequest: any) {
     console.log("Proceso modificarVacante");
     console.log("Info Enviada");
     console.log(EmployerRequest);
@@ -131,7 +134,7 @@ export class EmployerService {
     return this._http.put("app/modificarVacante", EmployerRequest).toPromise();
   }
 
-  programarVacante(EmployerRequest: any){
+  programarVacante(EmployerRequest: any) {
     console.log("Proceso programarVacante");
     console.log("Info Enviada");
     console.log(EmployerRequest);
@@ -139,20 +142,35 @@ export class EmployerService {
     return this._http.put("app/crearVacante", EmployerRequest).toPromise();
   }
 
-  
-
+  // OBSERVABLE DE VACANTE
   getVacante(): Observable<Vacante> {
     return this.vacante$.asObservable();
   }
 
-  guardarVacante(EmployerRequest: Vacante){
+  guardarVacante(EmployerRequest: Vacante) {
     this.vacante = EmployerRequest;
     this.cargarVacante();
   }
 
-  cargarVacante(){
+  cargarVacante() {
     this.vacante = this.vacante;
     this.vacante$.next(this.vacante);
   }
 
+  // OBSERVABLE DE EMPRESAS
+  getEmpresas(): Observable<Empresa[]> {
+    return this.empresas$.asObservable();
+  }
+
+  // FUINCION PARA OBTENER LAS EMPRESAS DE BASE DE DATOS
+  obtenerEmpresasOb() {
+    this.obtenerEmpresas().subscribe(data => {
+      this.empresas = data;
+      this.cargarEmpresas(this.empresas);
+    });
+  }
+
+  cargarEmpresas(empresas:Empresa[]){
+    this.empresas$.next(empresas);
+  }
 }

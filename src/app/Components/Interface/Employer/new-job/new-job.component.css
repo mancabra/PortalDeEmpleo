@@ -18,3 +18,21 @@
 .view{
     display: none;
 }
+
+.contenedorComponent{
+    position: absolute;
+    top: 22%;
+    right: 30%;
+    padding: 1rem;
+    width: 620px;
+    height: 620px;
+    z-index:1000;
+}
+
+.pantalla{
+    width: 100%;
+    height: 100%;
+    background-color:  white;
+    opacity: 0.1;
+    pointer-events: none;
+}

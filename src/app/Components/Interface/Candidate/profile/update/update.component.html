@@ -1,14 +1,12 @@
 <div class="caja">
-
-    <div class="cajaIzquierda">
-        <!--  -->
+    <div class="cajaIzquierda" [ngClass]="{'enBlock':perfilTipoCandidato, '':!perfilTipoCandidato}">
         <div class="" id="accordion">
             <div class="accordion-item ">
                 <h2 class="accordion-header">
                     <button class="accordion-button " type="button" data-bs-toggle="collapse"
                         data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne"
-                        style="color:rgb(89, 92, 94); height: 1.8rem;" (click)="modificarPrincipales()">
-                        MODIFICAR INFORMACIÓN
+                        style="color:rgb(42, 111, 244); height: 1.8rem;" (click)="modificarPrincipales()" [ngClass]="{'':datosPrincipales, 'seleccion':!datosPrincipales}">
+                        <b>MODIFICAR INFORMACIÓN</b> 
                         <hr>
                     </button>
                 </h2>
@@ -33,52 +31,68 @@
                                 <b> CAMBIAR NOMBRE </b> </button>
                         </div>
 
-                        <div class="caja">
+                        <div class="input-group input-group-sm" style="margin-bottom: .5rem;" [ngClass]="{'view':perfilTipoAdministrador, '':!perfilTipoAdministrador}">
+                            <input type="text" class="form-control" aria-label="Sizing example input"
+                                aria-describedby="inputGroup-sizing-sm" style="border-radius: 5px 0px 0px 5px;"
+                                placeholder="Ingresa el nuevo apellido paterno" [(ngModel)]="nuevoApellidoP">
+                            <button class="input-group-text" id="inputGroup-sizing-sm"
+                                style="width: 35%; text-align: center;">
+                                <b> CAMBIAR APELLIDO </b> </button>
+                        </div>
 
-                            <div class="internaIzquierda">
-                                <div class="input-group input-group-sm" style="margin-bottom: .5rem;">
-                                    <button class="input-group-text" id="inputGroup-sizing-sm"
-                                        style="width: 60%; text-align: center;">
-                                        <b> CAMBIAR APELLIDO </b> </button>
-                                    <input type="text" class="form-control" aria-label="Sizing example input"
-                                        aria-describedby="inputGroup-sizing-sm" style="border-radius: 0px 5px 5px 0px;"
-                                        placeholder="Paterno" [(ngModel)]="nuevoApellidoP">
-                                </div>
-                            </div>
-
-                            <div class="internaDerecha">
-                                <div class="input-group input-group-sm" style="margin-bottom: .5rem;">
-                                    <input type="text" class="form-control" aria-label="Sizing example input"
-                                        aria-describedby="inputGroup-sizing-sm" style="border-radius: 5px 0px 0px 5px;"
-                                        placeholder="Materno" [(ngModel)]="nuevoApellidoM">
-                                    <button class="input-group-text" id="inputGroup-sizing-sm"
-                                        style="width: 60%; text-align: center;">
-                                        <b> CAMBIAR APELLIDO </b> </button>
-                                </div>
-                            </div>
-
+                        <div class="input-group input-group-sm" style="margin-bottom: .5rem;" [ngClass]="{'view':perfilTipoAdministrador, '':!perfilTipoAdministrador}">
+                            <input type="text" class="form-control" aria-label="Sizing example input"
+                                aria-describedby="inputGroup-sizing-sm" style="border-radius: 5px 0px 0px 5px;"
+                                placeholder="Ingresa el nuevo apellido materno" [(ngModel)]="nuevoApellidoM">
+                            <button class="input-group-text" id="inputGroup-sizing-sm"
+                                style="width: 35%; text-align: center;">
+                                <b> CAMBIAR APELLIDO </b> </button>
                         </div>
 
                         <div class="caja">
-
-                            <div class="internaIzquierda">
-                                <div class="input-group input-group-sm" style="margin-bottom: .5rem;">
-                                    <button class="input-group-text" id="inputGroup-sizing-sm"
-                                        style="width: 60%; text-align: center;">
-                                        <b> F. NACIMIENTO </b> </button>
-
-                                    <!-- <input type="number" class="form-control" aria-label="Sizing example input"
-                                        aria-describedby="inputGroup-sizing-sm" style="border-radius: 0px 5px 5px 0px;"
-                                        placeholder="Ingresa la nueva edad" [(ngModel)]="nuevaEdad"> -->
-
-                                    <input type="date" class="form-control" aria-label="Sizing example input"
-                                        aria-describedby="inputGroup-sizing-sm" style="border-radius: 0px 5px 5px 0px;"
-                                        placeholder="Ingresa la nueva edad" [(ngModel)]="nuevaFecha">
+                      
+                                <div class="internaIzquierda" [ngClass]="{'view':perfilTipoCandidato, '':!perfilTipoCandidato}">
+                                    <div class="input-group input-group-sm" style="margin-bottom: .5rem;">
+                                        <button class="input-group-text" id="inputGroup-sizing-sm"
+                                            style="width: 60%; text-align: center;">
+                                            <b> CAMBIAR APELLIDO </b> </button>
+                                        <input type="text" class="form-control" aria-label="Sizing example input"
+                                            aria-describedby="inputGroup-sizing-sm"
+                                            style="border-radius: 0px 5px 5px 0px;" placeholder="Paterno"
+                                            [(ngModel)]="nuevoApellidoP">
+                                    </div>
                                 </div>
-                            </div>
 
-                            <div class="internaDerecha">
+                                <div class="internaDerecha">
+                                    <div class="input-group input-group-sm" style="margin-bottom: .5rem;" [ngClass]="{'view':perfilTipoCandidato, '':!perfilTipoCandidato}">
+                                        <input type="text" class="form-control" aria-label="Sizing example input"
+                                            aria-describedby="inputGroup-sizing-sm"
+                                            style="border-radius: 5px 0px 0px 5px;" placeholder="Materno"
+                                            [(ngModel)]="nuevoApellidoM">
+                                        <button class="input-group-text" id="inputGroup-sizing-sm"
+                                            style="width: 60%; text-align: center;">
+                                            <b> CAMBIAR APELLIDO </b> </button>
+                                    </div>
+                                </div>
+                
+                        </div>
 
+                        <div class="caja">
+                    
+                                <div class="internaIzquierda" [ngClass]="{'view':perfilTipoCandidato, '':!perfilTipoCandidato}">
+                                    <div class="input-group input-group-sm" style="margin-bottom: .5rem;">
+                                        <button class="input-group-text" id="inputGroup-sizing-sm"
+                                            style="width: 60%; text-align: center;">
+                                            <b> F. NACIMIENTO </b> </button>
+
+                                        <input type="date" class="form-control" aria-label="Sizing example input"
+                                            aria-describedby="inputGroup-sizing-sm"
+                                            style="border-radius: 0px 5px 5px 0px;" placeholder="Ingresa la nueva edad"
+                                            [(ngModel)]="nuevaFecha">
+                                    </div>
+                                </div>
+
+                            <div class="internaDerecha" [ngClass]="{'enBlock':perfilTipoCandidato, '':!perfilTipoCandidato}">
                                 <div class="input-group input-group-sm" style="margin-bottom: .5rem;">
                                     <button class="btn btn-outline-secondary dropdown-toggle" type="button"
                                         data-bs-toggle="dropdown" aria-expanded="false">{{lada}}</button>
@@ -90,91 +104,90 @@
                                     </ul>
                                     <input type="text" class="form-control" aria-label="Text input with dropdown button"
                                         placeholder="55-55-55-55-55" [(ngModel)]="nuevoTelefono">
-
                                     <button class="input-group-text" id="inputGroup-sizing-sm"
                                         style="width: 35%; text-align: center;">
                                         <b> TELEFONO </b> </button>
                                 </div>
                             </div>
-
                         </div>
-
-
                     </div>
                 </div>
             </div>
         </div>
         <!--  -->
-        <div class="" id="accordion">
-            <div class="accordion-item ">
-                <h2 class="accordion-header ">
-                    <button class="accordion-button " type="button" data-bs-toggle="collapse" data-bs-target=""
-                        aria-expanded="true" aria-controls=""
-                        style="padding: .5rem; color:rgb(89, 92, 94); height: 1.8rem;">
-                        <hr>
-                    </button>
-                </h2>
-                <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
-                    <div class="accordion-body">
+        <div [ngClass]="{'view':perfilTipoCandidato, '':!perfilTipoCandidato}">
+            <div class="" id="accordion">
+                <div class="accordion-item ">
+                    <h2 class="accordion-header ">
+                        <button class="accordion-button " type="button" data-bs-toggle="collapse" data-bs-target=""
+                            aria-expanded="true" aria-controls=""
+                            style="padding: .5rem; color:rgb(89, 92, 94); height: 1.8rem;">
+                            <hr>
+                        </button>
+                    </h2>
+                    <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
 
-                        <h2 class="accordion-header">
-                            <button class="accordion-button " type="button" data-bs-toggle="collapse"
-                                data-bs-target="#collap" aria-expanded="true" aria-controls="collap"
-                                style="padding: .5rem; color:rgb(89, 92, 94); height: 1.8rem; align-content: center;">
-                                Zona y Ubicación:
-                                <hr>
-                            </button>
-                        </h2>
+                            <h2 class="accordion-header">
+                                <button class="accordion-button " type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#collap" aria-expanded="true" aria-controls="collap"
+                                    style="padding: .5rem; color:rgb(89, 92, 94); height: 1.8rem; align-content: center;">
+                                    Zona y Ubicación:
+                                    <hr>
+                                </button>
+                            </h2>
 
-                        <div class="input-group input-group-sm" style="margin-bottom: .5rem;">
-                            <input type="text" class="form-control" aria-label="Sizing example input"
-                                aria-describedby="inputGroup-sizing-sm" style="border-radius: 5px 0px 0px 5px;"
-                                placeholder="Ingresa el nuevo domicilio" [(ngModel)]="nuevoDomicilio">
-                            <button class="input-group-text" id="inputGroup-sizing-sm"
-                                style="width: 35%; text-align: center;">
-                                <b> CAMBIAR DOMICILIO </b> </button>
-                        </div>
+                            <div class="input-group input-group-sm" style="margin-bottom: .5rem;">
+                                <input type="text" class="form-control" aria-label="Sizing example input"
+                                    aria-describedby="inputGroup-sizing-sm" style="border-radius: 5px 0px 0px 5px;"
+                                    placeholder="Ingresa el nuevo domicilio" [(ngModel)]="nuevoDomicilio">
+                                <button class="input-group-text" id="inputGroup-sizing-sm"
+                                    style="width: 35%; text-align: center;">
+                                    <b> CAMBIAR DOMICILIO </b> </button>
+                            </div>
 
 
-                        <div class="input-group" style="margin-bottom: .5rem;">
+                            <div class="input-group" style="margin-bottom: .5rem;">
 
-                            <button class="form-select" type="button" id="inputGroupSelect01" data-bs-toggle="dropdown"
-                                aria-expanded="false"
-                                style="font-size: x-small; border-radius: 5px 0px 0px 5px;">{{nuevoEstado.nombreEstado}}</button>
-                            <ul class="dropdown-menu">
-                                <div class="scrollMenu">
-                                    <li><button class="dropdown-item" type="button"
-                                            *ngFor="let estadoSeleccionado of estadosMexico"
-                                            (click)="actualizarEstado(estadoSeleccionado)">{{estadoSeleccionado.nombreEstado}}</button>
-                                    </li>
-                                </div>
-                            </ul>
+                                <button class="form-select" type="button" id="inputGroupSelect01"
+                                    data-bs-toggle="dropdown" aria-expanded="false"
+                                    style="font-size: x-small; border-radius: 5px 0px 0px 5px;">{{nuevoEstado.nombreEstado}}</button>
+                                <ul class="dropdown-menu">
+                                    <div class="scrollMenu">
+                                        <li><button class="dropdown-item" type="button"
+                                                *ngFor="let estadoSeleccionado of estadosMexico"
+                                                (click)="actualizarEstado(estadoSeleccionado)">{{estadoSeleccionado.nombreEstado}}</button>
+                                        </li>
+                                    </div>
+                                </ul>
 
-                            <label class="input-group-text" for="inputGroupSelect01"
-                                style=" height: 1.8rem; width: 35%;">
-                                <b>
-                                    ESTADO </b> </label>
+                                <label class="input-group-text" for="inputGroupSelect01"
+                                    style=" height: 1.8rem; width: 35%;">
+                                    <b>
+                                        ESTADO </b> </label>
 
-                        </div>
+                            </div>
 
-                        <div class="input-group" style="margin-bottom: .5rem;">
+                            <div class="input-group" style="margin-bottom: .5rem;">
 
-                            <button class="form-select" type="button" id="inputGroupSelect01" data-bs-toggle="dropdown"
-                                aria-expanded="false" style="font-size: x-small; border-radius: 5px 0px 0px 5px;"
-                                [ngStyle]="{'pointer-events':bloquearMunicipio}">{{nuevoMunicipio.nombreMunicipio}}</button>
-                            <ul class="dropdown-menu">
-                                <div class="scrollMenu">
-                                    <li><button class="dropdown-item" type="button"
-                                            *ngFor="let municipioSeleccionado of municipiosMexico"
-                                            (click)="actualizarMunicipio(municipioSeleccionado)">{{municipioSeleccionado.nombreMunicipio}}</button>
-                                    </li>
-                                </div>
-                            </ul>
+                                <button class="form-select" type="button" id="inputGroupSelect01"
+                                    data-bs-toggle="dropdown" aria-expanded="false"
+                                    style="font-size: x-small; border-radius: 5px 0px 0px 5px;"
+                                    [ngStyle]="{'pointer-events':bloquearMunicipio}">{{nuevoMunicipio.nombreMunicipio}}</button>
+                                <ul class="dropdown-menu">
+                                    <div class="scrollMenu">
+                                        <li><button class="dropdown-item" type="button"
+                                                *ngFor="let municipioSeleccionado of municipiosMexico"
+                                                (click)="actualizarMunicipio(municipioSeleccionado)">{{municipioSeleccionado.nombreMunicipio}}</button>
+                                        </li>
+                                    </div>
+                                </ul>
 
-                            <label class="input-group-text" for="inputGroupSelect01"
-                                style=" height: 1.8rem; width: 35%;">
-                                <b>
-                                    MUNICIPIO </b> </label>
+                                <label class="input-group-text" for="inputGroupSelect01"
+                                    style=" height: 1.8rem; width: 35%;">
+                                    <b>
+                                        MUNICIPIO </b> </label>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -182,123 +195,120 @@
         </div>
     </div>
 
-    <div class="cajaDerecha">
+        <div class="cajaDerecha" [ngClass]="{'view':perfilTipoCandidato, '':!perfilTipoCandidato}">
+            <div class="" id="accordion">
+                <div class="accordion-item ">
+                    <h2 class="accordion-header ">
+                        <button class="accordion-button " type="button" data-bs-toggle="collapse" data-bs-target=""
+                            aria-expanded="true" aria-controls=""
+                            style="padding: .5rem; color:rgb(89, 92, 94); height: 1.8rem;">
+                            <hr>
+                        </button>
+                    </h2>
+                    <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
 
-        <div class="" id="accordion">
-            <div class="accordion-item ">
-                <h2 class="accordion-header ">
-                    <button class="accordion-button " type="button" data-bs-toggle="collapse" data-bs-target=""
-                        aria-expanded="true" aria-controls=""
-                        style="padding: .5rem; color:rgb(89, 92, 94); height: 1.8rem;">
-                        <hr>
-                    </button>
-                </h2>
-                <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
-                    <div class="accordion-body">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button " type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#collap" aria-expanded="true" aria-controls="collap"
+                                    style="padding: .5rem; color:rgb(89, 92, 94); height: 1.8rem; align-content: center;">
+                                    Formación Academica y Experiencia:
+                                    <hr>
+                                </button>
+                            </h2>
 
-                        <h2 class="accordion-header">
-                            <button class="accordion-button " type="button" data-bs-toggle="collapse"
-                                data-bs-target="#collap" aria-expanded="true" aria-controls="collap"
-                                style="padding: .5rem; color:rgb(89, 92, 94); height: 1.8rem; align-content: center;">
-                                Formación Academica y Experiencia:
-                                <hr>
-                            </button>
-                        </h2>
+                            <div class="input-group input-group-sm" style="margin-bottom: .5rem;">
+                                <input type="text" class="form-control" aria-label="Sizing example input"
+                                    aria-describedby="inputGroup-sizing-sm" style="border-radius: 5px 0px 0px 5px;"
+                                    placeholder="Ingresa la nueva profesión" [(ngModel)]="nuevaProfesion">
+                                <button class="input-group-text" id="inputGroup-sizing-sm"
+                                    style="width: 35%; text-align: center;">
+                                    <b> CAMBIAR PROFESIÓN </b> </button>
+                            </div>
 
-                        <div class="input-group input-group-sm" style="margin-bottom: .5rem;">
-                            <input type="text" class="form-control" aria-label="Sizing example input"
-                                aria-describedby="inputGroup-sizing-sm" style="border-radius: 5px 0px 0px 5px;"
-                                placeholder="Ingresa la nueva profesión" [(ngModel)]="nuevaProfesion">
-                            <button class="input-group-text" id="inputGroup-sizing-sm"
-                                style="width: 35%; text-align: center;">
-                                <b> CAMBIAR PROFESIÓN </b> </button>
+                            <div class="input-group input-group-sm" style="margin-bottom: .5rem;">
+                                <input type="text" class="form-control" aria-label="Sizing example input"
+                                    aria-describedby="inputGroup-sizing-sm" style="border-radius: 5px 0px 0px 5px;"
+                                    placeholder="Ingresa el nuevo centro educativo" [(ngModel)]="nuevoCentroEducativo">
+                                <button class="input-group-text" id="inputGroup-sizing-sm"
+                                    style="width: 35%; text-align: center;">
+                                    <b> CAMBIAR ESCUELA </b> </button>
+                            </div>
+
+                            <div class="input-group input-group-sm" style="margin-bottom: .5rem;">
+                                <input type="text" class="form-control" aria-label="Sizing example input"
+                                    aria-describedby="inputGroup-sizing-sm" style="border-radius: 5px 0px 0px 5px;"
+                                    placeholder="Ingresa tu puesto actual" [(ngModel)]="nuevoPuesto">
+                                <button class="input-group-text" id="inputGroup-sizing-sm"
+                                    style="width: 35%; text-align: center;">
+                                    <b> CAMBIAR PUESTO </b> </button>
+                            </div>
+
+                            <h2 class="accordion-header" style="margin-top: 2.3rem;">
+                                <button class="accordion-button " type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#collap" aria-expanded="true" aria-controls="collap"
+                                    style="padding: .5rem; color:rgb(89, 92, 94); height: 1.8rem; align-content: center;">
+                                    Descripcion y habilidades
+                                    <hr>
+                                </button>
+                            </h2>
+
+                            <div class="input-group input-group-sm" style="display: block;">
+                                <label class="input-group-text " id="inputGroup-sizing-sm"
+                                    style="width: 100%; text-align: center; border-radius: 5px 5px 0px 0px; margin: 0%; padding-bottom: .4rem; padding-top: .5rem;">
+                                    <b class=""> AGREGAR UNA DESCRIPCIÓN </b> </label>
+                                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"
+                                    style="width: 100%; border-radius: 0px 0px 5px 5px; margin: 0%; font-size: small;"
+                                    [(ngModel)]="nuevaDescripcion"></textarea>
+                            </div>
+
                         </div>
-
-                        <div class="input-group input-group-sm" style="margin-bottom: .5rem;">
-                            <input type="text" class="form-control" aria-label="Sizing example input"
-                                aria-describedby="inputGroup-sizing-sm" style="border-radius: 5px 0px 0px 5px;"
-                                placeholder="Ingresa el nuevo centro educativo" [(ngModel)]="nuevoCentroEducativo">
-                            <button class="input-group-text" id="inputGroup-sizing-sm"
-                                style="width: 35%; text-align: center;">
-                                <b> CAMBIAR ESCUELA </b> </button>
-                        </div>
-
-                        <div class="input-group input-group-sm" style="margin-bottom: .5rem;">
-                            <input type="text" class="form-control" aria-label="Sizing example input"
-                                aria-describedby="inputGroup-sizing-sm" style="border-radius: 5px 0px 0px 5px;"
-                                placeholder="Ingresa tu puesto actual" [(ngModel)]="nuevoPuesto">
-                            <button class="input-group-text" id="inputGroup-sizing-sm"
-                                style="width: 35%; text-align: center;">
-                                <b> CAMBIAR PUESTO </b> </button>
-                        </div>
-
-                        <h2 class="accordion-header" style="margin-top: 2.3rem;">
-                            <button class="accordion-button " type="button" data-bs-toggle="collapse"
-                                data-bs-target="#collap" aria-expanded="true" aria-controls="collap"
-                                style="padding: .5rem; color:rgb(89, 92, 94); height: 1.8rem; align-content: center;">
-                                Descripcion y habilidades
-                                <hr>
-                            </button>
-                        </h2>
-
-                        <div class="input-group input-group-sm" style="display: block;">
-                            <label class="input-group-text " id="inputGroup-sizing-sm"
-                                style="width: 100%; text-align: center; border-radius: 5px 5px 0px 0px; margin: 0%; padding-bottom: .4rem; padding-top: .5rem;">
-                                <b class=""> AGREGAR UNA DESCRIPCIÓN </b> </label>
-                            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"
-                                style="width: 100%; border-radius: 0px 0px 5px 5px; margin: 0%; font-size: small;"
-                                [(ngModel)]="nuevaDescripcion"></textarea>
-                        </div>
-
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 
 </div>
 
-<div style="display: block; margin-top: 2rem;">
+<div [ngClass]="{'view':perfilTipoCandidato, '':!perfilTipoCandidato}">
+    <div style="display: block; margin-top: 2rem;">
+        <!-- habilidades -->
+        <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+            <div class="accordion-body">
 
+                <h2 class="accordion-header ">
+                    <button class="accordion-button " type="button" data-bs-toggle="collapse" data-bs-target=""
+                        aria-expanded="true" aria-controls="" style="color:rgb(89, 92, 94); height: 1.8rem;">
+                        SELECCION DE HABILIDADES
+                        <hr>
+                    </button>
+                </h2>
 
-    <!-- habilidades -->
+                <form name="f1" id="formElement">
+                    <div class="form-check form-check-inline" *ngFor="let h of habilidades">
+                        <input class="form-check-input" type="checkbox" id="{{h.nombreHabilidad}}"
+                            [value]="h.nombreHabilidad" onclick="seleccionar(i)">
+                        <label class="form-check-label" for="{{h.nombreHabilidad}}">{{h.nombreHabilidad}}</label>
+                    </div>
+                </form>
 
+                <!-- idiomas -->
 
-    <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
-        <div class="accordion-body">
-
-            <h2 class="accordion-header ">
-                <button class="accordion-button " type="button" data-bs-toggle="collapse" data-bs-target=""
-                    aria-expanded="true" aria-controls="" style="color:rgb(89, 92, 94); height: 1.8rem;">
-                    SELECCION DE HABILIDADES
-                    <hr>
-                </button>
-            </h2>
-
-            <form name="f1" id="formElement">
-                <div class="form-check form-check-inline" *ngFor="let h of habilidades">
-                    <input class="form-check-input" type="checkbox" id="{{h.nombreHabilidad}}"
-                        [value]="h.nombreHabilidad" onclick="seleccionar(i)">
-                    <label class="form-check-label" for="{{h.nombreHabilidad}}">{{h.nombreHabilidad}}</label>
-                </div>
-            </form>
-
-            <!-- idiomas -->
-
-            <h2 class="accordion-header ">
-                <button class="accordion-button " type="button" data-bs-toggle="collapse" data-bs-target=""
-                    aria-expanded="true" aria-controls="" style="color:rgb(89, 92, 94); height: 1.8rem;">
-                    SELECCION DE IDIOMAS
-                    <hr>
-                </button>
-            </h2>
-            <form name="f2">
-                <div class="form-check form-check-inline" *ngFor="let i of idiomas">
-                    <input class="form-check-input" type="checkbox" id="{{i.nombreIdioma}}" name="{{i.nombreIdioma}}" 
-                    [value]="i.nombreIdioma">
-                    <label class="form-check-label" for="{{i.nombreIdioma}}">{{i.nombreIdioma}}</label>
-                </div>
-            </form>
+                <h2 class="accordion-header ">
+                    <button class="accordion-button " type="button" data-bs-toggle="collapse" data-bs-target=""
+                        aria-expanded="true" aria-controls="" style="color:rgb(89, 92, 94); height: 1.8rem;">
+                        SELECCION DE IDIOMAS
+                        <hr>
+                    </button>
+                </h2>
+                <form name="f2">
+                    <div class="form-check form-check-inline" *ngFor="let i of idiomas">
+                        <input class="form-check-input" type="checkbox" id="{{i.nombreIdioma}}"
+                            name="{{i.nombreIdioma}}" [value]="i.nombreIdioma">
+                        <label class="form-check-label" for="{{i.nombreIdioma}}">{{i.nombreIdioma}}</label>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 </div>
@@ -308,9 +318,9 @@
         <div class="accordion-item ">
             <h2 class="accordion-header ">
                 <button class="accordion-button " type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne"
-                    aria-expanded="true" aria-controls="collapseOne" style="color:rgb(89, 92, 94); height: 1.8rem;"
-                    (click)="modificarSecundarios()">
-                    INFORMACION ADICIONAL
+                    aria-expanded="true" aria-controls="collapseOne" style="color: rgb(42, 111, 244); height: 1.8rem;"
+                    (click)="modificarSecundarios()" [ngClass]="{'':datosSecundarios, 'seleccion':!datosSecundarios}">
+                   <b>INFORMACION ADICIONAL</b> 
                     <hr>
                 </button>
             </h2>
@@ -326,12 +336,14 @@
                         </button>
                     </h2>
 
-                    <div class="input-group input-group-sm" style="margin-bottom: .5rem;">
-                        <input class="form-control form-control-sm" id="formFileSm" type="file"
-                            (change)="uploadCV($event)">
-                        <button class="input-group-text" id="inputGroup-sizing-sm"
-                            style="width: 35%; text-align: center;">
-                            <b> CURRICULUM VITAE</b> </button>
+                    <div [ngClass]="{'view':perfilTipoCandidato, '':!perfilTipoCandidato}">
+                        <div class="input-group input-group-sm" style="margin-bottom: .5rem;">
+                            <input class="form-control form-control-sm" id="formFileSm" type="file"
+                                (change)="uploadCV($event)">
+                            <button class="input-group-text" id="inputGroup-sizing-sm"
+                                style="width: 35%; text-align: center;">
+                                <b> CURRICULUM VITAE</b> </button>
+                        </div>
                     </div>
 
                     <div class="input-group input-group-sm" style="margin-bottom: .5rem;">

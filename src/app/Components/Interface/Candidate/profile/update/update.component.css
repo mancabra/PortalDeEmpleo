@@ -42,3 +42,30 @@
     overflow-y: scroll;
 }
 
+.view{
+     display: none;
+}
+
+.completo{
+     display: gird;
+     width: 100%;
+}
+
+.enBlock{
+    display:block;
+    width: 100%;
+    margin-right: 0%;
+    margin-left: 0%;
+}
+
+.cuadrar{
+    margin-right: 0%;
+    margin-left: 0%;
+}
+
+.seleccion{
+    text-decoration: underline;
+}
+
+
+

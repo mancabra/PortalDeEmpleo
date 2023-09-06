@@ -47,6 +47,16 @@ export class InterfaceService {
     return this._http.post("app/Login", userRequest).toPromise();
   }
 
+    // GUARDAR ATRIBUTOS
+    modificar(usuarioDTO: any) {
+      //prueba de funcionamiento
+      console.log("Proceso ModificarUsuario");
+      console.log("Info Enviada");
+      console.log(usuarioDTO);
+  
+      return this._http.put("app/modificarUsuario", usuarioDTO).toPromise();
+    }
+
   obtener() {
     console.log("Proceso buscarUsuario");
     console.log("Info Enviada");
@@ -55,7 +65,7 @@ export class InterfaceService {
     let cadena = "app/obtenerUsuarioCompleto/" + this.correo;
     return this._http.get(cadena).toPromise();
   }
-
+  
   guaradarCorreo(correo:any){
     this.correo = correo ;
     this._AdminRequest.guaradarCorreo(correo);

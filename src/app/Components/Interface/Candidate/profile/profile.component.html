@@ -1,5 +1,5 @@
 <div style="display: flex;">
-    <div class="cajaIzquierda">
+    <div class="cajaIzquierda" [ngClass]="{'completo':vistaAdministrar, '':!vistaAdministrar}">
         <!--  -->
         <div class="card" style="width: 100%; height: 100%; padding: .5rem;">
             <div style=" position: relative;">
@@ -98,8 +98,6 @@
 
             </div>
 
-           
-
             <div [ngClass]="{'view':perfilTipoEmpleador, '':!perfilTipoEmpleador}">
                 <div style="text-align: center; margin-bottom: 2rem; padding-left: 1rem; padding-right: 1rem;">
                     <b>EMPRESAS PARA LAS QUE TRABAJA</b>
@@ -164,8 +162,8 @@
     </div>
 
 
-    <div class="cajaDerecha">
-        <div [ngClass]="{'view':vistaAdministrar, '':!vistaAdministrar}">
+    <div class="cajaDerecha"  [ngClass]="{'view':vistaAdministrar, '':!vistaAdministrar}">
+        <div>
             <button type="button" class="btn btn-danger" style="width: 100%;"
                 [ngClass]="{'':perfilTipoEmpresa, 'view':!perfilTipoEmpresa}" (click)="cerrarSesion();">CERRAR
                 SESIÓN</button>

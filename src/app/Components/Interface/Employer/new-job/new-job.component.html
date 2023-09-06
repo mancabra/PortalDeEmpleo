@@ -1,4 +1,4 @@
-<div style="display: flex;">
+<div style="display: flex;" [ngClass]="{'':ocultarRegistro, 'pantalla':!ocultarRegistro}">
     <div class="cajaIzquierda">
         <div style="text-align: center; margin-bottom: .5rem; padding-left: 1rem; padding-right: 1rem;">
             <b>DATOS DE LA VACANTE</b>
@@ -93,7 +93,7 @@
 
                     <div>
                         <div class="d-grid gap-2">
-                            <button type="button" class="btn btn-outline-danger">REGISTRAR UNA EMPRESA</button>
+                            <button type="button" class="btn btn-outline-danger" (click)="RegistarEmpresa()">REGISTRAR UNA EMPRESA</button>
                         </div>
                     </div>
                 </div>
@@ -415,5 +415,11 @@
                 </ng-template>
             </div>
         </div>
+    </div>
+</div>
+
+<div>
+    <div class="contenedorComponent" [ngClass]="{'view':ocultarRegistro, '':!ocultarRegistro}"> 
+        <app-create [vistaEmpleo]="vistaEmpleo" (ocultarRegistro)="ocultarRegistro = $event"></app-create>
     </div>
 </div>

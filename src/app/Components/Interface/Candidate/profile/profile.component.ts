@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Storage ,getDownloadURL, listAll, ref } from '@angular/fire/storage';
 import { Router } from '@angular/router';
 import { CandidateService } from 'src/app/Services/CandidateServices/candidate.service';
@@ -22,16 +22,20 @@ import { InterfaceService } from 'src/app/Services/InterfaceServices/interface.s
   styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent implements OnInit, OnDestroy {
+  
   candidato: Candidato = new Candidato;
   empleador: Empleador = new Empleador;
   administrador: Administrador = new Administrador;
   empresa: Empresa = new Empresa;
 
+  @Input() vistaAdministrar: boolean = false;
+  @Input() usuario : any;
+  
   id_tipoUsuario: number = 0;
   empresas: Vacante[] = [];
 
   //varibale de input administrar
-  vistaAdministrar: boolean = false;
+
   perfilTipoAdministrador: boolean = true;
   perfilTipoCandidato: boolean = true;
   perfilTipoEmpleador: boolean = true;
@@ -39,7 +43,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
   imgPerfil:string[] = [];
   imgPortada:string[] = [];
-  rutaCv: string  = "https://firebasestorage.googleapis.com/v0/b/gdi-portalempleo.appspot.com/o/documentos%2Fcv%2Fcuadernillo_MarcoAntonioCruz.pdf?alt=media&token=830f5a01-eb69-4d5e-8022-46f82fe929fe";
+  rutaCv: string  = "";
   rutaEspecialidad: string = "";
 
   idiomasUsuario: Idioma [] = [];
@@ -54,18 +58,47 @@ export class ProfileComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-   this.buscarUsuario();
-    this.identificarTipoDePerfil();
+    this.identificarVista();
   }
 
   ngOnDestroy(): void {
+  }
+
+  identificarVista(){
+    if(this.vistaAdministrar == true){
+      this.busquedaDeAdmin();
+    } else {
+      this.buscarUsuario();
+      this.generarRuta();
+    }
+  }
+
+  busquedaDeAdmin() {
+
+    if (this.usuario.usuario.tipoUsuario == 1) {
+      this.administrador = this.usuario;
+      this.id_tipoUsuario = this.administrador.usuario.tipoUsuario
+      console.log("admin");
+    } else if (this.usuario.usuario.tipoUsuario == 2) {
+      this.candidato = this.usuario;
+      this.id_tipoUsuario = this.candidato.usuario.tipoUsuario;
+      console.log("candidato");
+    } else if (this.usuario.usuario.tipoUsuario == 3) {
+      this.empleador = this.usuario;
+      this.id_tipoUsuario = this.empleador.usuario.tipoUsuario;
+      console.log("empleador");
+    } else {
+    
+    }
+    this.identificarTipoDePerfil();
+    this.generarRuta();
   }
 
   buscarUsuario() {
     this._UserRequest.obtener().then((data: any) => {
       if (data.usuario.tipoUsuario == 1) {
         this.administrador = data;
-        this.id_tipoUsuario = 1
+        this.id_tipoUsuario = this.administrador.usuario.tipoUsuario
         console.log("admin");
       } else if (data.usuario.tipoUsuario == 2) {
         this.candidato = data;
@@ -227,7 +260,6 @@ obtenerEdad(){
         alert("Algo Fallo");
       }
     });
-
   }
 
   getImages(ruta : any, nombre: string){

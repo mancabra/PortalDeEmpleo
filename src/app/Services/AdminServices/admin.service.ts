@@ -21,8 +21,22 @@ export class AdminService {
     console.log("Info Enviada");
     console.log(AdminRequest);
 
-    return this._http.put("app/", AdminRequest).toPromise();
+    return this._http.put("app/registroAdministrador", AdminRequest).toPromise();
   }
 
+  eliminarUsuario(id_Usuario:number){
+    let cadena = "app/eliminarUsuario/"+id_Usuario;
+    return this._http.delete(cadena).toPromise();
+  }
+
+  // FUNCION PARA BUSCAR UN USUARIO A GESTIONAR
+  obtenerPorCorreo(mail:string) {
+    console.log("Proceso buscarUsuarioPorCorreo");
+    console.log("Info Enviada");
+    console.log(mail);
+
+    let cadena = "app/obtenerUsuarioCompleto/" + mail;
+    return this._http.get(cadena).toPromise();
+  }
 
 }

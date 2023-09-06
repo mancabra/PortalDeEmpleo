@@ -55,3 +55,8 @@
     cursor: hand;
 }
 
+.completo{
+    display: grid;
+    margin-right: .5rem;
+    width: 100%;
+}

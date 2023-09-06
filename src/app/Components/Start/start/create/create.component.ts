@@ -21,6 +21,7 @@ export class CreateComponent {
   // PERMITE CAMBIAR LA VISTA ENTRE EL COMPONENTE CREATE Y EL COMPONENTE LOGIN
   @Output() viewCreate = new EventEmitter<boolean>();
   @Output() viewLogin = new EventEmitter<boolean>();
+  @Output() ocultarRegistro = new EventEmitter<boolean>();
 
   // VECTORRES NECESARIOS
 
@@ -34,6 +35,7 @@ export class CreateComponent {
   // CUANDO LA VARIABLE usuarioAdmin ESTA ACTIVA INDICA QUE EL COMPONENTE ESTA EL EL MODULO ADMINISTRAR
   // CUANDO LA VARIABLE componetStart ESTA ACTIVA INDICA QUE EL COMPONENTE ESTA EL EL MODULO LOGIN
 
+  @Input() vistaEmpleo: boolean = false;
   @Input() usuarioAdmin: boolean = false;
   componetStart: boolean = true;
 
@@ -261,10 +263,18 @@ export class CreateComponent {
     if (this.usuarioAdmin == true) {
       this.componetStart = true;
       this.verAdministrador = false;
+      this.verEmpresa = false;
 
     } else {
-      this.verAdministrador = true;
-      this.componetStart = false;
+      if(this.vistaEmpleo == true){
+        this.verUsuariosPrincipales = true;
+        this.verEmpresa = false;
+        this.componetStart = true;
+       this.tipoUsurio = "empresa";
+      } else {
+        this.verAdministrador = true;
+        this.componetStart = false;
+      }
     }
 
     this.cambiarCuenta();
@@ -317,7 +327,7 @@ export class CreateComponent {
       this.verApellidos = true;
       this.verEdadyTelefono = true;
       this.verTelefonoEmple = true;
-      this.verUbicacion = false;
+      this.verUbicacion = true;
       this.verCorreo = true;
       this.verContrasenas = true;
       this.verDescripcion = false;
@@ -421,9 +431,9 @@ export class CreateComponent {
 
     const EMPRESA = {
       nombre: this.nombre,
-      domicilio: this.ubicacion,
-      id_estado: this.estado.id_estado,
-      id_municipio: this.municipio.id_municipio,
+      //domicilio: this.ubicacion,
+      //id_estado: this.estado.id_estado,
+      //id_municipio: this.municipio.id_municipio,
       descripcion: this.descripcion
     }
 
@@ -446,7 +456,7 @@ export class CreateComponent {
   cambiarFlujoDeRegistroI(usuario: any) {
 
     if (this.tipoUsurio == "empresa") {
-      this.evaluarCalleyNumero(usuario);
+      this.evaluarDescripcion(usuario);
     } else {
       this.evaluarApellidoP(usuario);
     }
@@ -609,8 +619,8 @@ export class CreateComponent {
 
     if (this.tipoUsurio == "candidato") {
       this.evaluarCorreo(usuario);
-    } else if (this.tipoUsurio == "empresa") {
-      this.evaluarDescripcion(usuario);
+      // } else if (this.tipoUsurio == "empresa") {
+      //this.evaluarDescripcion(usuario);
     } else {
 
     }
@@ -786,11 +796,14 @@ export class CreateComponent {
         } else {
           alert("la empresa se creo correctamente");
           this.limpiarCampos();
+          this._EmployerRequest.obtenerEmpresasOb();
+          this.ocultarRegistro.emit(true);
         }
       });
     } else {
 
     }
+ 
   }
 
   limpiarCampos() {
