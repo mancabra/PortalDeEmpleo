@@ -218,8 +218,8 @@ export class UpdateComponent implements OnInit, OnDestroy {
     //this.idiomasCandidato = [{ id_idioma: 1, nombreIdioma: "aleman", candidatos: [] } ];
     console.log("ver contenido habilidades");
     console.log(this.habilidadesCandidato);
-    console.log(candidato.habiliadades);
-    this.habilidadesCandidato = candidato.habiliadades;
+    console.log(candidato.habilidades);
+    this.habilidadesCandidato = candidato.habilidades;
     //this.habilidadesCandidato = [{ id_habilidad: 0, nombreHabilidad: "nadar", candidatos: [] }];
     console.log(this.habilidadesCandidato);
   }

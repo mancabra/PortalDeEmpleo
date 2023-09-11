@@ -193,7 +193,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
       this.perfilTipoCandidato = false;
       this.perfilTipoEmpleador = true;
       this.perfilTipoEmpresa = true;
-      this.habilidadesUsuario = this.candidato.habiliadades;
+      this.habilidadesUsuario = this.candidato.habilidades;
       this.idiomasUsuario = this.candidato.idiomas;
     } else if (this.id_tipoUsuario == 3) {
       this.perfilTipoAdministrador = true;

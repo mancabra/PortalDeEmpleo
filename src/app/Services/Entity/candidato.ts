@@ -21,6 +21,6 @@ export class Candidato {
     estado: Estado = new Estado;
     profesion: string = "";
     fechaNacimiento: Date = new Date;
-    habiliadades: Habilidad [] = [];
+    habilidades: Habilidad [] = [];
     rutaEspecialidad: string  = "";
 }

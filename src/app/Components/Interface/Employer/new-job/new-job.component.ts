@@ -382,6 +382,7 @@ export class NewJobComponent implements OnInit, OnDestroy {
   // FUNCION PARA VACANTES PROGRAMADAS
   validarInformacionII() {
     this.publicarAhora = false;
+    this.esProgramada = true;
     this.activartodo();
 
     const VACANTE = {
