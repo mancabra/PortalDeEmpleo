@@ -9,8 +9,7 @@ export class CompanyService {
 
   constructor(private _http: HttpClient) { }
 
-
-
+  // FUNCNION QUE PERMITE REGISTRAR UNA EMPRESA
   registrar(CompanyRequest: any) {
     //prueba de funcionamiento
     console.log("Proceso RegistrarEmpresa");

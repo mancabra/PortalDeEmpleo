@@ -20,9 +20,7 @@ import { Empresa } from 'src/app/Services/Entity/empresa';
 })
 export class UpdateComponent implements OnInit, OnDestroy {
 
-  ladasMexico = ["+51", "+52", "+53"]; // CAMBIAR POR UN OBSERBABLE
-
-  // tipos de usuario
+  // VARIABLES PARA CAPTURAR LOS DIFERENTES TIPOS DE USUARIO
   usuario: any = new Candidato;
   candidato: Candidato = new Candidato;
   empleador: Empleador = new Empleador;
@@ -30,50 +28,82 @@ export class UpdateComponent implements OnInit, OnDestroy {
   empresa: Empresa = new Empresa;
   id_tipoUsuario: number = 0;
 
-  // variables para ocultar elementos que no pertenecen al perfil
+  // VARIABLES PARA OCULTAR LOS ELEMENTOS QUE NO PERTENECEN AL PERFIL EN USO
   perfilTipoAdministrador: boolean = true;
   perfilTipoCandidato: boolean = true;
   perfilTipoEmpresa: boolean = true;
 
-  usuarioModificado: Candidato = new Candidato;
+  // VARIABLES PAR IDENTIFICAR QUE SECCION SE MODIFICARA
   datosPrincipales: boolean = true;
   datosSecundarios: boolean = false;
 
-  //DATOS A CAPTURAR
-  lada: string;
+  // VARIABLES PARA CAPTURAR DATOS
   nuevoNombre: string = "";
   nuevoApellidoP: string = "";
   nuevoApellidoM: string = "";
+  lada: string;
   nuevoTelefono: string = "";
-  nuevaEdad: number = 0;
+  nuevaFecha: Date = new Date;
   nuevaProfesion: string = "";
-
   nuevoDomicilio: string = "";
   nuevoEstado: Estado = new Estado;
   nuevoMunicipio: Municipio = new Municipio;
   nuevoCentroEducativo: string = "";
   nuevoPuesto: string = "";
-  bloquearMunicipio: string = "all"
-  nuevaFecha: Date = new Date;
+  nuevosIdiomas: Idioma[] = [];
+  nuevasHabilidades: Habilidad[] = [];
 
-  nacimientoSrt: any = "";
-  pipe = new DatePipe('en-US');
-
+  // VARIABLES PARA CAPTURAR DATOS SECUNDARIOS
   nuevoCurriculum: string = "";
   nuevaImagenPerfil: string = "default.jpg";
   nuevaImagenPortada: string = "default.jpg";
   nuevaDescripcion: string = "";
 
+  // VARIABLE PARA BLOQUEAR LOS ELEVENTOS DE UN ELEMNTO HTML
+  bloquearMunicipio: string = "all";
+
+  // VARIABLES PARA LA CAPTURA DE FECHAS Y FORMATOS 
+  nacimientoSrt: any = "";
+  pipe = new DatePipe('en-US');
+
+  ladasMexico = ["+51", "+52", "+53"]; // CAMBIAR POR UN OBSERBABLE
+
+  // VECTOR PARA ALMACENAR LOS ESTADOS DE BD
   estadosMexico: Estado[] = [];
+  // VECTOR PARA ALMACENAR LOS MUNICIPIOS DE BD
   municipiosMexico: Municipio[] = [];
+  // VECTOR PARA ALMACENAR LOS IDIOMAS DE BD
   idiomas: Idioma[] = [];
+  // VECTOR PARA ALMACENAR LAS HABILIDADES DE BD
   habilidades: Habilidad[] = [];
 
+  // VECTOR QUE ALMACENA LOS IDIOMAS QUE TIENE REGISTRADOS EL CANDIDATO
   idiomasCandidato: Idioma[] = [];
+  // VECTOR QUE ALMACENA LAS HABILIDADES QUE TIENE REGISTRADOS EL CANDIDATO
   habilidadesCandidato: Habilidad[] = [];
 
-  nuevosIdiomas: Idioma[] = [];
-  nuevasHabilidades: Habilidad[] = [];
+  // VARIABLES PARA LA CAPTURA DE ARCHIVOS 
+  imgP: any;
+  img: any;
+  document: any;
+  documentE: any;
+
+  // VARIABLES PARA LA REFERENCIA DE RUTAS A FIREBASE
+  imgReff: any;
+  imgReffP: any;
+  documentRef: any;
+  documentERef: any;
+  nuevaEspecialidad: string = "";
+
+  // VARIABLE PARA ALERTA
+  // ALMACENA EL MENSAJE QUE SE ENVIARA AL MOMENTO DE VALIDAR LAS EXTENCIONES
+  mensajeAlerta: string = "";
+
+  // VARIABLES PARA VALIDAR LA EXTENCION DEL ARCIVO SUBIDO
+  extencionPermitidaPerfil: boolean = true;
+  extencionPermitidaPortada: boolean = true;
+  extencionPermitidaCurriculum: boolean = true;
+  extencionPermitidaEspecialidad: boolean = true;
 
   constructor(private _UserRequest: InterfaceService, private _CandidateRequest: CandidateService, private router: Router,
     private _firebase: Storage) {
@@ -89,6 +119,8 @@ export class UpdateComponent implements OnInit, OnDestroy {
     this.buscarEstados();
     this.obtenrIdiomas();
     this.obtenerHabilidades();
+    //this.id_tipoUsuario = 2
+    //this.identificarTipoDePerfil();
   }
 
   ngAfterViewInit() {
@@ -151,20 +183,15 @@ export class UpdateComponent implements OnInit, OnDestroy {
   // FUNCION PARA AJUSTAR A VISTA AL TIPIO DE USUARIO
   identificarTipoDePerfil() {
     if (this.id_tipoUsuario == 1 || this.id_tipoUsuario == 3) {
-
       this.perfilTipoAdministrador = false;
       this.perfilTipoCandidato = true;
       this.perfilTipoEmpresa = true;
-
     } else if (this.id_tipoUsuario == 2) {
-
       this.perfilTipoAdministrador = true;
       this.perfilTipoCandidato = false;
       this.perfilTipoEmpresa = true;
       this.asignarDatosEspecificos(this.candidato);
-
     } else {
-
       this.perfilTipoAdministrador = true;
       this.perfilTipoCandidato = true;
       this.perfilTipoEmpresa = false;
@@ -174,7 +201,6 @@ export class UpdateComponent implements OnInit, OnDestroy {
   // FUNCION PARA ASIGNAR LOS DATOS ESPECIFICOS DE CANDIDATO
 
   asignarDatosEspecificos(candidato: Candidato) {
-    this.nuevaEdad = candidato.edad;
     this.nuevaProfesion = candidato.profesion;
     this.nuevoDomicilio = candidato.domicilio;
     this.nuevoEstado = candidato.estado;
@@ -184,20 +210,27 @@ export class UpdateComponent implements OnInit, OnDestroy {
     this.nuevoPuesto = candidato.puestoActual;
     this.nuevaFecha = candidato.fechaNacimiento;
     this.nuevoCurriculum = candidato.rutaCv;
+    console.log("ver contenido idiomas");
+    console.log(this.idiomasCandidato);
+    console.log(candidato.idiomas);
     this.idiomasCandidato = candidato.idiomas;
+    console.log(this.idiomasCandidato);
+    //this.idiomasCandidato = [{ id_idioma: 1, nombreIdioma: "aleman", candidatos: [] } ];
+    console.log("ver contenido habilidades");
+    console.log(this.habilidadesCandidato);
+    console.log(candidato.habiliadades);
     this.habilidadesCandidato = candidato.habiliadades;
+    //this.habilidadesCandidato = [{ id_habilidad: 0, nombreHabilidad: "nadar", candidatos: [] }];
+    console.log(this.habilidadesCandidato);
   }
 
   // FUNCION PÀRA DAR FORMATO AL NUMERO DE TELEFONO
   validarLongitud() {
     if (this.nuevoTelefono.length == 10) {
-
     } else if (this.nuevoTelefono.length == 17) {
       this.nuevoTelefono = this.nuevoTelefono.slice(3, 17);
-
     } else if (this.nuevoTelefono.length == 18) {
       this.nuevoTelefono = this.nuevoTelefono.slice(4, 18);
-
     } else if (this.nuevoTelefono.length == 19) {
       this.nuevoTelefono = this.nuevoTelefono.slice(5, 19);
     } else {
@@ -296,12 +329,12 @@ export class UpdateComponent implements OnInit, OnDestroy {
     }
   }
 
+  // FUNCION PARA LIMPIAR TODOS LOS CAMPOS DEL FORMULARIO
   limpiarTodo() {
     this.nuevoNombre = "";
     this.nuevoApellidoP = "";
     this.nuevoApellidoM = "";
     this.nuevoTelefono = "";
-    this.nuevaEdad = 0;
     this.nuevaProfesion = "";
     this.nuevoDomicilio = "";
     this.cleanEstate();
@@ -343,7 +376,7 @@ export class UpdateComponent implements OnInit, OnDestroy {
 
   // FUNCION PARA ENVIAR LA NUEVA LISTA DE IDIOMAS
   guardarIdiomas() {
-    this.idiomasCandidato = [];
+    this.nuevosIdiomas = [];
     for (let j = 0; j < this.idiomas.length; j++) {
       const idiomaActual = this.idiomas[j];
       var idioma = <HTMLInputElement>document.getElementById(idiomaActual.nombreIdioma);
@@ -352,25 +385,25 @@ export class UpdateComponent implements OnInit, OnDestroy {
       if (idiomaBoolean == true) {
         this.nuevosIdiomas.push(idiomaActual);
       }
-     }
-     
-      const DTO = {
-        id_candidato: this.candidato.id_candidato,
-        idiomas: this.nuevosIdiomas
+    }
+
+    const DTO = {
+      id_candidato: this.candidato.id_candidato,
+      idiomas: this.nuevosIdiomas
+    }
+
+    this._CandidateRequest.guardarIdiomas(DTO).then((data: any) => {
+      if (data.estatus == true) {
+
+      } else {
+        this.enviarAlerta( "Ha surgido un error inesperado que nos impidio modificar los idiomas.", true);
       }
-
-      this._CandidateRequest.guardarIdiomas(DTO).then((data: any) => {
-        if (data.estatus == true) {
-
-        } else {
-          alert("Algo Fallo Durante la Modificación de Idiomas");
-        }
-      });
+    });
   }
 
   // FUNCION PARA ENVIAR LA NUEVA LISTA DE HABILIDADES
   guardarHabilidades() {
-    this.habilidadesCandidato = [];
+    this.nuevasHabilidades = [];
     for (let j = 0; j < this.habilidades.length; j++) {
       const habilidadActual = this.habilidades[j];
       var habilidad = <HTMLInputElement>document.getElementById(habilidadActual.nombreHabilidad);
@@ -390,7 +423,7 @@ export class UpdateComponent implements OnInit, OnDestroy {
       if (data.estatus == true) {
         //
       } else {
-        alert("Algo Fallo Durante la Modificación de Habilidades");
+        this.enviarAlerta( "Ha surgido un error inesperado que nos impidio modificar las habilidades.", true);
       }
     });
   }
@@ -398,8 +431,8 @@ export class UpdateComponent implements OnInit, OnDestroy {
   // FUNCION PARA LA CAPTURA DE LOS DATOS PRINCIPALES
   capturarPrincipales() {
     if (this.id_tipoUsuario == 1) {
-
       this.usuario = this.administrador;
+
       const USUARIO_MODIFICADO = {
         id_usuario: this.administrador.usuario.id_usuario,
         nombre: this.nuevoNombre,
@@ -407,12 +440,11 @@ export class UpdateComponent implements OnInit, OnDestroy {
         apellidoM: this.nuevoApellidoM,
         telefono: this.nuevoTelefono,
       }
-
+    
       this.validarDatosNombre(USUARIO_MODIFICADO);
-
     } else if (this.id_tipoUsuario == 2) {
-
       this.usuario = this.candidato;
+
       const USUARIO_MODIFICADO = {
         id_candidato: this.candidato.id_candidato,
         nombre: this.nuevoNombre,
@@ -430,10 +462,9 @@ export class UpdateComponent implements OnInit, OnDestroy {
       }
 
       this.validarDatosNombre(USUARIO_MODIFICADO);
-
     } else if (this.id_tipoUsuario == 3) {
-
       this.usuario = this.empleador;
+
       const USUARIO_MODIFICADO = {
         id_usuario: this.empleador.usuario.id_usuario,
         nombre: this.nuevoNombre,
@@ -648,7 +679,6 @@ export class UpdateComponent implements OnInit, OnDestroy {
   // FUNCION PARA LA CAPTURA DE ESTADOS
   validarDatosEstado(usuarioModificado: any) {
     if (usuarioModificado.id_estado == 0) {
-      alert("NO SE SELECCIONO UN ESTADO. Los datos del municipio y estado NO han cambiado");
       usuarioModificado.id_estado = this.usuario.estado.id_estado;
       usuarioModificado.id_municipio = this.usuario.municipio.id_municipio;
     } else if (usuarioModificado.id_estado != this.usuario.estado.id_estado) {
@@ -660,7 +690,6 @@ export class UpdateComponent implements OnInit, OnDestroy {
   // FUNCION PARA LA CAPTURA DE FECHAS DE NACIMIENTO
   validarMunicipio(usuarioModificado: any) {
     if (usuarioModificado.id_municipio == 0) {
-      alert("NO SE SELECCIONO UN MUNICIPIO. Los datos del municipio y estado NO han cambiado");
       usuarioModificado.id_estado = this.usuario.estado.id_estado;
       usuarioModificado.id_municipio = this.usuario.municipio.id_municipio;
     } else {
@@ -682,10 +711,10 @@ export class UpdateComponent implements OnInit, OnDestroy {
   guardarModPrincipales(usuarioModificado: any) {
     this._CandidateRequest.modificar(usuarioModificado).then((data: any) => {
       if (data.estatus == true) {
-        alert("Modificación Exitosa");
+        this.enviarAlerta( "El perfil ha sido modificado correctamente.", false);
         this.router.navigate(['interface/perfil']);
       } else {
-        alert("Algo Fallo");
+        this.enviarAlerta( "Ha surgido un error inesperado que nos impidio modificar el perfil.", true);
       }
     });
   }
@@ -693,17 +722,15 @@ export class UpdateComponent implements OnInit, OnDestroy {
   guardarModPrincipalesII(usuarioModificado: any) {
     this._UserRequest.modificar(usuarioModificado).then((data: any) => {
       if (data.estatus == true) {
-        alert("Modificación Exitosa");
+        this.enviarAlerta( "El perfil ha sido modificado correctamente.", false);
         this.router.navigate(['interface/perfil']);
       } else {
-        alert("Algo Fallo");
+        this.enviarAlerta( "Ha surgido un error inesperado que nos impidio modificar el perfil.", true);
       }
     });
   }
 
-  // IMAGENES PERFIL
-  img: any;
-  imgReff: any;
+  // FUNCION PARA LA CAPTURA DE UN ARCHIVO DE TIPO IMAGEN PERFIL
   uploadImage($event: any) {
     this.img = $event.target.files[0];
     const name = this.usuario.usuario.nombre + this.usuario.usuario.apellidoP + this.usuario.usuario.apellidoM;
@@ -718,9 +745,7 @@ export class UpdateComponent implements OnInit, OnDestroy {
     this.evaluarExtencion(ARCHIVO);
   }
 
-  // IMAGENES PORTADA
-  imgP: any;
-  imgReffP: any;
+  // FUNCION PARA LA CAPTURA DE UN ARCHIVO DE TIPO IMAGEN PORTADA
   uploadImagePortada($event: any) {
     this.imgP = $event.target.files[0];
     const name = this.usuario.usuario.nombre + this.usuario.usuario.apellidoP + this.usuario.usuario.apellidoM;
@@ -735,9 +760,7 @@ export class UpdateComponent implements OnInit, OnDestroy {
     this.evaluarExtencion(ARCHIVO);
   }
 
-  // ARCHIVOS CV
-  document: any;
-  documentRef: any;
+  // FUNCION PARA LA CAPTURA DE UN ARCHIVO DE TIPO CV
   uploadCV($event: any) {
     this.document = $event.target.files[0];
     const name = this.usuario.usuario.nombre + this.usuario.usuario.apellidoP + this.usuario.usuario.apellidoM;
@@ -752,10 +775,20 @@ export class UpdateComponent implements OnInit, OnDestroy {
     this.evaluarExtencion(ARCHIVO);
   }
 
-  extencionPermitidaPerfil: boolean = true;
-  extencionPermitidaPortada: boolean = true;
-  extencionPermitidaCurriculum: boolean = true;
-  extencionPermitidaEspecialidad: boolean = true;
+  // FUNCION PARA LA CAPTURA DE UN ARCHIVO DE TIPO ESPECIALIDAD
+  uploadEspecialidad($event: any) {
+    this.documentE = $event.target.files[0];
+    const name = this.usuario.usuario.nombre + this.usuario.usuario.apellidoP + this.usuario.usuario.apellidoM;
+    this.nuevaEspecialidad = this.documentE.name;
+    this.documentERef = ref(this._firebase, `documentos${name}/especialidad/${this.documentE.name}`);
+
+    const ARCHIVO = {
+      tipo: "especialidad",
+      name: this.documentE.name,
+    }
+
+    this.evaluarExtencion(ARCHIVO);
+  }
 
   // FUNCION PARA VERIFICAR TERMINACION DE ARCHIVOS
   evaluarExtencion(archivo: any) {
@@ -769,7 +802,7 @@ export class UpdateComponent implements OnInit, OnDestroy {
       this.extencionPermitidaPortada = true;
       this.extencionPermitidaPortada = archivo.name.includes(".png");
       if (this.extencionPermitidaPortada == false) {
-        this.extencionPermitidaPerfil = archivo.name.includes(".jpg");
+        this.extencionPermitidaPortada = archivo.name.includes(".jpg");
       }
     } else if (archivo.tipo == "curriculum") {
       this.extencionPermitidaCurriculum = true;
@@ -782,10 +815,10 @@ export class UpdateComponent implements OnInit, OnDestroy {
     }
   }
 
-  // FUNCION PARA EVALUAR LA TERMINACION DEL ARCHIVO SUBIDO
+  // FUNCION PARA SUBIR UN ARCHIVO SEGUN SU TERMINACION 
   evaluarArchivosSubidosPerfil() {
     if (this.extencionPermitidaPerfil == false) {
-      alert("el archivo seleccionado como imagen de perfil no es de una extencion permitida");
+      this.mensajeAlerta = this.mensajeAlerta + "imagen de perfil"
     } else {
       // CARGAR PERFIL
       if (this.nuevaImagenPerfil != "default.jpg") {
@@ -796,10 +829,14 @@ export class UpdateComponent implements OnInit, OnDestroy {
     }
   }
 
-  // FUNCION PARA EVALUAR LA TERMINACION DEL ARCHIVO SUBIDO
+  // FUNCION PARA SUBIR UN ARCHIVO SEGUN SU TERMINACION 
   evaluarArchivosSubidosPortada() {
     if (this.extencionPermitidaPortada == false) {
-      alert("el archivo seleccionado como imagen de portada no es de una extencion permitida");
+      if (this.extencionPermitidaPerfil == false) {
+        this.mensajeAlerta = this.mensajeAlerta + ", imagen de portada";
+      } else {
+        this.mensajeAlerta = this.mensajeAlerta + "imagen de portada";
+      }
     } else {
       // CARGAR PORTADA
       if (this.nuevaImagenPortada != "default.jpg") {
@@ -810,10 +847,14 @@ export class UpdateComponent implements OnInit, OnDestroy {
     }
   }
 
-  // FUNCION PARA EVALUAR LA TERMINACION DEL ARCHIVO SUBIDO
+  // FUNCION PARA SUBIR UN ARCHIVO SEGUN SU TERMINACION 
   evaluarArchivosSubidosCV() {
     if (this.extencionPermitidaCurriculum == false) {
-      alert("el archivo seleccionado como cv no es de una extencion permitida");
+      if (this.extencionPermitidaPerfil == false || this.extencionPermitidaPortada == false) {
+        this.mensajeAlerta = this.mensajeAlerta + ", curriculum";
+      } else {
+        this.mensajeAlerta = this.mensajeAlerta + "curriculum";
+      }
     } else {
       // CARGAR CV
       if (this.nuevoCurriculum != "") {
@@ -824,46 +865,67 @@ export class UpdateComponent implements OnInit, OnDestroy {
     }
   }
 
-  // FUNCION PARA EVALUAR LA TERMINACION DEL ARCHIVO SUBIDO
+  // FUNCION PARA SUBIR UN ARCHIVO SEGUN SU TERMINACION 
   evaluarArchivosSubidosEspecialidad() {
     if (this.extencionPermitidaEspecialidad == false) {
-      alert("el archivo seleccionado como archivo de especialidad no es de una extencion permitida");
+      if (this.extencionPermitidaPerfil == false || this.extencionPermitidaPortada == false || this.extencionPermitidaCurriculum == false) {
+        this.mensajeAlerta = this.mensajeAlerta + " y especialidad";
+      } else {
+        this.mensajeAlerta = this.mensajeAlerta + "especialidad";
+      }
     } else {
-
+      // CARGAR ESPECIALIDAD
+      if (this.nuevaEspecialidad != "") {
+        uploadBytes(this.documentERef, this.documentE)
+          .then(response => console.log(response))
+          .catch(error => console.log(error));
+      }
     }
   }
 
   // MODIFICACION DE IMAGENES
   capturarSecundarios() {
+    this.mensajeAlerta = "";
     this.evaluarArchivosSubidosPerfil();
     this.evaluarArchivosSubidosPortada();
     this.evaluarArchivosSubidosCV();
     this.evaluarArchivosSubidosEspecialidad();
-    if (this.extencionPermitidaEspecialidad == false || this.extencionPermitidaPortada == false || this.extencionPermitidaPerfil || this.extencionPermitidaCurriculum == false) {
-      //
+    this.mensajeAlerta = "Los archivos seleccionados para el campo: " + this.mensajeAlerta + " no son de una extención valida."
+      + " Ten en cuenta que las extenciones permitidas para los campos de captura de imagenes son PNG y JPG, mientras que para la captura de archivos solo de admite el formato PDF";
+    if (this.extencionPermitidaEspecialidad == false || this.extencionPermitidaPortada == false || this.extencionPermitidaPerfil == false || this.extencionPermitidaCurriculum == false) {
+      this.enviarAlerta(this.mensajeAlerta, true);
     } else {
       const USUARIOMOD = {
         id_usuario: this.usuario.usuario.id_usuario,
         rutaImagenPerfil: this.nuevaImagenPerfil,
         rutaImagenPortada: this.nuevaImagenPortada,
         rutaCv: this.nuevoCurriculum,
+        rutaEspecialidad: this.nuevaEspecialidad,
       }
       this.guardarArchivos(USUARIOMOD);
     }
   }
 
-  // FUNCIONES PARA GUARDAR LOS DATOS EN BASE 
+  // FUNCIONES PARA GUARDAR LOS DATOS SECUNDARIOS EN BD
   guardarArchivos(archivos: any) {
     this._CandidateRequest.modificarSecundarios(archivos).then((data: any) => {
       if (data.estatus == true) {
-        alert("Modificación Exitosa");
         this.router.navigate(['interface/perfil']);
       } else {
-        alert("Algo Fallo");
+        this.enviarAlerta( "Ha surgido un error inesperado que nos impidio cargar los archivos en base de datos.", true);
       }
     });
   }
 
+  // FUNCION PARA EL POPUP
+  enviarAlerta(mss: String, error: boolean) {
 
+    const ALERTA = {
+      mss: mss,
+      error: error,
+    }
 
+    this._UserRequest.activarAlerta();
+    this._UserRequest.cargarAlerta(ALERTA);
+  }
 }

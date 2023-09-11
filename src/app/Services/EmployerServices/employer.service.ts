@@ -16,20 +16,26 @@ export class EmployerService {
 
   id_empleador: any = 0;
   correo: string = "";
+
+  // VARIABLE QUE ALMACENA UNA VACANTE
   vacante: Vacante = new Vacante;
+  // VARIABLE PARA EL OBSERVABLE DE TIPO VACANTE
   private vacante$ = new Subject<Vacante>();
 
+  // VARIABLE QUE ALMACENA UNA LISTA DE EMPRESAS
   empresas: Empresa[] = [];
+  // VARIABLE PARA EL OBSERVABLE DE TIPO EMPRESAS
   private empresas$ = new Subject<Empresa[]>();
 
   constructor(private _http: HttpClient) { }
 
+  // FUNCION QUE PERMITE GUARDAR EL CORREO INGRESADO EN EL LOGIN EN UNA VARIABLE LOCAL
   guaradarCorreo(correo: any) {
     this.correo = correo;
     console.log(this.correo);
   }
 
-
+  // FUNCION QUE PERMITE REGISTRAR UN EMPLEADOR
   registrar(EmployerRequest: any) {
     //prueba de funcionamiento
     console.log("Proceso RegistrarEmpleador");
@@ -39,6 +45,7 @@ export class EmployerService {
     return this._http.put("app/registroEmpleador", EmployerRequest).toPromise();
   }
 
+  // FUNCION QUE PERMITE BUSCAR UN EMPLEADOR
   obtener() {
     console.log("Proceso buscarUsuario");
     console.log("Info Enviada");
@@ -48,7 +55,7 @@ export class EmployerService {
     return this._http.get<Empleador>(cadena).toPromise();
   }
 
-  // OBTENER PUBLICACIONES DE CANDIDATO
+  // OBTENER PUBLICACIONES DE EMPLEADOR
   obtenerPublicaciones(EmployerRequest: any): Observable<Vacante[]> {
     console.log("Proceso obtener publicaciones");
     console.log("Info Enviada");
@@ -69,6 +76,7 @@ export class EmployerService {
     return this._http.get<Candidato[]>(cadena);
   }
 
+   // FUNCION QUE PERMITE CAMBIAR EL ESTADO DE UN CANDIDATO EN UNA POSTULACION
   aceptarCandidato(EmployerRequest: any) {
     console.log("Proceso obtener Aceptarcandidato");
     console.log("Info Enviada");
@@ -96,6 +104,7 @@ export class EmployerService {
     return this._http.get<Empresa[]>("app/obtenerListaEmpresas");
   }
 
+  // FUNCION QUE PERMITE OBTENER LOS TIPOS DE HORARIO REGISTRADOS EN BD
   obtenerTiposDehorario(): Observable<TipoHorario[]> {
     //prueba de funcionamiento
     console.log("Proceso obtenerTiposHorario");
@@ -103,6 +112,7 @@ export class EmployerService {
     return this._http.get<TipoHorario[]>("app/obtenerTiposHorario");
   }
 
+  // FUNCION QUE PERMITE OBTENER LOS TIPOS DE CONTRATACION REGISTRADOS EN BD
   obtenerTiposContratacion(): Observable<TipoContratacion[]> {
     //prueba de funcionamiento
     console.log("Proceso obtenerTiposContratacion");
@@ -110,6 +120,7 @@ export class EmployerService {
     return this._http.get<TipoContratacion[]>("app/obtenerTiposContratacion");
   }
 
+  // FUNCION QUE PERMITE OBTENER LOS TIPOS DE MODALIDAD REGISTRADOS EN BD
   obtenerModalidades(): Observable<ModalidadTrabajo[]> {
     //prueba de funcionamiento
     console.log("Proceso obtenerModalidades");
@@ -117,6 +128,7 @@ export class EmployerService {
     return this._http.get<ModalidadTrabajo[]>("app/obtenerModalidadesTrabajo");
   }
 
+  // FUNCION QUE PERMITE PUBLICAR UNA VACANTE 
   publicarVacante(EmployerRequest: any) {
     console.log("Proceso publicarVcanate");
     console.log("Info Enviada");
@@ -126,6 +138,7 @@ export class EmployerService {
 
   }
 
+   // FUNCION QUE PERMITE MODIFICAR UNA VACANTE 
   modificarVacante(EmployerRequest: any) {
     console.log("Proceso modificarVacante");
     console.log("Info Enviada");
@@ -134,6 +147,7 @@ export class EmployerService {
     return this._http.put("app/modificarVacante", EmployerRequest).toPromise();
   }
 
+  // FUNCION QUE PERMITE PROGRAMAR UNA VACANTE 
   programarVacante(EmployerRequest: any) {
     console.log("Proceso programarVacante");
     console.log("Info Enviada");
@@ -152,6 +166,7 @@ export class EmployerService {
     this.cargarVacante();
   }
 
+  //FUNCION QUE ENVIA UNA ACTUALIZACION A LOS COMPONENTES QUE SE SUSCRIBIERON A ESTE OBSERVABLE
   cargarVacante() {
     this.vacante = this.vacante;
     this.vacante$.next(this.vacante);
@@ -169,7 +184,8 @@ export class EmployerService {
       this.cargarEmpresas(this.empresas);
     });
   }
-
+ 
+  //FUNCION QUE ENVIA UNA ACTUALIZACION A LOS COMPONENTES QUE SE SUSCRIBIERON A ESTE OBSERVABLE
   cargarEmpresas(empresas:Empresa[]){
     this.empresas$.next(empresas);
   }

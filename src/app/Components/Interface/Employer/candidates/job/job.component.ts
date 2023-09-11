@@ -14,10 +14,17 @@ import { Vacante } from 'src/app/Services/Entity/vacante';
   styleUrls: ['./job.component.css']
 })
 export class JobComponent {
+
+// VARIABLES PARA AL MACENAR DATOS DE UNA VACANTE
+// LOS DATOS ALMACENADOS PROVIENEN DE UN COMPONENTE EXTERIOR
 @Input () vacante : Vacante = new Vacante;
+
+// VARIABLES PARA GESTIONAR UN COMPONENTE HTML
+// LOS DATOS PROVIENEN DE UN COMPONENTE EXTERIOR
 @Input () verSueldoP: string = "";
 
-
+// VARIABLES PARA AL MACENAR DATOS INDIVIDUALES
+// LOS DATOS ALMACENADOS PROVIENEN DE UN COMPONENTE EXTERIOR
 @Input () nombre : string = "";
 @Input () especialista: string  = "";
 @Input () sueldo: number  = 6223;

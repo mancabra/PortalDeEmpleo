@@ -15,17 +15,12 @@ export class Candidato {
     centroEducativo: string  = "";
     rutaCv: string  = "";
     usuario: Usuario = new Usuario;
-
     vacantes: Vacante[] = [];
     idiomas: Idioma[] = [];
-
-
     municipio: Municipio = new Municipio;
     estado: Estado = new Estado;
-
     profesion: string = "";
-
     fechaNacimiento: Date = new Date;
     habiliadades: Habilidad [] = [];
-
+    rutaEspecialidad: string  = "";
 }

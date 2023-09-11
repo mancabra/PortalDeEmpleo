@@ -11,18 +11,25 @@ import { InterfaceService } from 'src/app/Services/InterfaceServices/interface.s
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit, OnDestroy {
-  subscription:Subscription;
-  ocultarNavbar:boolean = false;
-  //usuario: Candidato = new Candidato;
 
-  subscription2:Subscription;
+  // VARIABLE PARA LA SUSCRIPCION A UN OBSERVABLE
+  subscription: Subscription;
+  // VARIABLE QUE PERMITE GESTIONAR UN ELMENTOS HTML
+  ocultarNavbar: boolean = false;
+
+  // VARIABLE PARA LA SUSCRIPCION A UN OBSERVABLE
+  subscription2: Subscription;
+  // VARIABLE QUE ALMACENA UN TIPO DE USUARIO
   id_tipoUsuario: number = 0;
 
+  // DETERMINA EL USUARIO ACTIVO SEGUN EL ID DEL TIPO USUARIO
   administradorActivo: boolean = true;
   candidatoActivo: boolean = true;
   visitanteActivo: boolean = true;
   empleadorActivo: boolean = true;
 
+  // VARIABLES PARA GESTIONAR UN ELEMNTO HTML
+  // CADA VARIABLE HACE REFERENCIA A UNA VISTA DISPONIBLE EN LA APP
   vacantes: boolean = true;
   postulaciones: boolean = true;
   notificaciones: boolean = true;
@@ -32,11 +39,16 @@ export class NavbarComponent implements OnInit, OnDestroy {
   publicaciones: boolean = true;
   publicarNueva: boolean = true;
 
-  constructor(private router: Router, private _UserRequest:InterfaceService) {
+  // INYECCION DE SERVICOS A USAR EN EL COMPONENTE
+  constructor(
+    private router: Router,
+    private _UserRequest: InterfaceService) {
+
+    // SUSCRIPCION AL OBSERVABLE DE UN SERVICIO PARA OBTENER UNA VARIABLE BOOLEANA
     this.subscription = this._UserRequest.getNavBar().subscribe(data => {
       this.ocultarNavbar = data;
     });
-
+    // SUSCRIPCION AL OBSERVABLE DE UN SERVICIO PARA OBTENER EL TIPO DE USUARIO QUE IUNICIO SESION
     this.subscription2 = this._UserRequest.getTipoUsuario().subscribe(data => {
       this.id_tipoUsuario = data;
       this.actualizarUsuario();
@@ -49,11 +61,14 @@ export class NavbarComponent implements OnInit, OnDestroy {
     this.actualizarUsuario();
   }
 
+  // FUNCION PARA ELIMINAR LA SUSCRIPCION A UN OBSERVABLE
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
     this.subscription2.unsubscribe();
   }
 
+  // FUNCION QUE EVALUA UNA VARIABLE 
+  // SI LA VARIABLE ES NULA MUESTRA UNA PANTALLA ALTERNATIVA
   cargarPantalla() {
     if (this.id_tipoUsuario == null) {
       return false;
@@ -63,60 +78,47 @@ export class NavbarComponent implements OnInit, OnDestroy {
   }
 
   actualizarUsuario() {
-    //this.asignarUsuario();
     this.validarUsuario();
   }
 
-  /*
-  asignarUsuario() {
-    this.id_tipoUsuario = this.usuario.usuario.id_usuario;
-  }
-*/
-
+  // FUNCION QUE VALIDA EL TIPO DE USUARIO ACTIVO Y LE ASIGNA UNA VISTA PREDETERMINADA
+  // ADMINISTRADOR : VENTANA PREDETERMINADA (Adminsitrar)
+  // CANDIDATO : VENTANA PREDETERMINADA (Vacantes)
+  // EMPLEADOR : VENTANA PREDETERMINADA (Publicar Nueva)
+  // visitante : VENTANA PREDETERMINADA (Vacantes)
   validarUsuario() {
-
-    //SE TIENE QUE VALIDAR CUALES SON LOS USUARIOS
     if (this.id_tipoUsuario == 0) {
-
       this.administradorActivo = true;
       this.candidatoActivo = true;
       this.visitanteActivo = false;
       this.empleadorActivo = true;
       this.seleccionar("Vacantes");
-
-
     } else if (this.id_tipoUsuario == 2) {
-
       this.administradorActivo = true;
       this.candidatoActivo = false;
       this.visitanteActivo = true;
       this.empleadorActivo = true;
       this.seleccionar("Vacantes");
-
     } else if (this.id_tipoUsuario == 3) {
-
       this.administradorActivo = true;
       this.candidatoActivo = true;
       this.visitanteActivo = true;
       this.empleadorActivo = false;
       this.seleccionar("Publicar Nueva");
-
     } else if (this.id_tipoUsuario == 1) {
-
       this.administradorActivo = false;
       this.candidatoActivo = true;
       this.visitanteActivo = true;
       this.empleadorActivo = true;
       this.seleccionar("Administrar");
-
     } else {
 
     }
   }
 
+  // FUNCION QUE EVALUA LA VENTANA ASIGNADA Y DETERMINA UN FLUJO
   seleccionar(ventana: string) {
     if (ventana == "Vacantes") {
-
       this.verVacantes();
     } else if (ventana == "Postulaciones") {
       this.verPostulaciones();
@@ -137,11 +139,14 @@ export class NavbarComponent implements OnInit, OnDestroy {
     }
   }
 
+  // FUNCION DEL BOTON LOGIN DE LA NAVBAR
   login() {
     this._UserRequest.ocultarNavB();
     this.router.navigate(['start']);
   }
 
+  // FUNCION QUE CAMBIA LA RUTA ACTUAL A LA DE LA VISTA SELECCIONADA
+  // LA VARIABLE BOOLEANA EN FALSE DA UN ESTILO A LA VISTA SELECCIONADA 
   verVacantes() {
     this.vacantes = false;
     this.postulaciones = true;
@@ -154,6 +159,8 @@ export class NavbarComponent implements OnInit, OnDestroy {
     this.router.navigate(['interface/vacantes']);
   }
 
+  // FUNCION QUE CAMBIA LA RUTA ACTUAL A LA DE LA VISTA SELECCIONADA
+  // LA VARIABLE BOOLEANA EN FALSE DA UN ESTILO A LA VISTA SELECCIONADA 
   verPostulaciones() {
     this.vacantes = true;
     this.postulaciones = false;
@@ -166,6 +173,8 @@ export class NavbarComponent implements OnInit, OnDestroy {
     this.router.navigate(['interface/postulaciones']);
   }
 
+  // FUNCION QUE CAMBIA LA RUTA ACTUAL A LA DE LA VISTA SELECCIONADA
+  // LA VARIABLE BOOLEANA EN FALSE DA UN ESTILO A LA VISTA SELECCIONADA 
   Notificaciones() {
     this.vacantes = true;
     this.postulaciones = true;
@@ -178,6 +187,8 @@ export class NavbarComponent implements OnInit, OnDestroy {
     this.router.navigate(['interface/notificaciones']);
   }
 
+  // FUNCION QUE CAMBIA LA RUTA ACTUAL A LA DE LA VISTA SELECCIONADA
+  // LA VARIABLE BOOLEANA EN FALSE DA UN ESTILO A LA VISTA SELECCIONADA 
   verPerfil() {
     this.vacantes = true;
     this.postulaciones = true;
@@ -190,6 +201,8 @@ export class NavbarComponent implements OnInit, OnDestroy {
     this.router.navigate(['interface/perfil']);
   }
 
+  // FUNCION QUE CAMBIA LA RUTA ACTUAL A LA DE LA VISTA SELECCIONADA
+  // LA VARIABLE BOOLEANA EN FALSE DA UN ESTILO A LA VISTA SELECCIONADA 
   verAdministrar() {
     this.vacantes = true;
     this.postulaciones = true;
@@ -202,6 +215,8 @@ export class NavbarComponent implements OnInit, OnDestroy {
     this.router.navigate(['interface/administrar']);
   }
 
+  // FUNCION QUE CAMBIA LA RUTA ACTUAL A LA DE LA VISTA SELECCIONADA
+  // LA VARIABLE BOOLEANA EN FALSE DA UN ESTILO A LA VISTA SELECCIONADA 
   verPeticiones() {
     this.vacantes = true;
     this.postulaciones = true;
@@ -214,6 +229,8 @@ export class NavbarComponent implements OnInit, OnDestroy {
     this.router.navigate(['interface/peticiones']);
   }
 
+  // FUNCION QUE CAMBIA LA RUTA ACTUAL A LA DE LA VISTA SELECCIONADA
+  // LA VARIABLE BOOLEANA EN FALSE DA UN ESTILO A LA VISTA SELECCIONADA 
   verPublicaciones() {
     this.vacantes = true;
     this.postulaciones = true;
@@ -226,6 +243,8 @@ export class NavbarComponent implements OnInit, OnDestroy {
     this.router.navigate(['interface/publicaciones']);
   }
 
+  // FUNCION QUE CAMBIA LA RUTA ACTUAL A LA DE LA VISTA SELECCIONADA
+  // LA VARIABLE BOOLEANA EN FALSE DA UN ESTILO A LA VISTA SELECCIONADA 
   verNueva() {
     this.vacantes = true;
     this.postulaciones = true;

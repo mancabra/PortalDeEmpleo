@@ -10,12 +10,21 @@ import { Vacante } from 'src/app/Services/Entity/vacante';
 })
 export class UpdateJobComponent implements OnInit , OnDestroy{
 
+  // VARIABLE PARA LA SUSCRIPCION A UN OBSERVABLE
   subscription:Subscription;
+
+  // VARIABLE PARA ALMACENAR UNA VACANTE
+  // LA VACANTE ES TOMADA DEL OBSERVABLE
   vacante: Vacante = new Vacante;
+
+  // VARIABLES QUE GESTIONAN UN ELMENTO HTML EN UN COMPONENTE EXTERNO
   vistaModificacion: boolean = true;
   programarP: boolean = true;
 
+  // INYECCION DE SERVICOS A USAR EN EL COMPONENTE
   constructor(private _EmployerRequest: EmployerService){
+
+  // SUSCRIPCION AL OBSERVABLE DE UN SERVICIO PARA OBTENER UNA VACANTE
   this.subscription = this._EmployerRequest.getVacante().subscribe(data => {
     this.vacante = data
       this.actualizarVacante(this.vacante);
@@ -26,17 +35,14 @@ export class UpdateJobComponent implements OnInit , OnDestroy{
     this._EmployerRequest.cargarVacante();
   }
 
+  // FUNCION QUE GUARDA LOS DATOS RECIBIDOS DE UN OBSERVABLE EN UNA VARIABLE
   actualizarVacante(data: Vacante){
     this.vacante = data;
-    console.log("update");
-    console.log(this.vacante);
-    console.log(data);
   }
 
+  // FUNCION PARA ELIMINAR LA SUSCRIPCION A UN OBSERVABLE
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }
-
-
 
 }

@@ -11,22 +11,21 @@ import { Idioma } from '../Entity/idioma';
 })
 export class CandidateService {
 
-  correo: string = "";
-
   private postulaciones$ = new Subject<Postulacion[]>();
   postulaciones: Postulacion[] = [];
+  correo: string = "";
 
   constructor(private _http: HttpClient) {
 
   }
 
+  // FUNCION QUE PERMITE GUARDAR EL CORREO INGRESADO EN EL LOGIN EN UNA VARIABLE LOCAL
   guaradarCorreo(correo: any) {
     this.correo = correo;
     console.log(this.correo);
   }
 
   // FUNCIONES DE CREACION ---------------------------------
-
   registrar(CandidateRequest: any) {
     //prueba de funcionamiento
     console.log("Proceso RegistrarCandidato");
@@ -37,7 +36,6 @@ export class CandidateService {
   }
 
   // FUNCIONES DE MODIFICACION -----------------------------
-
   // GUARDAR ATRIBUTOS
   modificar(CandidatoDTO: any) {
     //prueba de funcionamiento
@@ -79,7 +77,6 @@ export class CandidateService {
   }
 
   // FUNCIONES PARA OBTENER DATOS --------------------------
-
   // OBTENER USUARIO COMPLETO
   obtener() {
     //prueba de funcionamiento
@@ -214,7 +211,6 @@ export class CandidateService {
   }
 
   //OBSERVABLE POSTULACIONES
-
   getRequest(): Observable<Postulacion[]> {
     return this.postulaciones$.asObservable();
   }
