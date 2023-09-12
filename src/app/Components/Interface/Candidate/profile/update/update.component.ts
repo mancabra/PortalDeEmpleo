@@ -1,5 +1,5 @@
 import { DatePipe } from '@angular/common';
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CandidateService } from 'src/app/Services/CandidateServices/candidate.service';
 import { Candidato } from 'src/app/Services/Entity/candidato';
@@ -12,6 +12,8 @@ import { Habilidad } from 'src/app/Services/Entity/habilidad';
 import { Empleador } from 'src/app/Services/Entity/empleador';
 import { Administrador } from 'src/app/Services/Entity/administrador';
 import { Empresa } from 'src/app/Services/Entity/empresa';
+import { Subscription } from 'rxjs';
+import { AdminService } from 'src/app/Services/AdminServices/admin.service';
 
 @Component({
   selector: 'app-update',
@@ -21,7 +23,7 @@ import { Empresa } from 'src/app/Services/Entity/empresa';
 export class UpdateComponent implements OnInit, OnDestroy {
 
   // VARIABLES PARA CAPTURAR LOS DIFERENTES TIPOS DE USUARIO
-  usuario: any = new Candidato;
+  usuario: any;
   candidato: Candidato = new Candidato;
   empleador: Empleador = new Empleador;
   administrador: Administrador = new Administrador;
@@ -41,7 +43,7 @@ export class UpdateComponent implements OnInit, OnDestroy {
   nuevoNombre: string = "";
   nuevoApellidoP: string = "";
   nuevoApellidoM: string = "";
-  lada: string;
+  lada: string = "+52";
   nuevoTelefono: string = "";
   nuevaFecha: Date = new Date;
   nuevaProfesion: string = "";
@@ -105,17 +107,35 @@ export class UpdateComponent implements OnInit, OnDestroy {
   extencionPermitidaCurriculum: boolean = true;
   extencionPermitidaEspecialidad: boolean = true;
 
-  constructor(private _UserRequest: InterfaceService, private _CandidateRequest: CandidateService, private router: Router,
+  // VARIABLE PARA LA SUSCRIPCION A UN OBSERVABLE
+  subscription: Subscription;
+
+  // VARIABLE QUE PERMITE IDIENTIFICAR DESDE QUE VISTA SE ABRE EL COMPONENTE
+  @Input() vistaAdministrar: boolean = false;
+
+  // VARIABLES PARA GUARDAR LOS ARCHIVOS ANTERIORES
+  imagenPortada: string = "";
+  imagenPeril: string = "";
+  rutaCV: string = "";
+  rutaEspecialidad: string = "";
+
+  // INYECCION DE SERVICOS A USAR EN EL COMPONENTE
+  constructor(
+    private _UserRequest: InterfaceService,
+    private _CandidateRequest: CandidateService,
+    private _AdminRequest: AdminService,
+    private router: Router,
     private _firebase: Storage) {
 
-    this.lada = "+52";
-    //this.idiomas = [{ id_idioma: 0, nombreIdioma: "Ingles", candidatos: [] }, { id_idioma: 1, nombreIdioma: "aleman", candidatos: [] } ];
-    //this.habilidades = [{ id_habilidad: 0, nombreHabilidad: "nadar", candidatos: [] },{ id_habilidad: 1, nombreHabilidad: "volar", candidatos: [] }];
-
+    // SUSCRIPCION AL OBSERVABLE DE UN SERVICIO PARA OBTENER UN USUARIO
+    this.subscription = this._AdminRequest.getUsuario().subscribe(data => {
+      this.usuario = data;
+      this.identificarVista();
+    });
   }
 
   ngOnInit(): void {
-    this.buscarUsuario();
+    this.identificarVista();
     this.buscarEstados();
     this.obtenrIdiomas();
     this.obtenerHabilidades();
@@ -124,12 +144,52 @@ export class UpdateComponent implements OnInit, OnDestroy {
   }
 
   ngAfterViewInit() {
-    this.asignarIdiomas();
-    this.asignarHabilidades();
+    //this.asignarIdiomas();
+    //this.asignarHabilidades();
   }
 
   ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+  }
 
+  // FUNCION PARA IDENTIFICAR EL FLUJO A SEGUIR SEGUN EL COMPONENTE QUE HAGA USO DE ESTE COMPONENTE
+  identificarVista() {
+    if (this.vistaAdministrar == true) {
+      this.busquedaDeAdmin();
+    } else {
+      this.buscarUsuario();
+    }
+  }
+
+  // FUNCION PARA IDENTIFICAR EL TIPO DE PERFIL SEGUN EL OBSERVABLE DE USUARIO 
+  busquedaDeAdmin() {
+    if (this.usuario.usuario.tipoUsuario == 1) {
+      this.administrador = this.usuario;
+      this.id_tipoUsuario = this.administrador.usuario.tipoUsuario;
+      this.imagenPortada = this.administrador.usuario.rutaImagenPortada;
+      this.imagenPeril = this.administrador.usuario.rutaImagenPerfil;
+      this.asignarGenerales(this.administrador);
+      console.log("admin");
+    } else if (this.usuario.usuario.tipoUsuario == 2) {
+      this.candidato = this.usuario;
+      this.id_tipoUsuario = this.candidato.usuario.tipoUsuario;
+      this.imagenPortada = this.candidato.usuario.rutaImagenPortada;
+      this.imagenPeril = this.candidato.usuario.rutaImagenPerfil;
+      this.rutaCV = this.candidato.rutaCv;
+      this.rutaEspecialidad = this.candidato.rutaEspecialidad;
+      this.asignarGenerales(this.candidato);
+      console.log("candidato");
+    } else if (this.usuario.usuario.tipoUsuario == 3) {
+      this.empleador = this.usuario;
+      this.id_tipoUsuario = this.empleador.usuario.tipoUsuario;
+      this.imagenPortada = this.empleador.usuario.rutaImagenPortada;
+      this.imagenPeril = this.empleador.usuario.rutaImagenPerfil;
+      this.asignarGenerales(this.empleador);
+      console.log("empleador");
+    } else {
+
+    }
+    this.identificarTipoDePerfil();
   }
 
   // FUNCION PARA OBTENER UN USUARIO E IDENTIFICAR DE QUE TIPO ES
@@ -140,18 +200,26 @@ export class UpdateComponent implements OnInit, OnDestroy {
         this.usuario = this.administrador
         this.id_tipoUsuario = this.administrador.usuario.tipoUsuario;
         this.asignarGenerales(this.administrador);
+        this.imagenPortada = this.administrador.usuario.rutaImagenPortada;
+        this.imagenPeril = this.administrador.usuario.rutaImagenPerfil;
         console.log("admin");
       } else if (data.usuario.tipoUsuario == 2) {
         this.candidato = data;
         this.usuario = this.candidato;
         this.id_tipoUsuario = this.candidato.usuario.tipoUsuario;
         this.asignarGenerales(this.candidato);
+        this.imagenPortada = this.candidato.usuario.rutaImagenPortada;
+        this.imagenPeril = this.candidato.usuario.rutaImagenPerfil;
+        this.rutaCV = this.candidato.rutaCv;
+        this.rutaEspecialidad = this.candidato.rutaEspecialidad;
         console.log("candidato");
       } else if (data.usuario.tipoUsuario == 3) {
         this.empleador = data;
         this.usuario = this.empleador;
         this.id_tipoUsuario = this.empleador.usuario.tipoUsuario;
         console.log("empleador");
+        this.imagenPortada = this.empleador.usuario.rutaImagenPortada;
+        this.imagenPeril = this.empleador.usuario.rutaImagenPerfil;
         this.asignarGenerales(this.empleador);
       } else {
 
@@ -210,18 +278,10 @@ export class UpdateComponent implements OnInit, OnDestroy {
     this.nuevoPuesto = candidato.puestoActual;
     this.nuevaFecha = candidato.fechaNacimiento;
     this.nuevoCurriculum = candidato.rutaCv;
-    console.log("ver contenido idiomas");
-    console.log(this.idiomasCandidato);
-    console.log(candidato.idiomas);
     this.idiomasCandidato = candidato.idiomas;
-    console.log(this.idiomasCandidato);
-    //this.idiomasCandidato = [{ id_idioma: 1, nombreIdioma: "aleman", candidatos: [] } ];
-    console.log("ver contenido habilidades");
-    console.log(this.habilidadesCandidato);
-    console.log(candidato.habilidades);
     this.habilidadesCandidato = candidato.habilidades;
-    //this.habilidadesCandidato = [{ id_habilidad: 0, nombreHabilidad: "nadar", candidatos: [] }];
-    console.log(this.habilidadesCandidato);
+    this.asignarIdiomas();
+    this.asignarHabilidades();
   }
 
   // FUNCION PÀRA DAR FORMATO AL NUMERO DE TELEFONO
@@ -396,7 +456,7 @@ export class UpdateComponent implements OnInit, OnDestroy {
       if (data.estatus == true) {
 
       } else {
-        this.enviarAlerta( "Ha surgido un error inesperado que nos impidio modificar los idiomas.", true);
+        this.enviarAlerta("Ha surgido un error inesperado que nos impidio modificar los idiomas.", true);
       }
     });
   }
@@ -423,7 +483,7 @@ export class UpdateComponent implements OnInit, OnDestroy {
       if (data.estatus == true) {
         //
       } else {
-        this.enviarAlerta( "Ha surgido un error inesperado que nos impidio modificar las habilidades.", true);
+        this.enviarAlerta("Ha surgido un error inesperado que nos impidio modificar las habilidades.", true);
       }
     });
   }
@@ -440,7 +500,7 @@ export class UpdateComponent implements OnInit, OnDestroy {
         apellidoM: this.nuevoApellidoM,
         telefono: this.nuevoTelefono,
       }
-    
+
       this.validarDatosNombre(USUARIO_MODIFICADO);
     } else if (this.id_tipoUsuario == 2) {
       this.usuario = this.candidato;
@@ -711,10 +771,12 @@ export class UpdateComponent implements OnInit, OnDestroy {
   guardarModPrincipales(usuarioModificado: any) {
     this._CandidateRequest.modificar(usuarioModificado).then((data: any) => {
       if (data.estatus == true) {
-        this.enviarAlerta( "El perfil ha sido modificado correctamente.", false);
-        this.router.navigate(['interface/perfil']);
+        this.enviarAlerta("El perfil ha sido modificado correctamente.", false);
+        if (this.vistaAdministrar == false) {
+          this.router.navigate(['interface/perfil']);
+        }
       } else {
-        this.enviarAlerta( "Ha surgido un error inesperado que nos impidio modificar el perfil.", true);
+        this.enviarAlerta("Ha surgido un error inesperado que nos impidio modificar el perfil.", true);
       }
     });
   }
@@ -722,10 +784,13 @@ export class UpdateComponent implements OnInit, OnDestroy {
   guardarModPrincipalesII(usuarioModificado: any) {
     this._UserRequest.modificar(usuarioModificado).then((data: any) => {
       if (data.estatus == true) {
-        this.enviarAlerta( "El perfil ha sido modificado correctamente.", false);
-        this.router.navigate(['interface/perfil']);
+
+        this.enviarAlerta("El perfil ha sido modificado correctamente.", false);
+        if (this.vistaAdministrar == false) {
+          this.router.navigate(['interface/perfil']);
+        }
       } else {
-        this.enviarAlerta( "Ha surgido un error inesperado que nos impidio modificar el perfil.", true);
+        this.enviarAlerta("Ha surgido un error inesperado que nos impidio modificar el perfil.", true);
       }
     });
   }
@@ -890,6 +955,7 @@ export class UpdateComponent implements OnInit, OnDestroy {
     this.evaluarArchivosSubidosPortada();
     this.evaluarArchivosSubidosCV();
     this.evaluarArchivosSubidosEspecialidad();
+    this.evaluarArchivos();
     this.mensajeAlerta = "Los archivos seleccionados para el campo: " + this.mensajeAlerta + " no son de una extención valida."
       + " Ten en cuenta que las extenciones permitidas para los campos de captura de imagenes son PNG y JPG, mientras que para la captura de archivos solo de admite el formato PDF";
     if (this.extencionPermitidaEspecialidad == false || this.extencionPermitidaPortada == false || this.extencionPermitidaPerfil == false || this.extencionPermitidaCurriculum == false) {
@@ -906,13 +972,31 @@ export class UpdateComponent implements OnInit, OnDestroy {
     }
   }
 
+  // FUNCION PARA EVALUAR LOS ARCHIVOS;
+  evaluarArchivos() {
+    if (this.nuevaImagenPerfil == "") {
+      this.nuevaImagenPerfil = this.imagenPeril;
+    } else if (this.nuevaImagenPortada == "") {
+      this.nuevaImagenPortada = this.imagenPortada;
+    } else if (this.nuevoCurriculum == "") {
+      this.nuevoCurriculum = this.rutaCV;
+    } else if (this.nuevaEspecialidad == "") {
+      this.nuevaEspecialidad = this.rutaEspecialidad;
+    } else {
+
+    }
+  }
+
   // FUNCIONES PARA GUARDAR LOS DATOS SECUNDARIOS EN BD
   guardarArchivos(archivos: any) {
     this._CandidateRequest.modificarSecundarios(archivos).then((data: any) => {
       if (data.estatus == true) {
-        this.router.navigate(['interface/perfil']);
+        if (this.vistaAdministrar == false) {
+          this.enviarAlerta("El perfil ha sido modificado correctamente.", false);
+          this.router.navigate(['interface/perfil']);
+        }
       } else {
-        this.enviarAlerta( "Ha surgido un error inesperado que nos impidio cargar los archivos en base de datos.", true);
+        this.enviarAlerta("Ha surgido un error inesperado que nos impidio cargar los archivos en base de datos.", true);
       }
     });
   }

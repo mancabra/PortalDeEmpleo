@@ -47,6 +47,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
   perfilTipoCandidato: boolean = true;
   perfilTipoEmpleador: boolean = true;
   perfilTipoEmpresa: boolean = true;
+  usuarioActivo: boolean = true;
 
   // VECTOR PARA ALMACENAR LAS IMAGENES DE PERFIL DEL USUARIO
   imgPerfil: string[] = [];
@@ -104,14 +105,17 @@ export class ProfileComponent implements OnInit, OnDestroy {
     if (this.usuario.usuario.tipoUsuario == 1) {
       this.administrador = this.usuario;
       this.id_tipoUsuario = this.administrador.usuario.tipoUsuario
+      this.usuarioActivo = this.administrador.usuario.estatusUsuario;
       console.log("admin");
     } else if (this.usuario.usuario.tipoUsuario == 2) {
       this.candidato = this.usuario;
       this.id_tipoUsuario = this.candidato.usuario.tipoUsuario;
+      this.usuarioActivo = this.candidato.usuario.estatusUsuario;
       console.log("candidato");
     } else if (this.usuario.usuario.tipoUsuario == 3) {
       this.empleador = this.usuario;
       this.id_tipoUsuario = this.empleador.usuario.tipoUsuario;
+      this.usuarioActivo = this.empleador.usuario.estatusUsuario;
       console.log("empleador");
     } else {
 
@@ -119,6 +123,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
     this.identificarTipoDePerfil();
     this.generarRuta();
   }
+
 
   // FUNCION PARA OBTENER EL USUARIO DESCE BASE DE DATOS
   buscarUsuario() {

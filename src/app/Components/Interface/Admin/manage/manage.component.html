@@ -3,11 +3,10 @@
     <div class="cajaIzquierda">
 
         <div style="display: block;">
-            <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+            <div id="" class="accordion-collapse collapse show" data-bs-parent="">
                 <div class="accordion-body">
-
                     <h2 class="accordion-header">
-                        <button class="accordion-button " type="button" data-bs-toggle="collapse" data-bs-target=""
+                        <button class="accordion-button " type="button" data-bs-toggle="" data-bs-target=""
                             aria-expanded="true" aria-controls="" style="color:rgb(89, 92, 94); height: 1.8rem;">
                             CUENTAS
                             <hr>
@@ -19,7 +18,7 @@
                     </div>
 
                     <h2 class="accordion-header" style="margin-top: 3rem;">
-                        <button class="accordion-button " type="button" data-bs-toggle="collapse" data-bs-target=""
+                        <button class="accordion-button " type="button" data-bs-toggle="" data-bs-target=""
                             aria-expanded="true" aria-controls="" style="color:rgb(89, 92, 94); height: 1.8rem;">
                             USUARIOS
                             <hr>
@@ -52,7 +51,7 @@
                     <!-- idiomas -->
 
                     <h2 class="accordion-header" style="margin-top: 3rem;">
-                        <button class="accordion-button " type="button" data-bs-toggle="collapse" data-bs-target=""
+                        <button class="accordion-button " type="button" data-bs-toggle="" data-bs-target=""
                             aria-expanded="true" aria-controls="" style="color:rgb(89, 92, 94); height: 1.8rem;">
                             VACANTES
                             <hr>
@@ -77,7 +76,8 @@
                 [ngClass]="{'on':verBorrarVacante, '':!verBorrarVacante}"></app-jobs>
             <app-profile [vistaAdministrar]="vistaAdministrar"
                 [ngClass]="{'on':ocultarUsuarios, '':!ocultarUsuarios}"></app-profile>
+            <app-update [vistaAdministrar]="vistaAdministrar"
+            [ngClass]="{'on':ocultarModificar, '':!ocultarModificar}"></app-update>
         </div>
-
     </div>
 </div>

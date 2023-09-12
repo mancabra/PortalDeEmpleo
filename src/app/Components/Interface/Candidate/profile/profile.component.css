@@ -60,3 +60,13 @@
     margin-right: .5rem;
     width: 100%;
 }
+
+.contenedorComponent{  
+    position:absolute;
+    top: 20%;
+    right: 10;
+    padding-top: 2rem;
+    width: 729px;
+    height: 400px;
+    z-index:1000;
+}

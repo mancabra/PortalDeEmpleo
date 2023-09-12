@@ -8,7 +8,7 @@ export class Usuario {
     apellidoP: string = "";
     apellidoM: string = "";
     telefono: string = "";
-    estatusUsuario: boolean = false;
+    estatusUsuario: boolean = true;
     rutaImagenPerfil: string = "";
     rutaImagenPortada: string  = "";
 

@@ -2,11 +2,7 @@
 
     <div class="cajaIzquierda" [ngClass]="{'long':usuarioAdmin, '':!usuarioAdmin}">
         <div *ngIf="cargarPantallaPrincipal(); else PantallaVacia">
-
             <div class="input-group" style="width: 100%;">
-                <!-- <span class="input-group-text" style="border-radius: 45px 0px 0px 45px; ">
-                <img src="{{imageSeach}}" class="rounded mx-auto d-block" style="width: 30px; height: 30px;" alt="...">
-            </span> -->
                 <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
                     aria-expanded="false">{{filtro}}</button>
                 <ul class="dropdown-menu">

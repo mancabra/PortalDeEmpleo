@@ -25,6 +25,7 @@ export class ManageComponent implements OnInit {
   ocultarUsuarios: boolean = true;
   verCrearCuenta: boolean = true;
   verBorrarVacante: boolean = true;
+  ocultarModificar: boolean = true;
   // VARIABLE PARA ALMACENAR EL CORREO DE BUSQUEDA
   correoDeUsuario: string = "";
 
@@ -45,6 +46,8 @@ export class ManageComponent implements OnInit {
     this.verBorrarVacante = true;
     this.verCrearCuenta = false;
     this.ocultarUsuarios = true;
+    this.ocultarBotonesDeUsusario = true;
+    this.ocultarModificar = true;
   }
 
   // FUNCION PARA OCULTAR LOS ELEMENTOS DEL DOCUMENTO HTML QUE NO FORMEN PARTE DE LA SECCION SELECCIONADA
@@ -52,12 +55,15 @@ export class ManageComponent implements OnInit {
     this.verCrearCuenta = true;
     this.verBorrarVacante = false;
     this.ocultarUsuarios = true;
+    this.ocultarBotonesDeUsusario = true;
+    this.ocultarModificar = true;
   }
 
   // FUNCION PARA BUSCAR UN USUARIO
   buscar() {
     this.verBorrarVacante = true;
     this.verCrearCuenta = true;
+    this.ocultarModificar = true;
 
     this._AdminRequest.obtenerPorCorreo(this.correoDeUsuario).then((data: any) => {
       if (data.usuario.tipoUsuario == 1 || data.usuario.tipoUsuario == 2 || data.usuario.tipoUsuario == 3) {
@@ -66,6 +72,7 @@ export class ManageComponent implements OnInit {
         this.id_usuario = this.usuario.usuario.id_usuario;
         this.ocultarBotonesDeUsusario = false;
         this.ocultarUsuarios = false;
+        this.ocultarModificar = true;
         this._AdminRequest.usuarioActivo(this.usuario);
       } else {
         this.enviarAlerta("Ha surgido un error inesperado que nos impidio realizar la busqueda.", true);
@@ -82,6 +89,9 @@ export class ManageComponent implements OnInit {
           this.id_tipoUsuario = 0;
           this.id_usuario = 0;
           this.correoDeUsuario = "";
+          this.ocultarBotonesDeUsusario = true;
+          this.ocultarUsuarios = true;
+          this.ocultarModificar = true;
         } else {
           this.enviarAlerta("Ha surgido un error inesperado que nos impidio borrar la cuenta.", true);
         }
@@ -101,6 +111,7 @@ export class ManageComponent implements OnInit {
       this._CandidateRequest.suspenderCuenta(DTO).then((data: any) => {
         if (data.estatus == true) {
           this.enviarAlerta("La cuenta ha sido suspendida de manera exitosa. Al reaizar esta acción la cuenta dejara de ser visible para otros usuarios.", false);
+          this.buscar();
         } else {
           this.enviarAlerta("Ha surgido un error inesperado que nos impidio suspender la cuenta.", true);
         }
@@ -112,7 +123,7 @@ export class ManageComponent implements OnInit {
 
   modificar() {
     if (this.id_tipoUsuario != 0) {
-
+      this.ocultarModificar = false;
     } else {
       this.enviarAlerta("No se ha podido identificar el tipo de usuario.", true);
     }

@@ -1,7 +1,16 @@
 <div style="display: flex;">
     <div class="cajaIzquierda" [ngClass]="{'completo':vistaAdministrar, '':!vistaAdministrar}">
-        <!--  -->
-        <div class="card" style="width: 100%; height: 100%; padding: .5rem;">
+        <div style="width: 100%;">
+            <div class="contenedorComponent" [ngClass]="{'view':usuarioActivo, '':!usuarioActivo}">
+                <div style="background-color:red; opacity: 0.5; width: 100%;">
+                    <div style="padding: 2rem; text-align: center;">
+                        <b style="color: white;">ESTA CUENTA ACTUALMENTE SE ENCUENTRA SUSPENDIDA</b>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card" style="width: 730px; height: 100%; padding: .5rem;">
             <div style=" position: relative;">
                 <div class="bajo">
                     <div class="card text" style="height: 150px;">
@@ -86,15 +95,15 @@
                     {{candidato.descripcion}}
                 </p>
 
-                <div [ngClass]="{'view':perfilTipoCandidato, '':!perfilTipoCandidato}" >
+                <div [ngClass]="{'view':perfilTipoCandidato, '':!perfilTipoCandidato}">
                     <div style="display: flex;">
                         <div *ngFor="let habilidadUs of habilidadesUsuario">
                             <span class="badge rounded-pill text-bg-secondary"
-                            style="margin-right: .5rem; margin-bottom: .5rem;" >{{habilidadUs.nombreHabilidad}}</span>
+                                style="margin-right: .5rem; margin-bottom: .5rem;">{{habilidadUs.nombreHabilidad}}</span>
                         </div>
                     </div>
                 </div>
-                
+
 
             </div>
 
@@ -118,16 +127,18 @@
                     </div>
                 </div>
             </div>
-            <div style="padding-top:5rem; text-align: center; margin-right: .5rem;" [ngClass]="{'view':perfilTipoCandidato, '':!perfilTipoCandidato}">
+            <div style="padding-top:5rem; text-align: center; margin-right: .5rem;"
+                [ngClass]="{'view':perfilTipoCandidato, '':!perfilTipoCandidato}">
                 <div style="display: inline; width: 100%;">
-                    <button class="btn btn-light botonSinEfecto" style="background-color: white; border-color: darkgrey;">
+                    <button class="btn btn-light botonSinEfecto"
+                        style="background-color: white; border-color: darkgrey;">
                         <div>
                             <div style="display: block;">
                                 <img src="https://firebasestorage.googleapis.com/v0/b/gdi-portalempleo.appspot.com/o/images%2FPDFimg.png?alt=media&token=951eb573-a9f3-4b48-9f04-dc08f7ef01fd"
                                     alt="">
                             </div>
                             <div style="padding-top: .5rem;">
-                              
+
                                 <a class="documento" [href]="rutaCv" target="_blank">
                                     <H6> <b> CURRICULUM </b></H6>
                                     <H6> <b> VISUALIZAR EL PDF </b></H6>
@@ -136,9 +147,10 @@
                         </div>
                     </button>
                 </div>
-    
+
                 <div style="display: inline; width: 100%; margin-left: .5rem;">
-                    <button class="btn btn-light botonSinEfecto" style="background-color: white; border-color: darkgrey;">
+                    <button class="btn btn-light botonSinEfecto"
+                        style="background-color: white; border-color: darkgrey;">
                         <div>
                             <div style="display: block;">
                                 <img src="https://firebasestorage.googleapis.com/v0/b/gdi-portalempleo.appspot.com/o/images%2FPDFimg.png?alt=media&token=951eb573-a9f3-4b48-9f04-dc08f7ef01fd"
@@ -156,19 +168,20 @@
             </div>
         </div>
 
-        
+
 
 
     </div>
 
 
-    <div class="cajaDerecha"  [ngClass]="{'view':vistaAdministrar, '':!vistaAdministrar}">
+    <div class="cajaDerecha" [ngClass]="{'view':vistaAdministrar, '':!vistaAdministrar}">
         <div>
             <button type="button" class="btn btn-danger" style="width: 100%;"
                 [ngClass]="{'':perfilTipoEmpresa, 'view':!perfilTipoEmpresa}" (click)="cerrarSesion();">CERRAR
                 SESIÓN</button>
             <button type="button" class="btn btn-danger" style="width: 100%; margin-top: 1rem;"
-                [ngClass]="{'':perfilTipoEmpresa, 'view':!perfilTipoEmpresa}" (click)="suspenderCuenta();">SUSPENDER CUENTA</button>
+                [ngClass]="{'':perfilTipoEmpresa, 'view':!perfilTipoEmpresa}" (click)="suspenderCuenta();">SUSPENDER
+                CUENTA</button>
             <button type="button" class="btn btn-warning" style="width: 100%; margin-top: 1rem;"
                 [ngClass]="{'':perfilTipoEmpresa, 'view':!perfilTipoEmpresa}" (click)="modificarDatosPerfil()">MODIFICAR
                 CUENTA</button>
