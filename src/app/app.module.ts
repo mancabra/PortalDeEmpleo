@@ -24,6 +24,7 @@ import { UpdateJobComponent } from './Components/Interface/Employer/candidates/u
 import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
 import { environment } from '../environments/environment';
 import { provideStorage,getStorage } from '@angular/fire/storage';
+import { DataComponent } from './Components/Interface/Admin/manage/data/data.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import { provideStorage,getStorage } from '@angular/fire/storage';
     RequestAdminComponent,
     JobComponent,
     UpdateComponent,
-    UpdateJobComponent
+    UpdateJobComponent,
+    DataComponent
   ],
   imports: [
     BrowserModule,

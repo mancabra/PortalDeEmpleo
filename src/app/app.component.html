@@ -1,27 +1,40 @@
-<div [ngClass]="{'':ocultarAlerta, 'alertasInterior':!ocultarAlerta}">
-    <app-navbar></app-navbar>
-    <div class="caja">
-        <app-interface></app-interface>
-    </div>
-</div>
+<div>
+    <div [ngClass]="{'':ocultarAlerta, 'alertasInterior':!ocultarAlerta}">
 
-<div class="contenedorComponent" [ngClass]="{'view':ocultarAlerta, '':!ocultarAlerta}">
-    <div class="contenedorInterno">
-        <div class="card" style="padding: 2rem;">
-            <div class="centrar">
-                <h5 class="card-title">{{alerta.name}}</h5>
+        <div class="fijar" style="display: flex; width: 100%;">
+            <div class="navbar" style="display: inline-block;">
+                <app-navbar></app-navbar>
             </div>
-            <div class="centrar">
-                <img [src]="ruta" class="card-img-top" alt="..." style="width: 70px; height: 70px;">
+            <div class="pantallaT fijar contenedor" [ngClass]="{'view':ocultarNavbar, '':!ocultarNavbar}">
+                &nbsp;
             </div>
-            <div class="centrar" style="text-align: justify; padding-bottom: 2rem;">
-                <p class="card-text">{{alerta.mss}}</p>
-            </div>
-            <div class="centrar">
-                <div style="width: 100%;">
-                    <div class="d-grid gap-2">
-                        <button class="btn btn-success" type="button" [style.background-color]="color"
-                            [style.border-color]="color" (click)="cerrar()">ACEPTAR</button>
+        </div>
+
+       
+    
+        <div class="caja">
+            <app-interface></app-interface>
+        </div>
+    </div>
+    
+    <div class="contenedorComponent" [ngClass]="{'view':ocultarAlerta, '':!ocultarAlerta}">
+        <div class="contenedorInterno">
+            <div class="card" style="padding: 2rem;">
+                <div class="centrar">
+                    <h5 class="card-title">{{alerta.name}}</h5>
+                </div>
+                <div class="centrar">
+                    <img [src]="ruta" class="card-img-top" alt="..." style="width: 70px; height: 70px;">
+                </div>
+                <div class="centrar" style="text-align: justify; padding-bottom: 2rem;">
+                    <p class="card-text">{{alerta.mss}}</p>
+                </div>
+                <div class="centrar">
+                    <div style="width: 100%;">
+                        <div class="d-grid gap-2">
+                            <button class="btn btn-success" type="button" [style.background-color]="color"
+                                [style.border-color]="color" (click)="cerrar()">ACEPTAR</button>
+                        </div>
                     </div>
                 </div>
             </div>

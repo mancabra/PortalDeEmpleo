@@ -57,6 +57,8 @@ export class ProfileComponent implements OnInit, OnDestroy {
   rutaCv: string = "";
   // VARIABLE PARA ALMACENAR LA RUTA DEL ARCHIVO DE ESPECIALIDAD DEL CANDIDATO
   rutaEspecialidad: string = "";
+  rutaEspecialidadII: string = "";
+  rutaEspecialidadIII: string = "";
 
   // VECTOR QUE ALMACENA LOS IDIOMAS REGISTRADOS DE UN CANDIDATO
   idiomasUsuario: Idioma[] = [];
@@ -66,6 +68,10 @@ export class ProfileComponent implements OnInit, OnDestroy {
   // VARIABLE PARA LA SUSCRIPCION A UN OBSERVABLE
   subscription: Subscription;
 
+  // VECTORES PARA ARCHIVOS
+  documentosCV: string[] = [];
+  documentosEsp: string[] = [];
+
   // INYECCION DE SERVICOS A USAR EN EL COMPONENTE
   constructor(
     private _CandidateRequest: CandidateService,
@@ -73,7 +79,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
     private _AdminRequest: AdminService,
     private _EmployerRequest: EmployerService,
     private _firebaseII: Storage,
-    private router: Router ) {
+    private router: Router) {
 
     // SUSCRIPCION AL OBSERVABLE DE UN SERVICIO PARA OBTENER UN USUARIO
     this.subscription = this._AdminRequest.getUsuario().subscribe(data => {
@@ -84,6 +90,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.identificarVista();
+    this.cargarArchivos();
   }
 
   // FUNCION PARA DESACTIVAR UNA SUSCRIPCION
@@ -166,6 +173,8 @@ export class ProfileComponent implements OnInit, OnDestroy {
       this.getImagesPortada(rutaII, this.candidato.usuario.rutaImagenPortada);
       this.getCV(rutaIII, this.candidato.rutaCv);
       this.getEspecialidad(rutaIV, this.candidato.rutaEspecialidad);
+      this.getEspecialidadII(rutaIV, this.candidato.rutaEspecialidad2);
+      this.getEspecialidadIII(rutaIV, this.candidato.rutaEspecialidad3);
     } else if (this.id_tipoUsuario == 3) {
       const name = this.empleador.usuario.nombre + this.empleador.usuario.apellidoP + this.empleador.usuario.apellidoM;
       const ruta = `images${name}/perfil/`;
@@ -211,6 +220,23 @@ export class ProfileComponent implements OnInit, OnDestroy {
       this.perfilTipoCandidato = true;
       this.perfilTipoEmpleador = true;
       this.perfilTipoEmpresa = false;
+    }
+  }
+
+  // FUNCION QUE EVALUA EL USUARIO PARA IDENTIFICAR EL TEXTO DE UN BOTON 
+  cargarPantalla() {
+    if (this.documentosCV.length == 0) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+
+  cargarPantallaII() {
+    if (this.documentosEsp.length == 0) {
+      return false;
+    } else {
+      return true;
     }
   }
 
@@ -276,7 +302,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
     } else if (this.id_tipoUsuario == 3) {
       id = this.empleador.usuario.id_usuario;
     } else {
-      
+
     }
 
     const DTO = {
@@ -358,6 +384,57 @@ export class ProfileComponent implements OnInit, OnDestroy {
         }
       })
       .catch(error => console.log(error));
+  }
+
+  // FUNCION PARA DESCARGAR EL ARCHIVO DE ESPECIALIDAD DEL SERVIDOR
+  getEspecialidadII(ruta: any, nombre: string) {
+    const especialidadRef = ref(this._firebaseII, ruta);
+    listAll(especialidadRef)
+      .then(async response => {
+        console.log(response);
+        for (let item of response.items) {
+          const url = await getDownloadURL(item);
+          if (item.name == nombre) {
+            this.rutaEspecialidadII = url;
+          }
+        }
+      })
+      .catch(error => console.log(error));
+  }
+
+  // FUNCION PARA DESCARGAR EL ARCHIVO DE ESPECIALIDAD DEL SERVIDOR
+  getEspecialidadIII(ruta: any, nombre: string) {
+    const especialidadRef = ref(this._firebaseII, ruta);
+    listAll(especialidadRef)
+      .then(async response => {
+        console.log(response);
+        for (let item of response.items) {
+          const url = await getDownloadURL(item);
+          if (item.name == nombre) {
+            this.rutaEspecialidadIII = url;
+          }
+        }
+      })
+      .catch(error => console.log(error));
+  }
+
+  cargarArchivos(){
+    this.agragarVectorCV(this.rutaCv);
+    this.agragarVectorEsp(this.rutaEspecialidad);
+    this.agragarVectorEsp(this.rutaEspecialidadII);
+    this.agragarVectorEsp(this.rutaEspecialidadIII);
+  }
+
+  agragarVectorCV(rutaCv: string) {
+    if (rutaCv != "" && rutaCv != undefined) {
+      this.documentosCV.push(rutaCv);
+    }
+  }
+
+  agragarVectorEsp(rutaEsp: string) {
+    if (rutaEsp != "" && rutaEsp != undefined) {
+      this.documentosEsp.push(rutaEsp);
+    }
   }
 
   // FUNCION PARA EL POPUP

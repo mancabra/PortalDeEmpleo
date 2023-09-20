@@ -3,7 +3,9 @@ import { Router } from '@angular/router';
 import { CandidateService } from 'src/app/Services/CandidateServices/candidate.service';
 import { EmployerService } from 'src/app/Services/EmployerServices/employer.service';
 import { Candidato } from 'src/app/Services/Entity/candidato';
+import { Empleador } from 'src/app/Services/Entity/empleador';
 import { Estado } from 'src/app/Services/Entity/estado';
+import { ModalidadTrabajo } from 'src/app/Services/Entity/modalidad-trabajo';
 import { Postulacion } from 'src/app/Services/Entity/postulacion';
 import { Vacante } from 'src/app/Services/Entity/vacante';
 import { InterfaceService } from 'src/app/Services/InterfaceServices/interface.service';
@@ -68,13 +70,142 @@ export class JobsComponent implements OnInit, OnDestroy {
     this.buscarUsuario();
     this.obtenerVacantes();
     this.obtenerEstados();
+    this.cargarMuestra();
+
+  }
+
+  ngAfterViewInit() {
+    let vacante1 = document.getElementsByName('vacantedeLista')[0];
+    vacante1.classList.add('aparece');
+    window.addEventListener('scroll', function(){
+      let vacanteP = this.document.getElementsByName('vacantedeLista');
+      for (let i = 0; i < vacanteP.length; i++) {
+        var alturaMin = window.innerHeight/1.8;
+       // var alturaMax = window.innerHeight/.5;
+        var distancia = vacanteP[i].getBoundingClientRect().top;
+        vacanteP[i].classList.add('transform_up');
+
+        if (distancia <= alturaMin){
+           vacanteP[i].classList.add('aparece');
+         //  if( distancia < alturaMax){
+          //  vacanteP[i].classList.remove('aparece') 
+          // }
+        } else {
+           vacanteP[i].classList.remove('aparece') 
+        }
+        
+      }
+      
+    });
   }
 
   ngOnDestroy(): void {
   }
 
+
+  cargarMuestra() {
+    this.jobsList = [
+      {
+        id_vacante: 1,
+        nombreVacante: "Gerente",
+        especialista: "ninguno",
+        sueldo: 10000,
+        horario: "9:00am - 6:00pm",
+        domicilio: "Alcatraz n9",
+        municipio: { id_municipio: 0, nombreMunicipio: "mexico", estado: new Estado },
+        estatus: false,
+        descripcion: "Carnicero de planta",
+        empresa: { id_empresa: 0, nombre: "bimbo", descripcion: "panaderia", vacantes_empresa: [] },
+        empleador: new Empleador,
+        candidatos: [],
+        tipoHorario: { id_tipoHorario: 0, dias: "sab-dom", tipoHorario_vacantes: [] },
+        tipoContratacion: { id_tipoContratacion: 0, horario: "VIRTUAL", tipoContratacion_vacantes: [] },
+        modalidadTrabajo: new ModalidadTrabajo,
+        id_postulacion: 0,
+        fechaPublicacionSrt: new Date,
+        diasPublicada: 0
+      }, {
+        id_vacante: 2,
+        nombreVacante: "Repartidor",
+        especialista: "ninguno",
+        sueldo: 10000,
+        horario: "9:00am - 6:00pm",
+        domicilio: "Alcatraz n9",
+        municipio: { id_municipio: 0, nombreMunicipio: "mexico", estado: new Estado },
+        estatus: false,
+        descripcion: "Carnicero de planta",
+        empresa: { id_empresa: 0, nombre: "bimbo", descripcion: "panaderia", vacantes_empresa: [] },
+        empleador: new Empleador,
+        candidatos: [],
+        tipoHorario: { id_tipoHorario: 0, dias: "sab-dom", tipoHorario_vacantes: [] },
+        tipoContratacion: { id_tipoContratacion: 0, horario: "VIRTUAL", tipoContratacion_vacantes: [] },
+        modalidadTrabajo: new ModalidadTrabajo,
+        id_postulacion: 0,
+        fechaPublicacionSrt: new Date,
+        diasPublicada: 0
+      }, {
+        id_vacante: 3,
+        nombreVacante: "Operador",
+        especialista: "Tecnico",
+        sueldo: 10000,
+        horario: "9:00am - 6:00pm",
+        domicilio: "Alcatraz n9",
+        municipio: { id_municipio: 0, nombreMunicipio: "mexico", estado: new Estado },
+        estatus: false,
+        descripcion: "Carnicero de planta",
+        empresa: { id_empresa: 0, nombre: "bimbo", descripcion: "panaderia", vacantes_empresa: [] },
+        empleador: new Empleador,
+        candidatos: [],
+        tipoHorario: { id_tipoHorario: 0, dias: "sab-dom", tipoHorario_vacantes: [] },
+        tipoContratacion: { id_tipoContratacion: 0, horario: "VIRTUAL", tipoContratacion_vacantes: [] },
+        modalidadTrabajo: new ModalidadTrabajo,
+        id_postulacion: 0,
+        fechaPublicacionSrt: new Date,
+        diasPublicada: 0
+      }, {
+        id_vacante: 4,
+        nombreVacante: "Pastelero",
+        especialista: "Repostero",
+        sueldo: 10000,
+        horario: "9:00am - 6:00pm",
+        domicilio: "Alcatraz n9",
+        municipio: { id_municipio: 0, nombreMunicipio: "mexico", estado: new Estado },
+        estatus: false,
+        descripcion: "Carnicero de planta",
+        empresa: { id_empresa: 0, nombre: "bimbo", descripcion: "panaderia", vacantes_empresa: [] },
+        empleador: new Empleador,
+        candidatos: [],
+        tipoHorario: { id_tipoHorario: 0, dias: "sab-dom", tipoHorario_vacantes: [] },
+        tipoContratacion: { id_tipoContratacion: 0, horario: "VIRTUAL", tipoContratacion_vacantes: [] },
+        modalidadTrabajo: new ModalidadTrabajo,
+        id_postulacion: 0,
+        fechaPublicacionSrt: new Date,
+        diasPublicada: 0
+      }, {
+        id_vacante: 5,
+        nombreVacante: "Panadero",
+        especialista: "Panadero",
+        sueldo: 10000,
+        horario: "9:00am - 6:00pm",
+        domicilio: "Alcatraz n9",
+        municipio: { id_municipio: 0, nombreMunicipio: "mexico", estado: new Estado },
+        estatus: false,
+        descripcion: "Carnicero de planta",
+        empresa: { id_empresa: 0, nombre: "bimbo", descripcion: "panaderia", vacantes_empresa: [] },
+        empleador: new Empleador,
+        candidatos: [],
+        tipoHorario: { id_tipoHorario: 0, dias: "sab-dom", tipoHorario_vacantes: [] },
+        tipoContratacion: { id_tipoContratacion: 0, horario: "VIRTUAL", tipoContratacion_vacantes: [] },
+        modalidadTrabajo: new ModalidadTrabajo,
+        id_postulacion: 0,
+        fechaPublicacionSrt: new Date,
+        diasPublicada: 0
+      }
+    ];
+  }
   // FUNCION PARA BUSCAR UN USUARIO POR CORREO
   buscarUsuario() {
+ 
     this._CandidateRequest.obtener().then((data: any) => {
       this.usuario = data
     });
@@ -90,6 +221,8 @@ export class JobsComponent implements OnInit, OnDestroy {
       }
     });
   }
+
+
 
   // FUNCION PARA OBTENER LOS ESTADOS ALMACENADOS EN BD
   obtenerEstados() {

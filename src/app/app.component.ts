@@ -22,6 +22,9 @@ export class AppComponent implements OnInit, OnDestroy {
   ruta: String = "";
   color: String = ""
 
+  subscription:Subscription;
+  ocultarNavbar: boolean = true;
+
 
   constructor( private _UserRequest: InterfaceService){
     this.estadoAlerta = this._UserRequest.getEstadoAlerta().subscribe(data => {
@@ -33,6 +36,12 @@ export class AppComponent implements OnInit, OnDestroy {
       this.ruta = this.alerta.ruta;
       this.color = this.alerta.color;
     });
+
+
+    // SUSCRIPCION AL OBSERVABLE DE UN SERVICIO PARA OBTENER UNA VARIABLE BOOLEANA
+    this.subscription = this._UserRequest.getNavBar().subscribe(data => {
+      this.ocultarNavbar = data;
+    });
   }
 
   ngOnInit(): void {
@@ -42,6 +51,7 @@ export class AppComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.estadoAlerta.unsubscribe();
     this.alertaActiva.unsubscribe();
+    this.subscription.unsubscribe();
   }
 
   cerrar(){

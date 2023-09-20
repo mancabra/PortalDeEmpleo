@@ -127,45 +127,43 @@
                     </div>
                 </div>
             </div>
-            <div style="padding-top:5rem; text-align: center; margin-right: .5rem;"
-                [ngClass]="{'view':perfilTipoCandidato, '':!perfilTipoCandidato}">
-                <div style="display: inline; width: 100%;">
-                    <button class="btn btn-light botonSinEfecto"
-                        style="background-color: white; border-color: darkgrey;">
-                        <div>
-                            <div style="display: block;">
-                                <img src="https://firebasestorage.googleapis.com/v0/b/gdi-portalempleo.appspot.com/o/images%2FPDFimg.png?alt=media&token=951eb573-a9f3-4b48-9f04-dc08f7ef01fd"
-                                    alt="">
-                            </div>
-                            <div style="padding-top: .5rem;">
 
-                                <a class="documento" [href]="rutaCv" target="_blank">
-                                    <H6> <b> CURRICULUM </b></H6>
-                                    <H6> <b> VISUALIZAR EL PDF </b></H6>
-                                </a>
-                            </div>
+            <div class="margenes" [ngClass]="{'view':perfilTipoCandidato, '':!perfilTipoCandidato}">
+                <div style="margin-bottom: 1rem;">
+                    <div *ngIf="cargarPantalla(); else pantallaVacia">
+                        <p style="font-size: x-small;">Documentos CV</p>
+                        <div style="display: flex;">
+                            <button class="card documento" style="padding: .5rem; margin-right: .3rem;">
+                                <a [href]="rutaCv" target="_blank"><img
+                                        src="https://firebasestorage.googleapis.com/v0/b/gdi-portalempleo.appspot.com/o/general%2Ffile-text.png?alt=media&token=11d13eb5-410b-48ad-9e31-a76f8707ebee"
+                                        alt="" height="30px" width="30px"> </a>
+                            </button>
                         </div>
-                    </button>
+
+                    </div>
+                    <ng-template #pantallaVacia>
+                        <p style="font-size: x-small;">El usuario no ha cargado ningun CV</p>
+                    </ng-template>
                 </div>
 
-                <div style="display: inline; width: 100%; margin-left: .5rem;">
-                    <button class="btn btn-light botonSinEfecto"
-                        style="background-color: white; border-color: darkgrey;">
-                        <div>
-                            <div style="display: block;">
-                                <img src="https://firebasestorage.googleapis.com/v0/b/gdi-portalempleo.appspot.com/o/images%2FPDFimg.png?alt=media&token=951eb573-a9f3-4b48-9f04-dc08f7ef01fd"
-                                    alt="">
-                            </div>
-                            <div style="padding-top: .5rem;">
-                                <a class="documento" [href]="rutaEspecialidad" target="_blank">
-                                    <H6> <b> ESPECIALIDAD </b></H6>
-                                    <H6> <b> VISUALIZAR EL PDF </b></H6>
-                                </a>
-                            </div>
+                <div style="margin-bottom: 1rem;">
+                    <div *ngIf="cargarPantallaII(); else pantallaVacia2">
+                        <p style="font-size: x-small;">Archivos de especialidad</p>
+                        <div style="display: flex;">
+                            <button class="card documento" style="padding: .5rem; margin-right: .3rem;" *ngFor="let documento of documentosEsp">
+                                <a [href]="documento" target="_blank"><img
+                                        src="https://firebasestorage.googleapis.com/v0/b/gdi-portalempleo.appspot.com/o/general%2Ffile-text.png?alt=media&token=11d13eb5-410b-48ad-9e31-a76f8707ebee"
+                                        alt="" height="30px" width="30px"> </a>
+                            </button>
                         </div>
-                    </button>
+
+                    </div>
+                    <ng-template #pantallaVacia2>
+                        <p style="font-size: x-small;">El usuario no ha cargado ningun archivo de especialidad</p>
+                    </ng-template>
                 </div>
             </div>
+
         </div>
 
 

@@ -596,8 +596,8 @@ export class NewJobComponent implements OnInit, OnDestroy {
   // FUNCION QUE PERMITE GUARDAR UNA VACANTE PARA SER PUBLICADA EN UNA FECHA SEÑALADA 
   programarVacante(VACANTE: any) {
     if (this.obligatorios != false) {
-      this._EmployerRequest.programarVacante(VACANTE).then((data: any) => {
-        if (data.estatus != true) {
+      this._EmployerRequest.programarVacante(VACANTE).then((id_vacante: any) => {
+        if (id_vacante == 0) {
           this.enviarAlerta("Ha surgido un error inesperado que nos impidio generar la vacante.", true);
           console.log(VACANTE);
           this.enviarAlertaErrorProg(VACANTE);

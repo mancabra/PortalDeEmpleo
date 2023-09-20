@@ -60,6 +60,9 @@ export class UpdateComponent implements OnInit, OnDestroy {
   nuevaImagenPerfil: string = "default.jpg";
   nuevaImagenPortada: string = "default.jpg";
   nuevaDescripcion: string = "";
+  nuevaEspecialidad: string = "";
+  nuevaEspecialidadII: string = "";
+  nuevaEspecialidadIII: string = "";
 
   // VARIABLE PARA BLOQUEAR LOS ELEVENTOS DE UN ELEMNTO HTML
   bloquearMunicipio: string = "all";
@@ -89,13 +92,17 @@ export class UpdateComponent implements OnInit, OnDestroy {
   img: any;
   document: any;
   documentE: any;
+  documentEII: any;
+  documentEIII: any;
 
   // VARIABLES PARA LA REFERENCIA DE RUTAS A FIREBASE
   imgReff: any;
   imgReffP: any;
   documentRef: any;
   documentERef: any;
-  nuevaEspecialidad: string = "";
+  documentIIERef: any;
+  documentIIIERef: any;
+
 
   // VARIABLE PARA ALERTA
   // ALMACENA EL MENSAJE QUE SE ENVIARA AL MOMENTO DE VALIDAR LAS EXTENCIONES
@@ -106,6 +113,8 @@ export class UpdateComponent implements OnInit, OnDestroy {
   extencionPermitidaPortada: boolean = true;
   extencionPermitidaCurriculum: boolean = true;
   extencionPermitidaEspecialidad: boolean = true;
+  extencionPermitidaEspecialidadII: boolean = true;
+  extencionPermitidaEspecialidadIII: boolean = true;
 
   // VARIABLE PARA LA SUSCRIPCION A UN OBSERVABLE
   subscription: Subscription;
@@ -115,9 +124,11 @@ export class UpdateComponent implements OnInit, OnDestroy {
 
   // VARIABLES PARA GUARDAR LOS ARCHIVOS ANTERIORES
   imagenPortada: string = "";
-  imagenPeril: string = "";
+  imagenPerfil: string = "";
   rutaCV: string = "";
   rutaEspecialidad: string = "";
+  rutaEspecialidadII: string = "";
+  rutaEspecialidadIII: string = "";
 
   // INYECCION DE SERVICOS A USAR EN EL COMPONENTE
   constructor(
@@ -135,10 +146,11 @@ export class UpdateComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.identificarVista();
-    this.buscarEstados();
     this.obtenrIdiomas();
     this.obtenerHabilidades();
+    this.identificarVista();
+    this.buscarEstados();
+
     //this.id_tipoUsuario = 2
     //this.identificarTipoDePerfil();
   }
@@ -146,6 +158,8 @@ export class UpdateComponent implements OnInit, OnDestroy {
   ngAfterViewInit() {
     //this.asignarIdiomas();
     //this.asignarHabilidades();
+    this.ocultarBotones('segundo')
+    this.ocultarBotones('tercero');
   }
 
   ngOnDestroy(): void {
@@ -167,23 +181,25 @@ export class UpdateComponent implements OnInit, OnDestroy {
       this.administrador = this.usuario;
       this.id_tipoUsuario = this.administrador.usuario.tipoUsuario;
       this.imagenPortada = this.administrador.usuario.rutaImagenPortada;
-      this.imagenPeril = this.administrador.usuario.rutaImagenPerfil;
+      this.imagenPerfil = this.administrador.usuario.rutaImagenPerfil;
       this.asignarGenerales(this.administrador);
       console.log("admin");
     } else if (this.usuario.usuario.tipoUsuario == 2) {
       this.candidato = this.usuario;
       this.id_tipoUsuario = this.candidato.usuario.tipoUsuario;
       this.imagenPortada = this.candidato.usuario.rutaImagenPortada;
-      this.imagenPeril = this.candidato.usuario.rutaImagenPerfil;
+      this.imagenPerfil = this.candidato.usuario.rutaImagenPerfil;
       this.rutaCV = this.candidato.rutaCv;
       this.rutaEspecialidad = this.candidato.rutaEspecialidad;
+      this.rutaEspecialidadII = this.candidato.rutaEspecialidad2;
+      this.rutaEspecialidadIII = this.candidato.rutaEspecialidad3;
       this.asignarGenerales(this.candidato);
       console.log("candidato");
     } else if (this.usuario.usuario.tipoUsuario == 3) {
       this.empleador = this.usuario;
       this.id_tipoUsuario = this.empleador.usuario.tipoUsuario;
       this.imagenPortada = this.empleador.usuario.rutaImagenPortada;
-      this.imagenPeril = this.empleador.usuario.rutaImagenPerfil;
+      this.imagenPerfil = this.empleador.usuario.rutaImagenPerfil;
       this.asignarGenerales(this.empleador);
       console.log("empleador");
     } else {
@@ -201,7 +217,7 @@ export class UpdateComponent implements OnInit, OnDestroy {
         this.id_tipoUsuario = this.administrador.usuario.tipoUsuario;
         this.asignarGenerales(this.administrador);
         this.imagenPortada = this.administrador.usuario.rutaImagenPortada;
-        this.imagenPeril = this.administrador.usuario.rutaImagenPerfil;
+        this.imagenPerfil = this.administrador.usuario.rutaImagenPerfil;
         console.log("admin");
       } else if (data.usuario.tipoUsuario == 2) {
         this.candidato = data;
@@ -209,9 +225,11 @@ export class UpdateComponent implements OnInit, OnDestroy {
         this.id_tipoUsuario = this.candidato.usuario.tipoUsuario;
         this.asignarGenerales(this.candidato);
         this.imagenPortada = this.candidato.usuario.rutaImagenPortada;
-        this.imagenPeril = this.candidato.usuario.rutaImagenPerfil;
+        this.imagenPerfil = this.candidato.usuario.rutaImagenPerfil;
         this.rutaCV = this.candidato.rutaCv;
         this.rutaEspecialidad = this.candidato.rutaEspecialidad;
+        this.rutaEspecialidadII = this.candidato.rutaEspecialidad2;
+        this.rutaEspecialidadIII = this.candidato.rutaEspecialidad3;
         console.log("candidato");
       } else if (data.usuario.tipoUsuario == 3) {
         this.empleador = data;
@@ -219,7 +237,7 @@ export class UpdateComponent implements OnInit, OnDestroy {
         this.id_tipoUsuario = this.empleador.usuario.tipoUsuario;
         console.log("empleador");
         this.imagenPortada = this.empleador.usuario.rutaImagenPortada;
-        this.imagenPeril = this.empleador.usuario.rutaImagenPerfil;
+        this.imagenPerfil = this.empleador.usuario.rutaImagenPerfil;
         this.asignarGenerales(this.empleador);
       } else {
 
@@ -236,15 +254,6 @@ export class UpdateComponent implements OnInit, OnDestroy {
     this.nuevoTelefono = usuario.usuario.telefono;
     this.nuevaImagenPortada = usuario.usuario.rutaImagenPortada;
     this.nuevaImagenPerfil = usuario.usuario.rutaImagenPerfil;
-
-    if (this.nuevaImagenPerfil == "" || this.nuevaImagenPerfil == undefined) {
-      this.nuevaImagenPerfil = "default.jpg";
-    }
-
-    if (this.nuevaImagenPortada == "" || this.nuevaImagenPortada == undefined) {
-      this.nuevaImagenPortada = "default.jpg";
-    }
-
     this.validarLongitud();
   }
 
@@ -277,11 +286,14 @@ export class UpdateComponent implements OnInit, OnDestroy {
     this.nuevoCentroEducativo = candidato.centroEducativo;
     this.nuevoPuesto = candidato.puestoActual;
     this.nuevaFecha = candidato.fechaNacimiento;
-    this.nuevoCurriculum = candidato.rutaCv;
     this.idiomasCandidato = candidato.idiomas;
     this.habilidadesCandidato = candidato.habilidades;
     this.asignarIdiomas();
     this.asignarHabilidades();
+    this.nuevoCurriculum = candidato.rutaCv;
+    this.nuevaEspecialidad = candidato.rutaEspecialidad;
+    this.nuevaEspecialidadII = candidato.rutaEspecialidad2;
+    this.nuevaEspecialidadIII = candidato.rutaEspecialidad3;
   }
 
   // FUNCION PÀRA DAR FORMATO AL NUMERO DE TELEFONO
@@ -348,6 +360,35 @@ export class UpdateComponent implements OnInit, OnDestroy {
     this.buscarMunicipios(this.nuevoEstado.id_estado);
   }
 
+  // FUNCION PARA OCULTAR BOTONES DE ESPECIALIDAD
+  ocultarBotones(boton: string) {
+    if (boton == "primero") {
+      let postulacion = document.getElementsByName('primero')[0];
+      postulacion.classList.add('view');
+      this.nuevaEspecialidad == this.rutaEspecialidad;
+    } else if (boton == "segundo") {
+      let postulacion = document.getElementsByName('segundo')[0];
+      postulacion.classList.add('view');
+      this.nuevaEspecialidadII == this.rutaEspecialidadII;
+    } else if (boton == "tercero") {
+      let postulacion = document.getElementsByName('tercero')[0];
+      postulacion.classList.add('view');
+      this.nuevaEspecialidadIII == this.rutaEspecialidadIII;
+
+    }
+  }
+  // FUNCION PARA MOSTRAR BOTONES DE ESPACIALIDAD
+  mostarBotones(boton: string) {
+    if (boton == "primero") {
+      let postulacion = document.getElementsByName('segundo')[0];
+      postulacion.classList.remove('view');
+    } else if (boton == "segundo") {
+      let postulacion = document.getElementsByName('tercero')[0];
+      postulacion.classList.remove('view');
+    } else if (boton == "tercero") {
+      this.enviarAlerta("De momento solo se permiten 3 archivos de especialidad por candidato.", true);
+    }
+  }
   // FUNCION PARA CAMBIAR EL CODIGO DE REGION DEL NUMERO TELEFONICO
   actualizarLada(numero: string) {
     this.lada = numero;
@@ -855,6 +896,36 @@ export class UpdateComponent implements OnInit, OnDestroy {
     this.evaluarExtencion(ARCHIVO);
   }
 
+  // FUNCION PARA LA CAPTURA DE UN ARCHIVO DE TIPO ESPECIALIDAD
+  uploadEspecialidadII($event: any) {
+    this.documentEII = $event.target.files[0];
+    const name = this.usuario.usuario.nombre + this.usuario.usuario.apellidoP + this.usuario.usuario.apellidoM;
+    this.nuevaEspecialidadII = this.documentEII.name;
+    this.documentIIERef = ref(this._firebase, `documentos${name}/especialidad/${this.documentEII.name}`);
+
+    const ARCHIVO = {
+      tipo: "segundo",
+      name: this.documentEII.name,
+    }
+
+    this.evaluarExtencion(ARCHIVO);
+  }
+
+  // FUNCION PARA LA CAPTURA DE UN ARCHIVO DE TIPO ESPECIALIDAD
+  uploadEspecialidadIII($event: any) {
+    this.documentEIII = $event.target.files[0];
+    const name = this.usuario.usuario.nombre + this.usuario.usuario.apellidoP + this.usuario.usuario.apellidoM;
+    this.nuevaEspecialidadIII = this.documentEIII.name;
+    this.documentIIERef = ref(this._firebase, `documentos${name}/especialidad/${this.documentEIII.name}`);
+
+    const ARCHIVO = {
+      tipo: "tercero",
+      name: this.documentEIII.name,
+    }
+
+    this.evaluarExtencion(ARCHIVO);
+  }
+
   // FUNCION PARA VERIFICAR TERMINACION DE ARCHIVOS
   evaluarExtencion(archivo: any) {
     if (archivo.tipo == "perfil") {
@@ -875,8 +946,15 @@ export class UpdateComponent implements OnInit, OnDestroy {
     } else if (archivo.tipo == "especialidad") {
       this.extencionPermitidaEspecialidad = true;
       this.extencionPermitidaEspecialidad = archivo.name.includes(".pdf");
+    } else if (archivo.tipo == "segundo") {
+      this.extencionPermitidaEspecialidadII = true;
+      this.extencionPermitidaEspecialidadII = archivo.name.includes(".pdf");
+    }
+    else if (archivo.tipo == "tercero") {
+      this.extencionPermitidaEspecialidadIII = true;
+      this.extencionPermitidaEspecialidadIII = archivo.name.includes(".pdf");
     } else {
-      //
+
     }
   }
 
@@ -934,7 +1012,7 @@ export class UpdateComponent implements OnInit, OnDestroy {
   evaluarArchivosSubidosEspecialidad() {
     if (this.extencionPermitidaEspecialidad == false) {
       if (this.extencionPermitidaPerfil == false || this.extencionPermitidaPortada == false || this.extencionPermitidaCurriculum == false) {
-        this.mensajeAlerta = this.mensajeAlerta + " y especialidad";
+        this.mensajeAlerta = this.mensajeAlerta + ", especialidad";
       } else {
         this.mensajeAlerta = this.mensajeAlerta + "especialidad";
       }
@@ -948,6 +1026,42 @@ export class UpdateComponent implements OnInit, OnDestroy {
     }
   }
 
+  // FUNCION PARA SUBIR UN ARCHIVO SEGUN SU TERMINACION 
+  evaluarArchivosSubidosEspecialidadII() {
+    if (this.extencionPermitidaEspecialidadII == false) {
+      if (this.extencionPermitidaPerfil == false || this.extencionPermitidaPortada == false || this.extencionPermitidaCurriculum == false || this.extencionPermitidaEspecialidad == false) {
+        this.mensajeAlerta = this.mensajeAlerta + ", especialidad II";
+      } else {
+        this.mensajeAlerta = this.mensajeAlerta + "especialidad II";
+      }
+    } else {
+      // CARGAR ESPECIALIDAD
+      if (this.nuevaEspecialidadII != "") {
+        uploadBytes(this.documentIIERef, this.documentEII)
+          .then(response => console.log(response))
+          .catch(error => console.log(error));
+      }
+    }
+  }
+
+  // FUNCION PARA SUBIR UN ARCHIVO SEGUN SU TERMINACION 
+  evaluarArchivosSubidosEspecialidadIII() {
+    if (this.extencionPermitidaEspecialidadIII == false) {
+      if (this.extencionPermitidaPerfil == false || this.extencionPermitidaPortada == false || this.extencionPermitidaCurriculum == false || this.extencionPermitidaEspecialidad == false || this.extencionPermitidaEspecialidadII == false) {
+        this.mensajeAlerta = this.mensajeAlerta + " y especialidad III";
+      } else {
+        this.mensajeAlerta = this.mensajeAlerta + "especialidad III";
+      }
+    } else {
+      // CARGAR ESPECIALIDAD
+      if (this.nuevaEspecialidadIII != "") {
+        uploadBytes(this.documentIIIERef, this.documentEIII)
+          .then(response => console.log(response))
+          .catch(error => console.log(error));
+      }
+    }
+  }
+
   // MODIFICACION DE IMAGENES
   capturarSecundarios() {
     this.mensajeAlerta = "";
@@ -955,10 +1069,12 @@ export class UpdateComponent implements OnInit, OnDestroy {
     this.evaluarArchivosSubidosPortada();
     this.evaluarArchivosSubidosCV();
     this.evaluarArchivosSubidosEspecialidad();
+    this.evaluarArchivosSubidosEspecialidadII();
+    this.evaluarArchivosSubidosEspecialidadIII();
     this.evaluarArchivos();
     this.mensajeAlerta = "Los archivos seleccionados para el campo: " + this.mensajeAlerta + " no son de una extención valida."
       + " Ten en cuenta que las extenciones permitidas para los campos de captura de imagenes son PNG y JPG, mientras que para la captura de archivos solo de admite el formato PDF";
-    if (this.extencionPermitidaEspecialidad == false || this.extencionPermitidaPortada == false || this.extencionPermitidaPerfil == false || this.extencionPermitidaCurriculum == false) {
+    if (this.extencionPermitidaEspecialidadIII == false ||this.extencionPermitidaEspecialidadII == false ||this.extencionPermitidaEspecialidad == false || this.extencionPermitidaPortada == false || this.extencionPermitidaPerfil == false || this.extencionPermitidaCurriculum == false ) {
       this.enviarAlerta(this.mensajeAlerta, true);
     } else {
       const USUARIOMOD = {
@@ -967,6 +1083,8 @@ export class UpdateComponent implements OnInit, OnDestroy {
         rutaImagenPortada: this.nuevaImagenPortada,
         rutaCv: this.nuevoCurriculum,
         rutaEspecialidad: this.nuevaEspecialidad,
+        rutaEspecialidad2: this.nuevaEspecialidadII,
+        rutaEspecialidad3: this.nuevaEspecialidadIII,
       }
       this.guardarArchivos(USUARIOMOD);
     }
@@ -975,15 +1093,27 @@ export class UpdateComponent implements OnInit, OnDestroy {
   // FUNCION PARA EVALUAR LOS ARCHIVOS;
   evaluarArchivos() {
     if (this.nuevaImagenPerfil == "") {
-      this.nuevaImagenPerfil = this.imagenPeril;
-    } else if (this.nuevaImagenPortada == "") {
-      this.nuevaImagenPortada = this.imagenPortada;
-    } else if (this.nuevoCurriculum == "") {
-      this.nuevoCurriculum = this.rutaCV;
-    } else if (this.nuevaEspecialidad == "") {
-      this.nuevaEspecialidad = this.rutaEspecialidad;
-    } else {
+      this.nuevaImagenPerfil = this.imagenPerfil;
+    }
 
+    if (this.nuevaImagenPortada == "") {
+      this.nuevaImagenPortada = this.imagenPortada;
+    }
+
+    if (this.nuevoCurriculum == "") {
+      this.nuevoCurriculum = this.rutaCV;
+    }
+
+    if (this.nuevaEspecialidad == "") {
+      this.nuevaEspecialidad = this.rutaEspecialidad;
+    }
+
+    if (this.nuevaEspecialidadII == "") {
+      this.nuevaEspecialidadII = this.rutaEspecialidadII;
+    }
+
+    if (this.nuevaEspecialidadIII == "") {
+      this.nuevaEspecialidadIII = this.rutaEspecialidadIII;
     }
   }
 

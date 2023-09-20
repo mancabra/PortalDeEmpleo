@@ -33,11 +33,10 @@
                                 <input class="form-control me-2" type="text" placeholder="Ingresa el correo del usuario"
                                 aria-label="Search" [(ngModel)]="correoDeUsuario">
                             <button class="btn btn-success" type="button" (click)="buscar()">buscar</button>
-                            </div>
-                           
+                            </div> 
                         </div>
 
-                        <button type="button" class="btn btn-warning" style="margin-bottom: .5rem;" (click)="modificar"
+                        <button type="button" class="btn btn-warning" style="margin-bottom: .5rem;" (click)="modificar()"
                             [ngClass]="{'on':ocultarBotonesDeUsusario, '':!ocultarBotonesDeUsusario}">MODIFICAR
                             USUARIO</button>
                         <button type="button" class="btn btn-danger" style="margin-bottom: .5rem;" (click)="suspender()"
@@ -61,6 +60,33 @@
                         <button type="button" class="btn btn-danger" style="margin-bottom: .5rem;"
                             (click)="verBorrarV()">ELIMINAR VACANTE</button>
                     </div>
+
+                    <h2 class="accordion-header" style="margin-top: 3rem;">
+                        <button class="accordion-button " type="button" data-bs-toggle="" data-bs-target=""
+                            aria-expanded="true" aria-controls="" style="color:rgb(89, 92, 94); height: 1.8rem;">
+                            ELEMENTOS DE APOYO
+                            <hr>
+                        </button>
+                    </h2>
+
+                    <div class="d-grid" style="margin-top: 1rem;">
+                        <div
+                            style="background-color: rgb(198, 203, 206); padding: .5rem; border-radius: 5px; margin-bottom: .5rem;">
+                            <div style="display: flex;">
+                                <input class="form-control me-2" type="text" placeholder="Ingersa el nombre de la lista"
+                                aria-label="Search" [(ngModel)]="lista" list="listasDisp">
+                                <datalist id="listasDisp">
+                                    <option value="idioma"></option>
+                                    <option value="habilidad"></option>
+                                    <option value="horario"></option>
+                                    <option value="contratacion"></option>
+                                    <option value="modalidad"></option>
+                                </datalist>
+                            <button class="btn btn-success" type="button" (click)="seleccionar()">Seleccionar</button>
+                            </div> 
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>
@@ -70,6 +96,7 @@
 
     <div class="cajaDerecha">
         <div style="margin-left: 3rem; margin-right: 3rem;">
+            <app-data [ngClass]="{'on':ocultarLista, '':!ocultarLista}" ></app-data>
             <app-create [usuarioAdmin]="usuarioAdmin"
                 [ngClass]="{'on':verCrearCuenta, '':!verCrearCuenta}"></app-create>
             <app-jobs [usuarioAdmin]="usuarioAdmin"

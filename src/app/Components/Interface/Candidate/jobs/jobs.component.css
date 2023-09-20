@@ -1,10 +1,83 @@
+.fijar{
+    position: sticky;
+    top: 150px;
+    z-index: 100;
+    display: block;
+}
+
+.contenedorInferior{
+    display: flex;
+}
+
+.lista{
+    margin-top: 2rem;
+    width: 50%;
+    display: block;
+}
+
+.vacante{
+
+    margin-top: 3rem;
+    margin-left: 2rem;
+    width: 35%; 
+
+    position:fixed;
+    top: 13rem;
+    right: 7rem;
+
+}
+
+.vacantedeLista{
+   opacity: .1;
+   transition: all 0.3s;
+   scale: 95%;
+   pointer-events: none;
+}
+
+.transform_up{
+    transform: translateY(20%);
+}
+
+.transform_drown{
+    transform: translateY(-20%);
+}
+
+.transform_right{
+    transform: translateX(-20%);
+}
+
+.transform_left{
+    transform: translateX(20%);
+}
+
+.aparece{
+    opacity: 1; 
+    transform: none;
+    pointer-events: all;
+    scale: 100%;
+}
+
+.contenedorBusqueda{
+    height: 100%;
+}
+
+.contenedorComponent{
+    position: absolute;
+    top: 0%;
+}
+
+.fijarVacante{
+    position: sticky;
+    top: 240px;
+    z-index: 1;
+    display: block;
+}
 
 .cajaIzquierda{
-    display: inline;
+    display: grid;
     margin-right: .5rem;
     width: 50%;
     height: 100%;
-   
 }
 .cajaDerecha{
     display: inline;
@@ -20,7 +93,6 @@
 
 
 .contenedor{
-
     padding-left: 2rem;
     padding-right: 2rem;
 }

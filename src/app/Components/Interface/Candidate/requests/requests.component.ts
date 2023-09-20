@@ -2,6 +2,9 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { CandidateService } from 'src/app/Services/CandidateServices/candidate.service';
 import { Candidato } from 'src/app/Services/Entity/candidato';
+import { Empleador } from 'src/app/Services/Entity/empleador';
+import { Estado } from 'src/app/Services/Entity/estado';
+import { ModalidadTrabajo } from 'src/app/Services/Entity/modalidad-trabajo';
 import { Postulacion } from 'src/app/Services/Entity/postulacion';
 
 import { InterfaceService } from 'src/app/Services/InterfaceServices/interface.service';
@@ -31,7 +34,134 @@ export class RequestsComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.buscarUsuario();
+    this.cargarMuestra();
   }
+
+  ngAfterViewInit() {
+    let postulacion = document.getElementsByName('postulacion')[0];
+    postulacion.classList.add('mostrar');
+
+    window.addEventListener('scroll', function(){
+      let vacanteP = this.document.getElementsByName('postulacion');
+      for (let i = 0; i < vacanteP.length; i++) {
+        var alturaMin = window.innerHeight/1.8;
+       // var alturaMax = window.innerHeight/.5;
+        var distancia = vacanteP[i].getBoundingClientRect().top;
+        vacanteP[i].classList.add('transform_up');
+
+        if (distancia <= alturaMin){
+           vacanteP[i].classList.add('mostrar');
+         //  if( distancia < alturaMax){
+          //  vacanteP[i].classList.remove('aparece') 
+          // }
+        } else {
+           vacanteP[i].classList.remove('mostrar') 
+        }
+        
+      }
+      
+    });
+  }
+
+  cargarMuestra(){
+    this.postulaciones =[
+     { id_postulacion: 1,
+      estatus: false,
+      vacante:   {
+        id_vacante: 1,
+        nombreVacante: "Gerente",
+        especialista: "ninguno",
+        sueldo: 10000,
+        horario: "9:00am - 6:00pm",
+        domicilio: "Alcatraz n9",
+        municipio: { id_municipio: 0, nombreMunicipio: "mexico", estado: new Estado },
+        estatus: false,
+        descripcion: "Carnicero de planta",
+        empresa: { id_empresa: 0, nombre: "bimbo", descripcion: "panaderia", vacantes_empresa: [] },
+        empleador: new Empleador,
+        candidatos: [],
+        tipoHorario: { id_tipoHorario: 0, dias: "sab-dom", tipoHorario_vacantes: [] },
+        tipoContratacion: { id_tipoContratacion: 0, horario: "VIRTUAL", tipoContratacion_vacantes: [] },
+        modalidadTrabajo: new ModalidadTrabajo,
+        id_postulacion: 0,
+        fechaPublicacionSrt: new Date,
+        diasPublicada: 0
+      },
+      candidato: new Candidato, },
+      { id_postulacion: 1,
+        estatus: false,
+        vacante:   {
+          id_vacante: 1,
+          nombreVacante: "Gerente",
+          especialista: "ninguno",
+          sueldo: 10000,
+          horario: "9:00am - 6:00pm",
+          domicilio: "Alcatraz n9",
+          municipio: { id_municipio: 0, nombreMunicipio: "mexico", estado: new Estado },
+          estatus: false,
+          descripcion: "Carnicero de planta",
+          empresa: { id_empresa: 0, nombre: "bimbo", descripcion: "panaderia", vacantes_empresa: [] },
+          empleador: new Empleador,
+          candidatos: [],
+          tipoHorario: { id_tipoHorario: 0, dias: "sab-dom", tipoHorario_vacantes: [] },
+          tipoContratacion: { id_tipoContratacion: 0, horario: "VIRTUAL", tipoContratacion_vacantes: [] },
+          modalidadTrabajo: new ModalidadTrabajo,
+          id_postulacion: 0,
+          fechaPublicacionSrt: new Date,
+          diasPublicada: 0
+        },
+        candidato: new Candidato, },
+        { id_postulacion: 1,
+          estatus: false,
+          vacante:   {
+            id_vacante: 1,
+            nombreVacante: "Gerente",
+            especialista: "ninguno",
+            sueldo: 10000,
+            horario: "9:00am - 6:00pm",
+            domicilio: "Alcatraz n9",
+            municipio: { id_municipio: 0, nombreMunicipio: "mexico", estado: new Estado },
+            estatus: false,
+            descripcion: "Carnicero de planta",
+            empresa: { id_empresa: 0, nombre: "bimbo", descripcion: "panaderia", vacantes_empresa: [] },
+            empleador: new Empleador,
+            candidatos: [],
+            tipoHorario: { id_tipoHorario: 0, dias: "sab-dom", tipoHorario_vacantes: [] },
+            tipoContratacion: { id_tipoContratacion: 0, horario: "VIRTUAL", tipoContratacion_vacantes: [] },
+            modalidadTrabajo: new ModalidadTrabajo,
+            id_postulacion: 0,
+            fechaPublicacionSrt: new Date,
+            diasPublicada: 0
+          },
+          candidato: new Candidato, },
+          { id_postulacion: 1,
+            estatus: false,
+            vacante:   {
+              id_vacante: 1,
+              nombreVacante: "Gerente",
+              especialista: "ninguno",
+              sueldo: 10000,
+              horario: "9:00am - 6:00pm",
+              domicilio: "Alcatraz n9",
+              municipio: { id_municipio: 0, nombreMunicipio: "mexico", estado: new Estado },
+              estatus: false,
+              descripcion: "Carnicero de planta",
+              empresa: { id_empresa: 0, nombre: "bimbo", descripcion: "panaderia", vacantes_empresa: [] },
+              empleador: new Empleador,
+              candidatos: [],
+              tipoHorario: { id_tipoHorario: 0, dias: "sab-dom", tipoHorario_vacantes: [] },
+              tipoContratacion: { id_tipoContratacion: 0, horario: "VIRTUAL", tipoContratacion_vacantes: [] },
+              modalidadTrabajo: new ModalidadTrabajo,
+              id_postulacion: 0,
+              fechaPublicacionSrt: new Date,
+              diasPublicada: 0
+            },
+            candidato: new Candidato, },
+    ]
+  }
+
+
+ 
 
   // FUNCION PARA ELIMINAR LA SUSCRIPCION A UN SERVICIO
   ngOnDestroy(): void {

@@ -1,3 +1,9 @@
+.centrar{
+    display: grid;
+    place-items: center;
+}
+
+
 .caja{
     padding-top: 2rem;
     padding-bottom: 2rem;

@@ -1,0 +1,88 @@
+<div class="fijarII">
+    <div style="padding-bottom: 0%;">
+        <div class="card caja">
+            <table class="table table-striped" style="margin: 0%; font-size: small; text-align: center;">
+                <tr>
+                    <td>{{id_elemento}}</td>
+                    <td>{{nombreElemento}}</td>
+                    <td>borrar elemento</td>
+                    <td>Editar elemento</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div style="margin-top: 325px;">
+        <div class="card caja">
+            <div style="margin-bottom: .5rem;">
+                <div style="display:grid;">
+                    <div style="display: flex;">
+                        <div style="display:grid; width: 50%;">
+                            <div style="width: 100%;">
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col-6" style="padding-left: 0%; padding-bottom: .3rem;">
+                                            {{id_elemento}} :
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="display: flex;">
+                                <div style="width: 100%;">
+                                    <input class="form-control" type="text" placeholder="Apellido Paterno"
+                                        aria-label="default input example" [(ngModel)]="id_Captura" disabled>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div style="display:grid; width: 50%; margin-left: 1rem; margin-right: 0rem;">
+                            <div style="width: 100%;">
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col-6" style="padding-left: 0%; padding-bottom: .3rem;">
+                                            {{nombreElemento}} :
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="display: flex;">
+                                <div style="width: 100%;">
+                                    <input class="form-control" type="text" placeholder="nombre"
+                                        aria-label="default input example" [(ngModel)]="nombreCaptura">
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div style="margin-bottom: .5rem;">
+                <button name="CreateObj" type="button" class="btn btn-success" style="width: 100%;">
+                   GUARDAR NUEVO</button>
+            </div>
+            <div style="margin-bottom: .5rem;">
+                <button name="ModObj" type="button" class="btn btn-warning" style="width: 100%;">
+                    GUARDAR CAMBIOS </button>
+            </div>
+        </div>
+    </div>
+</div>
+<div style="padding: 1rem; padding-top: 0%; padding-bottom: 14rem; margin-top: -545px;">
+    <div class="card caja" style=" padding-top: 2rem;">
+        <table class="table table-striped" style="margin: 0%; font-size: small; text-align: center;">
+            <tbody>
+                <tr *ngFor="let objeto of vectorGeneral">
+                    <td>{{objeto.id}}</td>
+                    <td>{{objeto.nombre}}</td>
+                    <td>
+                        <button name="borrarBTN" type="button" class="btn btn-outline-danger btn-sm" (click)="borrar(objeto)">borrar </button>
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-outline-secondary btn-sm"
+                            (click)="seleccionar(objeto)">seleccionar</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -11,7 +11,7 @@ import { InterfaceService } from 'src/app/Services/InterfaceServices/interface.s
 export class ManageComponent implements OnInit {
 
   // VARIABLE QUE ALMACENA UN USUARO GENERAL 
-  usuario: any ;
+  usuario: any;
   // VARIABLE QUE ALMACENA EL ID DEL USUARIO PARA FUTURAS ACCIONES
   id_usuario: number = 0;
   // VARIABLE QUE ALMACENA EL TIPO DE USUARIO PARA FUTURAS ACCIONES
@@ -28,14 +28,17 @@ export class ManageComponent implements OnInit {
   ocultarModificar: boolean = true;
   // VARIABLE PARA ALMACENAR EL CORREO DE BUSQUEDA
   correoDeUsuario: string = "";
-
+  // VARIABLE PARA ALMACENAR EL NOMBRE DE LA LISTA
+  lista: string = "";
+  // VARIABLE PARA OCULTAR LA INTERFAZ DE LAS LISTAS
+  ocultarLista: boolean = true;
   // INYECCION DE SERVICOS A USAR EN EL COMPONENTE
   constructor(
-    private _AdminRequest: AdminService, 
+    private _AdminRequest: AdminService,
     private _CandidateRequest: CandidateService,
     private _UserRequest: InterfaceService) {
 
-    }
+  }
 
   ngOnInit(): void {
 
@@ -48,6 +51,7 @@ export class ManageComponent implements OnInit {
     this.ocultarUsuarios = true;
     this.ocultarBotonesDeUsusario = true;
     this.ocultarModificar = true;
+    this.ocultarLista = true;
   }
 
   // FUNCION PARA OCULTAR LOS ELEMENTOS DEL DOCUMENTO HTML QUE NO FORMEN PARTE DE LA SECCION SELECCIONADA
@@ -57,6 +61,7 @@ export class ManageComponent implements OnInit {
     this.ocultarUsuarios = true;
     this.ocultarBotonesDeUsusario = true;
     this.ocultarModificar = true;
+    this.ocultarLista = true;
   }
 
   // FUNCION PARA BUSCAR UN USUARIO
@@ -64,6 +69,7 @@ export class ManageComponent implements OnInit {
     this.verBorrarVacante = true;
     this.verCrearCuenta = true;
     this.ocultarModificar = true;
+    this.ocultarLista = true;
 
     this._AdminRequest.obtenerPorCorreo(this.correoDeUsuario).then((data: any) => {
       if (data.usuario.tipoUsuario == 1 || data.usuario.tipoUsuario == 2 || data.usuario.tipoUsuario == 3) {
@@ -99,6 +105,34 @@ export class ManageComponent implements OnInit {
     } else {
     }
   }
+  // FUNCNON PARA ELEGIR UNA LISTA SEGUN EL AUTOCOMPLETE
+  seleccionar() {
+    this.verCrearCuenta = true;
+    this.verBorrarVacante = true;
+    this.ocultarUsuarios = true;
+    this.ocultarBotonesDeUsusario = true;
+    this.ocultarModificar = true;
+
+    if (this.lista == "idioma") {
+      this._AdminRequest.listaActiva(this.lista);
+      this.ocultarLista = false;
+    } else if (this.lista == "habilidad") {
+      this._AdminRequest.listaActiva(this.lista);
+      this.ocultarLista = false;
+    } else if (this.lista == "horario") {
+      this._AdminRequest.listaActiva(this.lista);
+      this.ocultarLista = false;
+    } else if (this.lista == "contratacion") {
+      this._AdminRequest.listaActiva(this.lista);
+      this.ocultarLista = false;
+    } else if (this.lista == "modalidad") {
+      this._AdminRequest.listaActiva(this.lista);
+      this.ocultarLista = false;
+    } else {
+      this.enviarAlerta("No hemos podido encontrar una lista con ese nombre.", true);
+      this.ocultarLista = true;
+    }
+  }
 
   // FUNCION PARA SUSPENDER UNA CUENTA
   suspender() {
@@ -123,22 +157,23 @@ export class ManageComponent implements OnInit {
 
   modificar() {
     if (this.id_tipoUsuario != 0) {
+      this.ocultarUsuarios = true;
       this.ocultarModificar = false;
     } else {
       this.enviarAlerta("No se ha podido identificar el tipo de usuario.", true);
     }
   }
 
-    // FUNCION PARA EL POPUP
-    enviarAlerta(mss: String, error: boolean) {
+  // FUNCION PARA EL POPUP
+  enviarAlerta(mss: String, error: boolean) {
 
-      const ALERTA = {
-        mss: mss,
-        error: error,
-      }
-  
-      this._UserRequest.activarAlerta();
-      this._UserRequest.cargarAlerta(ALERTA);
+    const ALERTA = {
+      mss: mss,
+      error: error,
     }
+
+    this._UserRequest.activarAlerta();
+    this._UserRequest.cargarAlerta(ALERTA);
+  }
 
 }

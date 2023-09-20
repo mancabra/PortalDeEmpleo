@@ -49,6 +49,10 @@
      display: none;
 }
 
+.ver{
+    display:flex;
+}
+
 .completo{
      display: gird;
      width: 100%;

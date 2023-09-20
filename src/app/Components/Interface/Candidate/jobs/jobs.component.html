@@ -1,35 +1,44 @@
-<div style="display: flex;">
-
-    <div class="cajaIzquierda" [ngClass]="{'long':usuarioAdmin, '':!usuarioAdmin}">
-        <div *ngIf="cargarPantallaPrincipal(); else PantallaVacia">
-            <div class="input-group" style="width: 100%;">
-                <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
-                    aria-expanded="false">{{filtro}}</button>
-                <ul class="dropdown-menu">
-                    <li><button class="dropdown-item" type="button" *ngFor="let filtroSelecionado of filtrosDisponibles"
-                            (click)="actualizarFiltro(filtroSelecionado)">{{filtroSelecionado}}</button>
-                    </li>
-                </ul>
-                <!-- menu estados -->
-                <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
-                    aria-expanded="false"
-                    [ngClass]="{'on':filtroEstado, '':!filtroEstado}">{{estado.nombreEstado}}</button>
-                <ul class="dropdown-menu">
-                    <div class="scrollMenu">
-                        <li><button class="dropdown-item" type="button" *ngFor="let estadoSeleccionado of estadosMexico"
-                                (click)="actualizarEstado(estadoSeleccionado)">{{estadoSeleccionado.nombreEstado}}</button>
+<div style="display: block; height: 1500px; margin-bottom: 7rem;">
+    <!--  -->
+    <div class="fijar">
+        <div class="contenedorBusqueda">
+            <div class="card p-2">
+                <div class="input-group" style="width: 100%;">
+                    <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                        aria-expanded="false">{{filtro}}</button>
+                    <ul class="dropdown-menu">
+                        <li><button class="dropdown-item" type="button"
+                                *ngFor="let filtroSelecionado of filtrosDisponibles"
+                                (click)="actualizarFiltro(filtroSelecionado)">{{filtroSelecionado}}</button>
                         </li>
-                    </div>
-                </ul>
+                    </ul>
+                    <!-- menu estados -->
+                    <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                        aria-expanded="false"
+                        [ngClass]="{'on':filtroEstado, '':!filtroEstado}">{{estado.nombreEstado}}</button>
+                    <ul class="dropdown-menu">
+                        <div class="scrollMenu">
+                            <li><button class="dropdown-item" type="button"
+                                    *ngFor="let estadoSeleccionado of estadosMexico"
+                                    (click)="actualizarEstado(estadoSeleccionado)">{{estadoSeleccionado.nombreEstado}}</button>
+                            </li>
+                        </div>
+                    </ul>
 
-                <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)"
-                    placeholder="Ingresa el nombre de tu trabajo ideal" [(ngModel)]="busqueda">
-                <button class="input-group-text" type="button" (click)="buscarVacantes()">Buscar </button>
+                    <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)"
+                        placeholder="Ingresa el nombre de tu trabajo ideal" [(ngModel)]="busqueda">
+                    <button class="btn btn-outline-success" type="button" (click)="buscarVacantes()">Buscar </button>
+                </div>
             </div>
+        </div>
+    </div>
 
-            <div class="scrollMenu">
+    <!--  -->
+    <div class="contenedorInferior">
+        <div class="lista" [ngClass]="{'long':usuarioAdmin, '':!usuarioAdmin}">
+            <div *ngIf="cargarPantallaPrincipal(); else PantallaVacia">
                 <div *ngIf="cargarVacantes(); else sinVacantes">
-                    <div class="card carta" *ngFor="let vacante of jobsList" style="margin-top: 1rem;">
+                    <div class="card vacantedeLista" name="vacantedeLista" *ngFor="let vacante of jobsList" style="margin-top: 1rem;">
                         <div class="card-body">
                             <h3 class="card-title">{{vacante.nombreVacante}}</h3>
                             <p class="card-text textoInformativo" style="padding-bottom: 0rem;">
@@ -48,8 +57,10 @@
                                 <div class="row">
                                     <div class="col-9">
                                         <a class="btn btn-success botonInformativo"
-                                            style="margin-left: 0%; font-size: small;">horario: {{vacante.horario}} </a>
-                                        <a class="btn btn-success botonInformativo" style="font-size: small;"> sueldo: $
+                                            style="margin-left: 0%; font-size: small;">horario: {{vacante.horario}}
+                                        </a>
+                                        <a class="btn btn-success botonInformativo" style="font-size: small;">
+                                            sueldo: $
                                             {{vacante.sueldo}} mxn </a>
                                         <a class="btn btn-warning botonInformativo2" style="font-size: small;"
                                             (click)="verVacanteCompleta(vacante)"
@@ -66,27 +77,26 @@
                     </div>
                 </div>
             </div>
-        </div>
 
-        <ng-template #sinVacantes>
-            <p style="text-align: center;">No hay vacantes publicadas</p>
-        </ng-template>
+            <div style="width: 100%;">
+                <ng-template #sinVacantes>
+                    <p style="text-align: center;">No hay vacantes publicadas</p>
+                </ng-template>
 
-        <ng-template #PantallaVacia>
-            <p style="text-align: center;">No hay vacantes publicadas</p>
-        </ng-template>
-    </div>
-
-
-    <div class="cajaDerecha" [ngClass]="{'on':usuarioAdmin, '':!usuarioAdmin}">
-        <div *ngIf="cargarPantalla(); else pantallaVacia">
-            <div class="card" style="width: 100%;">
-                <app-job [vacante]="vacanteSeleccionada" [verSueldo]="verSueldo"></app-job>
+                <ng-template #PantallaVacia>
+                    <p style="text-align: center;">No hay vacantes publicadas</p>
+                </ng-template>
             </div>
         </div>
-
-        <ng-template #pantallaVacia>
-            <p style="text-align: center;">Ninguna vacante seleccionada</p>
-        </ng-template>
+        <div class="vacante" [ngClass]="{'on':usuarioAdmin, '':!usuarioAdmin}">
+            <div *ngIf="cargarPantalla(); else pantallaVacia">
+                <div class="card" style="width: 100%;">
+                    <app-job [vacante]="vacanteSeleccionada" [verSueldo]="verSueldo"></app-job>
+                </div>
+            </div>
+            <ng-template #pantallaVacia>
+                <p style="text-align: center;">Ninguna vacante seleccionada</p>
+            </ng-template>
+        </div>
     </div>
 </div>
