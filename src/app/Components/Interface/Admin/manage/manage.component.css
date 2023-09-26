@@ -21,3 +21,11 @@
 .on{
     display:none;
 }
+
+.fijar{
+    position: sticky;
+    top: 150px;
+    z-index: 100;
+    display: block;
+    margin-bottom: 2rem;
+}

@@ -71,8 +71,9 @@ export class CandidatesComponent implements OnInit {
         tipoContratacion: { id_tipoContratacion: 0, horario: "VIRTUAL", tipoContratacion_vacantes: [] },
         modalidadTrabajo: new ModalidadTrabajo,
         id_postulacion: 0,
-        fechaPublicacionSrt: new Date,
-        diasPublicada: 0
+        fechaPublicacionSrt: "",
+        diasPublicada: 0,
+        estado: new Estado
       }, {
         id_vacante: 2,
         nombreVacante: "Repartidor",
@@ -90,8 +91,9 @@ export class CandidatesComponent implements OnInit {
         tipoContratacion: { id_tipoContratacion: 0, horario: "VIRTUAL", tipoContratacion_vacantes: [] },
         modalidadTrabajo: new ModalidadTrabajo,
         id_postulacion: 0,
-        fechaPublicacionSrt: new Date,
-        diasPublicada: 0
+        fechaPublicacionSrt: "",
+        diasPublicada: 0,
+        estado: new Estado
       }, {
         id_vacante: 3,
         nombreVacante: "Operador",
@@ -109,8 +111,9 @@ export class CandidatesComponent implements OnInit {
         tipoContratacion: { id_tipoContratacion: 0, horario: "VIRTUAL", tipoContratacion_vacantes: [] },
         modalidadTrabajo: new ModalidadTrabajo,
         id_postulacion: 0,
-        fechaPublicacionSrt: new Date,
-        diasPublicada: 0
+        fechaPublicacionSrt: "",
+        diasPublicada: 0,
+        estado: new Estado
       }, {
         id_vacante: 4,
         nombreVacante: "Pastelero",
@@ -128,8 +131,9 @@ export class CandidatesComponent implements OnInit {
         tipoContratacion: { id_tipoContratacion: 0, horario: "VIRTUAL", tipoContratacion_vacantes: [] },
         modalidadTrabajo: new ModalidadTrabajo,
         id_postulacion: 0,
-        fechaPublicacionSrt: new Date,
-        diasPublicada: 0
+        fechaPublicacionSrt: "",
+        diasPublicada: 0,
+        estado: new Estado
       }, {
         id_vacante: 5,
         nombreVacante: "Panadero",
@@ -147,8 +151,9 @@ export class CandidatesComponent implements OnInit {
         tipoContratacion: { id_tipoContratacion: 0, horario: "VIRTUAL", tipoContratacion_vacantes: [] },
         modalidadTrabajo: new ModalidadTrabajo,
         id_postulacion: 0,
-        fechaPublicacionSrt: new Date,
-        diasPublicada: 0
+        fechaPublicacionSrt: "",
+        diasPublicada: 0,
+        estado: new Estado
       }
     ];
   }

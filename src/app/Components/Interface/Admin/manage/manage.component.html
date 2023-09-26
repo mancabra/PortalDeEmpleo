@@ -1,5 +1,22 @@
+<div class="fijar">
+    <div class="contenedorBusqueda">
+        <div class="card p-2">
+            <div class="input-group" style="width: 100%;">
+                <input type="text" class="form-control" placeholder="Ingresa el nombre de la tabla que buscas" aria-label="Search" [(ngModel)]="lista" list="listasDisp">
+                <datalist id="listasDisp">
+                    <option value="idioma"></option>
+                    <option value="habilidad"></option>
+                    <option value="horario"></option>
+                    <option value="contratacion"></option>
+                    <option value="modalidad"></option>
+                </datalist>
+                <button class="btn btn-outline-secondary" type="button" (click)="seleccionar()" >Seleccionar Tabla </button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--  
 <div style="display: flex;">
-
     <div class="cajaIzquierda">
 
         <div style="display: block;">
@@ -47,7 +64,6 @@
                             USUARIO</button>
                     </div>
 
-                    <!-- idiomas -->
 
                     <h2 class="accordion-header" style="margin-top: 3rem;">
                         <button class="accordion-button " type="button" data-bs-toggle="" data-bs-target=""
@@ -97,7 +113,7 @@
     <div class="cajaDerecha">
         <div style="margin-left: 3rem; margin-right: 3rem;">
             <app-data [ngClass]="{'on':ocultarLista, '':!ocultarLista}" ></app-data>
-            <!-- <app-data></app-data> -->
+        
             <app-create [usuarioAdmin]="usuarioAdmin"
                 [ngClass]="{'on':verCrearCuenta, '':!verCrearCuenta}"></app-create>
             <app-jobs [usuarioAdmin]="usuarioAdmin"
@@ -109,3 +125,5 @@
         </div>
     </div>
 </div>
+-->
+<app-data></app-data>

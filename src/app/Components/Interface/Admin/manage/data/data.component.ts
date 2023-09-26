@@ -121,7 +121,7 @@ export class DataComponent implements OnInit, OnDestroy {
         this.vectorGeneral.push(OBJETO);
       }
     });
-  /*
+
       this.vectorGeneral = [];
 
       for (let i = 0; i < this.vectorIdiomas.length; i++) {
@@ -132,7 +132,7 @@ export class DataComponent implements OnInit, OnDestroy {
           nombre: element.nombreIdioma
         }
         this.vectorGeneral.push(OBJETO);
-      */
+      }
   }
 
   // FUNCION PARA OBTENER LAS HABILIDADES DISPONIBLES

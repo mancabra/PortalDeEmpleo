@@ -1,6 +1,7 @@
 import { Candidato } from "./candidato";
 import { Empleador } from "./empleador";
 import { Empresa } from "./empresa";
+import { Estado } from "./estado";
 import { ModalidadTrabajo } from "./modalidad-trabajo";
 import { Municipio } from "./municipio";
 import { TipoContratacion } from "./tipo-contratacion";
@@ -14,7 +15,10 @@ export class Vacante {
     sueldo: number  = 0;
     horario: string = "";
     domicilio: string = "";
+    fechaPublicacionSrt: string = "";
+    diasPublicada:number = 0;
     municipio: Municipio = new Municipio;
+    estado: Estado = new Estado;
     estatus: boolean = false;
     descripcion: string  = "";
     empresa: Empresa = new Empresa;
@@ -24,7 +28,4 @@ export class Vacante {
     tipoContratacion: TipoContratacion = new TipoContratacion;
     modalidadTrabajo: ModalidadTrabajo = new ModalidadTrabajo;
     id_postulacion: number = 0;
-    fechaPublicacionSrt: Date = new Date;
-    diasPublicada:number = 0;
-
 }

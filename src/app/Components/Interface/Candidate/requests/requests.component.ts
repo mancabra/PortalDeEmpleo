@@ -86,8 +86,9 @@ export class RequestsComponent implements OnInit, OnDestroy {
         tipoContratacion: { id_tipoContratacion: 0, horario: "VIRTUAL", tipoContratacion_vacantes: [] },
         modalidadTrabajo: new ModalidadTrabajo,
         id_postulacion: 0,
-        fechaPublicacionSrt: new Date,
-        diasPublicada: 0
+        fechaPublicacionSrt: "",
+        diasPublicada: 0,
+        estado: new Estado
       },
       candidato: new Candidato, },
       { id_postulacion: 1,
@@ -109,8 +110,9 @@ export class RequestsComponent implements OnInit, OnDestroy {
           tipoContratacion: { id_tipoContratacion: 0, horario: "VIRTUAL", tipoContratacion_vacantes: [] },
           modalidadTrabajo: new ModalidadTrabajo,
           id_postulacion: 0,
-          fechaPublicacionSrt: new Date,
-          diasPublicada: 0
+          fechaPublicacionSrt: "",
+          diasPublicada: 0,
+          estado: new Estado
         },
         candidato: new Candidato, },
         { id_postulacion: 1,
@@ -132,8 +134,9 @@ export class RequestsComponent implements OnInit, OnDestroy {
             tipoContratacion: { id_tipoContratacion: 0, horario: "VIRTUAL", tipoContratacion_vacantes: [] },
             modalidadTrabajo: new ModalidadTrabajo,
             id_postulacion: 0,
-            fechaPublicacionSrt: new Date,
-            diasPublicada: 0
+            fechaPublicacionSrt: "",
+            diasPublicada: 0,
+            estado: new Estado
           },
           candidato: new Candidato, },
           { id_postulacion: 1,
@@ -155,8 +158,9 @@ export class RequestsComponent implements OnInit, OnDestroy {
               tipoContratacion: { id_tipoContratacion: 0, horario: "VIRTUAL", tipoContratacion_vacantes: [] },
               modalidadTrabajo: new ModalidadTrabajo,
               id_postulacion: 0,
-              fechaPublicacionSrt: new Date,
-              diasPublicada: 0
+              fechaPublicacionSrt: "",
+              diasPublicada: 0,
+              estado: new Estado
             },
             candidato: new Candidato, },
     ]
