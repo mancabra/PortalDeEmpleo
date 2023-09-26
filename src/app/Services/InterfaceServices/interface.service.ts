@@ -168,7 +168,7 @@ export class InterfaceService {
 
   //FUNCION QUE ENVIA UNA ACTUALIZACION A TODOS LOS COMPONENTES QUE SE SUSCRIBIERON A ESTE OBSERVABLE
   hacerVisitante() {
-    this.tipoUsuario = 1;
+    this.tipoUsuario = 0;
     this.tipo$.next(this.tipoUsuario);
   }
 
