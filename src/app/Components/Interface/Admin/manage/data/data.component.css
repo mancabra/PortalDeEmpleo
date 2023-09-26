@@ -3,8 +3,13 @@
     padding-left: 1.5rem;
     padding-top: 1.5rem;
     padding-bottom: 1.5rem;
+    z-index: 2;
 }
 
+.interiores{
+    padding-right: 2rem;
+    padding-left: 2rem;
+}
 
 .fijar{
     position: sticky;
@@ -20,10 +25,11 @@
 .fijarII{
     position: sticky;
     top: 160px;
-    z-index: 100;
+    z-index: 1;
 }
 .scrollMenu{
     width: 100%;
-    height: 350px;
+    height: 300px;
+    border-radius: 0px 0px 0px 0px;
     overflow-y: scroll;
 }

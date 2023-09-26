@@ -1,17 +1,42 @@
-<div class="fijarII">
-    <div style="padding-bottom: 0%;">
-        <div class="card caja">
-            <table class="table table-striped" style="margin: 0%; font-size: small; text-align: center;">
-                <tr>
-                    <td>{{id_elemento}}</td>
-                    <td>{{nombreElemento}}</td>
-                    <td>borrar elemento</td>
-                    <td>Editar elemento</td>
-                </tr>
+<div>
+    <div>
+        <div style="padding-bottom: 0%;">
+            <div class="card caja">
+                <table class="table table-striped" style="margin: 0%; font-size: small; text-align: center;">
+                    <tr>
+                        <td>{{id_elemento}}</td>
+                        <td>{{nombreElemento}}</td>
+                        <td>borrar elemento</td>
+                        <td>Editar elemento</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="interiores">
+        <div class="card caja scrollMenu" style=" padding-top: 2rem;">
+            <table class="table table-striped" style="margin: 0%; font-size: small; ">
+                <tbody>
+                    <tr *ngFor="let objeto of vectorGeneral">
+                        <td style="text-align: left;">{{objeto.id}}</td>
+                        <td style="text-align: center;">{{objeto.nombre}}</td>
+                        <td style="text-align: right;">
+                            <button name="borrarBTN" type="button" class="btn btn-outline-danger btn-sm"
+                                (click)="borrar(objeto)">borrar </button>
+                        </td>
+                        <td style="text-align: right;">
+                            <button type="button" class="btn btn-outline-secondary btn-sm"
+                                (click)="seleccionar(objeto)">seleccionar</button>
+                        </td>
+                    </tr>
+
+                </tbody>
             </table>
         </div>
     </div>
-    <div style="margin-top: 325px;">
+
+    <div>
         <div class="card caja">
             <div style="margin-bottom: .5rem;">
                 <div style="display:grid;">
@@ -58,31 +83,12 @@
             </div>
             <div style="margin-bottom: .5rem;">
                 <button name="CreateObj" type="button" class="btn btn-success" style="width: 100%;" (click)="agregar()">
-                   GUARDAR NUEVO</button>
+                    GUARDAR NUEVO</button>
             </div>
             <div style="margin-bottom: .5rem;">
                 <button name="ModObj" type="button" class="btn btn-warning" style="width: 100%;" (click)="editar()">
                     GUARDAR CAMBIOS </button>
             </div>
         </div>
-    </div>
-</div>
-<div style="padding: 1rem; padding-top: 0%; padding-bottom: 14rem; margin-top: -545px;">
-    <div class="card caja" style=" padding-top: 2rem;">
-        <table class="table table-striped" style="margin: 0%; font-size: small; text-align: center;">
-            <tbody>
-                <tr *ngFor="let objeto of vectorGeneral">
-                    <td>{{objeto.id}}</td>
-                    <td>{{objeto.nombre}}</td>
-                    <td>
-                        <button name="borrarBTN" type="button" class="btn btn-outline-danger btn-sm" (click)="borrar(objeto)">borrar </button>
-                    </td>
-                    <td>
-                        <button type="button" class="btn btn-outline-secondary btn-sm"
-                            (click)="seleccionar(objeto)">seleccionar</button>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
     </div>
 </div>

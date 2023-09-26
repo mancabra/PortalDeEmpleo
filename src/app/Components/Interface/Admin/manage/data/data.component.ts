@@ -96,6 +96,14 @@ export class DataComponent implements OnInit, OnDestroy {
     {id_idioma:2,nombreIdioma:"ingles",candidatos:[]},
     {id_idioma:3,nombreIdioma:"ingles",candidatos:[]},
     {id_idioma:4,nombreIdioma:"ingles",candidatos:[]},
+    {id_idioma:4,nombreIdioma:"ingles",candidatos:[]},
+    {id_idioma:4,nombreIdioma:"ingles",candidatos:[]},
+    {id_idioma:4,nombreIdioma:"ingles",candidatos:[]},
+    {id_idioma:4,nombreIdioma:"ingles",candidatos:[]},
+    {id_idioma:4,nombreIdioma:"ingles",candidatos:[]},
+    {id_idioma:4,nombreIdioma:"ingles",candidatos:[]},
+    {id_idioma:4,nombreIdioma:"ingles",candidatos:[]},
+    {id_idioma:4,nombreIdioma:"ingles",candidatos:[]},
   ]
   // FUNCION PARA OBTENER LOS IDIOMAS DISPONIBLES
   obtenrIdiomas() {
@@ -113,7 +121,7 @@ export class DataComponent implements OnInit, OnDestroy {
         this.vectorGeneral.push(OBJETO);
       }
     });
-   /*
+  /*
       this.vectorGeneral = [];
 
       for (let i = 0; i < this.vectorIdiomas.length; i++) {
@@ -124,7 +132,7 @@ export class DataComponent implements OnInit, OnDestroy {
           nombre: element.nombreIdioma
         }
         this.vectorGeneral.push(OBJETO);
-      }*/
+      */
   }
 
   // FUNCION PARA OBTENER LAS HABILIDADES DISPONIBLES
