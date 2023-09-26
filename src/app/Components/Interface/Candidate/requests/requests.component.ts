@@ -34,8 +34,9 @@ export class RequestsComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.buscarUsuario();
-   // this.cargarMuestra();
+    //this.cargarMuestra();
   }
+/*
 
   ngAfterViewInit() {
     let postulacion = document.getElementsByName('postulacion')[0];
@@ -63,6 +64,7 @@ export class RequestsComponent implements OnInit, OnDestroy {
     });
   }
 
+  */
   cargarMuestra(){
     this.postulaciones =[
      { id_postulacion: 1,

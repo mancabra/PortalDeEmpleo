@@ -70,10 +70,9 @@ export class JobsComponent implements OnInit, OnDestroy {
     this.buscarUsuario();
     this.obtenerVacantes();
     this.obtenerEstados();
-   // this.cargarMuestra();
-
+    //this.cargarMuestra();
   }
-
+/*
   ngAfterViewInit() {
     let vacante1 = document.getElementsByName('vacantedeLista')[0];
     vacante1.classList.add('aparece');
@@ -98,6 +97,7 @@ export class JobsComponent implements OnInit, OnDestroy {
       
     });
   }
+  */
 
   ngOnDestroy(): void {
   }

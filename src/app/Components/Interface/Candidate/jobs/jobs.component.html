@@ -38,7 +38,7 @@
         <div class="lista" [ngClass]="{'long':usuarioAdmin, '':!usuarioAdmin}">
             <div *ngIf="cargarPantallaPrincipal(); else PantallaVacia">
                 <div *ngIf="cargarVacantes(); else sinVacantes">
-                    <div class="card vacantedeLista" name="vacantedeLista" *ngFor="let vacante of jobsList" style="margin-top: 1rem;">
+                    <div class="card" name="vacantedeLista" *ngFor="let vacante of jobsList" style="margin-top: 1rem;">
                         <div class="card-body">
                             <h3 class="card-title">{{vacante.nombreVacante}}</h3>
                             <p class="card-text textoInformativo" style="padding-bottom: 0rem;">
