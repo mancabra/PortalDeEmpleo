@@ -18,3 +18,25 @@
 .view{
     display: none;
 }
+
+.acciones{
+    position: absolute;
+    padding: 0%;
+    top: 0%;
+    left: 94%;
+    z-index: 100;
+}
+
+.cerrar{
+    opacity: 1;
+    text-align: center;
+    background-color: red;
+    color:white;
+    border-radius: 18px 18px 18px 18px;
+    padding: 0px;
+    position: absolute;
+    top: 18%;
+    left: 91%;
+    z-index: 50;
+}
+

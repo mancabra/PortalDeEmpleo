@@ -45,7 +45,7 @@ export class AdminService {
     console.log("Info Enviada");
     console.log(AdminRequest);
 
-    return this._http.put("app/", AdminRequest).toPromise();
+    return this._http.put("app/crearIdioma", AdminRequest).toPromise();
   }
 
   // FUNCION QUE PERMITE MODIFICAR UN IDIOMA
@@ -55,7 +55,7 @@ export class AdminService {
     console.log("Info Enviada");
     console.log(AdminRequest);
 
-    return this._http.put("app/", AdminRequest).toPromise();
+    return this._http.put("app/modificarIdioma", AdminRequest).toPromise();
   }
 
 
@@ -72,7 +72,7 @@ export class AdminService {
     console.log("Info Enviada");
     console.log(AdminRequest);
 
-    return this._http.put("app/", AdminRequest).toPromise();
+    return this._http.put("app/crearHabilidad", AdminRequest).toPromise();
   }
 
   // FUNCION QUE PERMITE MODIFICAR UNA HABILIDAD
@@ -82,7 +82,7 @@ export class AdminService {
     console.log("Info Enviada");
     console.log(AdminRequest);
 
-    return this._http.put("app/", AdminRequest).toPromise();
+    return this._http.put("app/modificarHabilidad", AdminRequest).toPromise();
   }
 
   // FUNCION QUE PERMITE ELIMINAR UNA HABILIDAD
@@ -98,7 +98,7 @@ export class AdminService {
     console.log("Info Enviada");
     console.log(AdminRequest);
 
-    return this._http.put("app/", AdminRequest).toPromise();
+    return this._http.put("app/crearTipoHorario", AdminRequest).toPromise();
   }
 
   // FUNCION QUE PERMITE MODIFICAR UN HORARIO
@@ -108,7 +108,7 @@ export class AdminService {
     console.log("Info Enviada");
     console.log(AdminRequest);
 
-    return this._http.put("app/", AdminRequest).toPromise();
+    return this._http.put("app/modificarTipoHorario", AdminRequest).toPromise();
   }
 
   // FUNCION QUE PERMITE ELIMINAR UN HORARIO
@@ -124,7 +124,7 @@ export class AdminService {
     console.log("Info Enviada");
     console.log(AdminRequest);
 
-    return this._http.put("app/", AdminRequest).toPromise();
+    return this._http.put("app/crearTipoContratacion", AdminRequest).toPromise();
   }
 
   // FUNCION QUE PERMITE MODIFICAR UNA CONTRATACION
@@ -134,7 +134,7 @@ export class AdminService {
     console.log("Info Enviada");
     console.log(AdminRequest);
 
-    return this._http.put("app/", AdminRequest).toPromise();
+    return this._http.put("app/modificarTipoContratacion", AdminRequest).toPromise();
   }
 
   // FUNCION QUE PERMITE ELIMINAR UNA CONTRATACION
@@ -150,7 +150,7 @@ export class AdminService {
     console.log("Info Enviada");
     console.log(AdminRequest);
 
-    return this._http.put("app/", AdminRequest).toPromise();
+    return this._http.put("app/crearModalidadTrabajo", AdminRequest).toPromise();
   }
 
   // FUNCION QUE PERMITE MODIFICAR UNA MODALIDAD
@@ -160,7 +160,7 @@ export class AdminService {
     console.log("Info Enviada");
     console.log(AdminRequest);
 
-    return this._http.put("app/", AdminRequest).toPromise();
+    return this._http.put("app/modificarModalidadTrabajo", AdminRequest).toPromise();
   }
 
   // FUNCION QUE PERMITE ELIMINAR UNA MODALIDAD

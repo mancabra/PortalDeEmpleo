@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { AdminService } from 'src/app/Services/AdminServices/admin.service';
 import { CandidateService } from 'src/app/Services/CandidateServices/candidate.service';
 import { EmployerService } from 'src/app/Services/EmployerServices/employer.service';
 import { Candidato } from 'src/app/Services/Entity/candidato';
 import { Empleador } from 'src/app/Services/Entity/empleador';
+import { Estado } from 'src/app/Services/Entity/estado';
+import { ModalidadTrabajo } from 'src/app/Services/Entity/modalidad-trabajo';
 import { Postulacion } from 'src/app/Services/Entity/postulacion';
 import { Vacante } from 'src/app/Services/Entity/vacante';
 import { InterfaceService } from 'src/app/Services/InterfaceServices/interface.service';
@@ -39,11 +42,115 @@ export class CandidatesComponent implements OnInit {
     private _EmployerRequest: EmployerService,
     private router: Router,
     private _CandidateRequest: CandidateService,
-    private _UserRequest: InterfaceService) {
+    private _UserRequest: InterfaceService,
+    private _AdminRequest: AdminService) {
   }
 
   ngOnInit(): void {
     this.buscarUsuario();
+    // this.cargarMuestra();
+  }
+
+
+  cargarMuestra() {
+    this.publicaciones = [
+      {
+        id_vacante: 1,
+        nombreVacante: "Gerente",
+        especialista: "ninguno",
+        sueldo: 10000,
+        horario: "9:00am - 6:00pm",
+        domicilio: "Alcatraz n9",
+        municipio: { id_municipio: 0, nombreMunicipio: "mexico", estado: new Estado },
+        estatus: false,
+        descripcion: "Carnicero de planta",
+        empresa: { id_empresa: 0, nombre: "bimbo", descripcion: "panaderia", vacantes_empresa: [] },
+        empleador: new Empleador,
+        candidatos: [],
+        tipoHorario: { id_tipoHorario: 0, dias: "sab-dom", tipoHorario_vacantes: [] },
+        tipoContratacion: { id_tipoContratacion: 0, horario: "VIRTUAL", tipoContratacion_vacantes: [] },
+        modalidadTrabajo: new ModalidadTrabajo,
+        id_postulacion: 0,
+        fechaPublicacionSrt: new Date,
+        diasPublicada: 0
+      }, {
+        id_vacante: 2,
+        nombreVacante: "Repartidor",
+        especialista: "ninguno",
+        sueldo: 10000,
+        horario: "9:00am - 6:00pm",
+        domicilio: "Alcatraz n9",
+        municipio: { id_municipio: 0, nombreMunicipio: "mexico", estado: new Estado },
+        estatus: false,
+        descripcion: "Carnicero de planta",
+        empresa: { id_empresa: 0, nombre: "bimbo", descripcion: "panaderia", vacantes_empresa: [] },
+        empleador: new Empleador,
+        candidatos: [],
+        tipoHorario: { id_tipoHorario: 0, dias: "sab-dom", tipoHorario_vacantes: [] },
+        tipoContratacion: { id_tipoContratacion: 0, horario: "VIRTUAL", tipoContratacion_vacantes: [] },
+        modalidadTrabajo: new ModalidadTrabajo,
+        id_postulacion: 0,
+        fechaPublicacionSrt: new Date,
+        diasPublicada: 0
+      }, {
+        id_vacante: 3,
+        nombreVacante: "Operador",
+        especialista: "Tecnico",
+        sueldo: 10000,
+        horario: "9:00am - 6:00pm",
+        domicilio: "Alcatraz n9",
+        municipio: { id_municipio: 0, nombreMunicipio: "mexico", estado: new Estado },
+        estatus: false,
+        descripcion: "Carnicero de planta",
+        empresa: { id_empresa: 0, nombre: "bimbo", descripcion: "panaderia", vacantes_empresa: [] },
+        empleador: new Empleador,
+        candidatos: [],
+        tipoHorario: { id_tipoHorario: 0, dias: "sab-dom", tipoHorario_vacantes: [] },
+        tipoContratacion: { id_tipoContratacion: 0, horario: "VIRTUAL", tipoContratacion_vacantes: [] },
+        modalidadTrabajo: new ModalidadTrabajo,
+        id_postulacion: 0,
+        fechaPublicacionSrt: new Date,
+        diasPublicada: 0
+      }, {
+        id_vacante: 4,
+        nombreVacante: "Pastelero",
+        especialista: "Repostero",
+        sueldo: 10000,
+        horario: "9:00am - 6:00pm",
+        domicilio: "Alcatraz n9",
+        municipio: { id_municipio: 0, nombreMunicipio: "mexico", estado: new Estado },
+        estatus: false,
+        descripcion: "Carnicero de planta",
+        empresa: { id_empresa: 0, nombre: "bimbo", descripcion: "panaderia", vacantes_empresa: [] },
+        empleador: new Empleador,
+        candidatos: [],
+        tipoHorario: { id_tipoHorario: 0, dias: "sab-dom", tipoHorario_vacantes: [] },
+        tipoContratacion: { id_tipoContratacion: 0, horario: "VIRTUAL", tipoContratacion_vacantes: [] },
+        modalidadTrabajo: new ModalidadTrabajo,
+        id_postulacion: 0,
+        fechaPublicacionSrt: new Date,
+        diasPublicada: 0
+      }, {
+        id_vacante: 5,
+        nombreVacante: "Panadero",
+        especialista: "Panadero",
+        sueldo: 10000,
+        horario: "9:00am - 6:00pm",
+        domicilio: "Alcatraz n9",
+        municipio: { id_municipio: 0, nombreMunicipio: "mexico", estado: new Estado },
+        estatus: false,
+        descripcion: "Carnicero de planta",
+        empresa: { id_empresa: 0, nombre: "bimbo", descripcion: "panaderia", vacantes_empresa: [] },
+        empleador: new Empleador,
+        candidatos: [],
+        tipoHorario: { id_tipoHorario: 0, dias: "sab-dom", tipoHorario_vacantes: [] },
+        tipoContratacion: { id_tipoContratacion: 0, horario: "VIRTUAL", tipoContratacion_vacantes: [] },
+        modalidadTrabajo: new ModalidadTrabajo,
+        id_postulacion: 0,
+        fechaPublicacionSrt: new Date,
+        diasPublicada: 0
+      }
+    ];
   }
 
   // FUNCION PARA OBTENER EL USUARIO LOGUEADO DE BD
@@ -124,6 +231,214 @@ export class CandidatesComponent implements OnInit {
       this.candidatos = data;
       console.log(this.candidatos);
     });
+    //this.cargarCandidatos();
+  }
+
+  cargarCandidatos() {
+    this.candidatos = [
+      {
+        //this.empleador = {
+        id_candidato: 0,
+        //id_empleador:0,
+        edad: 25,
+        domicilio: "C. Alcatraz",
+        puestoActual: "Diseñador",
+        descripcion: "Diseñador grafico con experiencia en el diseño digital y diseño de paginas web Diseñador grafico con experiencia en el diseño digital y diseño de paginas web Diseñador grafico con experiencia en el diseño digital y diseño de paginas web Diseñador grafico con experiencia en el diseño digital y diseño de paginas web Diseñador grafico con experiencia en el diseño digital y diseño de paginas web Diseñador grafico con experiencia en el diseño digital y diseño de paginas web Diseñador grafico con experiencia en el diseño digital y diseño de paginas web",
+        centroEducativo: "UAM: Azcapotzalco",
+        rutaCv: "Untitled-2.pdf",
+        usuario: {
+          id_usuario: 0,
+          nombre: "Ramiro",
+          correoElectronico: "mancabra97@gmail.com",
+          contrasena: "1234556",
+          tipoUsuario: 2,
+          apellidoP: "Lopez",
+          apellidoM: "Gastelum",
+          telefono: "+52 5514098249",
+          estatusUsuario: true,
+          rutaImagenPerfil: "Captura de pantalla 2023-09-07 223459.png",
+          rutaImagenPortada: "Captura de pantalla 2023-09-07 224204.png",
+        },
+        vacantes: [],
+        idiomas: [
+          { id_idioma: 0, nombreIdioma: "ingles", candidatos: [] },
+          { id_idioma: 0, nombreIdioma: "ingles", candidatos: [] },
+          { id_idioma: 0, nombreIdioma: "ingles", candidatos: [] },
+          { id_idioma: 0, nombreIdioma: "ingles", candidatos: [] },
+          { id_idioma: 0, nombreIdioma: "ingles", candidatos: [] },
+        ],
+        municipio: { id_municipio: 0, nombreMunicipio: "talxacala", estado: new Estado },
+        estado: { id_estado: 1, nombreEstado: "tlaxcala", municipios: [] },
+        profesion: "DISEÑADOR",
+        fechaNacimiento: new Date,
+        habilidades: [
+          { id_habilidad: 0, nombreHabilidad: "trabajo en equipo", candidatos: [] },
+          { id_habilidad: 0, nombreHabilidad: "trabajo en equipo", candidatos: [] },
+          { id_habilidad: 0, nombreHabilidad: "trabajo en equipo", candidatos: [] },
+          { id_habilidad: 0, nombreHabilidad: "trabajo en equipo", candidatos: [] },
+          { id_habilidad: 0, nombreHabilidad: "trabajo en equipo", candidatos: [] },
+          { id_habilidad: 0, nombreHabilidad: "trabajo en equipo", candidatos: [] },
+          { id_habilidad: 0, nombreHabilidad: "trabajo en equipo", candidatos: [] },
+          { id_habilidad: 0, nombreHabilidad: "trabajo en equipo", candidatos: [] },
+          { id_habilidad: 0, nombreHabilidad: "trabajo en equipo", candidatos: [] },
+          { id_habilidad: 0, nombreHabilidad: "trabajo en equipo", candidatos: [] },
+        ],
+        rutaEspecialidad: "Untitled-2.pdf",
+        rutaEspecialidad2: "Untitled-2.pdf",
+        rutaEspecialidad3: "Untitled-2.pdf",
+      },
+      {
+        //this.empleador = {
+        id_candidato: 0,
+        //id_empleador:0,
+        edad: 25,
+        domicilio: "C. Alcatraz",
+        puestoActual: "Diseñador",
+        descripcion: "Diseñador grafico con experiencia en el diseño digital y diseño de paginas web Diseñador grafico con experiencia en el diseño digital y diseño de paginas web Diseñador grafico con experiencia en el diseño digital y diseño de paginas web Diseñador grafico con experiencia en el diseño digital y diseño de paginas web Diseñador grafico con experiencia en el diseño digital y diseño de paginas web Diseñador grafico con experiencia en el diseño digital y diseño de paginas web Diseñador grafico con experiencia en el diseño digital y diseño de paginas web",
+        centroEducativo: "UAM: Azcapotzalco",
+        rutaCv: "Untitled-2.pdf",
+        usuario: {
+          id_usuario: 0,
+          nombre: "Ramiro",
+          correoElectronico: "mancabra97@gmail.com",
+          contrasena: "1234556",
+          tipoUsuario: 2,
+          apellidoP: "Lopez",
+          apellidoM: "Gastelum",
+          telefono: "+52 5514098249",
+          estatusUsuario: true,
+          rutaImagenPerfil: "Captura de pantalla 2023-09-07 223459.png",
+          rutaImagenPortada: "Captura de pantalla 2023-09-07 224204.png",
+        },
+        vacantes: [],
+        idiomas: [
+          { id_idioma: 0, nombreIdioma: "ingles", candidatos: [] },
+          { id_idioma: 0, nombreIdioma: "ingles", candidatos: [] },
+          { id_idioma: 0, nombreIdioma: "ingles", candidatos: [] },
+          { id_idioma: 0, nombreIdioma: "ingles", candidatos: [] },
+          { id_idioma: 0, nombreIdioma: "ingles", candidatos: [] },
+        ],
+        municipio: { id_municipio: 0, nombreMunicipio: "talxacala", estado: new Estado },
+        estado: { id_estado: 1, nombreEstado: "tlaxcala", municipios: [] },
+        profesion: "DISEÑADOR",
+        fechaNacimiento: new Date,
+        habilidades: [
+          { id_habilidad: 0, nombreHabilidad: "trabajo en equipo", candidatos: [] },
+          { id_habilidad: 0, nombreHabilidad: "trabajo en equipo", candidatos: [] },
+          { id_habilidad: 0, nombreHabilidad: "trabajo en equipo", candidatos: [] },
+          { id_habilidad: 0, nombreHabilidad: "trabajo en equipo", candidatos: [] },
+          { id_habilidad: 0, nombreHabilidad: "trabajo en equipo", candidatos: [] },
+          { id_habilidad: 0, nombreHabilidad: "trabajo en equipo", candidatos: [] },
+          { id_habilidad: 0, nombreHabilidad: "trabajo en equipo", candidatos: [] },
+          { id_habilidad: 0, nombreHabilidad: "trabajo en equipo", candidatos: [] },
+          { id_habilidad: 0, nombreHabilidad: "trabajo en equipo", candidatos: [] },
+          { id_habilidad: 0, nombreHabilidad: "trabajo en equipo", candidatos: [] },
+        ],
+        rutaEspecialidad: "Untitled-2.pdf",
+        rutaEspecialidad2: "Untitled-2.pdf",
+        rutaEspecialidad3: "Untitled-2.pdf",
+      }, {
+        //this.empleador = {
+        id_candidato: 0,
+        //id_empleador:0,
+        edad: 25,
+        domicilio: "C. Alcatraz",
+        puestoActual: "Diseñador",
+        descripcion: "Diseñador grafico con experiencia en el diseño digital y diseño de paginas web Diseñador grafico con experiencia en el diseño digital y diseño de paginas web Diseñador grafico con experiencia en el diseño digital y diseño de paginas web Diseñador grafico con experiencia en el diseño digital y diseño de paginas web Diseñador grafico con experiencia en el diseño digital y diseño de paginas web Diseñador grafico con experiencia en el diseño digital y diseño de paginas web Diseñador grafico con experiencia en el diseño digital y diseño de paginas web",
+        centroEducativo: "UAM: Azcapotzalco",
+        rutaCv: "Untitled-2.pdf",
+        usuario: {
+          id_usuario: 0,
+          nombre: "Ramiro",
+          correoElectronico: "mancabra97@gmail.com",
+          contrasena: "1234556",
+          tipoUsuario: 2,
+          apellidoP: "Lopez",
+          apellidoM: "Gastelum",
+          telefono: "+52 5514098249",
+          estatusUsuario: true,
+          rutaImagenPerfil: "Captura de pantalla 2023-09-07 223459.png",
+          rutaImagenPortada: "Captura de pantalla 2023-09-07 224204.png",
+        },
+        vacantes: [],
+        idiomas: [
+          { id_idioma: 0, nombreIdioma: "ingles", candidatos: [] },
+          { id_idioma: 0, nombreIdioma: "ingles", candidatos: [] },
+          { id_idioma: 0, nombreIdioma: "ingles", candidatos: [] },
+          { id_idioma: 0, nombreIdioma: "ingles", candidatos: [] },
+          { id_idioma: 0, nombreIdioma: "ingles", candidatos: [] },
+        ],
+        municipio: { id_municipio: 0, nombreMunicipio: "talxacala", estado: new Estado },
+        estado: { id_estado: 1, nombreEstado: "tlaxcala", municipios: [] },
+        profesion: "DISEÑADOR",
+        fechaNacimiento: new Date,
+        habilidades: [
+          { id_habilidad: 0, nombreHabilidad: "trabajo en equipo", candidatos: [] },
+          { id_habilidad: 0, nombreHabilidad: "trabajo en equipo", candidatos: [] },
+          { id_habilidad: 0, nombreHabilidad: "trabajo en equipo", candidatos: [] },
+          { id_habilidad: 0, nombreHabilidad: "trabajo en equipo", candidatos: [] },
+          { id_habilidad: 0, nombreHabilidad: "trabajo en equipo", candidatos: [] },
+          { id_habilidad: 0, nombreHabilidad: "trabajo en equipo", candidatos: [] },
+          { id_habilidad: 0, nombreHabilidad: "trabajo en equipo", candidatos: [] },
+          { id_habilidad: 0, nombreHabilidad: "trabajo en equipo", candidatos: [] },
+          { id_habilidad: 0, nombreHabilidad: "trabajo en equipo", candidatos: [] },
+          { id_habilidad: 0, nombreHabilidad: "trabajo en equipo", candidatos: [] },
+        ],
+        rutaEspecialidad: "Untitled-2.pdf",
+        rutaEspecialidad2: "Untitled-2.pdf",
+        rutaEspecialidad3: "Untitled-2.pdf",
+      }, {
+        //this.empleador = {
+        id_candidato: 0,
+        //id_empleador:0,
+        edad: 25,
+        domicilio: "C. Alcatraz",
+        puestoActual: "Diseñador",
+        descripcion: "Diseñador grafico con experiencia en el diseño digital y diseño de paginas web Diseñador grafico con experiencia en el diseño digital y diseño de paginas web Diseñador grafico con experiencia en el diseño digital y diseño de paginas web Diseñador grafico con experiencia en el diseño digital y diseño de paginas web Diseñador grafico con experiencia en el diseño digital y diseño de paginas web Diseñador grafico con experiencia en el diseño digital y diseño de paginas web Diseñador grafico con experiencia en el diseño digital y diseño de paginas web",
+        centroEducativo: "UAM: Azcapotzalco",
+        rutaCv: "Untitled-2.pdf",
+        usuario: {
+          id_usuario: 0,
+          nombre: "Ramiro",
+          correoElectronico: "mancabra97@gmail.com",
+          contrasena: "1234556",
+          tipoUsuario: 2,
+          apellidoP: "Lopez",
+          apellidoM: "Gastelum",
+          telefono: "+52 5514098249",
+          estatusUsuario: true,
+          rutaImagenPerfil: "Captura de pantalla 2023-09-07 223459.png",
+          rutaImagenPortada: "Captura de pantalla 2023-09-07 224204.png",
+        },
+        vacantes: [],
+        idiomas: [
+          { id_idioma: 0, nombreIdioma: "ingles", candidatos: [] },
+          { id_idioma: 0, nombreIdioma: "ingles", candidatos: [] },
+          { id_idioma: 0, nombreIdioma: "ingles", candidatos: [] },
+          { id_idioma: 0, nombreIdioma: "ingles", candidatos: [] },
+          { id_idioma: 0, nombreIdioma: "ingles", candidatos: [] },
+        ],
+        municipio: { id_municipio: 0, nombreMunicipio: "talxacala", estado: new Estado },
+        estado: { id_estado: 1, nombreEstado: "tlaxcala", municipios: [] },
+        profesion: "DISEÑADOR",
+        fechaNacimiento: new Date,
+        habilidades: [
+          { id_habilidad: 0, nombreHabilidad: "trabajo en equipo", candidatos: [] },
+          { id_habilidad: 0, nombreHabilidad: "trabajo en equipo", candidatos: [] },
+          { id_habilidad: 0, nombreHabilidad: "trabajo en equipo", candidatos: [] },
+          { id_habilidad: 0, nombreHabilidad: "trabajo en equipo", candidatos: [] },
+          { id_habilidad: 0, nombreHabilidad: "trabajo en equipo", candidatos: [] },
+          { id_habilidad: 0, nombreHabilidad: "trabajo en equipo", candidatos: [] },
+          { id_habilidad: 0, nombreHabilidad: "trabajo en equipo", candidatos: [] },
+          { id_habilidad: 0, nombreHabilidad: "trabajo en equipo", candidatos: [] },
+          { id_habilidad: 0, nombreHabilidad: "trabajo en equipo", candidatos: [] },
+          { id_habilidad: 0, nombreHabilidad: "trabajo en equipo", candidatos: [] },
+        ],
+        rutaEspecialidad: "Untitled-2.pdf",
+        rutaEspecialidad2: "Untitled-2.pdf",
+        rutaEspecialidad3: "Untitled-2.pdf",
+      }
+    ];
   }
 
   // FUNCION PARA OBTENER LAS POSTULACIONES DE UN CANDIDATO
@@ -173,6 +488,18 @@ export class CandidatesComponent implements OnInit {
         }
       }
     });
+  }
+  // VARIABLE PARA CAMVIARA DE INTERFAZ 
+  ocultarCandidato: boolean = true;
+  vistaAdministrar: boolean = true;
+  // FUNCNION PARA MOSTRAR EL PERFIL DE UN CANDIDATO
+  verCandidato(usuario:Candidato) {
+    this.ocultarCandidato = false;
+    this._AdminRequest.usuarioActivo(usuario);
+  }
+
+  cerrar() {
+    this.ocultarCandidato = true;
   }
 
   // FUNCION PARA ACEPTAR UNA POSTULACION SEGUN SU ID

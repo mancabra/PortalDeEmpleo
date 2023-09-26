@@ -1,5 +1,5 @@
-<div style="display: flex;">
-    <div class="cajaIzquierda" [ngClass]="{'completo':vistaAdministrar, '':!vistaAdministrar}">
+<div>
+    <div>
         <div style="width: 100%;">
             <div class="contenedorComponent" [ngClass]="{'view':usuarioActivo, '':!usuarioActivo}">
                 <div style="background-color:red; opacity: 0.5; width: 100%;">
@@ -10,102 +10,210 @@
             </div>
         </div>
 
-        <div class="card" style="width: 730px; height: 100%; padding: .5rem;">
+        <div class="card" style="width: 100%; height: 100%; padding: .5rem;">
             <div style=" position: relative;">
                 <div class="bajo">
-                    <div class="card text" style="height: 150px;">
+                    <div class="card text" style="height: 200px;">
                         <img [src]="imagenPort" *ngFor="let imagenPort of imgPortada" class="card-img" alt="..."
-                            style="height: 150px;">
-                        <div class="card-img-overlay">
-                            <h5 class="card-title" style="text-align: right;"
-                                [ngClass]="{'view':perfilTipoCandidato, '':!perfilTipoCandidato}">
-                                {{candidato.profesion}}
+                            style="height: 200px;">
+                            <div class="card-img-overlay">
+                                <h5 class="card-title" [ngClass]="{'view':perfilTipoCandidato, '':!perfilTipoCandidato}">
+                                    <b class="profesion">{{candidato.profesion}} </b>
+                                </h5>
+                            </div>
+                        <div class="card-img-overlay" style="text-align: right;">
+                            <h5 class="card-title" style="padding: 0; margin-right:1rem;">
+                                <div>
+                                    <div [ngClass]="{'view':vistaAdministrar, '':!vistaAdministrar}">
+                                        <div class="btn-group dropstart"
+                                            [ngClass]="{'':perfilTipoEmpresa, 'view':!perfilTipoEmpresa}">
+                                            <label class="botonAcciones" type="button" data-bs-toggle="dropdown"
+                                                aria-expanded="false">
+                                                ···
+                                            </label>
+                                            <ul class="dropdown-menu">
+                                                <li><a class="dropdown-item" (click)="cerrarSesion();">Cerrar Sesion</a>
+                                                </li>
+                                                <li><a class="dropdown-item" (click)="modificarDatosPerfil()">Modificar
+                                                        Perfil</a></li>
+                                                <li><a class="dropdown-item" (click)="suspenderCuenta();">Suspender
+                                                        Cuenta</a></li>
+
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
                             </h5>
                         </div>
+
                     </div>
+
                     <div class="sobre">
                         <img [src]="imagenPerf" *ngFor="let imagenPerf of imgPerfil" class="img-thumbnail" alt="..."
-                            style="height: 100px; width: 100px; margin-left: 1rem;">
+                            style="height: 150px; width: 150px; margin-left: 1rem;">
                     </div>
                 </div>
             </div>
 
-            <div class="info">
-                <h6 style="margin-right: .3rem;" [ngClass]="{'view':perfilTipoCandidato, '':!perfilTipoCandidato}">
-                    {{candidato.usuario.nombre}} {{candidato.usuario.apellidoP}} {{candidato.usuario.apellidoM}}</h6>
+            <div class="caja">
+                <div class="cajaIzquierda">
+                    <div class="info" >
+                        <h6 style="margin-right: .3rem; font-size:xx-large;"
+                            [ngClass]="{'view':perfilTipoCandidato, '':!perfilTipoCandidato}">
+                            {{candidato.usuario.nombre}} {{candidato.usuario.apellidoP}} {{candidato.usuario.apellidoM}}
+                        </h6>
 
-                <h6 style="margin-right: .3rem;" [ngClass]="{'view':perfilTipoEmpleador, '':!perfilTipoEmpleador}">
-                    {{empleador.usuario.nombre}} {{empleador.usuario.apellidoP}} {{empleador.usuario.apellidoM}}</h6>
+                        <h6 style="margin-right: .3rem;font-size:xx-large;"
+                            [ngClass]="{'view':perfilTipoEmpleador, '':!perfilTipoEmpleador}">
+                            {{empleador.usuario.nombre}} {{empleador.usuario.apellidoP}} {{empleador.usuario.apellidoM}}
+                        </h6>
 
-                <h6 style="margin-right: .3rem;"
-                    [ngClass]="{'view':perfilTipoAdministrador, '':!perfilTipoAdministrador}">
-                    {{administrador.usuario.nombre}} {{administrador.usuario.apellidoP}}
-                    {{administrador.usuario.apellidoM}}</h6>
+                        <h6 style="margin-right: .3rem;font-size:xx-large;"
+                            [ngClass]="{'view':perfilTipoAdministrador, '':!perfilTipoAdministrador}">
+                            {{administrador.usuario.nombre}} {{administrador.usuario.apellidoP}}
+                            {{administrador.usuario.apellidoM}}</h6>
 
-                <h6 style="color: darkgray; font-style: oblique;"
-                    [ngClass]="{'view':perfilTipoCandidato, '':!perfilTipoCandidato}"> ({{candidato.edad}})</h6>
-            </div>
-            <div class="infoCuerpo">
-
-                <p style="font-size:x-small; line-height: 150%;"
-                    [ngClass]="{'view':perfilTipoCandidato, '':!perfilTipoCandidato}">
-                    Centro Educativo: {{candidato.centroEducativo}}
-                    <br style="margin: 0%; padding: 0%;">
-                    Actualmente laborando como: {{candidato.puestoActual}}
-                </p>
-
-                <p style="font-size:x-small; line-height: 150%;"
-                    [ngClass]="{'view':perfilTipoCandidato, '':!perfilTipoCandidato}">
-                    {{candidato.domicilio}}
-                    <br style="margin: 0%; padding: 0%;">
-                    {{candidato.municipio.nombreMunicipio}} Estado de {{candidato.estado.nombreEstado}}
-                </p>
-
-                <p style="font-size:x-small; line-height: 150%;"
-                    [ngClass]="{'view':perfilTipoCandidato, '':!perfilTipoCandidato}">
-                    {{candidato.usuario.correoElectronico}}
-                    <br style="margin: 0%; padding: 0%;">
-                    Tel: {{candidato.usuario.telefono}}
-                </p>
-
-                <p style="font-size:x-small; line-height: 150%;"
-                    [ngClass]="{'view':perfilTipoAdministrador, '':!perfilTipoAdministrador}">
-                    {{administrador.usuario.correoElectronico}}
-                    <br style="margin: 0%; padding: 0%;">
-                    Tel: {{administrador.usuario.telefono}}
-                </p>
-
-                <p style="font-size:x-small; line-height: 150%;"
-                    [ngClass]="{'view':perfilTipoEmpleador, '':!perfilTipoEmpleador}">
-                    {{empleador.usuario.correoElectronico}}
-                    <br style="margin: 0%; padding: 0%;">
-                    Tel: {{empleador.usuario.telefono}}
-                </p>
-
-                <div [ngClass]="{'view':perfilTipoCandidato, '':!perfilTipoCandidato}">
-                    <p>Idiomas dominados:</p>
-                    <div *ngFor="let idiomaUS of idiomasUsuario">
-                        <p style="font-size:x-small; line-height: 10%;"> - {{idiomaUS.nombreIdioma}}</p>
+                        <h6 style="color: darkgray; font-style: oblique;font-size:xx-large;"
+                            [ngClass]="{'view':perfilTipoCandidato, '':!perfilTipoCandidato}"> ({{candidato.edad}})</h6>
                     </div>
-                </div>
 
-                <b [ngClass]="{'view':perfilTipoCandidato, '':!perfilTipoCandidato}">Descripción</b>
-                <p style="font-size:x-small; line-height: 150%; text-align: justify;"
-                    [ngClass]="{'view':perfilTipoCandidato, '':!perfilTipoCandidato}">
-                    {{candidato.descripcion}}
-                </p>
+                    <div class="infoCuerpoD">
+                        <p style="font-size:x-small; line-height: 150%;"
+                            [ngClass]="{'view':perfilTipoCandidato, '':!perfilTipoCandidato}">
+                            {{candidato.domicilio}}
+                            <br style="margin: 0%; padding: 0%;">
+                            {{candidato.municipio.nombreMunicipio}} Estado de {{candidato.estado.nombreEstado}}
+                        </p>
 
-                <div [ngClass]="{'view':perfilTipoCandidato, '':!perfilTipoCandidato}">
-                    <div style="display: flex;">
-                        <div *ngFor="let habilidadUs of habilidadesUsuario">
-                            <span class="badge rounded-pill text-bg-secondary"
-                                style="margin-right: .5rem; margin-bottom: .5rem;">{{habilidadUs.nombreHabilidad}}</span>
+                        <p style="font-size:x-small; line-height: 150%;"
+                            [ngClass]="{'view':perfilTipoCandidato, '':!perfilTipoCandidato}">
+                            Centro Educativo: {{candidato.centroEducativo}}
+                            <br style="margin: 0%; padding: 0%;">
+                            Actualmente laborando como: {{candidato.puestoActual}}
+                        </p>
+                    </div>
+
+                    <div class="infoCuerpoD">
+                        <div [ngClass]="{'view':perfilTipoCandidato, '':!perfilTipoCandidato}">
+                            <p>Idiomas dominados:</p>
+                            <div *ngFor="let idiomaUS of idiomasUsuario">
+                                <p style="font-size:x-small; line-height: 10%;"> - {{idiomaUS.nombreIdioma}}</p>
+                            </div>
+                        </div>
+        
+                        <b [ngClass]="{'view':perfilTipoCandidato, '':!perfilTipoCandidato}">Descripción</b>
+                        <p style="font-size:x-small; line-height: 150%; text-align: justify; margin-top: .5rem;"
+                            [ngClass]="{'view':perfilTipoCandidato, '':!perfilTipoCandidato}">
+                            {{candidato.descripcion}}
+                        </p>
+                    </div>
+
+                    <div class="infoCuerpoD" [ngClass]="{'view':perfilTipoCandidato, '':!perfilTipoCandidato}">
+                        <div>
+                                <div class="row">
+                                    <div class="col-2" *ngFor="let habilidadUs of habilidadesUsuario">
+                                        <span class="badge rounded-pill text-bg-secondary"
+                                            style="margin-right: .5rem; margin-bottom: .5rem;">{{habilidadUs.nombreHabilidad}}</span>
+                                    </div>
+                                </div>
                         </div>
                     </div>
                 </div>
 
+                <div class="cajaDerecha">
+                    <div class="infoCuerpo">
+                        <div class="card" style="padding: 1rem; width: 250px;">
+                            <div>
+                                <label style="width: 100%; text-align: center;"> Información de Contacto</label>
+                                <hr class="lineas">
+                            </div>
+                            <div class="card">
+                                <div style="display: flex;">
+                                    <div style="display: grid;">
+                                        <div style="padding: .5rem; margin-right: .3rem;">
+                                            <a target="_blank">
+                                                <img src="https://firebasestorage.googleapis.com/v0/b/gdi-portalempleo.appspot.com/o/general%2Faddress-book.png?alt=media&token=e4c43ad7-ae31-4acf-bbeb-7e32bf543f86"
+                                                    alt="" height="40px" width="40px"> </a>
+                                        </div>
+                                    </div>
+                                    <div class="centrar">
+                                        <p style="font-size:x-small; line-height: 150%;"
+                                            [ngClass]="{'view':perfilTipoCandidato, '':!perfilTipoCandidato}">
+                                            {{candidato.usuario.correoElectronico}}
+                                            <br style="margin: 0%; padding: 0%;">
+                                            Tel: {{candidato.usuario.telefono}}
+                                        </p>
 
+                                        <p style="font-size:x-small; line-height: 150%;"
+                                            [ngClass]="{'view':perfilTipoAdministrador, '':!perfilTipoAdministrador}">
+                                            {{administrador.usuario.correoElectronico}}
+                                            <br style="margin: 0%; padding: 0%;">
+                                            Tel: {{administrador.usuario.telefono}}
+                                        </p>
+
+                                        <p style="font-size:x-small; line-height: 150%;"
+                                            [ngClass]="{'view':perfilTipoEmpleador, '':!perfilTipoEmpleador}">
+                                            {{empleador.usuario.correoElectronico}}
+                                            <br style="margin: 0%; padding: 0%;">
+                                            Tel: {{empleador.usuario.telefono}}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div [ngClass]="{'view':perfilTipoCandidato, '':!perfilTipoCandidato}">
+                                <div style="margin-top: 1rem;">
+                                    <label style="width: 100%; text-align: center;">  Documentos de Especialidad</label>
+                                    <hr class="lineas">
+                                </div>
+    
+                                <div class="centrarII">
+                                    <div style="display: flex;">
+                                        <div *ngIf="cargarPantallaII(); else pantallaVacia2">
+                                            <div style="display: flex;">
+                                                <button class="card documento" style="padding: .5rem; margin-right: .3rem;"
+                                                    *ngFor="let documento of documentosEsp">
+                                                    <a [href]="documento" target="_blank"><img
+                                                            src="https://firebasestorage.googleapis.com/v0/b/gdi-portalempleo.appspot.com/o/general%2Ffile-text.png?alt=media&token=11d13eb5-410b-48ad-9e31-a76f8707ebee"
+                                                            alt="" height="30px" width="30px"> </a>
+                                                </button>
+                                            </div>
+                    
+                                        </div>
+                                        <ng-template #pantallaVacia2>
+                                            <p style="font-size: x-small;">El usuario no ha cargado ningun archivo de especialidad</p>
+                                        </ng-template>
+                                    </div>
+                                </div>
+                               
+                                <div style="margin-top: 1rem;">
+                                    <label style="width: 100%; text-align: center;">Curriculum</label>
+                                    <hr class="lineas">
+                                </div>
+    
+                                <div class="centrarII">
+                                    <div style="display: flex;" >
+                                        <div *ngIf="cargarPantalla(); else pantallaVacia">
+                                           
+                                                <button class="card documento" style="padding: .5rem; margin-right: .3rem;"
+                                                    *ngFor="let documento of documentosCV">
+                                                    <a [href]="documento" target="_blank" style="width: 199px;"><img
+                                                            src="https://firebasestorage.googleapis.com/v0/b/gdi-portalempleo.appspot.com/o/general%2Fpdf.png?alt=media&token=bbcef2fd-aea3-4d5f-9404-99ea57a7f17b"
+                                                            alt="" height="30px" width="30px"> </a>
+                                                </button>
+                    
+                                        </div>
+                                        <ng-template #pantallaVacia>
+                                            <p style="font-size: x-small;">El usuario no ha cargado ningun CV</p>
+                                        </ng-template>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
             </div>
+
 
             <div [ngClass]="{'view':perfilTipoEmpleador, '':!perfilTipoEmpleador}">
                 <div style="text-align: center; margin-bottom: 2rem; padding-left: 1rem; padding-right: 1rem;">
@@ -127,62 +235,6 @@
                     </div>
                 </div>
             </div>
-
-            <div class="margenes" [ngClass]="{'view':perfilTipoCandidato, '':!perfilTipoCandidato}">
-                <div style="margin-bottom: 1rem;">
-                    <div *ngIf="cargarPantalla(); else pantallaVacia">
-                        <p style="font-size: x-small;">Documentos CV</p>
-                        <div style="display: flex;">
-                            <button class="card documento" style="padding: .5rem; margin-right: .3rem;">
-                                <a [href]="rutaCv" target="_blank"><img
-                                        src="https://firebasestorage.googleapis.com/v0/b/gdi-portalempleo.appspot.com/o/general%2Ffile-text.png?alt=media&token=11d13eb5-410b-48ad-9e31-a76f8707ebee"
-                                        alt="" height="30px" width="30px"> </a>
-                            </button>
-                        </div>
-
-                    </div>
-                    <ng-template #pantallaVacia>
-                        <p style="font-size: x-small;">El usuario no ha cargado ningun CV</p>
-                    </ng-template>
-                </div>
-
-                <div style="margin-bottom: 1rem;">
-                    <div *ngIf="cargarPantallaII(); else pantallaVacia2">
-                        <p style="font-size: x-small;">Archivos de especialidad</p>
-                        <div style="display: flex;">
-                            <button class="card documento" style="padding: .5rem; margin-right: .3rem;" *ngFor="let documento of documentosEsp">
-                                <a [href]="documento" target="_blank"><img
-                                        src="https://firebasestorage.googleapis.com/v0/b/gdi-portalempleo.appspot.com/o/general%2Ffile-text.png?alt=media&token=11d13eb5-410b-48ad-9e31-a76f8707ebee"
-                                        alt="" height="30px" width="30px"> </a>
-                            </button>
-                        </div>
-
-                    </div>
-                    <ng-template #pantallaVacia2>
-                        <p style="font-size: x-small;">El usuario no ha cargado ningun archivo de especialidad</p>
-                    </ng-template>
-                </div>
-            </div>
-
-        </div>
-
-
-
-
-    </div>
-
-
-    <div class="cajaDerecha" [ngClass]="{'view':vistaAdministrar, '':!vistaAdministrar}">
-        <div>
-            <button type="button" class="btn btn-danger" style="width: 100%;"
-                [ngClass]="{'':perfilTipoEmpresa, 'view':!perfilTipoEmpresa}" (click)="cerrarSesion();">CERRAR
-                SESIÓN</button>
-            <button type="button" class="btn btn-danger" style="width: 100%; margin-top: 1rem;"
-                [ngClass]="{'':perfilTipoEmpresa, 'view':!perfilTipoEmpresa}" (click)="suspenderCuenta();">SUSPENDER
-                CUENTA</button>
-            <button type="button" class="btn btn-warning" style="width: 100%; margin-top: 1rem;"
-                [ngClass]="{'':perfilTipoEmpresa, 'view':!perfilTipoEmpresa}" (click)="modificarDatosPerfil()">MODIFICAR
-                CUENTA</button>
         </div>
     </div>
 </div>

@@ -901,7 +901,7 @@ export class UpdateComponent implements OnInit, OnDestroy {
     this.documentEII = $event.target.files[0];
     const name = this.usuario.usuario.nombre + this.usuario.usuario.apellidoP + this.usuario.usuario.apellidoM;
     this.nuevaEspecialidadII = this.documentEII.name;
-    this.documentIIERef = ref(this._firebase, `documentos${name}/especialidad/${this.documentEII.name}`);
+    this.documentIIERef = ref(this._firebase, `documentos${name}/especialidadII/${this.documentEII.name}`);
 
     const ARCHIVO = {
       tipo: "segundo",
@@ -916,7 +916,7 @@ export class UpdateComponent implements OnInit, OnDestroy {
     this.documentEIII = $event.target.files[0];
     const name = this.usuario.usuario.nombre + this.usuario.usuario.apellidoP + this.usuario.usuario.apellidoM;
     this.nuevaEspecialidadIII = this.documentEIII.name;
-    this.documentIIERef = ref(this._firebase, `documentos${name}/especialidad/${this.documentEIII.name}`);
+    this.documentIIIERef = ref(this._firebase, `documentos${name}/especialidadIII/${this.documentEIII.name}`);
 
     const ARCHIVO = {
       tipo: "tercero",

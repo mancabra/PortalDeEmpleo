@@ -307,6 +307,7 @@ export class NewJobComponent implements OnInit, OnDestroy {
     this.publicarAhora = false;
   }
 
+
   // FUNCION QUE OCULTA LOS ERRORES DE CAPTURA 
   activartodo() {
     this.errorNombre = true;
@@ -408,6 +409,7 @@ export class NewJobComponent implements OnInit, OnDestroy {
 
   // FUNCION PARA FORMAR EL JSON Y ASIGINAR LOS DATOS PARA EL ENVIO
   validarInformacion() {
+    this.esProgramada = false;
     this.publicarAhora = true;
     this.activartodo();
     this.formatearFecha();
@@ -606,6 +608,9 @@ export class NewJobComponent implements OnInit, OnDestroy {
           console.log(VACANTE);
           this.enviarAlertaExitoProg(VACANTE);
           this.limpiarCampos();
+          this.programarPB = true;
+          this.programarP = false;
+          this.esProgramada = false;
         }
       });
     } else {
@@ -648,6 +653,9 @@ export class NewJobComponent implements OnInit, OnDestroy {
           console.log(VACANTE);
           this.enviarAlertaExito(VACANTE);
           this.limpiarCampos();
+          this.programarPB = true;
+          this.programarP = false;
+          this.esProgramada = false;
         }
       });
     } else {

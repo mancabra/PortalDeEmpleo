@@ -70,7 +70,7 @@ export class JobsComponent implements OnInit, OnDestroy {
     this.buscarUsuario();
     this.obtenerVacantes();
     this.obtenerEstados();
-    //this.cargarMuestra();
+   // this.cargarMuestra();
 
   }
 

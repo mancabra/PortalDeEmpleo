@@ -9,6 +9,7 @@ import { Administrador } from 'src/app/Services/Entity/administrador';
 import { Candidato } from 'src/app/Services/Entity/candidato';
 import { Empleador } from 'src/app/Services/Entity/empleador';
 import { Empresa } from 'src/app/Services/Entity/empresa';
+import { Estado } from 'src/app/Services/Entity/estado';
 import { Habilidad } from 'src/app/Services/Entity/habilidad';
 import { Idioma } from 'src/app/Services/Entity/idioma';
 import { Vacante } from 'src/app/Services/Entity/vacante';
@@ -89,8 +90,68 @@ export class ProfileComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.documentosEsp = [];
+    this.documentosCV = [];
     this.identificarVista();
-    this.cargarArchivos();
+    /*this.cargarPrueba();
+    this.id_tipoUsuario = 2;
+    this.identificarTipoDePerfil();
+    this.generarRuta();*/
+ 
+  }
+
+  cargarPrueba() {
+    this.candidato = {
+    //this.empleador = {
+      id_candidato:0,
+      //id_empleador:0,
+    edad:25,
+      domicilio:"C. Alcatraz",
+      puestoActual:"Diseñador",
+      descripcion:"Diseñador grafico con experiencia en el diseño digital y diseño de paginas web Diseñador grafico con experiencia en el diseño digital y diseño de paginas web Diseñador grafico con experiencia en el diseño digital y diseño de paginas web Diseñador grafico con experiencia en el diseño digital y diseño de paginas web Diseñador grafico con experiencia en el diseño digital y diseño de paginas web Diseñador grafico con experiencia en el diseño digital y diseño de paginas web Diseñador grafico con experiencia en el diseño digital y diseño de paginas web",
+      centroEducativo:"UAM: Azcapotzalco",
+      rutaCv:"Untitled-2.pdf",
+    usuario:{
+        id_usuario: 0,
+        nombre: "Ramiro",
+        correoElectronico: "mancabra97@gmail.com",
+        contrasena: "1234556",
+        tipoUsuario: 2,
+        apellidoP: "Lopez",
+        apellidoM: "Gastelum",
+        telefono: "+52 5514098249",
+        estatusUsuario: true,
+        rutaImagenPerfil: "Captura de pantalla 2023-09-07 223459.png",
+        rutaImagenPortada: "Captura de pantalla 2023-09-07 224204.png",
+      },
+      vacantes:[],
+      idiomas:[
+        {id_idioma:0,nombreIdioma:"ingles",candidatos:[]},
+        {id_idioma:0,nombreIdioma:"ingles",candidatos:[]},
+        {id_idioma:0,nombreIdioma:"ingles",candidatos:[]},
+        {id_idioma:0,nombreIdioma:"ingles",candidatos:[]},
+        {id_idioma:0,nombreIdioma:"ingles",candidatos:[]},
+      ],
+      municipio:{id_municipio:0,nombreMunicipio:"talxacala",estado:new Estado},
+      estado:{id_estado:1,nombreEstado:"tlaxcala",municipios:[]},
+      profesion:"DISEÑADOR",
+      fechaNacimiento:new Date,
+      habilidades:[
+        {id_habilidad:0,nombreHabilidad:"trabajo en equipo", candidatos:[]},
+        {id_habilidad:0,nombreHabilidad:"trabajo en equipo", candidatos:[]},
+        {id_habilidad:0,nombreHabilidad:"trabajo en equipo", candidatos:[]},
+        {id_habilidad:0,nombreHabilidad:"trabajo en equipo", candidatos:[]},
+        {id_habilidad:0,nombreHabilidad:"trabajo en equipo", candidatos:[]},
+        {id_habilidad:0,nombreHabilidad:"trabajo en equipo", candidatos:[]},
+        {id_habilidad:0,nombreHabilidad:"trabajo en equipo", candidatos:[]},
+        {id_habilidad:0,nombreHabilidad:"trabajo en equipo", candidatos:[]},
+        {id_habilidad:0,nombreHabilidad:"trabajo en equipo", candidatos:[]},
+        {id_habilidad:0,nombreHabilidad:"trabajo en equipo", candidatos:[]},
+      ],
+      rutaEspecialidad:"Untitled-2.pdf",
+      rutaEspecialidad2:"Untitled-2.pdf",
+      rutaEspecialidad3:"Untitled-2.pdf",
+    }
   }
 
   // FUNCION PARA DESACTIVAR UNA SUSCRIPCION
@@ -109,6 +170,8 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
   // FUNCION PARA IDENTIFICAR EL TIPO DE PERFIL SEGUN EL OBSERVABLE DE USUARIO 
   busquedaDeAdmin() {
+    this.documentosCV = [];
+    this.documentosEsp  =[]; 
     if (this.usuario.usuario.tipoUsuario == 1) {
       this.administrador = this.usuario;
       this.id_tipoUsuario = this.administrador.usuario.tipoUsuario
@@ -169,12 +232,14 @@ export class ProfileComponent implements OnInit, OnDestroy {
       const rutaII = `images${name}/portada/`;
       const rutaIII = `documentos${name}/cv/`;
       const rutaIV = `documentos${name}/especialidad/`;
+      const rutaV = `documentos${name}/especialidadII/`;
+      const rutaVI = `documentos${name}/especialidadIII/`;
       this.getImages(ruta, this.candidato.usuario.rutaImagenPerfil);
       this.getImagesPortada(rutaII, this.candidato.usuario.rutaImagenPortada);
       this.getCV(rutaIII, this.candidato.rutaCv);
       this.getEspecialidad(rutaIV, this.candidato.rutaEspecialidad);
-      this.getEspecialidadII(rutaIV, this.candidato.rutaEspecialidad2);
-      this.getEspecialidadIII(rutaIV, this.candidato.rutaEspecialidad3);
+      this.getEspecialidadII(rutaV, this.candidato.rutaEspecialidad2);
+      this.getEspecialidadIII(rutaVI, this.candidato.rutaEspecialidad3);
     } else if (this.id_tipoUsuario == 3) {
       const name = this.empleador.usuario.nombre + this.empleador.usuario.apellidoP + this.empleador.usuario.apellidoM;
       const ruta = `images${name}/perfil/`;
@@ -187,6 +252,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
       this.getImages(ruta,"default.png");
       this.getImagesPortada(rutaII,"default.png");*/
     }
+
   }
 
   // FUNCION DEL BOTON MODIFICAR PERFIL 
@@ -364,6 +430,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
           const url = await getDownloadURL(item);
           if (item.name == nombre) {
             this.rutaCv = url;
+            this.agragarVectorCV(url);
           }
         }
       })
@@ -372,14 +439,15 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
   // FUNCION PARA DESCARGAR EL ARCHIVO DE ESPECIALIDAD DEL SERVIDOR
   getEspecialidad(ruta: any, nombre: string) {
-    const especialidadRef = ref(this._firebaseII, ruta);
-    listAll(especialidadRef)
+    const espIRef = ref(this._firebaseII, ruta);
+    listAll(espIRef)
       .then(async response => {
         console.log(response);
         for (let item of response.items) {
           const url = await getDownloadURL(item);
           if (item.name == nombre) {
             this.rutaEspecialidad = url;
+            this.agragarVectorEsp(this.rutaEspecialidad);
           }
         }
       })
@@ -388,14 +456,15 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
   // FUNCION PARA DESCARGAR EL ARCHIVO DE ESPECIALIDAD DEL SERVIDOR
   getEspecialidadII(ruta: any, nombre: string) {
-    const especialidadRef = ref(this._firebaseII, ruta);
-    listAll(especialidadRef)
+    const espIIRef = ref(this._firebaseII, ruta);
+    listAll(espIIRef)
       .then(async response => {
         console.log(response);
         for (let item of response.items) {
           const url = await getDownloadURL(item);
           if (item.name == nombre) {
             this.rutaEspecialidadII = url;
+            this.agragarVectorEsp(this.rutaEspecialidadII);
           }
         }
       })
@@ -404,37 +473,31 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
   // FUNCION PARA DESCARGAR EL ARCHIVO DE ESPECIALIDAD DEL SERVIDOR
   getEspecialidadIII(ruta: any, nombre: string) {
-    const especialidadRef = ref(this._firebaseII, ruta);
-    listAll(especialidadRef)
+    const espIIIRef = ref(this._firebaseII, ruta);
+    listAll(espIIIRef)
       .then(async response => {
         console.log(response);
         for (let item of response.items) {
           const url = await getDownloadURL(item);
           if (item.name == nombre) {
             this.rutaEspecialidadIII = url;
+            this.agragarVectorEsp(this.rutaEspecialidadIII);
           }
         }
       })
       .catch(error => console.log(error));
   }
 
-  cargarArchivos(){
-    this.agragarVectorCV(this.rutaCv);
-    this.agragarVectorEsp(this.rutaEspecialidad);
-    this.agragarVectorEsp(this.rutaEspecialidadII);
-    this.agragarVectorEsp(this.rutaEspecialidadIII);
-  }
-
   agragarVectorCV(rutaCv: string) {
-    if (rutaCv != "" && rutaCv != undefined) {
+    if (rutaCv != "") {
       this.documentosCV.push(rutaCv);
     }
   }
 
   agragarVectorEsp(rutaEsp: string) {
-    if (rutaEsp != "" && rutaEsp != undefined) {
+    if (rutaEsp != "") {
       this.documentosEsp.push(rutaEsp);
-    }
+    } 
   }
 
   // FUNCION PARA EL POPUP

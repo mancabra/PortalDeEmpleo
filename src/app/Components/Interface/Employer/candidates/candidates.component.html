@@ -1,97 +1,127 @@
-<div style="display: flex;">
-    <div class="cajaIzquierda">
-        <div style="text-align: center;margin-bottom: 1rem; padding-left: 1rem; padding-right: 1rem;">
-            <b>CANDIDATOS A LA VACANTE</b>
-            <hr>
-        </div>
-        
-        <div style="padding: 1rem;">
-            <div *ngIf="cargarPantallaI(); else pantallaVaciaI">
-                <div class="scrollMenu">
-                    <div class="card carta" *ngFor="let candidato of candidatos" style="margin-top: 1rem;">
-                        <div class="card-body">
-                            <h3 class="card-title">{{candidato.usuario.nombre}} {{candidato.usuario.apellidoP}} / {{candidato.profesion}}</h3>
-                            <p class="card-text textoInformativo" style="padding-bottom: 0rem;">
-                                <br> Ubicación: {{candidato.domicilio}}
-                                <br> {{candidato.municipio.nombreMunicipio}} estado de {{candidato.municipio.estado.nombreEstado}}.
-                                <!-- ver si colocamos el estado -->
-                            </p>
-
-                            <div class="d-grid" style="margin-top: 1rem;">
-                                <button type="button" class="btn btn-success" style="margin-bottom: .5rem;" (click)="aceptarCandidato(candidato)">ELEGIR CANDIDATO</button>
-                                <button type="button" class="btn btn-danger" style="margin-bottom: .5rem;" (click)="obtenerPostulacion(candidato)">QUITAR CANDIDATO</button>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
+<div [ngClass]="{'':ocultarCandidato, 'view':!ocultarCandidato}">
+    <div style="display: flex;">
+        <div class="cajaIzquierda">
+            <div style="text-align: center;margin-bottom: 1rem; padding-left: 1rem; padding-right: 1rem;">
+                <b>CANDIDATOS A LA VACANTE ( {{vacanteActual.nombreVacante}} )</b>
+                <hr>
             </div>
 
-            <ng-template #pantallaVaciaI>
-                <p style="text-align: center;">La publicación no tiene Postulantes</p>
-            </ng-template>
-        </div>
-    </div>
+            <div style="padding: 1rem;">
+                <div *ngIf="cargarPantallaI(); else pantallaVaciaI">
+                    <div class="scrollMenu" style="padding-right: 1rem;">
+                        <div class="card carta" *ngFor="let candidato of candidatos" style="margin-top: 1rem;">
+                            <div class="card-body">
+                                <div class="acciones">
+                                    <div class="btn-group">
+                                        <label class="botonAcciones" type="button" data-bs-toggle="dropdown"
+                                            aria-expanded="false">
+                                            <h3>...</h3>
+                                        </label>
+                                        <ul class="dropdown-menu">
+                                            <li><a class="dropdown-item" (click)="verCandidato(candidato)">Ir al Perfil</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <h3 class="card-title">{{candidato.usuario.nombre}} {{candidato.usuario.apellidoP}} /
+                                    {{candidato.profesion}}</h3>
+                                <p class="card-text textoInformativo" style="padding-bottom: 0rem;">
+                                    <br> Ubicación: {{candidato.domicilio}}, {{candidato.municipio.nombreMunicipio}} estado de
+                                    {{candidato.municipio.estado.nombreEstado}}.
+                                    <!-- ver si colocamos el estado -->
+                                </p>
 
-    <div class="cajaDerecha">
-        <div style="text-align: center; margin-bottom: 2rem; padding-left: 1rem; padding-right: 1rem;">
-            <b>VACANTES PUBLICADAS</b>
-            <hr>
-        </div>
-        <div style="padding: 1rem;">
-            <div *ngIf="cargarPantalla(); else pantallaVacia">
-            <div class="scrollMenu">
-                <div class="card carta" *ngFor="let vacante of publicaciones" style="margin-top: 1rem;">
-                    <div class="card-body">
-                        <h3 class="card-title">{{vacante.nombreVacante}} / {{vacante.especialista}}</h3>
-                        <p class="card-text textoInformativo" style="padding-bottom: 0rem;">
-                            Empresa que contrata: {{vacante.empresa.nombre}}
-                            <br> Ubicación: {{vacante.municipio.nombreMunicipio}}
-                            <!-- ver si colocamos el estado -->
-                        </p>
-                    
-                        <div class="container text-rigth" style="padding: 0%;">
-                            <div class="row">
-                                <div class="col-9">
-                                    <div style="padding-top: .5rem;">
-                                        <span class="badge rounded-pill text-bg-secondary" style="padding: 0; font-size: medium;">
-                                          <span class="badge rounded-pill text-bg-success">Sueldo</span>
-                                          <label style="padding: .1rem; padding-right: .5rem; padding-left: .5rem;">{{vacante.sueldo}}.00 mxn / Mensuales</label>
-                                        </span>
-                                      </div>
-                                
-                                      <div style="padding-top: .5rem;">
-                                        <span class="badge rounded-pill text-bg-secondary" style="padding: 0; font-size: medium;">
-                                          <span class="badge rounded-pill text-bg-success">Horario Laboral</span>
-                                          <label style="padding: .1rem; padding-right: .5rem; padding-left: .5rem;">{{vacante.horario}}</label>
-                                        </span>
-                                      </div>
+                                <div class="d-grid" style="margin-top: 1rem;">
+                                    <button type="button" class="btn btn-success" style="margin-bottom: .5rem;"
+                                        (click)="aceptarCandidato(candidato)">ELEGIR CANDIDATO</button>
+                                    <button type="button" class="btn btn-danger" style="margin-bottom: .5rem;"
+                                        (click)="obtenerPostulacion(candidato)">QUITAR CANDIDATO</button>
                                 </div>
                             </div>
                         </div>
 
-                        <div style="margin-bottom: 1rem; padding-top: 2rem;">
-                            <span class="placeholder col-12 placeholder-xs bg-secondary"
-                                style="margin-bottom: .1rem; padding:0rem"></span>
-                            <span class="placeholder col-12 placeholder-xs bg-secondary"
-                                style="margin-bottom: .1rem; padding:0rem"></span>
-                        </div>
-
-                        <div class="d-grid" style="margin-top: 1rem;">
-                            <button type="button" class="btn btn-secondary" style="margin-bottom: .5rem;" (click)="mostrarCandidatos(vacante)">VER CANDIDATOS VACANTE</button>
-                            <button type="button" class="btn btn-warning" style="margin-bottom: .5rem;" (click)="modificarVacante(vacante)">MODIFICAR ESTA VACANTE</button>
-                            <button type="button" class="btn btn-danger" style="margin-bottom: .5rem;" (click)="eliminarVacante(vacante)">ELIMINAR ESTA VACANTE</button>
-                        </div>
-
                     </div>
                 </div>
-            </div>
 
+                <ng-template #pantallaVaciaI>
+                    <p style="text-align: center;">La publicación no tiene Postulantes</p>
+                </ng-template>
+            </div>
         </div>
 
-        <ng-template #pantallaVacia>
-            <p style="text-align: center;">El empleador no tiene Publicaciones</p>
-        </ng-template>
+        <div class="cajaDerecha">
+            <div style="text-align: center; margin-bottom: 2rem; padding-left: 1rem; padding-right: 1rem;">
+                <b>VACANTES GENERADAS</b>
+                <hr>
+            </div>
+            <div style="padding: 1rem;">
+                <div *ngIf="cargarPantalla(); else pantallaVacia">
+                    <div class="scrollMenu" style="padding-right: 1rem;">
+                        <div class="card carta" *ngFor="let vacante of publicaciones" style="margin-top: 1rem;">
+                            <div class="card-body">
+                                <div class="acciones">
+                                    <div class="btn-group">
+                                        <label class="botonAcciones" type="button" data-bs-toggle="dropdown"
+                                            aria-expanded="false">
+                                            <h3>...</h3>
+                                        </label>
+                                        <ul class="dropdown-menu">
+                                            <li><a class="dropdown-item" (click)="modificarVacante(vacante)">Modificar
+                                                    Vacante</a></li>
+                                            <li><a class="dropdown-item" (click)="eliminarVacante(vacante)">Eliminar
+                                                    Vacante</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <h3 class="card-title">{{vacante.nombreVacante}} / {{vacante.especialista}}</h3>
+                                <p class="card-text textoInformativo" style="padding-bottom: 0rem;">
+                                    Empresa que contrata: {{vacante.empresa.nombre}}
+                                    <br> Ubicación: {{vacante.municipio.nombreMunicipio}}
+                                    <!-- ver si colocamos el estado -->
+                                </p>
+
+                                <div class="container text-rigth" style="padding: 0%;">
+                                    <div class="row">
+                                        <div class="col-2">
+                                            <span class="badge rounded-pill text-bg-secondary"
+                                                style="margin-right:.5rem; margin-bottom: .5rem; width: 180px;"> Sueldo
+                                                mensual: $ {{vacante.sueldo}}</span>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-2">
+                                            <span class="badge rounded-pill text-bg-secondary"
+                                                style="margin-right: .5rem; margin-bottom: .5rem; width: 180px;">horario:
+                                                {{vacante.horario}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="d-grid" style="margin-top: 1rem;">
+                                    <button type="button" class="btn btn-secondary" style="margin-bottom: .5rem;"
+                                        (click)="mostrarCandidatos(vacante)">VER CANDIDATOS DE LA VACANTE</button>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <ng-template #pantallaVacia>
+                    <p style="text-align: center;">El empleador no tiene Publicaciones</p>
+                </ng-template>
+            </div>
+        </div>
     </div>
 </div>
+
+<div [ngClass]="{'view':ocultarCandidato, '':!ocultarCandidato}">
+    <div class="cerrar">
+        <label type="button" class=""
+            style="height: 30px; width: 30px; padding: 0%;"
+            (click)="cerrar()">
+            <b> x </b>
+        </label>
+    </div>
+    <app-profile [vistaAdministrar]="vistaAdministrar"></app-profile>
 </div>
