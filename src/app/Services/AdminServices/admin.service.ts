@@ -175,6 +175,41 @@ export class AdminService {
     return this._http.delete(cadena).toPromise();
   }
 
+  // FUNCION QUE PERMITE OBTENER UNA LISTA DE CANDIDATOS
+  obtenerCandidatos(){
+    console.log("Proceso obtener lista de candidatos");
+    return this._http.get("app/obtenerListaCandidatos").toPromise();
+  }
+
+  // FUNCION QUE PERMITE OBTENER UNA LISTA DE CANDIDATOS ACTIVOS
+  obtenerCandidatosFActivos(){
+    console.log("Proceso obtener lista de candidatos activos");
+    return this._http.get("app/obtenerListaCandidatosActivos").toPromise();
+  }
+
+  // FUNCION QUE PERMITE OBTENER UNA LISTA DE CANDIDATOS INACTIVOS
+  obtenerCandidatosFInactivos(){
+    console.log("Proceso obtener lista de candidatos inactivos");
+    return this._http.get("app/obtenerListaCandidatosInactivos").toPromise();
+  }
+
+  // FUNCION PARA OBTENER LA LISTA DE EMPLEADORES
+  obtenerEmpleadores(){
+    console.log("Proceso obtenerEmpleadores");
+    return this._http.get("app/obtenerListaEmpleadores").toPromise();
+  }
+
+   // FUNCION PARA OBTENER LA LISTA DE EMPLEADORES ACTIVOS
+   obtenerEmpleadoresFActivos(){
+    console.log("Proceso obtenerEmpleadoresActivos");
+    return this._http.get("app/obtenerListaEmpleadoresActivos").toPromise();
+  }
+   // FUNCION PARA OBTENER LA LISTA DE EMPLEADORES INACTIVOS
+   obtenerEmpleadoresFInactivos(){
+    console.log("Proceso obtenerEmpleadoresInactivos");
+    return this._http.get("app/obtenerListaEmpleadoresInactivos").toPromise();
+  }
+
   // FUNCION PARA BUSCAR UN USUARIO A GESTIONAR
   obtenerPorCorreo(mail: string) {
     console.log("Proceso buscarUsuarioPorCorreo");

@@ -106,13 +106,15 @@ export class ManageComponent implements OnInit {
     }
   }
   // FUNCNON PARA ELEGIR UNA LISTA SEGUN EL AUTOCOMPLETE
+
   seleccionar() {
-    this.verCrearCuenta = true;
+
+   /* this.verCrearCuenta = true;
     this.verBorrarVacante = true;
     this.ocultarUsuarios = true;
     this.ocultarBotonesDeUsusario = true;
-    this.ocultarModificar = true;
-
+   * this.ocultarModificar = true;*/
+ 
     if (this.lista == "idioma") {
       this._AdminRequest.listaActiva(this.lista);
       this.ocultarLista = false;
@@ -128,7 +130,16 @@ export class ManageComponent implements OnInit {
     } else if (this.lista == "modalidad") {
       this._AdminRequest.listaActiva(this.lista);
       this.ocultarLista = false;
-    } else {
+    }else if (this.lista == "empleador") {
+      this._AdminRequest.listaActiva(this.lista);
+      this.ocultarLista = false;
+    }else if (this.lista == "candidato") {
+      this._AdminRequest.listaActiva(this.lista);
+      this.ocultarLista = false;
+    } else if (this.lista == "vacante") {
+      this._AdminRequest.listaActiva(this.lista);
+      this.ocultarLista = false;
+    }else {
       this.enviarAlerta("No hemos podido encontrar una lista con ese nombre.", true);
       this.ocultarLista = true;
     }

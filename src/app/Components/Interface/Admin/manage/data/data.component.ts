@@ -3,7 +3,12 @@ import { Subscription } from 'rxjs';
 import { AdminService } from 'src/app/Services/AdminServices/admin.service';
 import { CandidateService } from 'src/app/Services/CandidateServices/candidate.service';
 import { EmployerService } from 'src/app/Services/EmployerServices/employer.service';
+import { Candidato } from 'src/app/Services/Entity/candidato';
+import { Empleador } from 'src/app/Services/Entity/empleador';
+import { Estado } from 'src/app/Services/Entity/estado';
 import { Idioma } from 'src/app/Services/Entity/idioma';
+import { ModalidadTrabajo } from 'src/app/Services/Entity/modalidad-trabajo';
+import { Vacante } from 'src/app/Services/Entity/vacante';
 import { InterfaceService } from 'src/app/Services/InterfaceServices/interface.service';
 
 @Component({
@@ -23,6 +28,10 @@ export class DataComponent implements OnInit, OnDestroy {
   nombreCaptura: string = "";
   id_Captura: number = 0;
 
+  vacante: boolean = true;
+  persona: boolean = true;
+  externo: boolean = false;
+
   constructor(
     private _AdminRequest: AdminService,
     private _EmployerRequest: EmployerService,
@@ -33,6 +42,7 @@ export class DataComponent implements OnInit, OnDestroy {
       this.tipoVector = data;
       let botonModificar = document.getElementsByName('ModObj')[0];
       botonModificar.classList.add('bloqueo');
+    
       this.identificarLista(this.tipoVector);
       this.quitarBloqueo();
     });
@@ -40,7 +50,7 @@ export class DataComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-
+  
   }
 
   ngOnDestroy(): void {
@@ -48,8 +58,8 @@ export class DataComponent implements OnInit, OnDestroy {
   }
 
   ngAfterViewInit() {
-    let botonModificar = document.getElementsByName('ModObj')[0];
-    botonModificar.classList.add('bloqueo');
+    this.bloquearCrear();
+    this.bloquearEditar();
   }
 
 
@@ -60,7 +70,7 @@ export class DataComponent implements OnInit, OnDestroy {
     }
   }
 
-  quitarBloqueo(){
+  quitarBloqueo() {
     let botonModificar = document.getElementsByName('borrarBTN');
     for (let i = 0; i < botonModificar.length; i++) {
       botonModificar[i].classList.remove('bloqueo');
@@ -71,39 +81,91 @@ export class DataComponent implements OnInit, OnDestroy {
     if (lista == "idioma") {
       this.id_elemento = "id_idioma";
       this.nombreElemento = "nombreIdioma";
+      this.vacante = true;
+      this.persona = true;
+      this.externo = false;
+      this.desbloquearCrear();
       this.obtenrIdiomas();
     } else if (lista == "habilidad") {
       this.id_elemento = "id_habilidad";
       this.nombreElemento = "nombreHabilidad";
+      this.vacante = true;
+      this.persona = true;
+      this.externo = false;
+      this.desbloquearCrear();
       this.obtenerHabilidades();
     } else if (lista == "horario") {
       this.id_elemento = "id_horario";
       this.nombreElemento = "nombreHorario";
+      this.vacante = true;
+      this.persona = true;
+      this.externo = false;
+      this.desbloquearCrear();
       this.obtenerTiposDeHorario();
     } else if (lista == "contratacion") {
       this.id_elemento = "id_contratacion";
       this.nombreElemento = "nombreContra";
+      this.vacante = true;
+      this.persona = true;
+      this.externo = false;
+      this.desbloquearCrear();
       this.obtenerTiposContratacion();
     } else if (lista == "modalidad") {
       this.id_elemento = "id_modalidad";
       this.nombreElemento = "nombreModalidad";
+      this.vacante = true;
+      this.persona = true;
+      this.externo = false;
+      this.desbloquearCrear();
       this.obtenerModalidades();
+    } else if (lista == "candidato") {
+      this.id_elemento = "id_candidato";
+      this.nombreElemento = "nombre";
+      this.vacante = true;
+      this.persona = false;
+      this.externo = true;
+      this.desbloquearCrear();
+      this.obtenerCandidatos();
+    } else if (lista == "vacante") {
+      this.id_elemento = "id_vacante";
+      this.nombreElemento = "nombreVacante";
+      this.vacante = false;
+      this.persona = true;
+      this.externo = true;
+      this.desbloquearCrear();
+      this.obtenerVacantes();
+    } else if (lista == "empleador") {
+      this.id_elemento = "id_empleador";
+      this.nombreElemento = "nombre";
+      this.vacante = true;
+      this.persona = false;
+      this.externo = true;
+      this.desbloquearCrear();
+      this.obtenerempleadores();
     }
   }
 
-  vectorIdiomas: Idioma[] =[
-    {id_idioma:1,nombreIdioma:"ingles",candidatos:[]},
-    {id_idioma:2,nombreIdioma:"ingles",candidatos:[]},
-    {id_idioma:3,nombreIdioma:"ingles",candidatos:[]},
-    {id_idioma:4,nombreIdioma:"ingles",candidatos:[]},
-    {id_idioma:4,nombreIdioma:"ingles",candidatos:[]},
-    {id_idioma:4,nombreIdioma:"ingles",candidatos:[]},
-    {id_idioma:4,nombreIdioma:"ingles",candidatos:[]},
-    {id_idioma:4,nombreIdioma:"ingles",candidatos:[]},
-    {id_idioma:4,nombreIdioma:"ingles",candidatos:[]},
-    {id_idioma:4,nombreIdioma:"ingles",candidatos:[]},
-    {id_idioma:4,nombreIdioma:"ingles",candidatos:[]},
-    {id_idioma:4,nombreIdioma:"ingles",candidatos:[]},
+  cargarPantallaPrincipal(){
+    if(this.vectorGeneral.length != 0){
+      return true;
+    } else{
+      return true;
+    }
+  }
+
+  vectorIdiomas: Idioma[] = [
+    { id_idioma: 1, nombreIdioma: "ingles", candidatos: [] },
+    { id_idioma: 2, nombreIdioma: "ingles", candidatos: [] },
+    { id_idioma: 3, nombreIdioma: "ingles", candidatos: [] },
+    { id_idioma: 4, nombreIdioma: "ingles", candidatos: [] },
+    { id_idioma: 4, nombreIdioma: "ingles", candidatos: [] },
+    { id_idioma: 4, nombreIdioma: "ingles", candidatos: [] },
+    { id_idioma: 4, nombreIdioma: "ingles", candidatos: [] },
+    { id_idioma: 4, nombreIdioma: "ingles", candidatos: [] },
+    { id_idioma: 4, nombreIdioma: "ingles", candidatos: [] },
+    { id_idioma: 4, nombreIdioma: "ingles", candidatos: [] },
+    { id_idioma: 4, nombreIdioma: "ingles", candidatos: [] },
+    { id_idioma: 4, nombreIdioma: "ingles", candidatos: [] },
   ]
   // FUNCION PARA OBTENER LOS IDIOMAS DISPONIBLES
   obtenrIdiomas() {
@@ -116,23 +178,38 @@ export class DataComponent implements OnInit, OnDestroy {
 
         const OBJETO = {
           id: element.id_idioma,
-          nombre: element.nombreIdioma
+          nombre: element.nombreIdioma,
+          sueldo: "",
+          horario: "",
+          modalidad: "",
+          apellidoP: "",
+          apellidoM: "",
+          correo: "",
+          telefono: "",
         }
         this.vectorGeneral.push(OBJETO);
       }
     });
+    /*
+    this.vectorGeneral = [];
 
-      this.vectorGeneral = [];
+    for (let i = 0; i < this.vectorIdiomas.length; i++) {
+      const element = this.vectorIdiomas[i];
 
-      for (let i = 0; i < this.vectorIdiomas.length; i++) {
-        const element = this.vectorIdiomas[i];
-
-        const OBJETO = {
-          id: element.id_idioma,
-          nombre: element.nombreIdioma
-        }
-        this.vectorGeneral.push(OBJETO);
+      const OBJETO = {
+        id: element.id_idioma,
+        nombre: element.nombreIdioma,
+        sueldo: "",
+        horario: "",
+        modalidad: "",
+        apellidoP: "",
+        apellidoM: "",
+        correo: "",
+        telefono: "",
       }
+      this.vectorGeneral.push(OBJETO);
+    }
+    */
   }
 
   // FUNCION PARA OBTENER LAS HABILIDADES DISPONIBLES
@@ -144,7 +221,14 @@ export class DataComponent implements OnInit, OnDestroy {
 
         const OBJETO = {
           id: element.id_habilidad,
-          nombre: element.nombreHabilidad
+          nombre: element.nombreHabilidad,
+          sueldo: "",
+          horario: "",
+          modalidad: "",
+          apellidoP: "",
+          apellidoM: "",
+          correo: "",
+          telefono: "",
         }
         this.vectorGeneral.push(OBJETO);
       }
@@ -160,7 +244,14 @@ export class DataComponent implements OnInit, OnDestroy {
 
         const OBJETO = {
           id: element.id_tipoHorario,
-          nombre: element.dias
+          nombre: element.dias,
+          sueldo: "",
+          horario: "",
+          modalidad: "",
+          apellidoP: "",
+          apellidoM: "",
+          correo: "",
+          telefono: "",
         }
         this.vectorGeneral.push(OBJETO);
       }
@@ -176,7 +267,14 @@ export class DataComponent implements OnInit, OnDestroy {
 
         const OBJETO = {
           id: element.id_tipoContratacion,
-          nombre: element.horario
+          nombre: element.horario,
+          sueldo: "",
+          horario: "",
+          modalidad: "",
+          apellidoP: "",
+          apellidoM: "",
+          correo: "",
+          telefono: "",
         }
         this.vectorGeneral.push(OBJETO);
       }
@@ -192,21 +290,214 @@ export class DataComponent implements OnInit, OnDestroy {
 
         const OBJETO = {
           id: element.id_modalidad,
-          nombre: element.modalidad
+          nombre: element.modalidad,
+          sueldo: "",
+          horario: "",
+          modalidad: "",
+          apellidoP: "",
+          apellidoM: "",
+          correo: "",
+          telefono: "",
         }
         this.vectorGeneral.push(OBJETO);
       }
     });
   }
 
+  vectorVacantes: Vacante[] = [
+    {
+      id_vacante: 3,
+      nombreVacante: "Operador",
+      especialista: "Tecnico",
+      sueldo: 10000,
+      horario: "9:00am - 6:00pm",
+      domicilio: "Alcatraz n9",
+      municipio: { id_municipio: 0, nombreMunicipio: "mexico", estado: new Estado },
+      estatus: false,
+      descripcion: "Carnicero de planta",
+      empresa: { id_empresa: 0, nombre: "bimbo", descripcion: "panaderia", vacantes_empresa: [] },
+      empleador: new Empleador,
+      candidatos: [],
+      tipoHorario: { id_tipoHorario: 0, dias: "sab-dom", tipoHorario_vacantes: [] },
+      tipoContratacion: { id_tipoContratacion: 0, horario: "indefinado", tipoContratacion_vacantes: [] },
+      modalidadTrabajo: { id_modalidad: 1, modalidad: "virtual", modalidadTrabajo_vacantes: [] },
+      id_postulacion: 0,
+      fechaPublicacionSrt: "",
+      diasPublicada: 0,
+      estado: new Estado
+    }
+  ]
+  // FUNCION PARA OBTENER LAS VACANTES DISPONIBLES
+  obtenerVacantes() {
+    this._CandidateRequest.obtenerVacantes().then((data: any) => {
+      this.vectorGeneral = [];
+      for (let i = 0; i < data.length; i++) {
+        const element = data[i];
+
+        const OBJETO = {
+          id: element.id_vacante,
+          nombre: element.nombreVacante,
+          sueldo: element.sueldo,
+          horario: element.horario,
+          modalidad: element.modalidadTrabajo,
+          apellidoP: "",
+          apellidoM: "",
+          correo: "",
+          telefono: "",
+        }
+        this.vectorGeneral.push(OBJETO);
+      }
+    });
+    /*
+    this.vectorGeneral = [];
+
+    for (let i = 0; i < this.vectorVacantes.length; i++) {
+      const element = this.vectorVacantes[i];
+
+      const OBJETO = {
+        id: element.id_vacante,
+        nombre: element.nombreVacante,
+        sueldo: element.sueldo,
+        horario: element.horario,
+        modalidad: element.modalidadTrabajo
+      }
+      this.vectorGeneral.push(OBJETO);
+    }*/
+  }
+
+  vectorPersonas: Candidato[] = [
+    {
+      //this.empleador = {
+      id_candidato: 0,
+      //id_empleador:0,
+      edad: 25,
+      domicilio: "C. Alcatraz",
+      puestoActual: "Diseñador",
+      descripcion: "Diseñador grafico con experiencia en el diseño digital y diseño de paginas web Diseñador grafico con experiencia en el diseño digital y diseño de paginas web Diseñador grafico con experiencia en el diseño digital y diseño de paginas web Diseñador grafico con experiencia en el diseño digital y diseño de paginas web Diseñador grafico con experiencia en el diseño digital y diseño de paginas web Diseñador grafico con experiencia en el diseño digital y diseño de paginas web Diseñador grafico con experiencia en el diseño digital y diseño de paginas web",
+      centroEducativo: "UAM: Azcapotzalco",
+      rutaCv: "Untitled-2.pdf",
+      usuario: {
+        id_usuario: 0,
+        nombre: "Ramiro",
+        correoElectronico: "mancabra97@gmail.com",
+        contrasena: "1234556",
+        tipoUsuario: 2,
+        apellidoP: "Lopez",
+        apellidoM: "Gastelum",
+        telefono: "+52 5514098249",
+        estatusUsuario: true,
+        rutaImagenPerfil: "Captura de pantalla 2023-09-07 223459.png",
+        rutaImagenPortada: "Captura de pantalla 2023-09-07 224204.png",
+      },
+      vacantes: [],
+      idiomas: [
+        { id_idioma: 0, nombreIdioma: "ingles", candidatos: [] },
+        { id_idioma: 0, nombreIdioma: "ingles", candidatos: [] },
+        { id_idioma: 0, nombreIdioma: "ingles", candidatos: [] },
+        { id_idioma: 0, nombreIdioma: "ingles", candidatos: [] },
+        { id_idioma: 0, nombreIdioma: "ingles", candidatos: [] },
+      ],
+      municipio: { id_municipio: 0, nombreMunicipio: "talxacala", estado: new Estado },
+      estado: { id_estado: 1, nombreEstado: "tlaxcala", municipios: [] },
+      profesion: "DISEÑADOR",
+      fechaNacimiento: new Date,
+      habilidades: [
+        { id_habilidad: 0, nombreHabilidad: "trabajo en equipo", candidatos: [] },
+        { id_habilidad: 0, nombreHabilidad: "trabajo en equipo", candidatos: [] },
+        { id_habilidad: 0, nombreHabilidad: "trabajo en equipo", candidatos: [] },
+        { id_habilidad: 0, nombreHabilidad: "trabajo en equipo", candidatos: [] },
+        { id_habilidad: 0, nombreHabilidad: "trabajo en equipo", candidatos: [] },
+        { id_habilidad: 0, nombreHabilidad: "trabajo en equipo", candidatos: [] },
+        { id_habilidad: 0, nombreHabilidad: "trabajo en equipo", candidatos: [] },
+        { id_habilidad: 0, nombreHabilidad: "trabajo en equipo", candidatos: [] },
+        { id_habilidad: 0, nombreHabilidad: "trabajo en equipo", candidatos: [] },
+        { id_habilidad: 0, nombreHabilidad: "trabajo en equipo", candidatos: [] },
+      ],
+      rutaEspecialidad: "Untitled-2.pdf",
+      rutaEspecialidad2: "Untitled-2.pdf",
+      rutaEspecialidad3: "Untitled-2.pdf",
+    }
+  ];
+
+  // FUNCION PARA OBTENER LOS CANDIDATOS DISPONIBLES
+  obtenerCandidatos() {
+    this._AdminRequest.obtenerCandidatos().then((data: any) => {
+      this.vectorGeneral = [];
+      for (let i = 0; i < data.length; i++) {
+        const element = data[i];
+
+        const OBJETO = {
+          id: element.id_candidato,
+          nombre: element.usuario.nombre,
+          sueldo: "",
+          horario: "",
+          modalidad: "",
+          apellidoP: element.usuario.apellidoP,
+          apellidoM: element.usuario.apellidoM,
+          correo: element.usuario.correoElectronico,
+          telefono: element.usuario.telefono
+        }
+        this.vectorGeneral.push(OBJETO);
+      }
+    });
+
+    /*
+    this.vectorGeneral = [];
+
+    for (let i = 0; i < this.vectorPersonas.length; i++) {
+      const element = this.vectorPersonas[i];
+
+      const OBJETO = {
+        id: element.id_candidato,
+        nombre: element.usuario.nombre,
+        sueldo: "",
+        horario: "",
+        modalidad: "",
+        apellidoP: element.usuario.apellidoP,
+        apellidoM: element.usuario.apellidoM,
+        correo: element.usuario.correoElectronico,
+        telefono: element.usuario.telefono
+      }
+      this.vectorGeneral.push(OBJETO);
+    }
+*/
+  }
+
+  // FUNCION PARA OBTENER LOS EMPLEADORES DISPONIBLES
+  obtenerempleadores() {
+    this._AdminRequest.obtenerEmpleadores().then((data: any) => {
+      this.vectorGeneral = [];
+      for (let i = 0; i < data.length; i++) {
+        const element = data[i];
+
+        const OBJETO = {
+          id: element.id_empleador,
+          nombre: element.usuario.nombre,
+          sueldo: "",
+          horario: "",
+          modalidad: "",
+          apellidoP: element.usuario.apellidoP,
+          apellidoM: element.usuario.apellidoM,
+          correo: element.usuario.correoElectronico,
+          telefono: element.usuario.telefono
+        }
+        this.vectorGeneral.push(OBJETO);
+      }
+    });
+  }
+
+
+
   seleccionar(objeto: any) {
-    let botonModificar = document.getElementsByName('ModObj')[0];
-    botonModificar.classList.remove('bloqueo');
-    this.id_Captura = objeto.id;
-    this.nombreCaptura = objeto.nombre;
-    let botonguardar = document.getElementsByName('CreateObj')[0];
-    botonguardar.classList.add('bloqueo');
-    this.bloquearBotones();
+    if (this.externo == true) {
+
+    } else {
+      this.desbloquearEditar();
+      this.id_Captura = objeto.id;
+      this.nombreCaptura = objeto.nombre;
+      this.bloquearCrear();
+      this.bloquearBotones();
+    }
   }
 
   limpiar() {
@@ -215,17 +506,22 @@ export class DataComponent implements OnInit, OnDestroy {
   }
 
   agregar() {
-    if (this.tipoVector == "idioma") {
-      this.guardarIdioma();
-    } else if (this.tipoVector == "habilidad") {
-      this.guardarHabilidad();
-    } else if (this.tipoVector == "horario") {
-      this.guardarHorario();
-    } else if (this.tipoVector == "contratacion") {
-      this.guardarContartacion();
-    } else if (this.tipoVector == "modalidad") {
-      this.guardarModalidad();
+    if(this.externo == true){
+alert("hola")
+    } else {
+      if (this.tipoVector == "idioma") {
+        this.guardarIdioma();
+      } else if (this.tipoVector == "habilidad") {
+        this.guardarHabilidad();
+      } else if (this.tipoVector == "horario") {
+        this.guardarHorario();
+      } else if (this.tipoVector == "contratacion") {
+        this.guardarContartacion();
+      } else if (this.tipoVector == "modalidad") {
+        this.guardarModalidad();
+      }
     }
+   
   }
 
   editar() {
@@ -287,14 +583,32 @@ export class DataComponent implements OnInit, OnDestroy {
       } else {
         this.obtenrIdiomas();
         this.limpiar();
-        let botonModificar = document.getElementsByName('ModObj')[0];
-        botonModificar.classList.add('bloqueo');
-        let botonguardar = document.getElementsByName('CreateObj')[0];
-        botonguardar.classList.remove('bloqueo');
+        this.bloquearEditar();
+        this.desbloquearCrear();
         this.quitarBloqueo();
         this.enviarAlerta("El idioma fue modificado correctamente", false);
       }
     });
+  }
+
+  bloquearEditar() {
+    let botonModificar = document.getElementsByName('ModObj')[0];
+    botonModificar.classList.add('bloqueo');
+  }
+
+  desbloquearEditar() {
+    let botonModificar = document.getElementsByName('ModObj')[0];
+    botonModificar.classList.remove('bloqueo');
+  }
+
+  bloquearCrear() {
+    let botonguardar = document.getElementsByName('CreateObj')[0];
+    botonguardar.classList.add('bloqueo');
+  }
+
+  desbloquearCrear() {
+    let botonguardar = document.getElementsByName('CreateObj')[0];
+    botonguardar.classList.remove('bloqueo');
   }
 
   eliminarIdioma(id: number) {

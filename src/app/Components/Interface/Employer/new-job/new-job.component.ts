@@ -349,8 +349,9 @@ export class NewJobComponent implements OnInit, OnDestroy {
     let diaP = fechaP.getDay();
 
     if (ChangedFormat2 == ChangedFormat) {
-      this.enviarAlerta("No se pueden programar vacantes para el dia de hoy.", true);
-      this.obligatorios = false;
+      this.fechaPublicacionSrt = ChangedFormat;
+     // this.enviarAlerta("No se pueden programar vacantes para el dia de hoy.", true);
+      //this.obligatorios = false;
     } else {
       if (anioH != anioP) {
         if (anioH > anioP) {

@@ -1,13 +1,31 @@
-<div>
+<div *ngIf="cargarPantallaPrincipal(); else noSeleccionado">
     <div>
         <div style="padding-bottom: 0%;">
-            <div class="card caja">
-                <table class="table table-striped" style="margin: 0%; font-size: small; text-align: center;">
+            <div class="card caja2">
+                <table class="table table-striped" style="margin: 0%; font-size: small;  text-align: center;"  
+                [ngClass]="{'':persona, 'ocultar':!persona}">
                     <tr>
-                        <td>{{id_elemento}}</td>
-                        <td>{{nombreElemento}}</td>
-                        <td>borrar elemento</td>
-                        <td>Editar elemento</td>
+                        <td [ngClass]="{'':persona, 'idP':!persona}">{{id_elemento}}</td>
+                        <td [ngClass]="{'':persona, 'nombreP':!persona}">{{nombreElemento}}</td>
+                        <!-- vacante -->
+                        <td [ngClass]="{'ocultar':vacante, '':!vacante}">sueldo</td>
+                        <td [ngClass]="{'ocultar':vacante, 'horario':!vacante}">horario</td>
+                        <td [ngClass]="{'ocultar':vacante, '':!vacante}">modalidad</td>
+                        <td td [ngClass]="{'':persona, 'borrarElemento':!persona}">borrar elemento</td>
+                        <td td [ngClass]="{'':persona, 'borrarElemento':!persona}">Editar elemento</td>
+                    </tr>
+                </table>
+                <table class="table table-striped" style="margin: 0%; font-size: small;  text-align: center;"  
+                [ngClass]="{'ocultar':persona, '':!persona}">
+                    <tr>
+                        <td [ngClass]="{'ocultar':persona, 'idP':!persona}">{{id_elemento}}</td>
+                        <td [ngClass]="{'ocultar':persona, '':!persona}">{{nombreElemento}}</td>
+                        <!-- persona -->
+                        <td [ngClass]="{'ocultar':persona, 'apellido':!persona}">apellido P</td>
+                        <td [ngClass]="{'ocultar':persona, 'apellido':!persona}">apellido M</td>
+                        <td [ngClass]="{'ocultar':persona, 'correo':!persona}">correo</td>
+                        <td td [ngClass]="{'':persona, 'botonPersonaI':!persona}">borrar elemento</td>
+                        <td td [ngClass]="{'':persona, 'botonPersonaII':!persona}">Editar elemento</td>
                     </tr>
                 </table>
             </div>
@@ -15,28 +33,52 @@
     </div>
 
     <div class="interiores">
-        <div class="card caja scrollMenu" style=" padding-top: 2rem;">
-            <table class="table table-striped" style="margin: 0%; font-size: small; ">
-                <tbody>
+        <div class="card caja scrollMenu">
+            <table class="table table-striped" style="margin: 0%; font-size: small;  text-align: center;"
+            [ngClass]="{'':persona, 'ocultar':!persona}">
+                <tbody style="margin-top: 2rem; font-size: small;  text-align: center;">
                     <tr *ngFor="let objeto of vectorGeneral">
-                        <td style="text-align: left;">{{objeto.id}}</td>
-                        <td style="text-align: center;">{{objeto.nombre}}</td>
-                        <td style="text-align: right;">
+                        <td [ngClass]="{'idTabla':vacante, 'idTablaV':!vacante}">{{objeto.id}}</td>
+                        <td [ngClass]="{'nombre':vacante, 'nombreV':!vacante}">{{objeto.nombre}}</td>
+                        <td [ngClass]="{'ocultar':vacante, '':!vacante}"> {{objeto.sueldo}}</td>
+                        <td [ngClass]="{'ocultar':vacante, '':!vacante}"> {{objeto.horario}}</td>
+                        <td [ngClass]="{'ocultar':vacante, 'modalidad':!vacante}"> {{objeto.modalidad.modalidad}}</td>
+                        <td [ngClass]="{'botonB':vacante, 'botonBV':!vacante}">
                             <button name="borrarBTN" type="button" class="btn btn-outline-danger btn-sm"
-                                (click)="borrar(objeto)">borrar </button>
+                                (click)="borrar(objeto)">borrar {{tipoVector}}</button>
                         </td>
-                        <td style="text-align: right;">
+                        <td [ngClass]="{'botonS':vacante, 'botonSV':!vacante}">
                             <button type="button" class="btn btn-outline-secondary btn-sm"
-                                (click)="seleccionar(objeto)">seleccionar</button>
+                                (click)="seleccionar(objeto)">seleccionar {{tipoVector}}</button>
                         </td>
                     </tr>
+                </tbody>
+            </table>
 
+            <table class="table table-striped" style="margin: 0%; font-size: small;  text-align: center;"
+            [ngClass]="{'ocultar':persona, '':!persona}">
+                <tbody style="margin-top: 2rem; font-size: small;  text-align: center;">
+                    <tr *ngFor="let objeto of vectorGeneral">
+                        <td [ngClass]="{'ocultar':persona, 'idP':!persona}">{{objeto.id}}</td>
+                        <td [ngClass]="{'ocultar':persona, '':!persona}">{{objeto.nombre}}</td>
+                        <td [ngClass]="{'ocultar':persona, 'apellido':!persona}"> {{objeto.apellidoP}}</td>
+                        <td [ngClass]="{'ocultar':persona, 'apellido':!persona}"> {{objeto.apellidoM}}</td>
+                        <td [ngClass]="{'ocultar':persona, 'correo':!persona}"> {{objeto.correo}}</td>
+                        <td [ngClass]="{'ocultar':persona, 'botonPersonaI':!persona}">
+                            <button name="borrarBTN" type="button" class="btn btn-outline-danger btn-sm"
+                                (click)="borrar(objeto)">eliminar cuenta</button>
+                        </td>
+                        <td [ngClass]="{'ocultar':persona, 'botonPersonaII':!persona}">
+                            <button type="button" class="btn btn-outline-secondary btn-sm"
+                                (click)="seleccionar(objeto)">seleccionar {{tipoVector}}</button>
+                        </td>
+                    </tr>
                 </tbody>
             </table>
         </div>
     </div>
 
-    <div>
+    <div id="formularioInt">
         <div class="card caja">
             <div style="margin-bottom: .5rem;">
                 <div style="display:grid;">
@@ -92,3 +134,7 @@
         </div>
     </div>
 </div>
+
+<ng-template #noSeleccionado>
+    <p style="text-align: center;">No se ha seleccionado una lista</p>
+</ng-template>

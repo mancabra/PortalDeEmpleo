@@ -1,3 +1,75 @@
+.caja2{
+    padding-right: 3.5rem;
+    padding-left: 3.5rem;
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+    z-index: 2;
+}
+.idTabla{
+width: 193px;
+}
+
+.idTablaV{
+    width: 134px;
+}
+
+.nombre{
+    width: 282px;
+}
+
+.nombreV{
+    width: 190px;
+}
+
+.horario{
+    width: 176px;
+}
+
+.modalidad{
+    width:128px
+}
+
+.botonBV{
+    width: 196px;
+}
+
+.borrarElemento{
+     width: 238px;
+}
+
+.idP{
+    width: 132px;
+}
+.nombreP{
+    width: 180px;
+}
+
+.botonPersonaI{
+    width: 150px;
+}
+
+.correo{
+    width: 200px;
+}
+
+.botonPersonaII{
+    width: 200px;
+}
+
+.apellido{
+    width: 120px;
+}
+
+.botonSV{
+  width: 191px;  
+}
+
+.botonB{
+    width: 316px;
+}
+.botonS{
+    width: 309px;
+}
 .caja{
     padding-right: 1.5rem;
     padding-left: 1.5rem;
@@ -32,4 +104,8 @@
     height: 240px;
     border-radius: 0px 0px 0px 0px;
     overflow-y: scroll;
+}
+
+.ocultar{
+    display: none;
 }
