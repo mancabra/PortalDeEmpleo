@@ -68,7 +68,7 @@ export class ManageComponent implements OnInit, OnDestroy {
   identificarVista(data: any) {
     this.desactivarInterfaz = true;
     if (data.vista == "revisarPerfil") {
-      this.buscar(data.correoElectronico);
+      this.buscar(data.correo);
       this.activarBTPerfil();
       this.desactivarVacante();
       this.desactivarModVacantes();

@@ -446,7 +446,7 @@ export class DataComponent implements OnInit, OnDestroy {
       }
     });
 
-  /*
+/*  
     this.vectorGeneral = [];
 
     for (let i = 0; i < this.vectorPersonas.length; i++) {
@@ -466,6 +466,7 @@ export class DataComponent implements OnInit, OnDestroy {
       }
       this.vectorGeneral.push(OBJETO);
     }*/
+
   }
 
   // FUNCION PARA OBTENER LOS EMPLEADORES DISPONIBLES
@@ -510,14 +511,14 @@ export class DataComponent implements OnInit, OnDestroy {
     if(this.tipoVector == "candidato"){
       const OBJETO = {
         vista: "revisarPerfil",
-        correo: objeto.correoElectronico,
+        correo: objeto.correo,
         id_usuario: objeto.id_usuario
       }
       this._AdminRequest.cambiarVista(OBJETO);
     } else if (this.tipoVector == "empleador"){
       const OBJETO = {
         vista: "revisarPerfil",
-        correo: objeto.correoElectronico,
+        correo: objeto.correo,
         id_usuario: objeto.id_usuario
       }
       this._AdminRequest.cambiarVista(OBJETO);

@@ -65,7 +65,7 @@ export class AdminService {
 
   // FUNCION QUE PERMITE ELIMINAR UN IDIOMA
   eliminarIdioma(id: number) {
-    let cadena = "app//" + id;
+    let cadena = "app/eliminarIdioma/" + id;
     return this._http.delete(cadena).toPromise();
   }
 
@@ -91,7 +91,7 @@ export class AdminService {
 
   // FUNCION QUE PERMITE ELIMINAR UNA HABILIDAD
   eliminarHabilidad(id: number) {
-    let cadena = "app//" + id;
+    let cadena = "app/eliminarHabilidad/" + id;
     return this._http.delete(cadena).toPromise();
   }
 
@@ -117,7 +117,7 @@ export class AdminService {
 
   // FUNCION QUE PERMITE ELIMINAR UN HORARIO
   eliminarHorario(id: number) {
-    let cadena = "app//" + id;
+    let cadena = "app/eliminarTipoHorario/" + id;
     return this._http.delete(cadena).toPromise();
   }
 
@@ -143,7 +143,7 @@ export class AdminService {
 
   // FUNCION QUE PERMITE ELIMINAR UNA CONTRATACION
   eliminarContratacion(id: number) {
-    let cadena = "app//" + id;
+    let cadena = "app/eliminarTipoContratacion/" + id;
     return this._http.delete(cadena).toPromise();
   }
 
@@ -169,7 +169,7 @@ export class AdminService {
 
   // FUNCION QUE PERMITE ELIMINAR UNA MODALIDAD
   eliminarModalidad(id: number) {
-    let cadena = "app//" + id;
+    let cadena = "app/eliminarModalidadTrabajo/" + id;
     return this._http.delete(cadena).toPromise();
   }
 
