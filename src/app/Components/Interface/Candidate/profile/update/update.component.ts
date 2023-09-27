@@ -1124,6 +1124,13 @@ export class UpdateComponent implements OnInit, OnDestroy {
         if (this.vistaAdministrar == false) {
           this.enviarAlerta("El perfil ha sido modificado correctamente.", false);
           this.router.navigate(['interface/perfil']);
+        } else {
+          this.enviarAlerta("El perfil ha sido modificado correctamente.", false);
+          const OBJETO = {
+            vista: "revisarPerfil",
+            correoElectronico:this.usuario.usuario.correoElectronico
+          }
+          this._AdminRequest.cambiarVista(OBJETO);
         }
       } else {
         this.enviarAlerta("Ha surgido un error inesperado que nos impidio cargar los archivos en base de datos.", true);

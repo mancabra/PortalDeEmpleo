@@ -20,6 +20,15 @@
         </div>
     </div>
 </div>
+
+<div name="botonAct" style="margin-bottom: 2rem;">
+    <div class="col">
+        <div class="card" style="padding: .5rem;"> 
+            <a class="btn btn-warning" style="width: 100%;"
+            (click)="actualizarPerfil()">Actualizar Perfil</a>
+        </div>
+    </div>
+</div>
 <!--  
 <div style="display: flex;">
     <div class="cajaIzquierda">
@@ -136,8 +145,10 @@
     <app-data></app-data>
 </div>
 
-<div name ="perfil"><app-profile></app-profile></div>
-<div name ="perfilMOD"> <app-update></app-update></div>
+<div name ="perfil"><app-profile [vistaAdministrar]="vistaAdministrar"></app-profile></div>
+<div name ="perfilMOD"><app-update [vistaAdministrar]="vistaAdministrar"></app-update></div>
+<div name ="generar"><app-create [usuarioAdmin]="usuarioAdmin"></app-create></div>
 <div name =""></div>
 <div name =""></div>
+
     

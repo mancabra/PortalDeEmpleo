@@ -436,7 +436,7 @@ export class JobsComponent implements OnInit, OnDestroy {
   // FUNCION PARA IDENTIFICAR LA FUNCION QUE REALIZARA EL BOTON SEGUN EL USUARIO ACTIVO
   evaluarBoton(vacante: Vacante) {
     if (this.usuarioAdmin == true) {
-      this.eliminarVacante(vacante);
+     // this.eliminarVacante(vacante);
     } else if (this.id_tipoUsuario == 0) {
       this._UserRequest.ocultarNavB();
       this.router.navigate(['start']);
@@ -473,7 +473,7 @@ export class JobsComponent implements OnInit, OnDestroy {
       }
     });
   }
-
+/*
   // FUNCION DE ADMINISTRADOR PARA ELIMINAR UNA VACANTE
   eliminarVacante(vacante: Vacante) {
     this._EmployerRequest.eliminarVacante(vacante.id_vacante).then((data: any) => {
@@ -485,7 +485,7 @@ export class JobsComponent implements OnInit, OnDestroy {
       }
     });
   }
-
+*/
 
   //FUNCIONES PARA LAS NOTIFICACIONES 
   enviarAlertaExito(vacante: Vacante) {

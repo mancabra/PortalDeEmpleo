@@ -52,7 +52,12 @@ export class ManageComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-
+    this.desactivarBTPerfil();
+    this.desactivarPerfil();
+    this.desactivarVacante();
+    this.desactivarModVacantes();
+    this.desactivarModPerfil();
+    this.desactivarGenerar();
   }
 
   // FUNCION PARA DESACTIVAR UNA SUSCRIPCION
@@ -63,25 +68,45 @@ export class ManageComponent implements OnInit, OnDestroy {
   identificarVista(data: any) {
     this.desactivarInterfaz = true;
     if (data.vista == "revisarPerfil") {
+      this.buscar(data.correoElectronico);
+      this.activarBTPerfil();
       this.desactivarVacante();
       this.desactivarModVacantes();
       this.desactivarModPerfil();
+      this.desactivarGenerar();
       this.activarPerfil();
     } else if (data.vista == "verVacante") {
       this.desactivarPerfil();
       this.desactivarModVacantes();
       this.desactivarModPerfil();
+      this.desactivarGenerar();
       this.activarVacante();
     } else if (data.vista == "actualizarPerfil") {
+      this.desactivarBTPerfil();
       this.desactivarPerfil();
       this.desactivarVacante();
       this.desactivarModVacantes();
+      this.desactivarGenerar();
       this.activarModPerfil();
     } else if (data.vista == "modificarVacante") {
       this.desactivarPerfil();
       this.desactivarVacante();
       this.desactivarModPerfil();
+      this.desactivarGenerar();
       this.activarModVacantes();
+    } else if (data.vista == "crear") {
+      this.desactivarPerfil();
+      this.desactivarVacante();
+      this.desactivarModVacantes();
+      this.desactivarModPerfil();
+      this.activarGenerar();
+    } else if (data.vista == "volver") {
+      this.desactivarPerfil();
+      this.desactivarVacante();
+      this.desactivarModVacantes();
+      this.desactivarModPerfil();
+      this.desactivarGenerar();
+      this.desactivarInterfaz = true;
     }
   }
 
@@ -125,43 +150,40 @@ export class ManageComponent implements OnInit, OnDestroy {
     modPerf.classList.add('off');
   }
 
-
-
-  // FUNCION PARA OCULTAR LOS ELEMENTOS DEL DOCUMENTO HTML QUE NO FORMEN PARTE DE LA SECCION SELECCIONADA
-  verCrear() {
-    this.verBorrarVacante = true;
-    this.verCrearCuenta = false;
-    this.ocultarUsuarios = true;
-    this.ocultarBotonesDeUsusario = true;
-    this.ocultarModificar = true;
-    this.ocultarLista = true;
+  activarGenerar() {
+    let generar = document.getElementsByName('generar')[0];
+    generar.classList.remove('off');
   }
 
-  // FUNCION PARA OCULTAR LOS ELEMENTOS DEL DOCUMENTO HTML QUE NO FORMEN PARTE DE LA SECCION SELECCIONADA
-  verBorrarV() {
-    this.verCrearCuenta = true;
-    this.verBorrarVacante = false;
-    this.ocultarUsuarios = true;
-    this.ocultarBotonesDeUsusario = true;
-    this.ocultarModificar = true;
-    this.ocultarLista = true;
+  desactivarGenerar() {
+    let generar = document.getElementsByName('generar')[0];
+    generar.classList.add('off');
+  }
+
+  actualizarPerfil(){
+    const data = {
+      vista: "actualizarPerfil"
+    }
+    this.identificarVista(data);
+  }
+
+  activarBTPerfil(){
+    let boton = document.getElementsByName('botonAct')[0];
+    boton.classList.remove('off');
+  }
+
+  desactivarBTPerfil(){
+    let boton = document.getElementsByName('botonAct')[0];
+    boton.classList.add('off');
   }
 
   // FUNCION PARA BUSCAR UN USUARIO
-  buscar() {
-    this.verBorrarVacante = true;
-    this.verCrearCuenta = true;
-    this.ocultarModificar = true;
-    this.ocultarLista = true;
-
-    this._AdminRequest.obtenerPorCorreo(this.correoDeUsuario).then((data: any) => {
+  buscar(correoElectronico: string) {
+    this._AdminRequest.obtenerPorCorreo(correoElectronico).then((data: any) => {
       if (data.usuario.tipoUsuario == 1 || data.usuario.tipoUsuario == 2 || data.usuario.tipoUsuario == 3) {
         this.usuario = data;
         this.id_tipoUsuario = this.usuario.usuario.tipoUsuario;
         this.id_usuario = this.usuario.usuario.id_usuario;
-        this.ocultarBotonesDeUsusario = false;
-        this.ocultarUsuarios = false;
-        this.ocultarModificar = true;
         this._AdminRequest.usuarioActivo(this.usuario);
       } else {
         this.enviarAlerta("Ha surgido un error inesperado que nos impidio realizar la busqueda.", true);
@@ -169,35 +191,8 @@ export class ManageComponent implements OnInit, OnDestroy {
     });
   }
 
-  // FUNCION PARA BORRAR UN USUARIO POR ID
-  Borrar() {
-    if (this.id_tipoUsuario != 0) {
-      this._AdminRequest.eliminarUsuario(this.id_usuario).then((data: any) => {
-        if (data.estatus == true) {
-          this.enviarAlerta("La cuenta del usuario ha sido eliminada y ya no esta dispinible el la aplicacion.", false);
-          this.id_tipoUsuario = 0;
-          this.id_usuario = 0;
-          this.correoDeUsuario = "";
-          this.ocultarBotonesDeUsusario = true;
-          this.ocultarUsuarios = true;
-          this.ocultarModificar = true;
-        } else {
-          this.enviarAlerta("Ha surgido un error inesperado que nos impidio borrar la cuenta.", true);
-        }
-      });
-    } else {
-    }
-  }
   // FUNCNON PARA ELEGIR UNA LISTA SEGUN EL AUTOCOMPLETE
-
   seleccionar() {
-
-    /* this.verCrearCuenta = true;
-     this.verBorrarVacante = true;
-     this.ocultarUsuarios = true;
-     this.ocultarBotonesDeUsusario = true;
-    * this.ocultarModificar = true;*/
-
     if (this.lista == "idioma") {
       this._AdminRequest.listaActiva(this.lista);
       this.ocultarLista = false;
@@ -231,7 +226,6 @@ export class ManageComponent implements OnInit, OnDestroy {
   // FUNCION PARA SUSPENDER UNA CUENTA
   suspender() {
     if (this.id_tipoUsuario != 0) {
-
       const DTO = {
         id_usuario: this.id_usuario,
       }
@@ -239,7 +233,6 @@ export class ManageComponent implements OnInit, OnDestroy {
       this._CandidateRequest.suspenderCuenta(DTO).then((data: any) => {
         if (data.estatus == true) {
           this.enviarAlerta("La cuenta ha sido suspendida de manera exitosa. Al reaizar esta acción la cuenta dejara de ser visible para otros usuarios.", false);
-          this.buscar();
         } else {
           this.enviarAlerta("Ha surgido un error inesperado que nos impidio suspender la cuenta.", true);
         }
@@ -251,8 +244,7 @@ export class ManageComponent implements OnInit, OnDestroy {
 
   modificar() {
     if (this.id_tipoUsuario != 0) {
-      this.ocultarUsuarios = true;
-      this.ocultarModificar = false;
+      this.identificarVista("actualizarPerfil");
     } else {
       this.enviarAlerta("No se ha podido identificar el tipo de usuario.", true);
     }

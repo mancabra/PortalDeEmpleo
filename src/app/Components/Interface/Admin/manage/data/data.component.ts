@@ -42,7 +42,7 @@ export class DataComponent implements OnInit, OnDestroy {
       this.tipoVector = data;
       let botonModificar = document.getElementsByName('ModObj')[0];
       botonModificar.classList.add('bloqueo');
-    
+
       this.identificarLista(this.tipoVector);
       this.quitarBloqueo();
     });
@@ -50,7 +50,7 @@ export class DataComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-  
+
   }
 
   ngOnDestroy(): void {
@@ -79,76 +79,76 @@ export class DataComponent implements OnInit, OnDestroy {
 
   identificarLista(lista: string) {
     if (lista == "idioma") {
-      this.id_elemento = "id_idioma";
-      this.nombreElemento = "nombreIdioma";
+      this.id_elemento = "id";
+      this.nombreElemento = "nombre";
       this.vacante = true;
       this.persona = true;
       this.externo = false;
       this.desbloquearCrear();
       this.obtenrIdiomas();
     } else if (lista == "habilidad") {
-      this.id_elemento = "id_habilidad";
-      this.nombreElemento = "nombreHabilidad";
+      this.id_elemento = "id";
+      this.nombreElemento = "nombre";
       this.vacante = true;
       this.persona = true;
       this.externo = false;
       this.desbloquearCrear();
       this.obtenerHabilidades();
     } else if (lista == "horario") {
-      this.id_elemento = "id_horario";
-      this.nombreElemento = "nombreHorario";
+      this.id_elemento = "id";
+      this.nombreElemento = "nombre";
       this.vacante = true;
       this.persona = true;
       this.externo = false;
       this.desbloquearCrear();
       this.obtenerTiposDeHorario();
     } else if (lista == "contratacion") {
-      this.id_elemento = "id_contratacion";
-      this.nombreElemento = "nombreContra";
+      this.id_elemento = "id";
+      this.nombreElemento = "nombre";
       this.vacante = true;
       this.persona = true;
       this.externo = false;
       this.desbloquearCrear();
       this.obtenerTiposContratacion();
     } else if (lista == "modalidad") {
-      this.id_elemento = "id_modalidad";
-      this.nombreElemento = "nombreModalidad";
+      this.id_elemento = "id";
+      this.nombreElemento = "nombre";
       this.vacante = true;
       this.persona = true;
       this.externo = false;
       this.desbloquearCrear();
       this.obtenerModalidades();
     } else if (lista == "candidato") {
-      this.id_elemento = "id_candidato";
+      this.id_elemento = "id";
       this.nombreElemento = "nombre";
       this.vacante = true;
       this.persona = false;
       this.externo = true;
-      this.desbloquearCrear();
+      this.bloquearCrear()
       this.obtenerCandidatos();
     } else if (lista == "vacante") {
-      this.id_elemento = "id_vacante";
-      this.nombreElemento = "nombreVacante";
+      this.id_elemento = "id";
+      this.nombreElemento = "nombre";
       this.vacante = false;
       this.persona = true;
       this.externo = true;
-      this.desbloquearCrear();
+      this.bloquearCrear()
       this.obtenerVacantes();
     } else if (lista == "empleador") {
-      this.id_elemento = "id_empleador";
+      this.id_elemento = "id";
       this.nombreElemento = "nombre";
       this.vacante = true;
       this.persona = false;
       this.externo = true;
-      this.desbloquearCrear();
+      this.bloquearCrear();
       this.obtenerempleadores();
     }
   }
 
-  cargarPantallaPrincipal(){
-    if(this.vectorGeneral.length != 0){
+  cargarPantallaPrincipal() {
+    if (this.vectorGeneral.length != 0) {
       return true;
-    } else{
+    } else {
       return true;
     }
   }
@@ -252,6 +252,7 @@ export class DataComponent implements OnInit, OnDestroy {
           apellidoM: "",
           correo: "",
           telefono: "",
+          id_usuario:0
         }
         this.vectorGeneral.push(OBJETO);
       }
@@ -275,6 +276,7 @@ export class DataComponent implements OnInit, OnDestroy {
           apellidoM: "",
           correo: "",
           telefono: "",
+          id_usuario:0
         }
         this.vectorGeneral.push(OBJETO);
       }
@@ -298,6 +300,7 @@ export class DataComponent implements OnInit, OnDestroy {
           apellidoM: "",
           correo: "",
           telefono: "",
+          id_usuario:0
         }
         this.vectorGeneral.push(OBJETO);
       }
@@ -344,6 +347,7 @@ export class DataComponent implements OnInit, OnDestroy {
           apellidoM: "",
           correo: "",
           telefono: "",
+          id_usuario:0
         }
         this.vectorGeneral.push(OBJETO);
       }
@@ -435,13 +439,14 @@ export class DataComponent implements OnInit, OnDestroy {
           apellidoP: element.usuario.apellidoP,
           apellidoM: element.usuario.apellidoM,
           correo: element.usuario.correoElectronico,
-          telefono: element.usuario.telefono
+          telefono: element.usuario.telefono,
+          id_usuario: element.usuario.id_usuario
         }
         this.vectorGeneral.push(OBJETO);
       }
     });
 
-    /*
+  /*
     this.vectorGeneral = [];
 
     for (let i = 0; i < this.vectorPersonas.length; i++) {
@@ -456,11 +461,11 @@ export class DataComponent implements OnInit, OnDestroy {
         apellidoP: element.usuario.apellidoP,
         apellidoM: element.usuario.apellidoM,
         correo: element.usuario.correoElectronico,
-        telefono: element.usuario.telefono
+        telefono: element.usuario.telefono,
+        id_usuario: element.usuario.id_usuario
       }
       this.vectorGeneral.push(OBJETO);
-    }
-*/
+    }*/
   }
 
   // FUNCION PARA OBTENER LOS EMPLEADORES DISPONIBLES
@@ -479,7 +484,8 @@ export class DataComponent implements OnInit, OnDestroy {
           apellidoP: element.usuario.apellidoP,
           apellidoM: element.usuario.apellidoM,
           correo: element.usuario.correoElectronico,
-          telefono: element.usuario.telefono
+          telefono: element.usuario.telefono,
+          id_usuario: element.usuario.id_usuario
         }
         this.vectorGeneral.push(OBJETO);
       }
@@ -490,7 +496,7 @@ export class DataComponent implements OnInit, OnDestroy {
 
   seleccionar(objeto: any) {
     if (this.externo == true) {
-
+      this.evaluarExterno(objeto);
     } else {
       this.desbloquearEditar();
       this.id_Captura = objeto.id;
@@ -500,14 +506,38 @@ export class DataComponent implements OnInit, OnDestroy {
     }
   }
 
+  evaluarExterno(objeto: any) {
+    if(this.tipoVector == "candidato"){
+      const OBJETO = {
+        vista: "revisarPerfil",
+        correo: objeto.correoElectronico,
+        id_usuario: objeto.id_usuario
+      }
+      this._AdminRequest.cambiarVista(OBJETO);
+    } else if (this.tipoVector == "empleador"){
+      const OBJETO = {
+        vista: "revisarPerfil",
+        correo: objeto.correoElectronico,
+        id_usuario: objeto.id_usuario
+      }
+      this._AdminRequest.cambiarVista(OBJETO);
+    } else if (this.tipoVector == "vacante"){
+      const OBJETO = {
+        vista: "verVacante",
+        id_vacante: objeto.id_vacante
+      }
+      this._AdminRequest.cambiarVista(OBJETO);
+    }
+  }
+
   limpiar() {
     this.id_Captura = 0;
     this.nombreCaptura = "";
   }
 
   agregar() {
-    if(this.externo == true){
-alert("hola")
+    if (this.externo == true) {
+      
     } else {
       if (this.tipoVector == "idioma") {
         this.guardarIdioma();
@@ -521,7 +551,7 @@ alert("hola")
         this.guardarModalidad();
       }
     }
-   
+
   }
 
   editar() {
@@ -549,6 +579,12 @@ alert("hola")
       this.eliminarContartacion(objeto.id);
     } else if (this.tipoVector == "modalidad") {
       this.borrarModalidad(objeto.id);
+    } else if (this.tipoVector == "vacante") {
+      this.eliminarVacante(objeto.id);
+    } else if (this.tipoVector == "candidato") {
+      this.BorrarUsuario(objeto.id_usuario);
+    } else if (this.tipoVector == "empleador") {
+      this.BorrarUsuario(objeto.id_usuario);
     }
   }
 
@@ -833,6 +869,33 @@ alert("hola")
   }
 
 
+  // FUNCION PARA BORRAR UN USUARIO POR ID
+  BorrarUsuario(id: number) {
+      this._AdminRequest.eliminarUsuario(id).then((data: any) => {
+        if (data.estatus == true) {
+          if(this.tipoVector == "empleador"){
+            this.obtenerempleadores();
+          } else{
+            this.obtenerCandidatos();
+          }
+          this.enviarAlerta("La cuenta del usuario ha sido eliminada y ya no esta dispinible el la aplicacion.", false);
+        } else {
+          this.enviarAlerta("Ha surgido un error inesperado que nos impidio borrar la cuenta.", true);
+        }
+      });
+  }
+
+    // FUNCION DE ADMINISTRADOR PARA ELIMINAR UNA VACANTE
+    eliminarVacante(id: number) {
+      this._EmployerRequest.eliminarVacante(id).then((data: any) => {
+        if (data.estatus == true) {
+          this.enviarAlerta("La vacante se ha eliminado correctamente.", false);
+          this.obtenerVacantes();
+        } else {
+          this.enviarAlerta("No se ha podido eliminar la vacante debido a un error interno.", true);
+        }
+      });
+    }
 
 
   // FUNCION PARA EL POPUP
