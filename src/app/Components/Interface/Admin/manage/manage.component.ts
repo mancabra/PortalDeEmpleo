@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { AdminService } from 'src/app/Services/AdminServices/admin.service';
 import { CandidateService } from 'src/app/Services/CandidateServices/candidate.service';
 import { InterfaceService } from 'src/app/Services/InterfaceServices/interface.service';
@@ -8,7 +9,7 @@ import { InterfaceService } from 'src/app/Services/InterfaceServices/interface.s
   templateUrl: './manage.component.html',
   styleUrls: ['./manage.component.css']
 })
-export class ManageComponent implements OnInit {
+export class ManageComponent implements OnInit, OnDestroy {
 
   // VARIABLE QUE ALMACENA UN USUARO GENERAL 
   usuario: any;
@@ -32,17 +33,99 @@ export class ManageComponent implements OnInit {
   lista: string = "";
   // VARIABLE PARA OCULTAR LA INTERFAZ DE LAS LISTAS
   ocultarLista: boolean = true;
+
+
+  subscription: Subscription;
+
   // INYECCION DE SERVICOS A USAR EN EL COMPONENTE
+  desactivarInterfaz: boolean = false;
+
   constructor(
     private _AdminRequest: AdminService,
     private _CandidateRequest: CandidateService,
     private _UserRequest: InterfaceService) {
+
+    this.subscription = this._AdminRequest.getObjeto().subscribe(data => {
+      this.identificarVista(data);
+    });
 
   }
 
   ngOnInit(): void {
 
   }
+
+  // FUNCION PARA DESACTIVAR UNA SUSCRIPCION
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+  }
+
+  identificarVista(data: any) {
+    this.desactivarInterfaz = true;
+    if (data.vista == "revisarPerfil") {
+      this.desactivarVacante();
+      this.desactivarModVacantes();
+      this.desactivarModPerfil();
+      this.activarPerfil();
+    } else if (data.vista == "verVacante") {
+      this.desactivarPerfil();
+      this.desactivarModVacantes();
+      this.desactivarModPerfil();
+      this.activarVacante();
+    } else if (data.vista == "actualizarPerfil") {
+      this.desactivarPerfil();
+      this.desactivarVacante();
+      this.desactivarModVacantes();
+      this.activarModPerfil();
+    } else if (data.vista == "modificarVacante") {
+      this.desactivarPerfil();
+      this.desactivarVacante();
+      this.desactivarModPerfil();
+      this.activarModVacantes();
+    }
+  }
+
+  activarPerfil() {
+    let perfil = document.getElementsByName('perfil')[0];
+    perfil.classList.remove('off');
+  }
+
+  desactivarPerfil() {
+    let perfil = document.getElementsByName('perfil')[0];
+    perfil.classList.add('off');
+  }
+
+  activarVacante() {
+    let vacante = document.getElementsByName('')[0];
+    vacante.classList.remove('off');
+  }
+
+  desactivarVacante() {
+    let vacante = document.getElementsByName('')[0];
+    vacante.classList.add('off');
+  }
+
+  activarModVacantes() {
+    let modVacante = document.getElementsByName('')[0];
+    modVacante.classList.remove('off');
+  }
+
+  desactivarModVacantes() {
+    let modVacante = document.getElementsByName('')[0];
+    modVacante.classList.add('off');
+  }
+
+  activarModPerfil() {
+    let modPerf = document.getElementsByName('perfilMOD')[0];
+    modPerf.classList.remove('off');
+  }
+
+  desactivarModPerfil() {
+    let modPerf = document.getElementsByName('perfilMOD')[0];
+    modPerf.classList.add('off');
+  }
+
+
 
   // FUNCION PARA OCULTAR LOS ELEMENTOS DEL DOCUMENTO HTML QUE NO FORMEN PARTE DE LA SECCION SELECCIONADA
   verCrear() {
@@ -109,12 +192,12 @@ export class ManageComponent implements OnInit {
 
   seleccionar() {
 
-   /* this.verCrearCuenta = true;
-    this.verBorrarVacante = true;
-    this.ocultarUsuarios = true;
-    this.ocultarBotonesDeUsusario = true;
-   * this.ocultarModificar = true;*/
- 
+    /* this.verCrearCuenta = true;
+     this.verBorrarVacante = true;
+     this.ocultarUsuarios = true;
+     this.ocultarBotonesDeUsusario = true;
+    * this.ocultarModificar = true;*/
+
     if (this.lista == "idioma") {
       this._AdminRequest.listaActiva(this.lista);
       this.ocultarLista = false;
@@ -130,16 +213,16 @@ export class ManageComponent implements OnInit {
     } else if (this.lista == "modalidad") {
       this._AdminRequest.listaActiva(this.lista);
       this.ocultarLista = false;
-    }else if (this.lista == "empleador") {
+    } else if (this.lista == "empleador") {
       this._AdminRequest.listaActiva(this.lista);
       this.ocultarLista = false;
-    }else if (this.lista == "candidato") {
+    } else if (this.lista == "candidato") {
       this._AdminRequest.listaActiva(this.lista);
       this.ocultarLista = false;
     } else if (this.lista == "vacante") {
       this._AdminRequest.listaActiva(this.lista);
       this.ocultarLista = false;
-    }else {
+    } else {
       this.enviarAlerta("No hemos podido encontrar una lista con ese nombre.", true);
       this.ocultarLista = true;
     }

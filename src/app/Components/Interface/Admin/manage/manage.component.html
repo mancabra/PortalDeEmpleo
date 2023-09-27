@@ -1,19 +1,21 @@
-<div class="fijar">
-    <div class="contenedorBusqueda">
-        <div class="card p-2">
-            <div class="input-group" style="width: 100%;">
-                <input type="text" class="form-control" placeholder="Ingresa el nombre de la tabla que buscas" aria-label="Search" [(ngModel)]="lista" list="listasDisp">
-                <datalist id="listasDisp">
-                    <option value="idioma"></option>
-                    <option value="habilidad"></option>
-                    <option value="horario"></option>
-                    <option value="contratacion"></option>
-                    <option value="modalidad"></option>
-                    <option value="empleador"></option>
-                    <option value="vacante"></option>
-                    <option value="candidato"></option>
-                </datalist>
-                <button class="btn btn-outline-secondary" type="button" (click)="seleccionar()" >Seleccionar Tabla </button>
+<div [ngClass]="{'off':desactivarInterfaz, '':!desactivarInterfaz}">
+    <div class="fijar">
+        <div class="contenedorBusqueda">
+            <div class="card p-2">
+                <div class="input-group" style="width: 100%;">
+                    <input type="text" class="form-control" placeholder="Ingresa el nombre de la tabla que buscas" aria-label="Search" [(ngModel)]="lista" list="listasDisp">
+                    <datalist id="listasDisp">
+                        <option value="idioma"></option>
+                        <option value="habilidad"></option>
+                        <option value="horario"></option>
+                        <option value="contratacion"></option>
+                        <option value="modalidad"></option>
+                        <option value="empleador"></option>
+                        <option value="vacante"></option>
+                        <option value="candidato"></option>
+                    </datalist>
+                    <button class="btn btn-outline-secondary" type="button" (click)="seleccionar()" >Seleccionar Tabla </button>
+                </div>
             </div>
         </div>
     </div>
@@ -130,5 +132,12 @@
 </div>
 -->
 
-
+<div [ngClass]="{'off':desactivarInterfaz, '':!desactivarInterfaz}">
     <app-data></app-data>
+</div>
+
+<div name ="perfil"><app-profile></app-profile></div>
+<div name ="perfilMOD"> <app-update></app-update></div>
+<div name =""></div>
+<div name =""></div>
+    

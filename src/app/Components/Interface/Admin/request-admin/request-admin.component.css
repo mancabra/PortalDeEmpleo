@@ -1,0 +1,49 @@
+.caja2{
+    padding-right: 3.5rem;
+    padding-left: 3.5rem;
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+    z-index: 2;
+}
+
+.fijar{
+    position: sticky;
+    top: 150px;
+    z-index: 100;
+    display: block;
+}
+
+.caja{
+    border-radius: 0px 0px 5px 5px;
+    padding-right: 1.5rem;
+    padding-left: 1.5rem;
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+    z-index: 2;
+}
+
+.interiores{
+    padding-right: 2rem;
+    padding-left: 2rem;
+}
+
+.idP{
+    width: 69px;
+}
+
+.tipoP{
+    width: 147px;
+}
+
+.fechaP{
+    width: 151px;
+}
+
+.vacanteP{
+    width: 224px;
+}
+
+.desc{
+    width: 509px;
+}
+

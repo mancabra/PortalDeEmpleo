@@ -46,7 +46,7 @@ export class JobsComponent implements OnInit, OnDestroy {
   filtroEstado: boolean = true;
 
   // VECTOR QUE ALMACENA LOS FILTROS DISPONIBLES
-  filtrosDisponibles = ["Ninguno", "Cercanos a Mi", "Mejor Pagados", "Estado"];
+  filtrosDisponibles = ["Ninguno", "Mejor Pagados", "Estado"];
 
   // VECTOR QUE ALMACENA LAS VACANTES DISPONIBLES EN BD
   jobsList: Vacante[] = [];
@@ -66,6 +66,7 @@ export class JobsComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.filtrosDisponibles = ["Ninguno", "Mejor Pagados", "Estado"];
     this.vacanteSeleccionada = new Vacante;
     this.buscarUsuario();
     this.obtenerVacantes();
@@ -263,6 +264,7 @@ export class JobsComponent implements OnInit, OnDestroy {
         this.textoBoton = "Iniciar Sesión";
       } else {
         this.textoBoton = "Postularse";
+        this.filtrosDisponibles.push("Cercanos a Mi");
       }
     }
   }

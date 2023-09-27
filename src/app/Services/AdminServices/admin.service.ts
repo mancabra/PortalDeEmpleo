@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
+import { Log } from '../Entity/log';
 
 @Injectable({
   providedIn: 'root'
@@ -19,6 +20,9 @@ export class AdminService {
   lista: string = ""
   // VARIABLE PARA EL OBSERVABLE DE TIPO STRING
   private lista$ = new Subject<string>();
+
+  // VARIABLE PARA EL OBSERVABLE DE TIPO STRING
+  private objeto$ = new Subject<any>();
 
   constructor(private _http: HttpClient) { }
 
@@ -210,6 +214,11 @@ export class AdminService {
     return this._http.get("app/obtenerListaEmpleadoresInactivos").toPromise();
   }
 
+  // FUNCION OBTENER LOG
+  obtenerLog():Observable<Log[]>{
+    console.log("Proceso obtenerLog") 
+    return this._http.get<Log[]>("app/obtenerListaProcesos");
+  }
   // FUNCION PARA BUSCAR UN USUARIO A GESTIONAR
   obtenerPorCorreo(mail: string) {
     console.log("Proceso buscarUsuarioPorCorreo");
@@ -239,6 +248,16 @@ export class AdminService {
   listaActiva(listaActiva: string) {
     this.lista = listaActiva
     this.lista$.next(this.lista);
+  }
+
+
+  // FUNCION PARA OBSERVABLE DE ADMin
+  getObjeto(): Observable<any> {
+    return this.objeto$.asObservable();
+  }
+
+  cambiarVista(objeto: any){
+    this.objeto$.next(objeto);
   }
 
 }
