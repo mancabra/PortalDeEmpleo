@@ -11,7 +11,7 @@ export class LoginComponent {
   @Output() viewLogin = new EventEmitter<boolean>();
   @Output() viewCreate = new EventEmitter<boolean>();
 
-  imagenLog: string = "../assets/imagenPre.jpg";
+  imagenLog: string = "../assets/miniLogo.jpg";
 
   // VARIABLE PARA VERIFICAR QUE EL CORREO NO ESTE REGISTRADO EN BD
   correoExistente: boolean = true;

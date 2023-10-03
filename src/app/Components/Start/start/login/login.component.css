@@ -1,8 +1,72 @@
 .enlace{
     color: blue;
+    text-align: center;
     text-decoration: underline;
     cursor: pointer;
 }
 .view{
     display: none;
+}
+
+.pantalla{
+    margin-top: 30px;
+    display: block;
+    width: 100%;
+    height: 680px;
+}
+.contenedor{
+    height: 680px;
+    display:grid;
+    place-items: center;
+}
+
+.imagen{
+    display:grid;
+    place-items: center;
+}
+
+
+.log{
+    display: inline;
+    border-color:rgb(191, 191, 191);
+    width: 800px;
+    height: 670px;
+    padding: 0px;
+}
+
+.interiorSup{
+    text-align: center;
+    border-radius: 5px 5px 0px 0px;
+    background-color:rgb(110, 117, 124);
+    color: white;
+    height: 45px;
+    padding: 10px;
+    font-size: 8px;
+}
+
+.cajaInterior{
+    width: 800px;
+    height: 455px;
+    padding: 4rem;
+}
+
+.logInteriorD{
+    border-radius: 0px 5px 5px 0px;
+    margin:0px;
+    height: 500px;
+    width: 600px;
+}
+.logInteriorI{
+    margin:0px;
+    padding: 2rem;
+    height: 500px;
+    width: 200px;
+    background-color:rgb(110, 117, 124);
+    border-radius: 5px 0px 0px 5px;
+    color:white;
+}
+
+.transformar{
+    text-align: center;
+    font-size: large;
 }

@@ -420,6 +420,6 @@
 
 <div>
     <div class="contenedorComponent" [ngClass]="{'view':ocultarRegistro, '':!ocultarRegistro}"> 
-        <app-create [vistaEmpleo]="vistaEmpleo" (ocultarRegistro)="ocultarRegistro = $event"></app-create>
+        <app-company-create (ocultarRegistro)="ocultarRegistro = $event"></app-company-create>
     </div>
 </div>

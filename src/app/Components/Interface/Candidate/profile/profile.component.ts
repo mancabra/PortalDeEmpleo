@@ -97,7 +97,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
     this.id_tipoUsuario = 2;
     this.identificarTipoDePerfil();
     this.generarRuta();*/
- 
   }
 
   cargarPrueba() {
@@ -214,45 +213,86 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
       }
       this.identificarTipoDePerfil();
-      this.generarRuta();
+      this.predeterminadas();
     });
+  }
+
+  predeterminadas(){
+    if(this.id_tipoUsuario == 1){
+      this.evaluarAdmin();
+    } else if(this.id_tipoUsuario == 2){
+      this.evaluarCandidato();
+    } else if(this.id_tipoUsuario == 3){
+      this.evaluarEmpleador();
+    } else {
+
+    }
+    this.generarRuta();
+  }
+
+  evaluarCandidato(){
+    const usuario = this.candidato.usuario.nombre + this.candidato.usuario.apellidoP + this.candidato.usuario.apellidoM;
+    const ruta = `images${usuario}/perfil/`;
+    //const imagenPerfil = this.candidato.usuario.rutaImagenPerfil;
+    const imagenPerfil = "pR3d3tErm1n4d4IMGP3rf1l.jpg"
+    this.obtenerPerfil(imagenPerfil,ruta);
+    const rutaII = `images${usuario}/portada/`;
+    //const imagenPortada =  this.candidato.usuario.rutaImagenPortada;
+    const imagenPortada = "pR3d3tErm1n4d4IMGP0rt4dA.jpg"
+    this.obtenerPortada(imagenPortada,rutaII);
+  }
+
+  evaluarEmpleador(){
+    const usuario = this.empleador.usuario.nombre + this.empleador.usuario.apellidoP + this.empleador.usuario.apellidoM;
+    const ruta = `images${usuario}/perfil/`;
+    const imagenPerfil = this.empleador.usuario.rutaImagenPerfil;
+    this.obtenerPerfil(imagenPerfil,ruta);
+    const rutaII = `images${usuario}/portada/`;
+    const imagenPortada =  this.empleador.usuario.rutaImagenPortada;
+    this.obtenerPortada(imagenPortada,rutaII);
+  }
+
+  evaluarAdmin(){
+    const usuario = this.administrador.usuario.nombre + this.administrador.usuario.apellidoP + this.administrador.usuario.apellidoM;
+    const ruta = `images${usuario}/perfil/`;
+    const imagenPerfil = this.administrador.usuario.rutaImagenPerfil;
+    this.obtenerPerfil(imagenPerfil,ruta);
+    const rutaII = `images${usuario}/portada/`;
+    const imagenPortada =  this.administrador.usuario.rutaImagenPortada;
+    this.obtenerPortada(imagenPortada,rutaII);
+  }
+
+  obtenerPortada(name:string, ruta: string){
+    if(name == "pR3d3tErm1n4d4IMGP0rt4dA.jpg"){
+      const predeterminada = `images/portada/`;
+      this.getImagesPortada(predeterminada, name);
+    } else {
+      this.getImagesPortada(ruta, name);
+    }
+  }
+
+  obtenerPerfil(name:string, ruta: string){
+    if(name == "pR3d3tErm1n4d4IMGP3rf1l.jpg"){
+      const predeterminada = `images/perfil/`;
+      this.getImages(predeterminada, name);
+    } else {
+      this.getImages(ruta, name);
+    }
   }
 
   // FUNCION PARA GENERAR LAS RUTAS DE DESCARGA PARA IMAGENES Y ARCHIVOS SEGUN LOS DATOS DEL USUARIO
   generarRuta() {
-    if (this.id_tipoUsuario == 1) {
-      const name = this.administrador.usuario.nombre + this.administrador.usuario.apellidoP + this.administrador.usuario.apellidoM;
-      const ruta = `images${name}/perfil/`;
-      const rutaII = `images${name}/portada/`;
-      this.getImages(ruta, this.administrador.usuario.rutaImagenPerfil);
-      this.getImagesPortada(rutaII, this.administrador.usuario.rutaImagenPortada);
-    } else if (this.id_tipoUsuario == 2) {
+    if (this.id_tipoUsuario == 2) {
       const name = this.candidato.usuario.nombre + this.candidato.usuario.apellidoP + this.candidato.usuario.apellidoM;
-      const ruta = `images${name}/perfil/`;
-      const rutaII = `images${name}/portada/`;
       const rutaIII = `documentos${name}/cv/`;
       const rutaIV = `documentos${name}/especialidad/`;
       const rutaV = `documentos${name}/especialidadII/`;
       const rutaVI = `documentos${name}/especialidadIII/`;
-      this.getImages(ruta, this.candidato.usuario.rutaImagenPerfil);
-      this.getImagesPortada(rutaII, this.candidato.usuario.rutaImagenPortada);
       this.getCV(rutaIII, this.candidato.rutaCv);
       this.getEspecialidad(rutaIV, this.candidato.rutaEspecialidad);
       this.getEspecialidadII(rutaV, this.candidato.rutaEspecialidad2);
       this.getEspecialidadIII(rutaVI, this.candidato.rutaEspecialidad3);
-    } else if (this.id_tipoUsuario == 3) {
-      const name = this.empleador.usuario.nombre + this.empleador.usuario.apellidoP + this.empleador.usuario.apellidoM;
-      const ruta = `images${name}/perfil/`;
-      const rutaII = `images${name}/portada/`;
-      this.getImages(ruta, this.empleador.usuario.rutaImagenPerfil);
-      this.getImagesPortada(rutaII, this.empleador.usuario.rutaImagenPortada);
-    } else {
-      /*const ruta = `images/perfil/`;
-      const rutaII = `images/portada/`;
-      this.getImages(ruta,"default.png");
-      this.getImagesPortada(rutaII,"default.png");*/
     }
-
   }
 
   // FUNCION DEL BOTON MODIFICAR PERFIL 

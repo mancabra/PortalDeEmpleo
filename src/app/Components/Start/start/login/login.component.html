@@ -1,70 +1,57 @@
-<div class="card" style="width: 600px; height: 600px; padding: 2rem;">
-  <div style="text-align: center; margin-bottom: 2rem;">
-    <b>INICIAR SESIÓN</b>
-    <hr>
-  </div>
-
-  <div style="display:grid">
-    <img src={{imagenLog}} class="rounded mx-auto d-block" alt="..." style="margin-bottom: 1rem;">
-    <div style="width: 100%;">
-      <div class="container">
-        <div class="row">
-          <div class="col-9" style="padding-left: 0%; padding-bottom: .3rem;">
-            Correo Electronico:*
+<div class="pantalla">
+  <div class="contenedor">
+    <div class="card">
+      <div class="log">
+        <div class="interiorSup">
+          <b class="transformar">INICIAR SESIÓN</b>
+        </div>
+        <div class="cajaInterior">
+          <div class="imagen">
+            <img src="{{imagenLog}}" alt="" height="243px" width="243px"> 
           </div>
-          <div class="col" style="color: red; font-size: x-small; text-align: right;" [ngClass]="{'view':verErrorCorreo, '':!verErrorCorreo}">
-            Campo Obligatorio*
+          <div style="margin-bottom: .5rem;">
+            <div class="container">
+              <div class="row">
+                <div class="col-9" style="padding-left: 0%; padding-bottom: .3rem;">
+                  Correo Electronico:*
+                </div>
+                <div class="col" style="color: red; font-size: x-small; text-align: right;"
+                  [ngClass]="{'view':verErrorCorreo, '':!verErrorCorreo}">
+                  Campo Obligatorio*
+                </div>
+              </div>
+            </div>
+            <input class="form-control form-control" type="text" placeholder="miCorreoInfotec@gmail.com"
+              aria-label=".form-control-lg example"  [(ngModel)]="correoIngresado">
+          </div>
+          <div style="margin-bottom: 2rem;">
+            <div class="container">
+              <div class="row">
+                <div class="col-9" style="padding-left: 0%; padding-bottom: .3rem;">
+                  Contraseña:*
+                </div>
+                <div class="col" style="color: red; font-size: x-small; text-align: right;"
+                  [ngClass]="{'view':verErrorContrasena, '':!verErrorContrasena}">
+                  Campo Obligatorio*
+                </div>
+              </div>
+            </div>
+            <input class="form-control form-control" type="password" placeholder="********" aria-describedby="passwordHelpBlock"
+            [(ngModel)]="contrasenaIngresada">
+            <div id="passwordHelpBlock" class="form-text">
+              La contraseña esta conformada por 8 caracteres.
+            </div>
+          </div>
+          <div class="d-grid gap-2" style="padding-top:6.5spx">
+            <button class="btn btn-secondary" type="button" (click)="evaluarCampos()">INICIAR SESIÓN</button>
+          </div>
+          <div style="margin-top: 1rem;">
+            <div class="enlace" (click)="linkCreate()">
+              CREAR UNA CUENTA
+            </div>
           </div>
         </div>
       </div>
     </div>
-    <div style="display: flex;">
-      <div style="width: 100%;">
-        <input class="form-control" type="text" placeholder="mail@example.com" aria-label="default input example" [(ngModel)]="correoIngresado">
-      </div>
-      <div style="margin-left: 1rem; margin-right: 0rem; width: 100%;" [ngClass]="{'view':correoExistente, '':!correoExistente}">
-        <label class="btn btn-danger" style="width: 100%; pointer-events: none;">CORREO NO REGISTRADO</label>
-      </div>
-    </div>
-  </div>
-
-
-  <div style="display:grid; margin-top: 1.2rem;">
-    <div style="width: 100%;">
-      <div class="container">
-        <div class="row">
-          <div class="col-9" style="padding-left: 0%; padding-bottom: .3rem;">
-            Contraseña:*
-          </div>
-          <div class="col" style="color: red; font-size: x-small; text-align: right;" [ngClass]="{'view':verErrorContrasena, '':!verErrorContrasena}">
-            Campo Obligatorio*
-          </div>
-        </div>
-      </div>
-    </div>
-    <div style="display: flex;">
-      <div style="width: 100%;">
-        <input class="form-control" type="password" placeholder="password" aria-label="default input example" [(ngModel)]="contrasenaIngresada">
-      </div>
-      <div style=" margin-left: 1rem;margin-right: 0rem; width: 100%;" [ngClass]="{'view':contrasenaCorrecta, '':!contrasenaCorrecta}">
-        <label class="btn btn-danger" style="width: 100%; pointer-events: none;">CONTRASEÑA INCORRECTA</label>
-      </div>
-    </div>
-
-    <div class="container text-center" style="margin-top: 2rem;">
-      <div class="row">
-        <div class="col">
-          <button type="button" class="btn btn-secondary btn-sm" style="width: 120px;" (click)="evaluarCampos()">Iniciar Sesión</button>
-        </div>
-      </div>
-    </div>
-    <div class="container text-center" style="margin-top: .5rem; font-size: small;">
-      <div class="row">
-        <div class="col enlace"  (click)="linkCreate()">
-          Registrar
-        </div>
-      </div>
-    </div>
-    
   </div>
 </div>

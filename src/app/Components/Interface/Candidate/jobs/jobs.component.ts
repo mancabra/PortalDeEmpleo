@@ -264,7 +264,7 @@ export class JobsComponent implements OnInit, OnDestroy {
         this.textoBoton = "Iniciar Sesión";
       } else {
         this.textoBoton = "Postularse";
-        this.filtrosDisponibles.push("Cercanos a Mi");
+      //  this.filtrosDisponibles.push("Cercanos a Mi");
       }
     }
   }

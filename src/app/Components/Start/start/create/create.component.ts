@@ -1,5 +1,6 @@
 import { DatePipe } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Storage, ref, uploadBytes, listAll, getDownloadURL } from '@angular/fire/storage';
 import { AdminService } from 'src/app/Services/AdminServices/admin.service';
 import { CandidateService } from 'src/app/Services/CandidateServices/candidate.service';
 import { CompanyService } from 'src/app/Services/CompanyServices/company.service';
@@ -151,7 +152,8 @@ export class CreateComponent {
     private _AdminRequest: AdminService,
     private _EmployerRequest: EmployerService,
     private _UserRequest: InterfaceService,
-    private _CompanyRequest: CompanyService
+    private _CompanyRequest: CompanyService,
+    private _firebase: Storage,
   ) {
 
     this.edad = 18;
@@ -160,14 +162,6 @@ export class CreateComponent {
 
   ngOnInit() {
     this.componetStart = false;
-    this.verNombre = false;
-    this.verApellidos = false;
-    this.verEdadyTelefono = false;
-    this.verTelefonoEmple = false;
-    this.verUbicacion = false;
-    this.verCorreo = false;
-    this.verContrasenas = false;
-    this.verDescripcion = false;
     this.bloquearMunicipios();
     this.identificarUsario("candidato");
   }
@@ -185,7 +179,7 @@ export class CreateComponent {
   }
 
   // FUNCION PARA LIMPIAR LOS CAMPOS ESTADO Y MUNICIPIO
-  bloquearMunicipiosII(){
+  bloquearMunicipiosII() {
     this.estado = { id_estado: 0, nombreEstado: "Selecciona un Estado", municipios: [] };
     this.municipio = { id_municipio: 0, nombreMunicipio: "Selecciona un Municipio", estado: new Estado };
     this.bloquearMunicipio = "none";
@@ -227,11 +221,11 @@ export class CreateComponent {
       this.verAdministrador = false;
       this.verEmpresa = false;
     } else {
-      if(this.vistaEmpleo == true){
+      if (this.vistaEmpleo == true) {
         this.verUsuariosPrincipales = true;
         this.verEmpresa = false;
         this.componetStart = true;
-       this.tipoUsurio = "empresa";
+        this.tipoUsurio = "empresa";
       } else {
         this.verAdministrador = true;
         this.componetStart = false;
@@ -244,49 +238,43 @@ export class CreateComponent {
   cambiarCuenta() {
     if (this.tipoUsurio == "candidato") {
       this.bloquearMunicipiosII();
+      this.desBloquearCampos();
       this.descripcionDelUSuario = "Al crear una cuenta del tipo candidato tendras acceso a todas las vacantes disponibles en nuestra plataforma,"
         + " podras postularte a ellas y gestionar dichas postulaciones en vistas exclusivas.";
-      this.verApellidos = false;
-      this.verUbicacion = false;
-      this.verEdadyTelefono = false;
-      this.verTelefonoEmple = true;
-      this.verCorreo = false;
-      this.verContrasenas = false;
-      this.verDescripcion = true;
     } else if (this.tipoUsurio == "administrador") {
+      this.bloquearMunicipiosII();
+      this.bloquearCampos();
       this.descripcionDelUSuario = "Al crear una cuenta del tipo administrador estaras creando un usuario que podra gestionar de manera libre la plataforma,"
         + " el suario  podra crear cuentas de cualquier tipo, eliminarlas o suspenderlas.";
-      this.verApellidos = false;
-      this.verEdadyTelefono = true;
-      this.verTelefonoEmple = false;
-      this.verUbicacion = true;
-      this.verCorreo = false;
-      this.verContrasenas = false;
-      this.verDescripcion = true;
     } else if (this.tipoUsurio == "empleador") {
+      this.bloquearMunicipiosII();
+      this.bloquearCampos();
       this.descripcionDelUSuario = "Al crear una cuenta del tipo empleador podras publicar nuevos empleos dentro de nuestra plataforma y podras gestionar a todos "
         + "los candidatos que se postularon a tu vacante en ventanas exclusivas.";
-      this.verApellidos = false;
-      this.verEdadyTelefono = true;
-      this.verTelefonoEmple = false;
-      this.verUbicacion = true;
-      this.verCorreo = false;
-      this.verContrasenas = false;
-      this.verDescripcion = true;
     } else {
       this.bloquearMunicipiosII();
+      this.bloquearCampos();
       this.descripcionDelUSuario = "Al crear una empersa debes tener en cuenta que estara disponible de manera instantanea en nuestra plataforma,"
         + " y sera visible para todos los empleadores durante la creacion de vacantes en el campo empresa.";
       this.textoUbicacion = "Calle y Número:*";
       this.textoMunicipio = "Municipio:*";
       this.textoEstado = "Estado:*";
-      this.verApellidos = true;
-      this.verEdadyTelefono = true;
-      this.verTelefonoEmple = true;
-      this.verUbicacion = true;
-      this.verCorreo = true;
-      this.verContrasenas = true;
-      this.verDescripcion = false;
+    }
+  }
+
+  bloquearCampos() {
+    const elementos = document.getElementsByName("ubicacion");
+    for (let i = 0; i < elementos.length; i++) {
+      const element = elementos[i];
+      element.classList.add("bloquear");
+    }
+  }
+
+  desBloquearCampos() {
+    const elementos = document.getElementsByName("ubicacion");
+    for (let i = 0; i < elementos.length; i++) {
+      const element = elementos[i];
+      element.classList.remove("bloquear");
     }
   }
 
@@ -344,7 +332,9 @@ export class CreateComponent {
       domicilio: this.ubicacion,
       id_estado: this.estado.id_estado,
       id_municipio: this.municipio.id_municipio,
-      fechaNacimientoStr: this.nacimientoSrt
+      fechaNacimientoStr: this.nacimientoSrt,
+      rutaImagenPerfil: "",
+      rutaImagenPortada: "",
     }
     this.evaluarNombre(CANDIDATO);
   }
@@ -360,6 +350,8 @@ export class CreateComponent {
       telefono: this.numeroTelefonioco,
       correoElectronico: this.correo,
       contrasena: this.contrasena,
+      rutaImagenPerfil: "",
+      rutaImagenPortada: "",
     }
 
     this.evaluarNombre(ADMIN);
@@ -376,6 +368,8 @@ export class CreateComponent {
       telefono: this.numeroTelefonioco,
       correoElectronico: this.correo,
       contrasena: this.contrasena,
+      rutaImagenPerfil: "",
+      rutaImagenPortada: "",
     }
 
     this.evaluarNombre(EMPLEADOR);
@@ -657,7 +651,81 @@ export class CreateComponent {
       usuario.contrasena = this.contrasena;
     }
     // Faltaria agregar la funcion para comprobar si la comntraseña contiene caracteres especiales y números
+    this.asignarImagenPerfil(usuario);
+  }
+
+  validarImagenes() {
+
+  }
+
+  // VARIABLES PARA LA CAPTURA DE ARCHIVOS 
+  imgP: any;
+  img: any;
+  imgReff: any;
+  imgReffP: any;
+  nuevaImagenPerfil: string = "";
+  nuevaImagenPortada: string = "";
+
+  uploadPerfil($event: any) {
+    this.img = $event.target.files[0];
+    this.nuevaImagenPerfil = this.img.name;
+  }
+
+  asignarImagenPerfil(usuario: any) {
+    if(this.nuevaImagenPerfil == ""){
+      this.nuevaImagenPerfil = "pR3d3tErm1n4d4IMGP3rf1l.jpg";
+      usuario.rutaImagenPerfil = this.nuevaImagenPerfil;
+    } else {
+      this.nuevaImagenPerfil = this.img.name;
+      usuario.rutaImagenPerfil = this.nuevaImagenPerfil;
+      const name = usuario.nombre + usuario.apellidoP + usuario.apellidoM;
+      this.imgReff = ref(this._firebase, `images${name}/perfil/${this.img.name}`);
+  
+      const ARCHIVO = {
+        tipo: "perfil",
+        name: this.img.name,
+      }
+    }
+    this.asignarImagenPortada(usuario);
+  }
+
+  uploadPortada($event: any) {
+    this.imgP = $event.target.files[0];
+    this.nuevaImagenPortada = this.imgP.name;
+  }
+
+  asignarImagenPortada(usuario: any) {
+    if(this.nuevaImagenPortada == ""){
+      this.nuevaImagenPortada = "pR3d3tErm1n4d4IMGP0rt4dA.jpg";
+      usuario.rutaImagenPortada = this.nuevaImagenPortada;
+    } else {
+      this.nuevaImagenPortada = this.imgP.name
+      usuario.rutaImagenPortada = this.nuevaImagenPortada;
+      const name = usuario.nombre + usuario.apellidoP + usuario.apellidoM;
+      this.imgReffP = ref(this._firebase, `images${name}/portada/${this.imgP.name}`);
+  
+      const ARCHIVO = {
+        tipo: "portada",
+        name: this.imgP.name,
+      }
+    }
     this.cambiarFlujoDeRegistroV(usuario);
+  }
+
+  subirPerfil(){
+    if(this.nuevaImagenPerfil != "pR3d3tErm1n4d4IMGP3rf1l.jpg"){
+      uploadBytes(this.imgReff, this.img)
+      .then(response => console.log(response))
+      .catch(error => console.log(error));
+    }
+  }
+
+  subirPortada(){
+    if(this.nuevaImagenPortada != "pR3d3tErm1n4d4IMGP0rt4dA.jpg"){
+      uploadBytes(this.imgReffP, this.imgP)
+      .then(response => console.log(response))
+      .catch(error => console.log(error));
+    } 
   }
 
   // FUNCION PARA EL CAMBIO DE FLUJO DEL REGISTRO SEGUN EL TIPO DE CUENTA
@@ -673,6 +741,7 @@ export class CreateComponent {
     }
   }
 
+
   // FUNCION PARA EL REGISTRO DE CANDIDATOS
   registarCandidato(usuario: any) {
     if (this.Obligatorios != false) {
@@ -681,6 +750,8 @@ export class CreateComponent {
           if (data.estatus == false) {
             this.enviarAlerta("Ha surgido un error inesperado que nos impidio crear al candidato.", true);
           } else {
+            this.subirPortada();
+            this.subirPerfil();
             this.enviarAlerta("El candidato fue creado correctamente, la cuenta ya puede ser utilizada.", false);
             this.limpiarCampos();
           }
@@ -689,6 +760,8 @@ export class CreateComponent {
             this.enviarAlerta("Ha surgido un error inesperado que nos impidio crear al candidato.", true);
           } else {
             this.limpiarCampos();
+            this.subirPortada();
+            this.subirPerfil();
             this._UserRequest.guaradarCorreo(usuario.correoElectronico);
             this._UserRequest.cambiartipo();
             this._UserRequest.mostarNav();
@@ -709,6 +782,8 @@ export class CreateComponent {
         } else {
           this.enviarAlerta("El administrador fue creado correctamente, la cuenta ya puede ser utilizada.", false);
           this.limpiarCampos();
+          this.subirPortada();
+          this.subirPerfil();
         }
       });
     } else {
@@ -726,12 +801,16 @@ export class CreateComponent {
           } else {
             this.enviarAlerta("El empleador fue creado correctamente, la cuenta ya puede ser utilizada.", false);
             this.limpiarCampos();
+            this.subirPortada();
+            this.subirPerfil();
           }
         } else {
           if (data.estatus == false) {
             this.enviarAlerta("Ha surgido un error inesperado que nos impidio crear al empleador.", true);
           } else {
             this.limpiarCampos();
+            this.subirPortada();
+            this.subirPerfil();
             this._UserRequest.guaradarCorreo(empleador.correoElectronico);
             this._UserRequest.cambiartipo();
             this._UserRequest.mostarNav();
@@ -759,7 +838,6 @@ export class CreateComponent {
     } else {
       this.enviarAlerta("Algunos de los campos obligatorios para la creacion de la cuenta no se han capturado.", true);
     }
- 
   }
 
   // FUNCION PARA LIMPIAR EL FORMULARIO DE REGISTRO

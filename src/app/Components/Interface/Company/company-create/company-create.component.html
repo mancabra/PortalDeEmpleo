@@ -1,0 +1,77 @@
+<div class="card" style="width: 100%; height: 100%; padding: 2rem;">
+    <div style="text-align: center;">
+        <b>REGISTRO DE EMPRESAS</b>
+        <hr>
+    </div>
+    <div class="btn-group" role="group" aria-label="Basic radio toggle button group" style="margin-bottom: 1rem;">
+        <input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="on">
+        <label class="btn btn-outline-danger" for="btnradio3">Empresa</label>
+    </div>
+
+    <div>
+        <p style="text-align: justify; font-size: x-small; color: darkgray;">
+            Al crear una empersa debes tener en cuenta que estara disponible de manera instantanea en nuestra
+            plataforma,
+            y sera visible para todos los empleadores durante la creacion de vacantes en el campo empresa.
+        </p>
+    </div>
+
+    <div style="display:grid;">
+        <div style="width: 100%;">
+            <div class="container">
+                <div class="row">
+                    <div class="col-9" style="padding-left: 0%; padding-bottom: .3rem;">
+                        Nombre:*
+                    </div>
+                    <div class="col" style="color: red; font-size: x-small; text-align: right;"
+                        [ngClass]="{'view':validarNombre, '':!validarNombre}">
+                        Campo Obligatorio*
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div style="display: flex;">
+            <div style="width: 100%;">
+                <input class="form-control" type="text" placeholder="Nombre(s)" aria-label="default input example"
+                    [(ngModel)]="nombre">
+            </div>
+            <div style="margin-left: 1rem; margin-right: 0rem; width: 100%;"
+                [ngClass]="{'view':validarNombreRegistrado, '':!validarNombreRegistrado}">
+                <label class="btn btn-danger" style="width: 100%; pointer-events: none;">EMPRESA YA REGISTRADA</label>
+            </div>
+        </div>
+    </div>
+
+    <div>
+        <div style="display:grid; margin-top: 1rem;">
+            <div style="width: 100%;">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-9" style="padding-left: 0%; padding-bottom: .3rem;">
+                            Descripción:*
+                        </div>
+                        <div class="col" style="color: red; font-size: x-small; text-align: right;"
+                            [ngClass]="{'view':validarDescripcion, '':!validarDescripcion}">
+                            Campo Obligatorio*
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div style="display: flex;">
+                <div style="width: 100%;">
+                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"
+                        [(ngModel)]="descripcion"></textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container text-center" style="margin-top: 2rem;">
+        <div class="row">
+            <div class="col">
+                <button type="button" class="btn btn-secondary btn-sm" style="width: 120px;"
+                    (click)="evaluarEmpresa()">Registrar</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -25,6 +25,7 @@ import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
 import { environment } from '../environments/environment';
 import { provideStorage,getStorage } from '@angular/fire/storage';
 import { DataComponent } from './Components/Interface/Admin/manage/data/data.component';
+import { CompanyCreateComponent } from './Components/Interface/Company/company-create/company-create.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,8 @@ import { DataComponent } from './Components/Interface/Admin/manage/data/data.com
     JobComponent,
     UpdateComponent,
     UpdateJobComponent,
-    DataComponent
+    DataComponent,
+    CompanyCreateComponent
   ],
   imports: [
     BrowserModule,
