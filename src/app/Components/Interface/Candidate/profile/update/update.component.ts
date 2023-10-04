@@ -166,7 +166,7 @@ export class UpdateComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    
+
     this.obtenrIdiomas();
     this.obtenerHabilidades();
     this.identificarVista();
@@ -219,6 +219,9 @@ export class UpdateComponent implements OnInit, OnDestroy {
       this.nuevaEspecialidad = this.rutaEspecialidad;
       this.nuevaEspecialidadII = this.rutaEspecialidadII;
       this.nuevaEspecialidadIII = this.rutaEspecialidadIII;
+      this.descripcionI = this.candidato.descripcionEspecialidad1,
+      this.descripcionII = this.candidato.descripcionEspecialidad2,
+      this.descripcionIII = this.candidato.descripcionEspecialidad3,
       this.asignarGenerales(this.candidato);
       console.log("candidato");
     } else if (this.usuario.usuario.tipoUsuario == 3) {
@@ -262,9 +265,6 @@ export class UpdateComponent implements OnInit, OnDestroy {
         this.nuevaEspecialidad = this.rutaEspecialidad;
         this.nuevaEspecialidadII = this.rutaEspecialidadII;
         this.nuevaEspecialidadIII = this.rutaEspecialidadIII;
-        this.descripcionI = this.candidato.descripcionEspecialidad1,
-        this.descripcionII = this.candidato.descripcionEspecialidad2,
-        this.descripcionIII = this.candidato.descripcionEspecialidad3,
         console.log("candidato");
       } else if (data.usuario.tipoUsuario == 3) {
         this.empleador = data;
@@ -1162,36 +1162,36 @@ export class UpdateComponent implements OnInit, OnDestroy {
     }
   }
 
-  validarDesacripciones(){
+  validarDesacripciones() {
     this.descripciones = true;
     const mensaje = "Para una mejor experiencia es necesario llenar el campo DESCRIPCIÓN de los documentos de especialidad";
-    if(this.activoI == true) {
+    if (this.activoI == true) {
       this.evaluarPrimero(mensaje);
-    } else if(this.activoII == true){
+    } else if (this.activoII == true) {
       this.evaluarSegundo(mensaje);
-    } else if(this.activoIII == true){
+    } else if (this.activoIII == true) {
       this.evaluarTercero(mensaje);
     } else {
 
     }
   }
 
-  evaluarPrimero(mensaje:string){
-    if(this.descripcionI == ""){
+  evaluarPrimero(mensaje: string) {
+    if (this.descripcionI == "") {
       this.descripciones = false;
       this.enviarAlerta(mensaje, true);
     }
   }
 
-  evaluarSegundo(mensaje:string){
-    if(this.descripcionII == ""){
+  evaluarSegundo(mensaje: string) {
+    if (this.descripcionII == "") {
       this.descripciones = false;
       this.enviarAlerta(mensaje, true);
     }
   }
 
-  evaluarTercero(mensaje:string){
-    if(this.descripcionIII == ""){
+  evaluarTercero(mensaje: string) {
+    if (this.descripcionIII == "") {
       this.descripciones = false;
       this.enviarAlerta(mensaje, true);
     }
@@ -1211,25 +1211,16 @@ export class UpdateComponent implements OnInit, OnDestroy {
         rutaImagenPortada: this.nuevaImagenPortada,
         rutaCv: this.nuevoCurriculum,
         rutaEspecialidad: this.nuevaEspecialidad,
-        descripcionEspecialidad1:this.descripcionI,
+        descripcionEspecialidad1: this.descripcionI,
         rutaEspecialidad2: this.nuevaEspecialidadII,
-        descripcionEspecialidad2:this.descripcionII,
+        descripcionEspecialidad2: this.descripcionII,
         rutaEspecialidad3: this.nuevaEspecialidadIII,
-        descripcionEspecialidad3:this.descripcionIII,  
+        descripcionEspecialidad3: this.descripcionIII,
       }
       this.guardarArchivos(USUARIOMOD);
-    } else if (this.permitirAct == false){
-      this.enviarAlerta(this.mensajeAlerta,true);
+    } else if (this.permitirAct == false) {
+      this.enviarAlerta(this.mensajeAlerta, true);
     }
-  }
-
-  subirDocumentos(){
-    this.subirPerfil();
-    this.subirPortada();
-    this.subirCV();
-    this.subirEspecialidad();
-    this.subirEspecialidadII();
-    this.subirEspecialidadIII();
   }
 
   // FUNCIONES PARA GUARDAR LOS DATOS SECUNDARIOS EN BD
@@ -1238,7 +1229,12 @@ export class UpdateComponent implements OnInit, OnDestroy {
       if (data.estatus == true) {
         if (this.vistaAdministrar == false) {
           this.enviarAlerta("El perfil ha sido modificado correctamente.", false);
-          this.subirDocumentos();
+          this.subirPerfil();
+          this.subirPortada();
+          this.subirCV();
+          this.subirEspecialidad();
+          this.subirEspecialidadII();
+          this.subirEspecialidadIII();
           this.router.navigate(['interface/perfil']);
         } else {
           this.enviarAlerta("El perfil ha sido modificado correctamente.", false);
