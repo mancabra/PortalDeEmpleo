@@ -1208,7 +1208,7 @@ export class UpdateComponent implements OnInit, OnDestroy {
         rutaImagenPortada: this.nuevaImagenPortada,
         rutaCv: this.nuevoCurriculum,
         rutaEspecialidad: this.nuevaEspecialidad,
-          descripcionEspecialidad1:this.descripcionI,
+        descripcionEspecialidad1:this.descripcionI,
         rutaEspecialidad2: this.nuevaEspecialidadII,
         descripcionEspecialidad2:this.descripcionII,
         rutaEspecialidad3: this.nuevaEspecialidadIII,
@@ -1225,13 +1225,13 @@ export class UpdateComponent implements OnInit, OnDestroy {
     this._CandidateRequest.modificarSecundarios(archivos).then((data: any) => {
       if (data.estatus == true) {
         if (this.vistaAdministrar == false) {
-          this.enviarAlerta("El perfil ha sido modificado correctamente.", false);
           this.subirPerfil();
           this.subirPortada();
           this.subirCV();
           this.subirEspecialidad();
           this.subirEspecialidadII();
           this.subirEspecialidadIII();
+          this.enviarAlerta("El perfil ha sido modificado correctamente.", true);
           this.router.navigate(['interface/perfil']);
         } else {
           this.enviarAlerta("El perfil ha sido modificado correctamente.", false);
