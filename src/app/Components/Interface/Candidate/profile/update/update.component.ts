@@ -1217,7 +1217,6 @@ export class UpdateComponent implements OnInit, OnDestroy {
         rutaEspecialidad3: this.nuevaEspecialidadIII,
         descripcionEspecialidad3:this.descripcionIII,  
       }
-      this.subirDocumentos();
       this.guardarArchivos(USUARIOMOD);
     } else if (this.permitirAct == false){
       this.enviarAlerta(this.mensajeAlerta,true);
@@ -1239,6 +1238,7 @@ export class UpdateComponent implements OnInit, OnDestroy {
       if (data.estatus == true) {
         if (this.vistaAdministrar == false) {
           this.enviarAlerta("El perfil ha sido modificado correctamente.", false);
+          this.subirDocumentos();
           this.router.navigate(['interface/perfil']);
         } else {
           this.enviarAlerta("El perfil ha sido modificado correctamente.", false);
