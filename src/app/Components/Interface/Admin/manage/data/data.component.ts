@@ -652,7 +652,7 @@ export class DataComponent implements OnInit, OnDestroy {
   }
 
   eliminarIdioma(id: number) {
-    this._AdminRequest.modificarIdioma(id).then((data: any) => {
+    this._AdminRequest.eliminarIdioma(id).then((data: any) => {
       if (data.estatus == false) {
         this.enviarAlerta("Ha surgido un error inesperado que nos impidio eliminar el idioma.", true);
       } else {
