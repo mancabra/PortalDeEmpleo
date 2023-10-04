@@ -262,6 +262,9 @@ export class UpdateComponent implements OnInit, OnDestroy {
         this.nuevaEspecialidad = this.rutaEspecialidad;
         this.nuevaEspecialidadII = this.rutaEspecialidadII;
         this.nuevaEspecialidadIII = this.rutaEspecialidadIII;
+        this.descripcionI = this.candidato.descripcionEspecialidad1,
+        this.descripcionII = this.candidato.descripcionEspecialidad2,
+        this.descripcionIII = this.candidato.descripcionEspecialidad3,
         console.log("candidato");
       } else if (data.usuario.tipoUsuario == 3) {
         this.empleador = data;
@@ -1215,9 +1218,19 @@ export class UpdateComponent implements OnInit, OnDestroy {
         descripcionEspecialidad3:this.descripcionIII,  
       }
       this.guardarArchivos(USUARIOMOD);
+      this.subirDocumentos();
     } else if (this.permitirAct == false){
       this.enviarAlerta(this.mensajeAlerta,true);
     }
+  }
+
+  subirDocumentos(){
+    this.subirPerfil();
+    this.subirPortada();
+    this.subirCV();
+    this.subirEspecialidad();
+    this.subirEspecialidadII();
+    this.subirEspecialidadIII();
   }
 
   // FUNCIONES PARA GUARDAR LOS DATOS SECUNDARIOS EN BD
@@ -1225,16 +1238,10 @@ export class UpdateComponent implements OnInit, OnDestroy {
     this._CandidateRequest.modificarSecundarios(archivos).then((data: any) => {
       if (data.estatus == true) {
         if (this.vistaAdministrar == false) {
-          this.subirPerfil();
-          this.subirPortada();
-          this.subirCV();
-          this.subirEspecialidad();
-          this.subirEspecialidadII();
-          this.subirEspecialidadIII();
           this.enviarAlerta("El perfil ha sido modificado correctamente.", true);
           this.router.navigate(['interface/perfil']);
         } else {
-          this.enviarAlerta("El perfil ha sido modificado correctamente.", false);
+          this.enviarAlerta("El perfil ha sido modificado correctamente.", true);
           this.subirPerfil();
           this.subirPortada();
           this.subirCV();
