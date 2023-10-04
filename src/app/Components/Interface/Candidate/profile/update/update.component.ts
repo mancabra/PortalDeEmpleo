@@ -1217,8 +1217,8 @@ export class UpdateComponent implements OnInit, OnDestroy {
         rutaEspecialidad3: this.nuevaEspecialidadIII,
         descripcionEspecialidad3:this.descripcionIII,  
       }
-      this.guardarArchivos(USUARIOMOD);
       this.subirDocumentos();
+      this.guardarArchivos(USUARIOMOD);
     } else if (this.permitirAct == false){
       this.enviarAlerta(this.mensajeAlerta,true);
     }
@@ -1238,10 +1238,10 @@ export class UpdateComponent implements OnInit, OnDestroy {
     this._CandidateRequest.modificarSecundarios(archivos).then((data: any) => {
       if (data.estatus == true) {
         if (this.vistaAdministrar == false) {
-          this.enviarAlerta("El perfil ha sido modificado correctamente.", true);
+          this.enviarAlerta("El perfil ha sido modificado correctamente.", false);
           this.router.navigate(['interface/perfil']);
         } else {
-          this.enviarAlerta("El perfil ha sido modificado correctamente.", true);
+          this.enviarAlerta("El perfil ha sido modificado correctamente.", false);
           this.subirPerfil();
           this.subirPortada();
           this.subirCV();
