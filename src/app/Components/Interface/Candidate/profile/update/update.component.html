@@ -366,93 +366,107 @@
                     </h2>
 
                     <div>
-                        <div name="primero">
-                            <div  class="ver">
-                                <div style="width: 100%; display: inline-block;">
-                                    <div class="input-group input-group-sm" style="margin-bottom: .5rem; width: 100%;">
-                                        <input class="form-control form-control-sm" id="formFileSm" type="file"
-                                            (change)="uploadEspecialidad($event)">
-                                        <button class="input-group-text" id="inputGroup-sizing-sm"
-                                            style="width: 35%; text-align: center;">
-                                            <b>(PDF) ESPECIALIDAD I</b> </button>
-                                    </div>
-                                </div>
-    
-                                <div style="width: 100%; display: inline-block;">
-                                    <button type="button" class="btn btn-outline-success"
-                                        style="border-radius: 15px 15px 15px 15px; height: 30px; width: 30px; padding: 0%;  margin-left: .5rem;"
-                                        (click)="mostarBotones('primero')">
-                                       <b> + </b>
+                        <div class="container text-center" name ="primero">
+                            <div class="row">
+                              <div class="col-11 captura">
+                                <div class="input-group input-group-sm" style="margin-bottom: .5rem;">
+                                    <input class="form-control form-control-sm" id="formFileSm" type="file"
+                                        (change)="uploadEspecialidad($event)">
+                                    <button class="input-group-text" id="inputGroup-sizing-sm"
+                                        style="width: 136.31px; text-align: center;">
+                                        <b>  ESPECIALIDAD I</b> 
                                     </button>
-                                    <button type="button" class="btn btn-outline-danger"
-                                        style="border-radius: 15px 15px 15px 15px; height: 30px; width: 30px; padding: 0%;  margin-left: .5rem;"
-                                        (click)="ocultarBotones('primero')">
-                                       <b> - </b> 
-                                    </button>
+                                    <input type="text" class="form-control" aria-label="Sizing example input"
+                                    aria-describedby="inputGroup-sizing-sm"
+                                    placeholder="Ingresa una descripción" [(ngModel)]="descripcionI">
+                                <button class="input-group-text" id="inputGroup-sizing-sm"
+                                    style="width: 243px; text-align: center;">
+                                    <b> DESCRIPCIÓN DEL DOCUMENTO </b> </button>
                                 </div>
+                              </div>
+                              <div class="col-1">
+                                <button type="button" class="btn btn-outline-success"
+                                style="border-radius: 15px 15px 15px 15px; height: 30px; width: 30px; padding: 0%;  margin-left: .5rem;"
+                                (click)="mostarBotones('primero')">
+                               <b> + </b>
+                            </button>
+                            <button type="button" class="btn btn-outline-danger"
+                                style="border-radius: 15px 15px 15px 15px; height: 30px; width: 30px; padding: 0%;  margin-left: .5rem;"
+                                (click)="ocultarBotones('primero')">
+                               <b> - </b> 
+                            </button>
+                              </div>
                             </div>
                         </div>
-                      
-                        <div name="segundo">
-                            <div class="ver" >
-                                <div style="width: 100%; display: inline-block;">
-                                    <div class="input-group input-group-sm" style="margin-bottom: .5rem; width: 100%;">
-                                        <input class="form-control form-control-sm" id="formFileSm" type="file"
-                                            (change)="uploadEspecialidadII($event)">
-                                        <button class="input-group-text" id="inputGroup-sizing-sm"
-                                            style="width: 35%; text-align: center;">
-                                            <b>(PDF) ESPECIALIDAD II</b> </button>
-                                    </div>
-                                </div>
-    
-                                <div style="width: 100%; display: inline-block;">
-                                    <button type="button" class="btn btn-outline-success"
-                                        style="border-radius: 15px 15px 15px 15px; height: 30px; width: 30px; padding: 0%;  margin-left: .5rem;"
-                                        (click)="mostarBotones('segundo')">
-                                       <b> + </b>
+                        <div class="container text-center" name ="segundo">
+                            <div class="row">
+                              <div class="col-11 captura">
+                                <div class="input-group input-group-sm" style="margin-bottom: .5rem;">
+                                    <input class="form-control form-control-sm" id="formFileSm" type="file"
+                                        (change)="uploadEspecialidadII($event)">
+                                    <button class="input-group-text" id="inputGroup-sizing-sm"
+                                        style="width: 136.31px; text-align: center;">
+                                        <b>  ESPECIALIDAD II</b> 
                                     </button>
-                                    <button type="button" class="btn btn-outline-danger"
-                                        style="border-radius: 15px 15px 15px 15px; height: 30px; width: 30px; padding: 0%;  margin-left: .5rem;"
-                                        (click)="ocultarBotones('segundo')">
-                                       <b> - </b> 
-                                    </button>
+                                    <input type="text" class="form-control" aria-label="Sizing example input"
+                                    aria-describedby="inputGroup-sizing-sm"
+                                    placeholder="Ingresa una descripción" [(ngModel)]="descripcionII">
+                                <button class="input-group-text" id="inputGroup-sizing-sm"
+                                    style="width: 243px; text-align: center;">
+                                    <b> DESCRIPCIÓN DEL DOCUMENTO </b> </button>
                                 </div>
+                              </div>
+                              <div class="col-1">
+                                <button type="button" class="btn btn-outline-success"
+                                style="border-radius: 15px 15px 15px 15px; height: 30px; width: 30px; padding: 0%;  margin-left: .5rem;"
+                                (click)="mostarBotones('segundo')">
+                               <b> + </b>
+                            </button>
+                            <button type="button" class="btn btn-outline-danger"
+                                style="border-radius: 15px 15px 15px 15px; height: 30px; width: 30px; padding: 0%;  margin-left: .5rem;"
+                                (click)="ocultarBotones('segundo')">
+                               <b> - </b> 
+                            </button>
+                              </div>
                             </div>
                         </div>
-                       
-                        <div name="tercero">
-                            <div class="ver">
-                                <div style="width: 100%; display: inline-block;">
-                                    <div class="input-group input-group-sm" style="margin-bottom: .5rem; width: 100%;">
-                                        <input class="form-control form-control-sm" id="formFileSm" type="file"
-                                            (change)="uploadEspecialidadIII($event)">
-                                        <button class="input-group-text" id="inputGroup-sizing-sm"
-                                            style="width: 35%; text-align: center;">
-                                            <b>(PDF) ESPECIALIDAD III</b> </button>
-                                    </div>
-                                </div>
-    
-                                <div style="width: 100%; display: inline-block;">
-                                    <button type="button" class="btn btn-outline-success"
-                                        style="border-radius: 15px 15px 15px 15px; height: 30px; width: 30px; padding: 0%;  margin-left: .5rem;"
-                                        (click)="mostarBotones('tercero')">
-                                       <b> + </b>
+                        <div class="container text-center" name ="tercero">
+                            <div class="row">
+                              <div class="col-11 captura">
+                                <div class="input-group input-group-sm" style="margin-bottom: .5rem;">
+                                    <input class="form-control form-control-sm" id="formFileSm" type="file"
+                                        (change)="uploadEspecialidadIII($event)">
+                                    <button class="input-group-text" id="inputGroup-sizing-sm"
+                                        style="width: 136.31px; text-align: center;">
+                                        <b>  ESPECIALIDAD III</b> 
                                     </button>
-                                    <button type="button" class="btn btn-outline-danger"
-                                        style="border-radius: 15px 15px 15px 15px; height: 30px; width: 30px; padding: 0%;  margin-left: .5rem;"
-                                        (click)="ocultarBotones('tercero')">
-                                       <b> - </b> 
-                                    </button>
+                                    <input type="text" class="form-control" aria-label="Sizing example input"
+                                    aria-describedby="inputGroup-sizing-sm"
+                                    placeholder="Ingresa una descripción" [(ngModel)]="descripcionIII">
+                                <button class="input-group-text" id="inputGroup-sizing-sm"
+                                    style="width: 243px; text-align: center;">
+                                    <b> DESCRIPCIÓN DEL DOCUMENTO </b> </button>
                                 </div>
+                              </div>
+                              <div class="col-1">
+                                <button type="button" class="btn btn-outline-success"
+                                style="border-radius: 15px 15px 15px 15px; height: 30px; width: 30px; padding: 0%;  margin-left: .5rem;"
+                                (click)="mostarBotones('tercero')">
+                               <b> + </b>
+                            </button>
+                            <button type="button" class="btn btn-outline-danger"
+                                style="border-radius: 15px 15px 15px 15px; height: 30px; width: 30px; padding: 0%;  margin-left: .5rem;"
+                                (click)="ocultarBotones('tercero')">
+                               <b> - </b> 
+                            </button>
+                              </div>
                             </div>
                         </div>
-                    
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
 
     <button type="button" class="btn btn-warning" style="width: 100%; margin-top: 1.7rem; display: inline;"
         (click)="capturarNuevosDatos()">MODIFICAR

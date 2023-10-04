@@ -71,7 +71,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
   // VECTORES PARA ARCHIVOS
   documentosCV: string[] = [];
-  documentosEsp: string[] = [];
+  documentosEsp: any [] = [];
 
   // INYECCION DE SERVICOS A USAR EN EL COMPONENTE
   constructor(
@@ -93,10 +93,12 @@ export class ProfileComponent implements OnInit, OnDestroy {
     this.documentosEsp = [];
     this.documentosCV = [];
     this.identificarVista();
-    /*this.cargarPrueba();
+    /*
+    this.cargarPrueba();
     this.id_tipoUsuario = 2;
     this.identificarTipoDePerfil();
-    this.generarRuta();*/
+    this.predeterminadas();
+    */
   }
 
   cargarPrueba() {
@@ -120,8 +122,8 @@ export class ProfileComponent implements OnInit, OnDestroy {
         apellidoM: "Gastelum",
         telefono: "+52 5514098249",
         estatusUsuario: true,
-        rutaImagenPerfil: "Captura de pantalla 2023-09-07 223459.png",
-        rutaImagenPortada: "Captura de pantalla 2023-09-07 224204.png",
+        rutaImagenPerfil: "pR3d3tErm1n4d4IMGP3rf1l.jpg",
+        rutaImagenPortada: "pR3d3tErm1n4d4IMGP0rt4dA.jpg",
       },
       vacantes:[],
       idiomas:[
@@ -148,8 +150,11 @@ export class ProfileComponent implements OnInit, OnDestroy {
         {id_habilidad:0,nombreHabilidad:"trabajo en equipo", candidatos:[]},
       ],
       rutaEspecialidad:"Untitled-2.pdf",
+      descripcionEspecialidad1: "Especialidad en NanoCiencia",
       rutaEspecialidad2:"Untitled-2.pdf",
+      descripcionEspecialidad2: "Especialidad en CyberSerguridad",
       rutaEspecialidad3:"Untitled-2.pdf",
+      descripcionEspecialidad3: "Especialidad en marketing digital",
     }
   }
 
@@ -190,7 +195,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
     }
     this.identificarTipoDePerfil();
-    this.generarRuta();
+    this.predeterminadas();
   }
 
 
@@ -233,12 +238,12 @@ export class ProfileComponent implements OnInit, OnDestroy {
   evaluarCandidato(){
     const usuario = this.candidato.usuario.nombre + this.candidato.usuario.apellidoP + this.candidato.usuario.apellidoM;
     const ruta = `images${usuario}/perfil/`;
-    //const imagenPerfil = this.candidato.usuario.rutaImagenPerfil;
-    const imagenPerfil = "pR3d3tErm1n4d4IMGP3rf1l.jpg"
+    const imagenPerfil = this.candidato.usuario.rutaImagenPerfil;
+    //const imagenPerfil = "pR3d3tErm1n4d4IMGP3rf1l.jpg"
     this.obtenerPerfil(imagenPerfil,ruta);
     const rutaII = `images${usuario}/portada/`;
-    //const imagenPortada =  this.candidato.usuario.rutaImagenPortada;
-    const imagenPortada = "pR3d3tErm1n4d4IMGP0rt4dA.jpg"
+    const imagenPortada =  this.candidato.usuario.rutaImagenPortada;
+    //const imagenPortada = "pR3d3tErm1n4d4IMGP0rt4dA.jpg"
     this.obtenerPortada(imagenPortada,rutaII);
   }
 
@@ -487,7 +492,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
           const url = await getDownloadURL(item);
           if (item.name == nombre) {
             this.rutaEspecialidad = url;
-            this.agragarVectorEsp(this.rutaEspecialidad);
+            this.agragarVectorEsp(this.rutaEspecialidad,this.candidato.descripcionEspecialidad1);
           }
         }
       })
@@ -504,7 +509,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
           const url = await getDownloadURL(item);
           if (item.name == nombre) {
             this.rutaEspecialidadII = url;
-            this.agragarVectorEsp(this.rutaEspecialidadII);
+            this.agragarVectorEsp(this.rutaEspecialidadII,this.candidato.descripcionEspecialidad2);
           }
         }
       })
@@ -521,7 +526,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
           const url = await getDownloadURL(item);
           if (item.name == nombre) {
             this.rutaEspecialidadIII = url;
-            this.agragarVectorEsp(this.rutaEspecialidadIII);
+            this.agragarVectorEsp(this.rutaEspecialidadIII,this.candidato.descripcionEspecialidad3);
           }
         }
       })
@@ -534,9 +539,13 @@ export class ProfileComponent implements OnInit, OnDestroy {
     }
   }
 
-  agragarVectorEsp(rutaEsp: string) {
+  agragarVectorEsp(rutaEsp: string, descripcion: any) {
     if (rutaEsp != "") {
-      this.documentosEsp.push(rutaEsp);
+      const OBJETO= {
+        ruta: rutaEsp,
+        desc:descripcion
+      }
+      this.documentosEsp.push(OBJETO);
     } 
   }
 

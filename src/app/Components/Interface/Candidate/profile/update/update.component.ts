@@ -57,8 +57,8 @@ export class UpdateComponent implements OnInit, OnDestroy {
 
   // VARIABLES PARA CAPTURAR DATOS SECUNDARIOS
   nuevoCurriculum: string = "";
-  nuevaImagenPerfil: string = "default.jpg";
-  nuevaImagenPortada: string = "default.jpg";
+  nuevaImagenPerfil: string = "";
+  nuevaImagenPortada: string = "";
   nuevaDescripcion: string = "";
   nuevaEspecialidad: string = "";
   nuevaEspecialidadII: string = "";
@@ -130,6 +130,26 @@ export class UpdateComponent implements OnInit, OnDestroy {
   rutaEspecialidadII: string = "";
   rutaEspecialidadIII: string = "";
 
+  // VARIABLES PARA LA CAPTURA DE DESCRIPCIONES
+  descripcionI: string = "";
+  descripcionII: string = "";
+  descripcionIII: string = "";
+
+  descripciones: boolean = true;
+
+  activoI: boolean = false;
+  activoII: boolean = false;
+  activoIII: boolean = false;
+
+  // VARIABLES PARA LA IDENTIFICACION DE REGISTRO
+  permitirAct: boolean = true;
+  cargaPerfil: boolean = true;
+  cargaPortada: boolean = true;
+  cargaCv: boolean = true;
+  cargaEspI: boolean = true;
+  cargaEspII: boolean = true;
+  cargaEspIII: boolean = true;
+
   // INYECCION DE SERVICOS A USAR EN EL COMPONENTE
   constructor(
     private _UserRequest: InterfaceService,
@@ -146,13 +166,15 @@ export class UpdateComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    
     this.obtenrIdiomas();
     this.obtenerHabilidades();
     this.identificarVista();
     this.buscarEstados();
-
-    //this.id_tipoUsuario = 2
-    //this.identificarTipoDePerfil();
+    /*
+    this.id_tipoUsuario = 2
+    this.identificarTipoDePerfil();
+    */
   }
 
   ngAfterViewInit() {
@@ -193,6 +215,10 @@ export class UpdateComponent implements OnInit, OnDestroy {
       this.rutaEspecialidad = this.candidato.rutaEspecialidad;
       this.rutaEspecialidadII = this.candidato.rutaEspecialidad2;
       this.rutaEspecialidadIII = this.candidato.rutaEspecialidad3;
+      this.nuevoCurriculum = this.rutaCV;
+      this.nuevaEspecialidad = this.rutaEspecialidad;
+      this.nuevaEspecialidadII = this.rutaEspecialidadII;
+      this.nuevaEspecialidadIII = this.rutaEspecialidadIII;
       this.asignarGenerales(this.candidato);
       console.log("candidato");
     } else if (this.usuario.usuario.tipoUsuario == 3) {
@@ -205,6 +231,8 @@ export class UpdateComponent implements OnInit, OnDestroy {
     } else {
 
     }
+    this.nuevaImagenPortada = this.imagenPortada;
+    this.nuevaImagenPerfil = this.imagenPerfil;
     this.identificarTipoDePerfil();
   }
 
@@ -230,6 +258,10 @@ export class UpdateComponent implements OnInit, OnDestroy {
         this.rutaEspecialidad = this.candidato.rutaEspecialidad;
         this.rutaEspecialidadII = this.candidato.rutaEspecialidad2;
         this.rutaEspecialidadIII = this.candidato.rutaEspecialidad3;
+        this.nuevoCurriculum = this.rutaCV;
+        this.nuevaEspecialidad = this.rutaEspecialidad;
+        this.nuevaEspecialidadII = this.rutaEspecialidadII;
+        this.nuevaEspecialidadIII = this.rutaEspecialidadIII;
         console.log("candidato");
       } else if (data.usuario.tipoUsuario == 3) {
         this.empleador = data;
@@ -242,6 +274,8 @@ export class UpdateComponent implements OnInit, OnDestroy {
       } else {
 
       }
+      this.nuevaImagenPortada = this.imagenPortada;
+      this.nuevaImagenPerfil = this.imagenPerfil;
       this.identificarTipoDePerfil();
     });
   }
@@ -815,11 +849,11 @@ export class UpdateComponent implements OnInit, OnDestroy {
         this.enviarAlerta("El perfil ha sido modificado correctamente.", false);
         if (this.vistaAdministrar == false) {
           this.router.navigate(['interface/perfil']);
-        }else {
+        } else {
           this.enviarAlerta("El perfil ha sido modificado correctamente.", false);
           const OBJETO = {
             vista: "revisarPerfil",
-            correoElectronico:this.usuario.usuario.correoElectronico
+            correoElectronico: this.usuario.usuario.correoElectronico
           }
           this._AdminRequest.cambiarVista(OBJETO);
         }
@@ -840,7 +874,7 @@ export class UpdateComponent implements OnInit, OnDestroy {
           this.enviarAlerta("El perfil ha sido modificado correctamente.", false);
           const OBJETO = {
             vista: "revisarPerfil",
-            correoElectronico:this.usuario.usuario.correoElectronico
+            correoElectronico: this.usuario.usuario.correoElectronico
           }
           this._AdminRequest.cambiarVista(OBJETO);
         }
@@ -906,7 +940,7 @@ export class UpdateComponent implements OnInit, OnDestroy {
       tipo: "especialidad",
       name: this.documentE.name,
     }
-
+    this.activoI = true;
     this.evaluarExtencion(ARCHIVO);
   }
 
@@ -921,7 +955,7 @@ export class UpdateComponent implements OnInit, OnDestroy {
       tipo: "segundo",
       name: this.documentEII.name,
     }
-
+    this.activoII = true;
     this.evaluarExtencion(ARCHIVO);
   }
 
@@ -936,7 +970,7 @@ export class UpdateComponent implements OnInit, OnDestroy {
       tipo: "tercero",
       name: this.documentEIII.name,
     }
-
+    this.activoIII = true;
     this.evaluarExtencion(ARCHIVO);
   }
 
@@ -948,25 +982,30 @@ export class UpdateComponent implements OnInit, OnDestroy {
       if (this.extencionPermitidaPerfil == false) {
         this.extencionPermitidaPerfil = archivo.name.includes(".jpg");
       }
+      this.evaluarArchivosSubidosPerfil();
     } else if (archivo.tipo == "portada") {
       this.extencionPermitidaPortada = true;
       this.extencionPermitidaPortada = archivo.name.includes(".png");
       if (this.extencionPermitidaPortada == false) {
         this.extencionPermitidaPortada = archivo.name.includes(".jpg");
       }
+      this.evaluarArchivosSubidosPortada();
     } else if (archivo.tipo == "curriculum") {
       this.extencionPermitidaCurriculum = true;
       this.extencionPermitidaCurriculum = archivo.name.includes(".pdf");
+      this.evaluarArchivosSubidosCV();
     } else if (archivo.tipo == "especialidad") {
       this.extencionPermitidaEspecialidad = true;
       this.extencionPermitidaEspecialidad = archivo.name.includes(".pdf");
+      this.evaluarArchivosSubidosEspecialidad();
     } else if (archivo.tipo == "segundo") {
       this.extencionPermitidaEspecialidadII = true;
       this.extencionPermitidaEspecialidadII = archivo.name.includes(".pdf");
-    }
-    else if (archivo.tipo == "tercero") {
+      this.evaluarArchivosSubidosEspecialidadII();
+    } else if (archivo.tipo == "tercero") {
       this.extencionPermitidaEspecialidadIII = true;
       this.extencionPermitidaEspecialidadIII = archivo.name.includes(".pdf");
+      this.evaluarArchivosSubidosEspecialidadIII();
     } else {
 
     }
@@ -975,14 +1014,59 @@ export class UpdateComponent implements OnInit, OnDestroy {
   // FUNCION PARA SUBIR UN ARCHIVO SEGUN SU TERMINACION 
   evaluarArchivosSubidosPerfil() {
     if (this.extencionPermitidaPerfil == false) {
-      this.mensajeAlerta = this.mensajeAlerta + "imagen de perfil"
+      this.mensajeAlerta = this.mensajeAlerta + "imagen de perfil";
+      this.cargaPerfil = false;
+
     } else {
-      // CARGAR PERFIL
-      if (this.nuevaImagenPerfil != "default.jpg") {
-        uploadBytes(this.imgReff, this.img)
-          .then(response => console.log(response))
-          .catch(error => console.log(error));
-      }
+      this.cargaPerfil = true;
+    }
+  }
+
+  subirPerfil() {
+    if (this.nuevaImagenPerfil != this.imagenPerfil) {
+      uploadBytes(this.imgReff, this.img)
+        .then(response => console.log(response))
+        .catch(error => console.log(error));
+    }
+  }
+
+  subirPortada() {
+    if (this.nuevaImagenPortada != this.imagenPortada) {
+      uploadBytes(this.imgReffP, this.imgP)
+        .then(response => console.log(response))
+        .catch(error => console.log(error));
+    }
+  }
+
+  subirCV() {
+    if (this.nuevoCurriculum != "") {
+      uploadBytes(this.documentRef, this.document)
+        .then(response => console.log(response))
+        .catch(error => console.log(error));
+    }
+  }
+
+  subirEspecialidad() {
+    if (this.nuevaEspecialidad != "") {
+      uploadBytes(this.documentERef, this.documentE)
+        .then(response => console.log(response))
+        .catch(error => console.log(error));
+    }
+  }
+
+  subirEspecialidadII() {
+    if (this.nuevaEspecialidadII != "") {
+      uploadBytes(this.documentIIERef, this.documentEII)
+        .then(response => console.log(response))
+        .catch(error => console.log(error));
+    }
+  }
+
+  subirEspecialidadIII() {
+    if (this.nuevaEspecialidadIII != "") {
+      uploadBytes(this.documentIIIERef, this.documentEIII)
+        .then(response => console.log(response))
+        .catch(error => console.log(error));
     }
   }
 
@@ -994,13 +1078,9 @@ export class UpdateComponent implements OnInit, OnDestroy {
       } else {
         this.mensajeAlerta = this.mensajeAlerta + "imagen de portada";
       }
+      this.cargaPortada = false;
     } else {
-      // CARGAR PORTADA
-      if (this.nuevaImagenPortada != "default.jpg") {
-        uploadBytes(this.imgReffP, this.imgP)
-          .then(response => console.log(response))
-          .catch(error => console.log(error));
-      }
+      this.cargaPortada = true;
     }
   }
 
@@ -1012,13 +1092,9 @@ export class UpdateComponent implements OnInit, OnDestroy {
       } else {
         this.mensajeAlerta = this.mensajeAlerta + "curriculum";
       }
+      this.cargaCv = false;
     } else {
-      // CARGAR CV
-      if (this.nuevoCurriculum != "") {
-        uploadBytes(this.documentRef, this.document)
-          .then(response => console.log(response))
-          .catch(error => console.log(error));
-      }
+      this.cargaCv = true;
     }
   }
 
@@ -1030,13 +1106,9 @@ export class UpdateComponent implements OnInit, OnDestroy {
       } else {
         this.mensajeAlerta = this.mensajeAlerta + "especialidad";
       }
+      this.cargaEspI = false;
     } else {
-      // CARGAR ESPECIALIDAD
-      if (this.nuevaEspecialidad != "") {
-        uploadBytes(this.documentERef, this.documentE)
-          .then(response => console.log(response))
-          .catch(error => console.log(error));
-      }
+      this.cargaEspI = true;
     }
   }
 
@@ -1048,13 +1120,9 @@ export class UpdateComponent implements OnInit, OnDestroy {
       } else {
         this.mensajeAlerta = this.mensajeAlerta + "especialidad II";
       }
+      this.cargaEspII = false;
     } else {
-      // CARGAR ESPECIALIDAD
-      if (this.nuevaEspecialidadII != "") {
-        uploadBytes(this.documentIIERef, this.documentEII)
-          .then(response => console.log(response))
-          .catch(error => console.log(error));
-      }
+      this.cargaEspII = true;
     }
   }
 
@@ -1066,68 +1134,89 @@ export class UpdateComponent implements OnInit, OnDestroy {
       } else {
         this.mensajeAlerta = this.mensajeAlerta + "especialidad III";
       }
+      this.cargaEspIII = false;
     } else {
-      // CARGAR ESPECIALIDAD
-      if (this.nuevaEspecialidadIII != "") {
-        uploadBytes(this.documentIIIERef, this.documentEIII)
-          .then(response => console.log(response))
-          .catch(error => console.log(error));
-      }
+      this.cargaEspIII = true;
+    }
+  }
+
+  evaluaAlerta() {
+    this.permitirAct = true;
+    if (this.cargaPerfil == false) {
+      this.permitirAct = false;
+    } else if (this.cargaPortada == false) {
+      this.permitirAct = false;
+    } else if (this.cargaCv == false) {
+      this.permitirAct = false;
+    } else if (this.cargaEspI == false) {
+      this.permitirAct = false;
+    } else if (this.cargaEspII == false) {
+      this.permitirAct = false;
+    } else if (this.cargaEspIII == false) {
+      this.permitirAct = false;
+    } else {
+      this.permitirAct = true;
+    }
+  }
+
+  validarDesacripciones(){
+    this.descripciones = true;
+    const mensaje = "Para una mejor experiencia es necesario llenar el campo DESCRIPCIÓN de los documentos de especialidad";
+    if(this.activoI == true) {
+      this.evaluarPrimero(mensaje);
+    } else if(this.activoII == true){
+      this.evaluarSegundo(mensaje);
+    } else if(this.activoIII == true){
+      this.evaluarTercero(mensaje);
+    } else {
+
+    }
+  }
+
+  evaluarPrimero(mensaje:string){
+    if(this.descripcionI == ""){
+      this.descripciones = false;
+      this.enviarAlerta(mensaje, true);
+    }
+  }
+
+  evaluarSegundo(mensaje:string){
+    if(this.descripcionII == ""){
+      this.descripciones = false;
+      this.enviarAlerta(mensaje, true);
+    }
+  }
+
+  evaluarTercero(mensaje:string){
+    if(this.descripcionIII == ""){
+      this.descripciones = false;
+      this.enviarAlerta(mensaje, true);
     }
   }
 
   // MODIFICACION DE IMAGENES
   capturarSecundarios() {
     this.mensajeAlerta = "";
-    this.evaluarArchivosSubidosPerfil();
-    this.evaluarArchivosSubidosPortada();
-    this.evaluarArchivosSubidosCV();
-    this.evaluarArchivosSubidosEspecialidad();
-    this.evaluarArchivosSubidosEspecialidadII();
-    this.evaluarArchivosSubidosEspecialidadIII();
-    this.evaluarArchivos();
     this.mensajeAlerta = "Los archivos seleccionados para el campo: " + this.mensajeAlerta + " no son de una extención valida."
       + " Ten en cuenta que las extenciones permitidas para los campos de captura de imagenes son PNG y JPG, mientras que para la captura de archivos solo de admite el formato PDF";
-    if (this.extencionPermitidaEspecialidadIII == false ||this.extencionPermitidaEspecialidadII == false ||this.extencionPermitidaEspecialidad == false || this.extencionPermitidaPortada == false || this.extencionPermitidaPerfil == false || this.extencionPermitidaCurriculum == false ) {
-      this.enviarAlerta(this.mensajeAlerta, true);
-    } else {
+    this.evaluaAlerta();
+    this.validarDesacripciones();
+    if (this.permitirAct == true && this.descripciones == true) {
       const USUARIOMOD = {
         id_usuario: this.usuario.usuario.id_usuario,
         rutaImagenPerfil: this.nuevaImagenPerfil,
         rutaImagenPortada: this.nuevaImagenPortada,
         rutaCv: this.nuevoCurriculum,
         rutaEspecialidad: this.nuevaEspecialidad,
+          descripcionEspecialidad1:this.descripcionI,
         rutaEspecialidad2: this.nuevaEspecialidadII,
+        descripcionEspecialidad2:this.descripcionII,
         rutaEspecialidad3: this.nuevaEspecialidadIII,
+        descripcionEspecialidad3:this.descripcionIII,  
       }
       this.guardarArchivos(USUARIOMOD);
-    }
-  }
-
-  // FUNCION PARA EVALUAR LOS ARCHIVOS;
-  evaluarArchivos() {
-    if (this.nuevaImagenPerfil == "") {
-      this.nuevaImagenPerfil = this.imagenPerfil;
-    }
-
-    if (this.nuevaImagenPortada == "") {
-      this.nuevaImagenPortada = this.imagenPortada;
-    }
-
-    if (this.nuevoCurriculum == "") {
-      this.nuevoCurriculum = this.rutaCV;
-    }
-
-    if (this.nuevaEspecialidad == "") {
-      this.nuevaEspecialidad = this.rutaEspecialidad;
-    }
-
-    if (this.nuevaEspecialidadII == "") {
-      this.nuevaEspecialidadII = this.rutaEspecialidadII;
-    }
-
-    if (this.nuevaEspecialidadIII == "") {
-      this.nuevaEspecialidadIII = this.rutaEspecialidadIII;
+    } else if (this.permitirAct == false){
+      this.enviarAlerta(this.mensajeAlerta,true);
     }
   }
 
@@ -1137,12 +1226,24 @@ export class UpdateComponent implements OnInit, OnDestroy {
       if (data.estatus == true) {
         if (this.vistaAdministrar == false) {
           this.enviarAlerta("El perfil ha sido modificado correctamente.", false);
+          this.subirPerfil();
+          this.subirPortada();
+          this.subirCV();
+          this.subirEspecialidad();
+          this.subirEspecialidadII();
+          this.subirEspecialidadIII();
           this.router.navigate(['interface/perfil']);
         } else {
           this.enviarAlerta("El perfil ha sido modificado correctamente.", false);
+          this.subirPerfil();
+          this.subirPortada();
+          this.subirCV();
+          this.subirEspecialidad();
+          this.subirEspecialidadII();
+          this.subirEspecialidadIII();
           const OBJETO = {
             vista: "revisarPerfil",
-            correoElectronico:this.usuario.usuario.correoElectronico
+            correoElectronico: this.usuario.usuario.correoElectronico
           }
           this._AdminRequest.cambiarVista(OBJETO);
         }

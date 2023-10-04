@@ -120,7 +120,7 @@
                     </div>
                 </div>
 
-                <div class="cajaDerecha">
+                <div class="cajaDerecha" style="padding-bottom: 2rem;">
                     <div class="infoCuerpo">
                         <div class="card" style="padding: 1rem; width: 250px;">
                             <div>
@@ -161,29 +161,6 @@
                                 </div>
                             </div>
                             <div [ngClass]="{'view':perfilTipoCandidato, '':!perfilTipoCandidato}">
-                                <div style="margin-top: 1rem;">
-                                    <label style="width: 100%; text-align: center;">  Documentos de Especialidad</label>
-                                    <hr class="lineas">
-                                </div>
-    
-                                <div class="centrarII">
-                                    <div style="display: flex;">
-                                        <div *ngIf="cargarPantallaII(); else pantallaVacia2">
-                                            <div style="display: flex;">
-                                                <button class="card documento" style="padding: .5rem; margin-right: .3rem;"
-                                                    *ngFor="let documento of documentosEsp">
-                                                    <a [href]="documento" target="_blank"><img
-                                                            src="https://firebasestorage.googleapis.com/v0/b/gdi-portalempleo.appspot.com/o/general%2Ffile-text.png?alt=media&token=11d13eb5-410b-48ad-9e31-a76f8707ebee"
-                                                            alt="" height="30px" width="30px"> </a>
-                                                </button>
-                                            </div>
-                    
-                                        </div>
-                                        <ng-template #pantallaVacia2>
-                                            <p style="font-size: x-small;">El usuario no ha cargado ningun archivo de especialidad</p>
-                                        </ng-template>
-                                    </div>
-                                </div>
                                
                                 <div style="margin-top: 1rem;">
                                     <label style="width: 100%; text-align: center;">Curriculum</label>
@@ -204,6 +181,48 @@
                                         </div>
                                         <ng-template #pantallaVacia>
                                             <p style="font-size: x-small;">El usuario no ha cargado ningun CV</p>
+                                        </ng-template>
+                                    </div>
+                                </div>
+
+                                <div style="margin-top: 1rem;">
+                                    <label style="width: 100%; text-align: center;">  Documentos de Especialidad</label>
+                                    <hr class="lineas">
+                                </div>
+    
+                                <div class="centrarII">
+                                    <div style="display: flex;">
+                                        <div *ngIf="cargarPantallaII(); else pantallaVacia2">
+                                            <!-- 
+                                            <div style="display: flex;">
+                                                <button class="card documento" style="padding: .5rem; margin-right: .3rem;"
+                                                    *ngFor="let documento of documentosEsp">
+                                                    <a [href]="documento" target="_blank"><img
+                                                            src="https://firebasestorage.googleapis.com/v0/b/gdi-portalempleo.appspot.com/o/general%2Ffile-text.png?alt=media&token=11d13eb5-410b-48ad-9e31-a76f8707ebee"
+                                                            alt="" height="30px" width="30px"> </a>
+                                                </button>
+                                            </div>
+                                             -->
+
+                                             <button class="card documento" style="padding: .5rem; margin-right: .3rem; margin-top: .3rem; width: 217px;"
+                                             *ngFor="let documento of documentosEsp">
+                                             <div class="container text-center">
+                                                <div class="row">
+                                                  <div class="col-3">
+                                                    <a [href]="documento.ruta" target="_blank" style="width: 199px;"><img
+                                                        src="https://firebasestorage.googleapis.com/v0/b/gdi-portalempleo.appspot.com/o/general%2Ffile-text.png?alt=media&token=11d13eb5-410b-48ad-9e31-a76f8707ebee"
+                                                        alt="" height="30px" width="30px"> </a>
+                                                  </div>
+                                                  <div class="col-9" style="font-size: x-small; text-align: center;">
+                                                   {{documento.desc}} 
+                                                  </div>
+                                                </div>
+                                              </div>
+                                             
+                                             </button>
+                                        </div>
+                                        <ng-template #pantallaVacia2>
+                                            <p style="font-size: x-small;">El usuario no ha cargado ningun archivo de especialidad</p>
                                         </ng-template>
                                     </div>
                                 </div>

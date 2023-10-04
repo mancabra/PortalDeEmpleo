@@ -23,6 +23,9 @@ export class Candidato {
     fechaNacimiento: Date = new Date;
     habilidades: Habilidad [] = [];
     rutaEspecialidad: string  = "";
+    descripcionEspecialidad1: string = "";
     rutaEspecialidad2: string  = "";
+    descripcionEspecialidad2: string = "";
     rutaEspecialidad3: string  = "";
+    descripcionEspecialidad3: string = "";
 }

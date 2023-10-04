@@ -418,8 +418,11 @@ export class DataComponent implements OnInit, OnDestroy {
         { id_habilidad: 0, nombreHabilidad: "trabajo en equipo", candidatos: [] },
       ],
       rutaEspecialidad: "Untitled-2.pdf",
+       descripcionEspecialidad1: "holaMundo",
       rutaEspecialidad2: "Untitled-2.pdf",
+       descripcionEspecialidad2: "holaMundo",
       rutaEspecialidad3: "Untitled-2.pdf",
+       descripcionEspecialidad3: "holaMundo",
     }
   ];
 

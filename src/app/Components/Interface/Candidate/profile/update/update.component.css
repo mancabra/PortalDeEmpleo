@@ -53,6 +53,10 @@
     display:flex;
 }
 
+.captura{
+padding-left: 0px;
+}
+
 .completo{
      display: gird;
      width: 100%;
