@@ -1,3 +1,11 @@
+ .fondo{
+    /* background-image:url("https://firebasestorage.googleapis.com/v0/b/gdi-portalempleo.appspot.com/o/general%2Ffondo.png?alt=media&token=2077d9fb-c995-4553-9485-628d6c2861b5&_gl=1*1m1q6ks*_ga*MTUxOTQxMDE2Ny4xNjg2MzI1Njgz*_ga_CW55HF8NVT*MTY5Njk2MDgzMi41MS4xLjE2OTY5NjEwMjYuNjAuMC4w");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    opacity: .5; */
+ }
+
 .centrar{
     display: grid;
     place-items: center;

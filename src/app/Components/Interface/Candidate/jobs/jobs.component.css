@@ -1,3 +1,54 @@
+.botonesBusqueda{
+    border-color:rgb(50, 90, 79) ;
+    color:rgb(50, 90, 79) ;
+}
+.botonesBusqueda:hover{
+    color:white;
+    background-color: rgb(50, 90, 79) ;
+}
+
+.botoneSelecionado{
+    color:white;
+    background-color: rgb(50, 90, 79) ;
+}
+
+.botondeMas{
+    color:rgb(151, 121, 77);
+    border-color: rgb(151, 121, 77);
+}
+.botondeMas:hover{
+    color:white;
+    background-color: rgb(151, 121, 77) ;
+}
+
+.botondeInfo{
+    color:white;
+    background-color:rgb(182,150,100);
+}
+.encabezado{
+    border-radius: 5px 5px 0px 0px;
+    font-size: xx-small;
+    color:white;
+    background-color: rgb(50, 90, 79) ;
+}
+
+.vacanteStilo{
+    transition: all 0.3s;
+    opacity: 0;
+}
+
+.visualizar{
+    opacity: 1;
+}
+
+.moverX{
+    transform: translateX(10%);
+}
+
+.moverY{
+    transform: translateX(-10%);
+}
+
 .fijar{
     position: sticky;
     top: 150px;
@@ -91,11 +142,11 @@
     overflow-y: scroll;
 }
 
-
 .contenedor{
     padding-left: 2rem;
     padding-right: 2rem;
 }
+
 
 .botonInformativo{
   margin-left: .3rem;

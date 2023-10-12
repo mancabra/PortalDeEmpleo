@@ -8,6 +8,7 @@ import { AdminService } from '../AdminServices/admin.service';
 import { EmployerService } from '../EmployerServices/employer.service';
 import { Candidato } from '../Entity/candidato';
 import { Alert } from '../Entity/alert';
+import { Vacante } from '../Entity/vacante';
 
 @Injectable({
   providedIn: 'root'
@@ -30,6 +31,8 @@ export class InterfaceService {
   private nav$ = new Subject<boolean>();
   ocultarNav: boolean = false;
 
+  private vacante$ = new Subject<Vacante>();
+
   // OBSERVABLES ALERTAS
   private estatus$ = new Subject<boolean>();
   alertaOculta: boolean = true;
@@ -40,12 +43,18 @@ export class InterfaceService {
   private tipo$ = new Subject<number>();
   tipoUsuario: number = 0;
 
+
+  private pantalla$ = new Subject<boolean>();
+  pantalla: boolean = true;
+
    // INYECCION DE SERVICOS A USAR EN EL SERVICIO
   constructor(
     private _http: HttpClient,
     private _CandidateRequest: CandidateService,
     private _AdminRequest: AdminService,
-    private _EmployerRequest: EmployerService) { }
+    private _EmployerRequest: EmployerService) { 
+
+    }
 
   ngOnInit() {
 
@@ -208,5 +217,25 @@ export class InterfaceService {
       this.alerta.name = "¡TODO LISTO!";
     }
     this.alerta$.next(this.alerta);
+  }
+
+   //OBSERVABLES TIPO VACANTE
+   getVacante(): Observable<Vacante> {
+    return this.vacante$.asObservable();
+  }
+
+  vacante: Vacante = new Vacante
+  actualizarVacante(vacante:Vacante){
+    this.vacante = vacante
+    this.vacante$.next(this.vacante);
+  }
+
+
+  getBoolean():Observable<boolean> {
+    return this.pantalla$.asObservable();
+  }
+
+  actualizarPantalla(pantalla:boolean){
+    this.pantalla$.next(true);
   }
 }

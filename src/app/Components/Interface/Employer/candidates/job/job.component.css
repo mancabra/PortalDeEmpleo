@@ -1,3 +1,51 @@
+.infoVacante{
+    width: 350px;
+    margin-top: .5rem;
+}
+
+.encabezado{
+    border-radius: 5px 5px 0px 0px;
+    font-size: xx-small;
+    color:white;
+    background-color: rgb(50, 90, 79) ;
+}
+
+.dato{
+    z-index: 100;
+    height: 20px;
+    padding-left: 10px;
+    font-size: small;
+    border-radius: 10px 10px 10px 10px;
+    color:white;
+    background-color:rgb(50, 90, 79); 
+    cursor: pointer;
+}
+
+.variable{
+    opacity: 0;
+    height: 20px;
+    margin-left: -20px;
+    padding-left: 20px;
+    font-size: small;
+    border-radius: 10px 10px 10px 10px;
+    border-color: black;
+    color: white;
+    transition: all 0.3s;
+}
+
+.seleccionado{
+    height: 20px;
+    margin-left: -40px;
+    padding-left: 40px;
+    font-size: small;
+    background-color:rgb(182,150,100);
+    border-radius: 10px 10px 10px 10px;
+    border-color: black;
+    color:white;
+    opacity: 1;
+    transform: translateX(10%);
+}
+
 .barraSuperior{
     background-color:rgb(230, 230, 230);
     display: flex;

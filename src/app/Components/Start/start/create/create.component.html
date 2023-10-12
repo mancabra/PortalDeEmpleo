@@ -9,20 +9,15 @@
 
                     <div class="btn-group input-group-sm mb-3" role="group" aria-label="Basic radio toggle button group"
                         style="margin-bottom: 1rem;">
-                        <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked
-                            [ngClass]="{'view':verUsuariosPrincipales, '':!verUsuariosPrincipales}">
-                        <label class="btn btn-outline-primary" for="btnradio1" (click)="identificarUsario('candidato')"
+                        <label name="btnCandidato" class="btn botonCandidato" for="btnradio1" (click)="identificarUsario('candidato')"
                             [ngClass]="{'view':verUsuariosPrincipales, '':!verUsuariosPrincipales}">Candidato</label>
 
-                        <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off"
-                            [ngClass]="{'view':verAdministrador, '':!verAdministrador}">
-                        <label class="btn btn-outline-success" for="btnradio2"
+    
+                        <label name="btnAdmin" class="btn botonAdmin" for="btnradio2"
                             (click)="identificarUsario('administrador')"
                             [ngClass]="{'view':verAdministrador, '':!verAdministrador}">Administrador</label>
 
-                        <input type="radio" class="btn-check" name="btnradio" id="btnradio4" autocomplete="off"
-                            [ngClass]="{'view':verUsuariosPrincipales, '':!verUsuariosPrincipales}">
-                        <label class="btn btn-outline-secondary" for="btnradio4"
+                        <label name="btnEmpleador" class="btn botonEmpleador" for="btnradio4"
                             (click)="identificarUsario('empleador')"
                             [ngClass]="{'view':verUsuariosPrincipales, '':!verUsuariosPrincipales}">Empleador</label>
                     </div>
@@ -279,7 +274,7 @@
                     </div>
 
                     <div class="d-grid gap-2" style="margin-top: 18.5px;">
-                        <button class="btn btn-secondary" type="button" (click)="comenzarRegistro()">CREAR
+                        <button class="btn btn-secondary coloresIngfo" type="button" (click)="comenzarRegistro()">CREAR
                             CUENTA</button>
                     </div>
                     <div style="margin-top: 1rem;" [ngClass]="{'view':componetStart, '':!componetStart}">

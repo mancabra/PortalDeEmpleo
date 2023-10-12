@@ -1,76 +1,36 @@
 <!-- CANDIDATO -->
 <div [ngClass]="{'activar':ocultarNavbar, '':!ocultarNavbar}">
   <div *ngIf="cargarPantalla(); else pantallaVacia">
-    <div style="padding: 2rem;" [ngClass]="{'activar':candidatoActivo, '':!candidatoActivo}">
-      <ul class="nav nav-underline justify-content-end">
-        <li class="nav-item">
-          <button class="nav-link" href="#" (click)="seleccionar('Vacantes')"
-            [ngClass]="{'':vacantes, 'active':!vacantes}">Vacantes</button>
-        </li>
-        <li class="nav-item">
-          <button class="nav-link" href="#" (click)="seleccionar('Postulaciones')"
-            [ngClass]="{'':postulaciones, 'active':!postulaciones}">Postulaciones</button>
-        </li>
-        <li class="nav-item">
-          <button class="nav-link" href="#" (click)="seleccionar('Notificaciones')"
-            [ngClass]="{'':notificaciones, 'active':!notificaciones}">Notificaciones</button>
-        </li>
-        <li class="nav-item">
-          <button class="nav-link" href="#" (click)="seleccionar('Perfil')"
-            [ngClass]="{'':perfil, 'active':!perfil}">Perfil</button>
-        </li>
-      </ul>
-    </div>
-    <!-- VISITANTE -->
-    <div style="padding: 2rem;" [ngClass]="{'activar':visitanteActivo, '':!visitanteActivo}">
-      <ul class="nav nav-underline justify-content-end">
-        <li class="nav-item">
-          <button class="nav-link" href="#" (click)="seleccionar('Vacantes')"
-            [ngClass]="{'':vacantes, 'active':!vacantes}">Vacantes</button>
-        </li>
-        <li class="nav-item">
-          <button class="nav-link" href="#" (click)="seleccionar('Login')"
-            [ngClass]="{'':postulaciones, 'active':!postulaciones}">Login</button>
-        </li>
-      </ul>
-    </div>
-    <!-- EMPLEADOR -->
-    <div style="padding: 2rem;" [ngClass]="{'activar':empleadorActivo, '':!empleadorActivo}">
-      <ul class="nav nav-underline justify-content-end">
-        <li class="nav-item">
-          <button class="nav-link" href="#" (click)="seleccionar('Publicar Nueva')"
-            [ngClass]="{'':publicarNueva, 'active':!publicarNueva}">Publicar Nueva</button>
-        </li>
-        <li class="nav-item">
-          <button class="nav-link" href="#" (click)="seleccionar('Publicaciones')"
-            [ngClass]="{'':publicaciones, 'active':!publicaciones}">Publicaciones</button>
-        </li>
-        <li class="nav-item">
-          <button class="nav-link" href="#" (click)="seleccionar('Notificaciones')"
-            [ngClass]="{'':notificaciones, 'active':!notificaciones}">Notificaciones</button>
-        </li>
-        <li class="nav-item">
-          <button class="nav-link" href="#" (click)="seleccionar('Perfil')"
-            [ngClass]="{'':perfil, 'active':!perfil}">Perfil</button>
-        </li>
-      </ul>
-    </div>
-    <!-- ADMIN -->
-    <div style="padding: 2rem;" [ngClass]="{'activar':administradorActivo, '':!administradorActivo}">
-      <ul class="nav nav-underline justify-content-end">
-        <li class="nav-item">
-          <button class="nav-link" href="#" (click)="seleccionar('Administrar')"
-            [ngClass]="{'':administrar, 'active':!administrar}">Administrar</button>
-        </li>
-        <li class="nav-item">
-          <button class="nav-link" href="#" (click)="seleccionar('Peticiones')"
-            [ngClass]="{'':peticiones, 'active':!peticiones}">Procesos</button>
-        </li>
-        <li class="nav-item">
-          <button class="nav-link" href="#" (click)="seleccionar('Perfil')"
-            [ngClass]="{'':perfil, 'active':!perfil}">Perfil</button>
-        </li>
-      </ul>
+    <div style="padding: 2rem;">
+      <div class="nav justify-content-end">
+
+        <b class="definido" name="vacantes" href="#" (click)="seleccionar('Vacantes')"
+          [ngClass]="{'':vacantes, 'active':!vacantes}">Vacantes</b>
+
+        <b class="definido" name="postulaciones" href="#" (click)="seleccionar('Postulaciones')"
+          [ngClass]="{'':postulaciones, 'active':!postulaciones}">Postulaciones</b>
+
+        <b class="definido" name="nueva" href="#" (click)="seleccionar('Publicar Nueva')"
+          [ngClass]="{'':publicarNueva, 'active':!publicarNueva}">Publicar Nueva</b>
+
+        <b class="definido" name="publicaciones" href="#" (click)="seleccionar('Publicaciones')"
+          [ngClass]="{'':publicaciones, 'active':!publicaciones}">Publicaciones</b>
+
+        <b class="definido" name="administrar" href="#" (click)="seleccionar('Administrar')"
+          [ngClass]="{'':administrar, 'active':!administrar}">Administrar</b>
+
+        <b class="definido" name="proceso" href="#" (click)="seleccionar('Peticiones')"
+          [ngClass]="{'':peticiones, 'active':!peticiones}">Procesos</b>
+
+        <b class="definido" name="notificaciones" href="#" (click)="seleccionar('Notificaciones')"
+          [ngClass]="{'':notificaciones, 'active':!notificaciones}">Notificaciones</b>
+
+        <b class="definido" name="perfil" (click)="seleccionar('Perfil')"
+          [ngClass]="{'':perfil, 'active':!perfil}">Perfil</b>
+
+        <b class="definido" name="login" href="#" (click)="seleccionar('Login')"
+          [ngClass]="{'':start, 'active':!start}">Login</b>
+      </div>
     </div>
   </div>
 

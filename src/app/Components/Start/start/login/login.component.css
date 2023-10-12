@@ -1,5 +1,5 @@
 .enlace{
-    color: blue;
+    color: rgb(182, 150, 100);
     text-align: center;
     text-decoration: underline;
     cursor: pointer;
@@ -28,7 +28,7 @@
 
 .log{
     display: inline;
-    border-color:rgb(191, 191, 191);
+    border-color:rgb(97, 34, 50);
     width: 800px;
     height: 670px;
     padding: 0px;
@@ -37,7 +37,7 @@
 .interiorSup{
     text-align: center;
     border-radius: 5px 5px 0px 0px;
-    background-color:rgb(110, 117, 124);
+    background-color:rgb(97, 34, 50);
     color: white;
     height: 45px;
     padding: 10px;
@@ -65,7 +65,10 @@
     border-radius: 5px 0px 0px 5px;
     color:white;
 }
-
+.colorresIngfo{
+    background-color: rgb(97, 34, 50);
+    border-color: rgb(97, 34, 50);;
+}
 .transformar{
     text-align: center;
     font-size: large;

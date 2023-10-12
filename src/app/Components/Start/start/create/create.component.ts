@@ -166,6 +166,42 @@ export class CreateComponent {
     this.identificarUsario("candidato");
   }
 
+  activarCandidato(){
+    this.desactivarAdministrador();
+    this.desactivarEmpleador();
+    const boton = document.getElementsByName("btnCandidato")[0];
+    boton.classList.add("botonCandidatoSelecc");
+  }
+
+  activarEmpleador(){
+    this.desactivarCandidato();
+    this.desactivarAdministrador();
+    const boton = document.getElementsByName("btnEmpleador")[0];
+    boton.classList.add("botonEmpleadorSelecc");
+  }
+
+  activarAdministrador(){
+    this.desactivarCandidato();
+    this.desactivarEmpleador();
+    const boton = document.getElementsByName("btnAdmin")[0];
+    boton.classList.add("botonAdminSelecc");
+  }
+
+  desactivarCandidato(){
+    const boton = document.getElementsByName("btnCandidato")[0];
+    boton.classList.remove("botonCandidatoSelecc");
+  }
+
+  desactivarEmpleador(){
+    const boton = document.getElementsByName("btnEmpleador")[0];
+    boton.classList.remove("botonEmpleadorSelecc");
+  }
+
+  desactivarAdministrador(){
+    const boton = document.getElementsByName("btnAdmin")[0];
+    boton.classList.remove("botonAdminSelecc");
+  }
+
   // FUNCION PARA OBTENER LA LISTA DE ESTADO DE MÉXICO
   bloquearMunicipios() {
     this.estado = { id_estado: 0, nombreEstado: "Selecciona un Estado", municipios: [] };
@@ -237,16 +273,19 @@ export class CreateComponent {
   // FUNCION PARA CAMBIAR EL TIPO DE CUENTA QUE SE CREARA
   cambiarCuenta() {
     if (this.tipoUsurio == "candidato") {
+      this.activarCandidato();
       this.bloquearMunicipiosII();
       this.desBloquearCampos();
       this.descripcionDelUSuario = "Al crear una cuenta del tipo candidato tendras acceso a todas las vacantes disponibles en nuestra plataforma,"
         + " podras postularte a ellas y gestionar dichas postulaciones en vistas exclusivas.";
     } else if (this.tipoUsurio == "administrador") {
+      this.activarAdministrador();
       this.bloquearMunicipiosII();
       this.bloquearCampos();
       this.descripcionDelUSuario = "Al crear una cuenta del tipo administrador estaras creando un usuario que podra gestionar de manera libre la plataforma,"
         + " el suario  podra crear cuentas de cualquier tipo, eliminarlas o suspenderlas.";
     } else if (this.tipoUsurio == "empleador") {
+      this.activarEmpleador();
       this.bloquearMunicipiosII();
       this.bloquearCampos();
       this.descripcionDelUSuario = "Al crear una cuenta del tipo empleador podras publicar nuevos empleos dentro de nuestra plataforma y podras gestionar a todos "

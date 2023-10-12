@@ -1,5 +1,6 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { CandidateService } from 'src/app/Services/CandidateServices/candidate.service';
 import { EmployerService } from 'src/app/Services/EmployerServices/employer.service';
 import { Candidato } from 'src/app/Services/Entity/candidato';
@@ -55,6 +56,9 @@ export class JobsComponent implements OnInit, OnDestroy {
   estadosMexico: Estado[] = [];
   // VARIABLE QUE ALMACENA EL ESTADO SELLECIONADO PARA LA BUSQUEDA POR FILTROS
   estado: Estado;
+  subscription: Subscription;
+
+  pantallaSecundaria: boolean = false;
 
   // INYECCION DE SERVICOS A USAR EN EL COMPONENTE
   constructor(
@@ -62,6 +66,10 @@ export class JobsComponent implements OnInit, OnDestroy {
     private _UserRequest: InterfaceService,
     private _EmployerRequest: EmployerService,
     private router: Router,) {
+      this.subscription = this._UserRequest.getBoolean().subscribe(data => {
+        this.pantallaSecundaria = data;
+        this.funcionEstilos();
+      });
     this.estado = { id_estado: 0, nombreEstado: "Estado", municipios: [] };
   }
 
@@ -73,35 +81,51 @@ export class JobsComponent implements OnInit, OnDestroy {
     this.obtenerEstados();
     //this.cargarMuestra();
   }
-/*
-  ngAfterViewInit() {
-    let vacante1 = document.getElementsByName('vacantedeLista')[0];
-    vacante1.classList.add('aparece');
-    window.addEventListener('scroll', function(){
-      let vacanteP = this.document.getElementsByName('vacantedeLista');
-      for (let i = 0; i < vacanteP.length; i++) {
-        var alturaMin = window.innerHeight/1.8;
-       // var alturaMax = window.innerHeight/.5;
-        var distancia = vacanteP[i].getBoundingClientRect().top;
-        vacanteP[i].classList.add('transform_up');
-
-        if (distancia <= alturaMin){
-           vacanteP[i].classList.add('aparece');
-         //  if( distancia < alturaMax){
-          //  vacanteP[i].classList.remove('aparece') 
-          // }
-        } else {
-           vacanteP[i].classList.remove('aparece') 
-        }
-        
-      }
-      
-    });
-  }
-  */
 
   ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
+
+  funcionEstilos(){
+    const pantalla = document.getElementsByName("secundaria")[0];
+    pantalla.classList.add("visualizar");
+   }
+
+   funcionMoverEnX(){
+    const pantalla = document.getElementsByName("secundaria")[0];
+    pantalla.classList.add("moverX");
+   }
+
+   funcionMoverEnY(){
+    const pantalla = document.getElementsByName("secundaria")[0];
+    pantalla.classList.add("moverY");
+   }
+  /*
+    ngAfterViewInit() {
+      let vacante1 = document.getElementsByName('vacantedeLista')[0];
+      vacante1.classList.add('aparece');
+      window.addEventListener('scroll', function(){
+        let vacanteP = this.document.getElementsByName('vacantedeLista');
+        for (let i = 0; i < vacanteP.length; i++) {
+          var alturaMin = window.innerHeight/1.8;
+         // var alturaMax = window.innerHeight/.5;
+          var distancia = vacanteP[i].getBoundingClientRect().top;
+          vacanteP[i].classList.add('transform_up');
+  
+          if (distancia <= alturaMin){
+             vacanteP[i].classList.add('aparece');
+           //  if( distancia < alturaMax){
+            //  vacanteP[i].classList.remove('aparece') 
+            // }
+          } else {
+             vacanteP[i].classList.remove('aparece') 
+          }
+          
+        }
+        
+      });
+    }
+    */
 
 
   cargarMuestra() {
@@ -180,8 +204,8 @@ export class JobsComponent implements OnInit, OnDestroy {
         empleador: new Empleador,
         candidatos: [],
         tipoHorario: { id_tipoHorario: 0, dias: "sab-dom", tipoHorario_vacantes: [] },
-        tipoContratacion: { id_tipoContratacion: 0, horario: "VIRTUAL", tipoContratacion_vacantes: [] },
-        modalidadTrabajo: new ModalidadTrabajo,
+        tipoContratacion: { id_tipoContratacion: 0, horario: "indefinido", tipoContratacion_vacantes: [] },
+        modalidadTrabajo: {id_modalidad:0, modalidad:"hibrido",modalidadTrabajo_vacantes:[]},
         id_postulacion: 0,
         fechaPublicacionSrt: "",
         diasPublicada: 0,
@@ -211,7 +235,7 @@ export class JobsComponent implements OnInit, OnDestroy {
   }
   // FUNCION PARA BUSCAR UN USUARIO POR CORREO
   buscarUsuario() {
- 
+
     this._CandidateRequest.obtener().then((data: any) => {
       this.usuario = data
     });
@@ -240,6 +264,8 @@ export class JobsComponent implements OnInit, OnDestroy {
 
   // FUNCION QUE ACTUALIZA EL ESTADO SELECCIONADO POR EL USUARIO PARA EL FILTRO
   actualizarEstado(estado: Estado) {
+    const btnEstado = document.getElementsByName("btnEstados")[0];
+    btnEstado.classList.add("botoneSelecionado");
     this.estado = estado;
   }
 
@@ -264,18 +290,8 @@ export class JobsComponent implements OnInit, OnDestroy {
         this.textoBoton = "Iniciar Sesión";
       } else {
         this.textoBoton = "Postularse";
-      //  this.filtrosDisponibles.push("Cercanos a Mi");
+        //  this.filtrosDisponibles.push("Cercanos a Mi");
       }
-    }
-  }
-
-  // FUNCION QUE EVALUA LA VACANTE SELECCIONADA 
-  // SI LA VACANTE ESTA VACIA MUESTRA UNA PANTALLA ALTERNATIVA
-  cargarPantalla() {
-    if (this.vacanteSeleccionada.id_vacante == 0) {
-      return false;
-    } else {
-      return true;
     }
   }
 
@@ -290,8 +306,8 @@ export class JobsComponent implements OnInit, OnDestroy {
   }
 
   // FUNCION PARA GUARDAR LA VACANTE ACTUAL Y PODER VISUALIZARLA EN UN COMPONENTE EXTERNO
-  verVacanteCompleta(vacante: any) {
-    this.vacanteSeleccionada = vacante;
+  verVacanteCompleta(vacante: Vacante) {
+    this._UserRequest.actualizarVacante(vacante)
   }
 
   // FUNCION PARA ACTUALIZAR EL FILTRO SELECCIONADO
@@ -309,6 +325,20 @@ export class JobsComponent implements OnInit, OnDestroy {
     } else {
       this.filtroEstado = true;
       this.estado = { id_estado: 0, nombreEstado: "Estado", municipios: [] };
+    }
+    this.marcarBotonFiltro();
+  }
+
+  marcarBotonFiltro() {
+    const boton = document.getElementsByName("btnFiltros")[0];
+    if(this.filtroActivo == true){
+      boton.classList.add("botoneSelecionado");
+    } else {
+      boton.classList.remove("botoneSelecionado");
+      if(this.filtro == "Estado"){
+        const btnEstado = document.getElementsByName("btnEstados")[0];
+        btnEstado.classList.remove("botoneSelecionado");
+      }
     }
   }
 
@@ -436,7 +466,7 @@ export class JobsComponent implements OnInit, OnDestroy {
   // FUNCION PARA IDENTIFICAR LA FUNCION QUE REALIZARA EL BOTON SEGUN EL USUARIO ACTIVO
   evaluarBoton(vacante: Vacante) {
     if (this.usuarioAdmin == true) {
-     // this.eliminarVacante(vacante);
+      // this.eliminarVacante(vacante);
     } else if (this.id_tipoUsuario == 0) {
       this._UserRequest.ocultarNavB();
       this.router.navigate(['start']);
@@ -473,19 +503,19 @@ export class JobsComponent implements OnInit, OnDestroy {
       }
     });
   }
-/*
-  // FUNCION DE ADMINISTRADOR PARA ELIMINAR UNA VACANTE
-  eliminarVacante(vacante: Vacante) {
-    this._EmployerRequest.eliminarVacante(vacante.id_vacante).then((data: any) => {
-      if (data.estatus == true) {
-        this.enviarAlerta("La vacante se ha eliminado correctamente.", false);
-        this.obtenerVacantes();
-      } else {
-        this.enviarAlerta("No se ha podido eliminar la vacante debido a un error interno.", true);
-      }
-    });
-  }
-*/
+  /*
+    // FUNCION DE ADMINISTRADOR PARA ELIMINAR UNA VACANTE
+    eliminarVacante(vacante: Vacante) {
+      this._EmployerRequest.eliminarVacante(vacante.id_vacante).then((data: any) => {
+        if (data.estatus == true) {
+          this.enviarAlerta("La vacante se ha eliminado correctamente.", false);
+          this.obtenerVacantes();
+        } else {
+          this.enviarAlerta("No se ha podido eliminar la vacante debido a un error interno.", true);
+        }
+      });
+    }
+  */
 
   //FUNCIONES PARA LAS NOTIFICACIONES 
   enviarAlertaExito(vacante: Vacante) {

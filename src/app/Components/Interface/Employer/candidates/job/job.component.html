@@ -1,70 +1,94 @@
+<div class="encabezado">
+  &nbsp;
+</div>
 <div style="padding: 2rem;">
-
     <div style="width: 100%;">
-        <b style="font-style:normal; font-size:xx-large;">{{vacante.nombreVacante}} {{nombre}} / {{vacante.especialista}} {{especialista}}</b><br>
+        <b style="font-style:normal; font-size:xx-large;">{{nombre}} / {{especialista}}</b><br>
         <p style="font-size:medium; line-height: 150%; color: darkgray;">
-            {{vacante.empresa.nombre}} {{empresa.nombre}}
+            {{empresa.nombre}}
             <br style="margin: 0%; padding: 0%;">
-             {{vacante.municipio.nombreMunicipio}}{{municipio.nombreMunicipio}} Estado de {{vacante.municipio.estado.nombreEstado}}{{estado.nombreEstado}}
+            {{municipio.nombreMunicipio}} Estado de {{estado.nombreEstado}}
             <br style="margin: 0%; padding: 0%;">
             {{vacante.domicilio}} {{domicilio}}
         </p>
     </div>
 
-    <div>
-      <div style="padding-top: .5rem;">
-        <span class="badge rounded-pill text-bg-secondary" style="padding: 0; font-size: medium;">
-          <span class="badge rounded-pill text-bg-success">Sueldo</span>
-          <label style="padding: .1rem; padding-right: .5rem; padding-left: .5rem;" [ngStyle]="{'display':verSueldoP}">{{sueldo}}.00 mxn / Mensuales</label>
-          <label style="padding: .1rem; padding-right: .5rem; padding-left: .5rem;" [ngStyle]="{'display':verSueldo}">{{vacante.sueldo}}.00 mxn / Mensuales</label>
-        </span>
+    <div class="infoVacante">
+      <div class="container">
+        <div class="row">
+          <b name="textoSueldo" class="col text-left dato">
+            Salario mensual (Libres)
+          </b>
+          <b name="variableSueldo" class="col text-center variable">
+            $ {{sueldo}}.00 mxn
+          </b>
+        </div>
       </div>
-
-      <div style="padding-top: .5rem;">
-        <span class="badge rounded-pill text-bg-secondary" style="padding: 0; font-size: medium;">
-          <span class="badge rounded-pill text-bg-success">Horario Laboral</span>
-          <label style="padding: .1rem; padding-right: .5rem; padding-left: .5rem;">{{horario}}</label>
-          <label style="padding: .1rem; padding-right: .5rem; padding-left: .5rem;">{{vacante.horario}}</label>
-        </span>
-      </div>
-
-      <div style="padding-top: .5rem;">
-        <span class="badge rounded-pill text-bg-secondary" style="padding: 0; font-size: medium;">
-          <span class="badge rounded-pill text-bg-success">Dias Laborales</span>
-          <label style="padding: .1rem; padding-right: .5rem; padding-left: .5rem;">{{tipoHorario.dias}}</label>
-          <label style="padding: .1rem; padding-right: .5rem; padding-left: .5rem;">{{vacante.tipoHorario.dias}}</label>
-        </span>
-      </div>
-
-      <div style="padding-top: .5rem;">
-        <span class="badge rounded-pill text-bg-secondary" style="padding: 0; font-size: medium;">
-          <span class="badge rounded-pill text-bg-success">Modalidad</span>
-          <label style="padding: .1rem; padding-right: .5rem; padding-left: .5rem;">{{modalidadTrabajo.modalidad}}</label>
-          <label style="padding: .1rem; padding-right: .5rem; padding-left: .5rem;">{{vacante.modalidadTrabajo.modalidad}}</label>
-        </span>
-      </div>
-
-      <div style="padding-top: .5rem;">
-        <span class="badge rounded-pill text-bg-secondary" style="padding: 0; font-size: medium;">
-          <span class="badge rounded-pill text-bg-success">Contratación</span>
-          <label style="padding: .1rem; padding-right: .5rem; padding-left: .5rem;" >{{tipoContratacion.horario}}</label>
-          <label style="padding: .1rem; padding-right: .5rem; padding-left: .5rem;">{{vacante.tipoContratacion.horario}}</label>
-        </span>
-      </div>
-
     </div>
+
+    <div class="infoVacante">
+      <div class="container">
+        <div class="row">
+          <b name="textoHorario" class="col text-left dato">
+            Horario Laboral (Diario)
+          </b>
+          <b name="variableHorario" class="col text-center variable">
+            {{horario}}
+          </b>
+        </div>
+      </div>
+    </div>
+
+    <div class="infoVacante">
+      <div class="container">
+        <div class="row">
+          <b name="textoDias" class="col text-left dato">
+            Días Laborales (Semanal)
+          </b>
+          <b name="variableDias" class="col text-center variable">
+            {{tipoHorario.dias}}
+          </b>
+        </div>
+      </div>
+    </div>
+
+    <div class="infoVacante">
+      <div class="container">
+        <div class="row">
+          <b name="textoModalidad" class="col text-left dato">
+            Modalidad de Trabajo 
+          </b>
+          <b name="variableModalidad" class="col text-center variable">
+            {{modalidadTrabajo.modalidad}}
+          </b>
+        </div>
+      </div>
+    </div>
+
+    <div class="infoVacante">
+      <div class="container">
+        <div class="row">
+          <b name="textoContratacion" class="col text-left dato">
+            Tipo de Contratación
+          </b>
+          <b name="variableContratacion" class="col text-center variable">
+            {{tipoContratacion.horario}}
+          </b>
+        </div>
+      </div>
+    </div>
+
     
       <div style="padding-top: 2rem; text-align: justify;">
         <p style="padding: 0rem">
-            {{vacante.descripcion}} {{descripcion}}
+          {{descripcion}}
         </p>
-    </div>
 
       <div class="container text-center" style="margin-top: 2rem;">
         <div class="row">
           <div class="col" style="font-size:small; line-height: 150%; color: darkgray;">
-                Vacante publicada por : {{vacante.empleador.usuario.nombre}}{{empleador.usuario.nombre}} {{vacante.empleador.usuario.apellidoP}}{{empleador.usuario.apellidoP}} {{vacante.empleador.usuario.apellidoM}}{{empleador.usuario.apellidoM}}
-                Para mayor información recomendamos contactar al publicante al correo: {{vacante.empleador.usuario.correoElectronico}}{{empleador.usuario.correoElectronico}}.
+                Vacante publicada por : {{empleador.usuario.nombre}} {{empleador.usuario.apellidoP}} {{empleador.usuario.apellidoM}}
+                Para mayor información recomendamos contactar al publicante al correo: {{empleador.usuario.correoElectronico}}.
           </div>
         </div>
       </div>
