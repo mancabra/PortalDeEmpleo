@@ -90,15 +90,15 @@ export class ProfileComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.documentosEsp = [];
-    this.documentosCV = [];
-    this.identificarVista();
-    /*
+    //this.documentosEsp = [];
+    //this.documentosCV = [];
+   // this.identificarVista();
+  
     this.cargarPrueba();
     this.id_tipoUsuario = 2;
     this.identificarTipoDePerfil();
     this.predeterminadas();
-    */
+    
   }
 
   cargarPrueba() {

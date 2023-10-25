@@ -63,13 +63,14 @@ export class NewJobComponent implements OnInit, OnDestroy {
   // VARIABLE PARA CONTROLAR UN ELEMENTO HTML
   // PERMITE OCULTAR UN ELEMNTO SEGUN SU VALOR
   programarPB: boolean = true;
-
+  preview: boolean=  false;
   // PERMITE CAMBIAR EL FLUJO DE CAPTURA SEGUN SU VALOR
   esProgramada: boolean = false;
 
   // MODIFICA EL TEXTO DE UN ELEMNTO HTML SEGUN SU VALOR
   textoBoton: string = "PUBLICAR";
-  textoBotonF: string = "PROGRAMAR";
+  textoBotonF: string = "PUBLICAR";
+  textoProgramada: string = "PROGRAMAR VACANTE";
 
   //DATOS DE LA VACANTE
   // PERMITE OCULTAR UN ELEMENTO SEGUN SU VALOR
@@ -173,6 +174,8 @@ export class NewJobComponent implements OnInit, OnDestroy {
   // SEGUN EL ESTATUS MOSTRARA UNA PANTALLA U OTRA
   identificarVista() {
     if (this.vistaModificacion == true) {
+      const boton = document.getElementsByName("btnProgramar")[0];
+      boton.classList.add("fechas");
       this.textoBoton = "ACTUALIZAR";
       this.asignarValores();
     } else {
@@ -301,12 +304,30 @@ export class NewJobComponent implements OnInit, OnDestroy {
   // FUNCION QUE ACTIVA LOS ELEMENTOS HTML DEL FORMULARIO 
   // ELEMNTOS NECESARIOS PARA PROGRAMAR UNA VACANTE
   verProgramar() {
+    this.activarProgramada();
     this.fechaProgramada = new Date;
-    this.programarPB = false;
-    this.programarP = true;
+  //  
+  //  this.programarP = true;
     this.publicarAhora = false;
   }
 
+  activarProgramada(){
+    const boton = document.getElementsByName("btnProgramar")[0];
+    const fechas = document.getElementsByName("fechaP")[0];
+    if(this.textoProgramada === "PROGRAMAR VACANTE"){
+      this.textoProgramada = "LA VACANTE ES PROGRAMADA";
+      this.programarPB = false;
+      boton.classList.add("activarBtn");
+      fechas.classList.remove("fechas");
+      this.textoBotonF = "PROGRAMAR";
+    } else if(this.textoProgramada === "LA VACANTE ES PROGRAMADA"){
+      this.textoProgramada = "PROGRAMAR VACANTE";
+      this.programarPB = true;
+      boton.classList.remove("activarBtn");
+      fechas.classList.add("fechas");
+      this.textoBotonF = "PUBLICAR";
+    }
+  }
 
   // FUNCION QUE OCULTA LOS ERRORES DE CAPTURA 
   activartodo() {
@@ -639,6 +660,44 @@ export class NewJobComponent implements OnInit, OnDestroy {
     } else {
 
     }
+  }
+
+  vacantePre: Vacante = new Vacante
+
+  vistaPrevia(){
+      this.vacantePre.id_vacante =  this.vacante.id_vacante,
+      this.vacantePre.nombreVacante =  this.nombreVacante,
+      this.vacantePre.especialista =  this.especialista,
+      this.vacantePre.sueldo =  this.sueldo,
+      this.vacantePre.horario =  this.horario,
+      this.vacantePre.domicilio = this.domicilio,
+      this.vacantePre.fechaPublicacionSrt =  "",
+      this.vacantePre.diasPublicada =  0,
+      this.vacantePre.municipio =  this.municipioSeleccionado,
+      this.vacantePre.estado = this.estadoSeleccionado,
+      this.vacantePre.estatus = true,
+      this.vacantePre.descripcion =  this.descripcion,
+      this.vacantePre.empresa =  this.empresaSelecionada,
+      this.vacantePre.empleador =  this.empleador,
+      this.vacantePre.candidatos = [],
+      this.vacantePre.tipoHorario =  this.horarioSeleccionado,
+      this.vacantePre.tipoContratacion =  this.contratacionSeleccionada,
+      this.vacantePre.modalidadTrabajo =  this.modalidadSeleccionada,
+      this.vacantePre.id_postulacion = 0,
+
+    this._UserRequest.actualizarVacante(this.vacantePre);
+
+    this.preview = true;
+  }
+
+  cerrar(){
+    this.preview = false;
+    this.vacantePre = new Vacante;
+    this._UserRequest.actualizarVacante(this.vacantePre);
+  }
+
+  cerrarEmpresas(){
+    this.ocultarRegistro = true;
   }
 
   // FUNCION PARA PUBLICAR LA VACANTE DE MANERA AUTOMATICA

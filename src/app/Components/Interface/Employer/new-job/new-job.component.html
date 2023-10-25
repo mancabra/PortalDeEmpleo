@@ -1,425 +1,441 @@
-<div style="display: flex;" [ngClass]="{'':ocultarRegistro, 'pantalla':!ocultarRegistro}">
-    <div class="cajaIzquierda">
-        <div style="text-align: center; margin-bottom: .5rem; padding-left: 1rem; padding-right: 1rem;">
-            <b>DATOS DE LA VACANTE</b>
-            <hr>
-        </div>
-        <div style="padding: 1rem;">
-        
-            <div style="display: flex;">
-                <div style="display:grid; margin-bottom: 1rem; width: 50%; margin-right: .5rem;">
-                    <div style="width: 100%;">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-6" style="padding-left: 0%; padding-bottom: .3rem;">
-                                    Nombre*
-                                </div>
-                                <div class="col" style="color: red; font-size: x-small; text-align: right;"  [ngClass]="{'view':errorNombre, '':!errorNombre}">
-                                    {{textoErrorNombre}}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div style="display: flex;">
-                        <div style="width: 100%;">
-                            <input class="form-control" type="text" placeholder="Ingrese el nombre de la vacante"
-                                aria-label="default input example" [(ngModel)]="nombreVacante">
-                        </div>
-                    </div>
-                </div>
-
-                <div style="display:grid; margin-bottom: 1rem; width: 50%; margin-left: 1rem;">
-                    <div style="width: 100%;">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-12" style="padding-left: 0%; padding-bottom: .3rem;">
-                                    Especialista
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div style="display: flex;">
-                        <div style="width: 100%;">
-                            <input class="form-control" type="text" placeholder="Ingrese el especialista requerido"
-                                aria-label="default input example" [(ngModel)]="especialista">
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div style="display: flex;">
-                <div style="display:grid; margin-bottom: 1rem; width: 50%; margin-right: .5rem;">
-                    <div style="width: 100%;">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-6" style="padding-left: 0%; padding-bottom: .3rem;">
-                                   Emprasa*
-                                </div>
-                                <div class="col" style="color: red; font-size: x-small; text-align: right;" [ngClass]="{'view':errorEmpresa, '':!errorEmpresa}">
-                                    Campo Obligatorio*
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div style="display: flex;">
-                        <div class="input-group dropup">
-                            <button class="btn btn-outline-secondary dropdown-toggle" type="button"
-                                data-bs-toggle="dropdown" aria-expanded="false"
-                                style="width: 100%;">{{empresaSelecionada.nombre}}</button>
-
-                            <ul class="dropdown-menu">
-                                <div class="scrollMenu">
-                                    <li><button class="dropdown-item" type="button"
-                                            *ngFor="let empresaSeleccionada of empresasRegistradas"
-                                            (click)="actualizarEmpresa(empresaSeleccionada)">{{empresaSeleccionada.nombre}}</button>
-                                    </li>
-                                </div>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-                <div style="display:grid; margin-bottom: 1rem; width: 50%; margin-left: 1rem;">
-                    <div style="width: 100%;">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-12" style="padding-left: 0%; padding-bottom: .3rem; color: white;">
-                                    Registar
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div>
-                        <div class="d-grid gap-2">
-                            <button type="button" class="btn btn-outline-danger" (click)="RegistarEmpresa()">REGISTRAR UNA EMPRESA</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div style="display: flex;">
-                <div style="display:grid; margin-bottom: 1rem; width: 50%; margin-right: .5rem;">
-                    <div style="width: 100%;">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-6" style="padding-left: 0%; padding-bottom: .3rem;">
-                                    Salario mensual*
-                                </div>
-                                <div class="col" style="color: red; font-size: x-small; text-align: right;" [ngClass]="{'view':errorSueldo, '':!errorSueldo}">
-                                    {{textoErrorSueldo}}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div style="display: flex;">
-                        <div style="width: 100%;">
-                            <div class="input-group">
-                                <span class="input-group-text">$</span>
-                                <input type="number" class="form-control" aria-label="Amount (to the nearest dollar)"
-                                    placeholder="10,000" [(ngModel)]="sueldo">
-                                <span class="input-group-text">MXN</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div style="display:grid; margin-bottom: 1rem; width: 50%; margin-left: 1rem;">
-                    <div style="width: 100%;">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-6" style="padding-left: 0%; padding-bottom: .3rem;">
-                                    Ubicación*
-                                </div>
-                                <div class="col" style="color: red; font-size: x-small; text-align: right;" [ngClass]="{'view':errorUbicacion, '':!errorUbicacion}">
-                                    {{textoErrorDomicilio}}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div style="display: flex;">
-                        <div style="width: 100%;">
-                            <input class="form-control" type="text" placeholder="Av. Primavera int.4 Ext.5"
-                                aria-label="default input example" [(ngModel)]="domicilio">
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div style="display: flex;">
-                <div style="display:grid; margin-bottom: 1rem; width: 50%; margin-right: .5rem;">
-                    <div style="width: 100%;">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-6" style="padding-left: 0%; padding-bottom: .3rem;">
-                                    Estado*
-                                </div>
-                                <div class="col" style="color: red; font-size: x-small; text-align: right;" [ngClass]="{'view':errorEstado, '':!errorEstado}">
-                                    Campo Obligatorio*
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div style="display: flex;">
-                        <div style="width: 100%;">
-                            <div class="input-group dropup">
-                                <button class="btn btn-outline-secondary dropdown-toggle" type="button"
-                                    data-bs-toggle="dropdown" aria-expanded="false"
-                                    style="width: 100%;">{{estadoSeleccionado.nombreEstado}}</button>
-
-                                <ul class="dropdown-menu">
-                                    <div class="scrollMenu">
-                                        <li><button class="dropdown-item" type="button"
-                                                *ngFor="let estadoSeleccion of estadosDeMexico"
-                                                (click)="actualizarEstado(estadoSeleccion)">{{estadoSeleccion.nombreEstado}}</button>
-                                        </li>
-                                    </div>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div style="display:grid; margin-bottom: 1rem; width: 50%; margin-left: 1rem;">
-                    <div style="width: 100%;">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-6" style="padding-left: 0%; padding-bottom: .3rem;">
-                                    Municipio*
-                                </div>
-                                <div class="col" style="color: red; font-size: x-small; text-align: right;" [ngClass]="{'view':errorMunicipio, '':!errorMunicipio}">
-                                    Campo Obligatorio*
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div style="display: flex;">
-                        <div style="width: 100%;">
-                            <div class="input-group dropup">
-                                <button class="btn btn-outline-secondary dropdown-toggle" type="button"
-                                    data-bs-toggle="dropdown" aria-expanded="false" style="width: 100%;"
-                                    [ngStyle]="{'pointer-events':bloquearMunicipio}">{{municipioSeleccionado.nombreMunicipio}}</button>
-
-                                <ul class="dropdown-menu">
-                                    <div class="scrollMenu">
-                                        <li><button class="dropdown-item" type="button"
-                                                *ngFor="let municipioSeleccion of municipiosDeMexico"
-                                                (click)="actualizarMunicipio(municipioSeleccion)">{{municipioSeleccion.nombreMunicipio}}</button>
-                                        </li>
-                                    </div>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div style="display: flex;">
-                <div style="display:grid; margin-bottom: 1rem; width: 50%; margin-right: .5rem;">
-                    <div style="width: 100%;">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-6" style="padding-left: 0%; padding-bottom: .3rem;">
-                                    Tipo de horario*
-                                </div>
-                                <div class="col" style="color: red; font-size: x-small; text-align: right;" [ngClass]="{'view':errorTipoHorario, '':!errorTipoHorario}">
-                                    Campo Obligatorio*
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div style="display: flex;">
-                        <div style="width: 100%;">
-                            <div class="input-group dropup">
-                                <button class="btn btn-outline-secondary dropdown-toggle" type="button"
-                                    data-bs-toggle="dropdown" aria-expanded="false"
-                                    style="width: 100%;">{{horarioSeleccionado.dias}}</button>
-
-                                <ul class="dropdown-menu">
-                                    <div class="scrollMenu">
-                                        <li><button class="dropdown-item" type="button"
-                                                *ngFor="let horarioSeleccion of tiposDeHorario"
-                                                (click)="actualizarHorario(horarioSeleccion)">{{horarioSeleccion.dias}}</button>
-                                        </li>
-                                    </div>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div style="display:grid; margin-bottom: 1rem; width: 50%; margin-left: 1rem;">
-                    <div style="width: 100%;">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-6" style="padding-left: 0%; padding-bottom: .3rem;">
-                                    Horario laboral*
-                                </div>
-                                <div class="col" style="color: red; font-size: x-small; text-align: right;" [ngClass]="{'view':errorHorarioLaboral, '':!errorHorarioLaboral}">
-                                    {{textoErrorHorario}}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div style="display: flex;">
-                        <div style="width: 100%;">
-                            <div class="input-group">
-                                <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="9:00 am - 6:00 pm" [(ngModel)]="horario">
-                                    <span class="input-group-text">hrs</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div style="display: flex;">
-                <div style="display:grid; margin-bottom: 1rem; width: 50%; margin-right: .5rem;">
-                    <div style="width: 100%;">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-6" style="padding-left: 0%; padding-bottom: .3rem;">
-                                    Modalidad*
-                                </div>
-                                <div class="col" style="color: red; font-size: x-small; text-align: right;" [ngClass]="{'view':errorModalidad, '':!errorModalidad}">
-                                    Campo Obligatorio*
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div style="display: flex;">
-                        <div style="width: 100%;">
-                            <div class="input-group dropup">
-                                <button class="btn btn-outline-secondary dropdown-toggle" type="button"
-                                    data-bs-toggle="dropdown" aria-expanded="false"
-                                    style="width: 100%;">{{modalidadSeleccionada.modalidad}}</button>
-
-                                <ul class="dropdown-menu">
-                                    <div class="scrollMenu">
-                                        <li><button class="dropdown-item" type="button"
-                                                *ngFor="let modalidadSeleccion of tiposDeModalidad"
-                                                (click)="actualizarModalidad(modalidadSeleccion)">{{modalidadSeleccion.modalidad}}</button>
-                                        </li>
-                                    </div>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div style="display:grid; margin-bottom: 1rem; width: 50%; margin-left: 1rem;">
-                    <div style="width: 100%;">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-6" style="padding-left: 0%; padding-bottom: .3rem;">
-                                    Contratación*
-                                </div>
-                                <div class="col" style="color: red; font-size: x-small; text-align: right;" [ngClass]="{'view':errorContratacion, '':!errorContratacion}">
-                                    Campo Obligatorio*
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div style="display: flex;">
-                        <div style="width: 100%;">
-                            <div class="input-group dropup">
-                                <button class="btn btn-outline-secondary dropdown-toggle" type="button"
-                                    data-bs-toggle="dropdown" aria-expanded="false" style="width: 100%;">
-                                    {{contratacionSeleccionada.horario}}</button>
-
-                                <ul class="dropdown-menu">
-                                    <div class="scrollMenu">
-                                        <li><button class="dropdown-item" type="button"
-                                                *ngFor="let contratacionSeleccion of tiposDeContratacion"
-                                                (click)="actualizarContratacion(contratacionSeleccion)">{{contratacionSeleccion.horario}}</button>
-                                        </li>
-                                    </div>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div>
-                <div style="display:grid;">
-                    <div style="width: 100%;">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-9" style="padding-left: 0%; padding-bottom: .3rem;">
-                                    Descripción del Puesto:*
-                                </div>
-                                <div class="col" style="color: red; font-size: x-small; text-align: right;" [ngClass]="{'view':errorDescripcion, '':!errorDescripcion}">
-                                    {{textoErrorDescripcion}}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div style="display: flex;">
-                        <div style="width: 100%;">
-                            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" [(ngModel)]="descripcion"></textarea>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-    </div>
-
-    <div class="cajaDerecha">
-        <div style="text-align: center; margin-bottom: 2rem; padding-left: 1rem; padding-right: 1rem;">
-            <b>VISTA PREVIA</b>
-            <hr>
-        </div>
-        <div style="padding: 1rem;">
+<h1 class="tituloInfitec">Creación de vacantes</h1>
+<div class="contenedor">
+    <div class="datos">
+        <div class="formulario">
             <div style="display:grid;">
-                <div *ngIf="cargarPantalla(); else pantallaVacia">
-                    <div class="card" style="width: 100%;">
-                        <app-job [nombre]="nombreVacante"
-                                 [especialista]="especialista"
-                                 [sueldo]="sueldo"
-                                 [verSueldo]="verSueldo"
-                                 [horario]="horario"
-                                 [domicilio]="domicilio"
-                                 [descripcion]="descripcion"
-                                 [tipoContratacion]="contratacionSeleccionada"
-                                 [tipoHorario]="horarioSeleccionado"
-                                 [modalidadTrabajo]="modalidadSeleccionada"
-                                 [estado]="estadoSeleccionado"
-                                 [municipio]="municipioSeleccionado"
-                                 [empleador]="empleador"
-                                 [empresa]="empresaSelecionada"
-
-                        ></app-job>
-                    </div>
-                    <div class="d-grid" style="margin-top: 1rem;">
-                        <button type="button" class="btn btn-outline-success" (click)="validarInformacion()">{{textoBoton}}</button>
-                        <div [ngClass]="{'view':programarPB, '':!programarPB}">
-                            <input class="form-control" type="date"
-                            aria-label="default input example" [(ngModel)]="fechaProgramada" style="margin-top: .5rem; width: 100%;">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-6 textoNormal" style="padding-left: 0%; padding-bottom: .3rem;">
+                            Nombre de la vacante*
                         </div>
-                        <div [ngClass]="{'view':programarP, '':!programarP}">
-                            <button type="button" class="btn btn-outline-warning d-grid" (click)="verProgramar()"  style="margin-top: .5rem; width: 100%;">{{textoBotonF}}</button>
-                        </div>
-                        <div [ngClass]="{'view':programarPB, '':!programarPB}">
-                            <button type="button" class="btn btn-outline-warning d-grid" (click)="validarProgramar()"  style="margin-top: .5rem; width: 100%;">{{textoBotonF}}</button>
+                        <div class="col" style="color: red; font-size: x-small; text-align: right;"
+                            [ngClass]="{'view':errorNombre, '':!errorNombre}">
+                            {{textoErrorNombre}}
                         </div>
                     </div>
                 </div>
-              
-                <ng-template #pantallaVacia>
-                    <p style="text-align: center;">La vista previa no esta disponible</p>
-                </ng-template>
+            </div>
+            <div>
+                <div style="width: 100%;">
+                    <input class="form-control contornos" type="text" placeholder="Ingrese el nombre de la vacante"
+                        aria-label="default input example" [(ngModel)]="nombreVacante">
+                </div>
+            </div>
+        </div>
+
+        <div class="formulario">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 textoNormal" style="padding-left: 0%; padding-bottom: .3rem;">
+                        Especialista requerido
+                    </div>
+                </div>
+            </div>
+
+
+            <div style="display: flex;">
+                <div style="width: 100%;">
+                    <input class="form-control contornos " type="text" placeholder="Ingrese el especialista requerido"
+                        aria-label="default input example" [(ngModel)]="especialista">
+                </div>
+            </div>
+        </div>
+
+        <div class="formulario">
+            <div style="width: 100%;">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-6 textoNormal" style="padding-left: 0%; padding-bottom: .3rem;">
+                            Salario mensual*
+                        </div>
+                        <div class="col" style="color: red; font-size: x-small; text-align: right;"
+                            [ngClass]="{'view':errorSueldo, '':!errorSueldo}">
+                            {{textoErrorSueldo}}
+                        </div>
+                    </div>
+                </div>
+                <div style="display: flex;">
+                    <div style="width: 100%;">
+                        <div class="input-group">
+                            <span class="input-group-text informativo">$</span>
+                            <input type="number" class="form-control contornos"
+                                aria-label="Amount (to the nearest dollar)" placeholder="10,000" [(ngModel)]="sueldo">
+                            <span class="input-group-text informativo">MXN</span>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </div>
 
+<div class="contenedor">
+    <div class="datos">
+        <div class="formulario">
+            <div class="container">
+                <div class="row">
+                    <div class="col-6 textoNormal" style="padding-left: 0%; padding-bottom: .3rem;">
+                        Emprasa que contrata*
+                    </div>
+                    <div class="col" style="color: red; font-size: x-small; text-align: right;"
+                        [ngClass]="{'view':errorEmpresa, '':!errorEmpresa}">
+                        Campo Obligatorio*
+                    </div>
+                </div>
+            </div>
+
+            <div style="display: flex;">
+                <div class="input-group dropup">
+                    <button class="btn boton dropdown-toggle contornos" type="button" data-bs-toggle="dropdown"
+                        aria-expanded="false" style="width: 100%;">{{empresaSelecionada.nombre}}</button>
+
+                    <ul class="dropdown-menu">
+                        <div class="scrollMenu">
+                            <li><button class="dropdown-item menuDesp" type="button"
+                                    *ngFor="let empresaSeleccionada of empresasRegistradas"
+                                    (click)="actualizarEmpresa(empresaSeleccionada)">{{empresaSeleccionada.nombre}}</button>
+                            </li>
+                        </div>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="formulario">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12" style="padding-left: 0%; padding-bottom: .3rem; color: white;">
+                        &nbsp;
+                    </div>
+                </div>
+            </div>
+
+            <button type="button" class="btn botonRegistro" (click)="RegistarEmpresa()">REGISTRAR
+                UNA EMPRESA</button>
+        </div>
+
+        <div class="formulario">
+            <div class="container">
+                <div class="row">
+                    <div class="col-6 textoNormal" style="padding-left: 0%; padding-bottom: .3rem;">
+                        Tipo de contratación*
+                    </div>
+                    <div class="col" style="color: red; font-size: x-small; text-align: right;"
+                        [ngClass]="{'view':errorContratacion, '':!errorContratacion}">
+                        Campo Obligatorio*
+                    </div>
+                </div>
+            </div>
+
+            <div style="width: 100%;">
+                <div class="input-group dropup">
+                    <button class="btn boton dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                        aria-expanded="false" style="width: 100%;">
+                        {{contratacionSeleccionada.horario}}</button>
+
+                    <ul class="dropdown-menu">
+                        <div class="scrollMenu">
+                            <li><button class="dropdown-item menuDesp" type="button"
+                                    *ngFor="let contratacionSeleccion of tiposDeContratacion"
+                                    (click)="actualizarContratacion(contratacionSeleccion)">{{contratacionSeleccion.horario}}</button>
+                            </li>
+                        </div>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="contenedor">
+    <div class="datos">
+        <div class="formulario">
+            <div class="container">
+                <div class="row">
+                    <div class="col-6 textoNormal" style="padding-left: 0%; padding-bottom: .3rem;">
+                        Ubicación*
+                    </div>
+                    <div class="col" style="color: red; font-size: x-small; text-align: right;"
+                        [ngClass]="{'view':errorUbicacion, '':!errorUbicacion}">
+                        {{textoErrorDomicilio}}
+                    </div>
+                </div>
+            </div>
+
+            <div style="width: 100%;">
+                <input class="form-control contornos" type="text" placeholder="Av. Primavera int.4 Ext.5"
+                    aria-label="default input example" [(ngModel)]="domicilio">
+            </div>
+        </div>
+
+        <div class="formulario">
+            <div class="container">
+                <div class="row">
+                    <div class="col-6 textoNormal" style="padding-left: 0%; padding-bottom: .3rem;">
+                        Estado*
+                    </div>
+                    <div class="col" style="color: red; font-size: x-small; text-align: right;"
+                        [ngClass]="{'view':errorEstado, '':!errorEstado}">
+                        Campo Obligatorio*
+                    </div>
+                </div>
+            </div>
+            <div style="width: 100%;">
+                <div class="input-group dropup">
+                    <button class="btn boton dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                        aria-expanded="false" style="width: 100%;">{{estadoSeleccionado.nombreEstado}}</button>
+
+                    <ul class="dropdown-menu">
+                        <div class="scrollMenu">
+                            <li><button class="dropdown-item menuDesp" type="button"
+                                    *ngFor="let estadoSeleccion of estadosDeMexico"
+                                    (click)="actualizarEstado(estadoSeleccion)">{{estadoSeleccion.nombreEstado}}</button>
+                            </li>
+                        </div>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="formulario">
+            <div class="container">
+                <div class="row">
+                    <div class="col-6 textoNormal" style="padding-left: 0%; padding-bottom: .3rem;">
+                        Municipio*
+                    </div>
+                    <div class="col" style="color: red; font-size: x-small; text-align: right;"
+                        [ngClass]="{'view':errorMunicipio, '':!errorMunicipio}">
+                        Campo Obligatorio*
+                    </div>
+                </div>
+            </div>
+            <div style="width: 100%;">
+                <div class="input-group dropup">
+                    <button class="btn boton dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                        aria-expanded="false" style="width: 100%;"
+                        [ngStyle]="{'pointer-events':bloquearMunicipio}">{{municipioSeleccionado.nombreMunicipio}}</button>
+
+                    <ul class="dropdown-menu">
+                        <div class="scrollMenu">
+                            <li><button class="dropdown-item menuDesp" type="button"
+                                    *ngFor="let municipioSeleccion of municipiosDeMexico"
+                                    (click)="actualizarMunicipio(municipioSeleccion)">{{municipioSeleccion.nombreMunicipio}}</button>
+                            </li>
+                        </div>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="contenedor">
+    <div class="datos">
+        <div class="formulario">
+            <div class="container">
+                <div class="row">
+                    <div class="col-6 textoNormal" style="padding-left: 0%; padding-bottom: .3rem;">
+                        Tipo de horario*
+                    </div>
+                    <div class="col" style="color: red; font-size: x-small; text-align: right;"
+                        [ngClass]="{'view':errorTipoHorario, '':!errorTipoHorario}">
+                        Campo Obligatorio*
+                    </div>
+                </div>
+            </div>
+
+            <div style="width: 100%;">
+                <div class="input-group dropup">
+                    <button class="btn boton dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                        aria-expanded="false" style="width: 100%;">{{horarioSeleccionado.dias}}</button>
+
+                    <ul class="dropdown-menu">
+                        <div class="scrollMenu">
+                            <li><button class="dropdown-item" type="button"
+                                    *ngFor="let horarioSeleccion of tiposDeHorario"
+                                    (click)="actualizarHorario(horarioSeleccion)">{{horarioSeleccion.dias}}</button>
+                            </li>
+                        </div>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="formulario">
+            <div class="container">
+                <div class="row">
+                    <div class="col-6 textoNormal" style="padding-left: 0%; padding-bottom: .3rem;">
+                        Horario laboral*
+                    </div>
+                    <div class="col" style="color: red; font-size: x-small; text-align: right;"
+                        [ngClass]="{'view':errorHorarioLaboral, '':!errorHorarioLaboral}">
+                        {{textoErrorHorario}}
+                    </div>
+                </div>
+            </div>
+
+            <div style="width: 100%;">
+                <div class="input-group">
+                    <div class="input-group">
+                        <input type="text" class="form-control contornos" placeholder="9:00 am - 6:00 pm"
+                            [(ngModel)]="horario">
+                        <span class="input-group-text informativo">hrs</span>
+                    </div>
+                </div>
+            </div>
+<!--  
+            <div class="input-group">
+                <input type="number" class="form-control contornos" aria-label="Amount (to the nearest dollar)"
+                    placeholder="10,000" [(ngModel)]="sueldo">
+                <span class="input-group-text formularioBlanco" style="width: 6px;">:</span>
+                <input type="number" class="form-control contornos" aria-label="Amount (to the nearest dollar)"
+                    placeholder="10,000" [(ngModel)]="sueldo">
+                <span class="input-group-text formularioBlanco">am</span>
+
+                <input type="number" class="form-control contornos" aria-label="Amount (to the nearest dollar)"
+                    placeholder="10,000" [(ngModel)]="sueldo">
+                <span class="input-group-text formularioBlanco" style="width: 6px;">:</span>
+                <input type="number" class="form-control contornos" aria-label="Amount (to the nearest dollar)"
+                    placeholder="10,000" [(ngModel)]="sueldo">
+                <span class="input-group-text formularioBlanco">pm</span>
+            </div>
+-->
+        </div>
+
+        <div class="formulario">
+            <div class="container">
+                <div class="row">
+                    <div class="col-6 textoNormal" style="padding-left: 0%; padding-bottom: .3rem;">
+                        Modalidad de trabajo*
+                    </div>
+                    <div class="col" style="color: red; font-size: x-small; text-align: right;"
+                        [ngClass]="{'view':errorModalidad, '':!errorModalidad}">
+                        Campo Obligatorio*
+                    </div>
+                </div>
+            </div>
+
+            <div style="width: 100%;">
+                <div class="input-group dropup">
+                    <button class="btn boton dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                        aria-expanded="false" style="width: 100%;">{{modalidadSeleccionada.modalidad}}</button>
+
+                    <ul class="dropdown-menu">
+                        <div class="scrollMenu">
+                            <li><button class="dropdown-item" type="button"
+                                    *ngFor="let modalidadSeleccion of tiposDeModalidad"
+                                    (click)="actualizarModalidad(modalidadSeleccion)">{{modalidadSeleccion.modalidad}}</button>
+                            </li>
+                        </div>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="contenedor">
+    <div class="datos">
+        <div class="descripcion">
+            <div class="container">
+                <div class="row">
+                    <div class="col-9 textoNormal" style="padding-left: 0%; padding-bottom: .3rem;">
+                        Descripción del Puesto:*
+                    </div>
+                    <div class="col" style="color: red; font-size: x-small; text-align: right;"
+                        [ngClass]="{'view':errorDescripcion, '':!errorDescripcion}">
+                        {{textoErrorDescripcion}}
+                    </div>
+                </div>
+            </div>
+            <div style="display: flex;">
+                <div style="width: 100%;">
+                    <textarea class="form-control contornos" id="exampleFormControlTextarea1" rows="3"
+                        [(ngModel)]="descripcion"></textarea>
+                </div>
+            </div>
+        </div>
+
+        <div class="descripcion">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 textoNormal" style="padding-left: 0%; padding-bottom: .3rem; ">
+                        &nbsp;
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <button name="btnProgramar" type="button" class="btn btnProgramar d-grid" (click)="verProgramar()"
+                    style="width: 100%;">{{textoProgramada}}</button>
+            </div>
+
+            <div>
+                <input name="fechaP" class="form-control contornos fechas" type="date"
+                    aria-label="default input example" [(ngModel)]="fechaProgramada"
+                    style="margin-top: .6rem; width: 100%;">
+            </div>
+        </div>
+    </div>
+</div>
+<!--  -->
+<div class="contenedor">
+    <div class="datos">
+        <div class="descripcion">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 textoNormal" style="padding-left: 0%; padding-bottom: .3rem; ">
+                        &nbsp;
+                    </div>
+                </div>
+            </div>
+            <div [ngClass]="{'view':vistaModificacion, '':!vistaModificacion}">
+                <div style="width: 100%;" [ngClass]="{'':programarPB, 'view':!programarPB}">
+                    <button type="button" class="btn boton d-grid" (click)="validarInformacion()"
+                    style="width: 100%;">{{textoBotonF}}</button>
+                </div>
+                <div style="width: 100%;" [ngClass]="{'view':programarPB, '':!programarPB}">
+                    <button type="button" class="btn btnProgramar d-grid" (click)="validarProgramar()"
+                        style="width: 100%;">{{textoBotonF}}</button>
+                </div>
+            </div>
+            <div [ngClass]="{'':vistaModificacion, 'view':!vistaModificacion}">
+                <button type="button" class="btn btn-outline-success" (click)="validarInformacion()"
+                style="width: 100%;">{{textoBoton}}</button>
+            </div>
+        </div>
+
+        <div class="descripcion">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 textoNormal" style="padding-left: 0%;">
+                        &nbsp;
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <button type="button" class="btn boton d-grid" (click)="vistaPrevia()"
+                style="width: 100%; margin-top: .3rem;">VISTA PREVIA</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--  -->
+
 <div>
-    <div class="contenedorComponent" [ngClass]="{'view':ocultarRegistro, '':!ocultarRegistro}"> 
+
+    <button type="button" class="btn-close cerrar" [ngClass]="{'':preview, 'view':!preview}" aria-label="Close" (click)="cerrar()"></button>
+
+    <div class="preview" [ngClass]="{'':preview, 'view':!preview}">
+        <div class="card">
+            <app-job></app-job>
+        </div>
+       
+    </div>
+
+    <button type="button" class="btn-close cerrarEmpresas" [ngClass]="{'view':ocultarRegistro, '':!ocultarRegistro}" aria-label="Close" (click)="cerrarEmpresas()"></button>
+    <div class="contenedorComponent" [ngClass]="{'view':ocultarRegistro, '':!ocultarRegistro}">
         <app-company-create (ocultarRegistro)="ocultarRegistro = $event"></app-company-create>
     </div>
 </div>

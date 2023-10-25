@@ -17,10 +17,6 @@ import { InterfaceService } from 'src/app/Services/InterfaceServices/interface.s
 })
 export class JobComponent implements OnDestroy {
 
-  // VARIABLES PARA AL MACENAR DATOS DE UNA VACANTE
-  // LOS DATOS ALMACENADOS PROVIENEN DE UN COMPONENTE EXTERIOR
-  vacante: Vacante = new Vacante;
-
   // VARIABLES PARA AL MACENAR DATOS INDIVIDUALES
   // LOS DATOS ALMACENADOS PROVIENEN DE UN COMPONENTE EXTERIOR
   @Input() nombre: string = "";
@@ -42,7 +38,7 @@ export class JobComponent implements OnDestroy {
 
   constructor(private _UserRequest: InterfaceService) {
     this.subscription = this._UserRequest.getVacante().subscribe(data => {
-      this.asignarDatos(data);
+     this.asignarDatos(data);
     });
   }
   ngOnInit() {
@@ -67,6 +63,18 @@ export class JobComponent implements OnDestroy {
     this.municipio = vacante.municipio;
     this.empresa = vacante.empresa;
     this._UserRequest.actualizarPantalla(true);
+    this.ocultar();
+    this.aparecer();
+  }
+
+  ocultar(){
+    const pantalla = document.getElementsByName("contenedor")[0];
+    pantalla.className = "estilos";
+  }
+
+  aparecer(){
+    const pantalla = document.getElementsByName("contenedor")[0];
+    pantalla.className = "aparecer";
   }
 
   funcionEstilos() {

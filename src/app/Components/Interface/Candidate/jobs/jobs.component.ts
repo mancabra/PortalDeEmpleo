@@ -76,10 +76,10 @@ export class JobsComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.filtrosDisponibles = ["Ninguno", "Mejor Pagados", "Estado"];
     this.vacanteSeleccionada = new Vacante;
-    this.buscarUsuario();
-    this.obtenerVacantes();
-    this.obtenerEstados();
-    //this.cargarMuestra();
+    //this.buscarUsuario();
+    //this.obtenerVacantes();
+    //this.obtenerEstados();
+    this.cargarMuestra();
   }
 
   ngOnDestroy(): void {
@@ -307,7 +307,7 @@ export class JobsComponent implements OnInit, OnDestroy {
 
   // FUNCION PARA GUARDAR LA VACANTE ACTUAL Y PODER VISUALIZARLA EN UN COMPONENTE EXTERNO
   verVacanteCompleta(vacante: Vacante) {
-    this._UserRequest.actualizarVacante(vacante)
+    this._UserRequest.actualizarVacante(vacante);
   }
 
   // FUNCION PARA ACTUALIZAR EL FILTRO SELECCIONADO

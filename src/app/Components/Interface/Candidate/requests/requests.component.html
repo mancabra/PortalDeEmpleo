@@ -3,8 +3,8 @@
 <div *ngIf="cargarPantalla(); else PantallaVacia" style="display: block; margin-bottom: 9rem;">
     <div class="fijar">
         <div class="contenedorBusqueda">
-            <div class="card botonBT">
-                <button type="button" class="btn" style="width: 100%; background-color: red; color: white;"
+            <div name ="btnBorrar" class="card botonBT">
+                <button  name="btnBTodo" type="button" class="btn botonInfotec"
                     (click)="quitarTodas()">ELIMINAR TODAS LAS
                     POSTULACIONES</button>
             </div>
@@ -13,8 +13,11 @@
     
     <div style=" margin-top: 3rem;">
         <div class="card " style="margin-top: 1rem;" name="postulacion" *ngFor="let postulacion of postulaciones">
+            <div class="bordeSuperior">
+                &nbsp;
+              </div>
             <div class="card-body">
-                <h3 class="card-title">{{postulacion.vacante.nombreVacante}}</h3>
+                <h3 class="card-title">{{postulacion.vacante.nombreVacante}} / {{postulacion.vacante.especialista}}</h3>
                 <p class="card-text textoInformativo" style="padding-bottom: 0rem;">
                     Empresa que contrata: {{postulacion.vacante.empresa.nombre}}
                     <br> Ubicación:
@@ -45,7 +48,7 @@
                                 {{postulacion.vacante.sueldo}} mxn </a>
                         </div>
                         <div class="col">
-                            <a class="btn" style="width: 100%; font-size: small; background-color: red; color: white;"
+                            <a class="btn borrarBtn"
                                 (click)="eliminarPostulacion(postulacion)">eliminar Postulacion</a>
                         </div>
                     </div>

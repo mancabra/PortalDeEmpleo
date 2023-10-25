@@ -16,11 +16,11 @@
                     <div class="card text" style="height: 200px;">
                         <img [src]="imagenPort" *ngFor="let imagenPort of imgPortada" class="card-img" alt="..."
                             style="height: 200px;">
-                            <div class="card-img-overlay">
-                                <h5 class="card-title" [ngClass]="{'view':perfilTipoCandidato, '':!perfilTipoCandidato}">
-                                    <b class="profesion">{{candidato.profesion}} </b>
-                                </h5>
-                            </div>
+                        <div class="card-img-overlay">
+                            <h5 class="card-title" [ngClass]="{'view':perfilTipoCandidato, '':!perfilTipoCandidato}">
+                                <b class="profesion">{{candidato.profesion}} </b>
+                            </h5>
+                        </div>
                         <div class="card-img-overlay" style="text-align: right;">
                             <h5 class="card-title" style="padding: 0; margin-right:1rem;">
                                 <div>
@@ -32,11 +32,14 @@
                                                 ···
                                             </label>
                                             <ul class="dropdown-menu">
-                                                <li><a class="dropdown-item" (click)="cerrarSesion();">Cerrar Sesion</a>
+                                                <li><a class="dropdown-item menuDesp" (click)="cerrarSesion();">Cerrar
+                                                        Sesion</a>
                                                 </li>
-                                                <li><a class="dropdown-item" (click)="modificarDatosPerfil()">Modificar
+                                                <li><a class="dropdown-item menuDesp"
+                                                        (click)="modificarDatosPerfil()">Modificar
                                                         Perfil</a></li>
-                                                <li><a class="dropdown-item" (click)="suspenderCuenta();">Suspender
+                                                <li><a class="dropdown-item menuDesp"
+                                                        (click)="suspenderCuenta();">Suspender
                                                         Cuenta</a></li>
 
                                             </ul>
@@ -57,23 +60,23 @@
 
             <div class="caja">
                 <div class="cajaIzquierda">
-                    <div class="info" >
-                        <h6 style="margin-right: .3rem; font-size:xx-large;"
+                    <div class="info">
+                        <h6 class="letrasInfotec" style="margin-right: .3rem; font-size:xx-large;"
                             [ngClass]="{'view':perfilTipoCandidato, '':!perfilTipoCandidato}">
                             {{candidato.usuario.nombre}} {{candidato.usuario.apellidoP}} {{candidato.usuario.apellidoM}}
                         </h6>
 
-                        <h6 style="margin-right: .3rem;font-size:xx-large;"
+                        <h6 class="letrasInfotec" style="margin-right: .3rem;font-size:xx-large;"
                             [ngClass]="{'view':perfilTipoEmpleador, '':!perfilTipoEmpleador}">
                             {{empleador.usuario.nombre}} {{empleador.usuario.apellidoP}} {{empleador.usuario.apellidoM}}
                         </h6>
 
-                        <h6 style="margin-right: .3rem;font-size:xx-large;"
+                        <h6 class="letrasInfotec" style="margin-right: .3rem;font-size:xx-large;"
                             [ngClass]="{'view':perfilTipoAdministrador, '':!perfilTipoAdministrador}">
                             {{administrador.usuario.nombre}} {{administrador.usuario.apellidoP}}
                             {{administrador.usuario.apellidoM}}</h6>
 
-                        <h6 style="color: darkgray; font-style: oblique;font-size:xx-large;"
+                        <h6 class="letrasInfotec" style="font-style: oblique;font-size:xx-large;"
                             [ngClass]="{'view':perfilTipoCandidato, '':!perfilTipoCandidato}"> ({{candidato.edad}})</h6>
                     </div>
 
@@ -100,7 +103,7 @@
                                 <p style="font-size:x-small; line-height: 10%;"> - {{idiomaUS.nombreIdioma}}</p>
                             </div>
                         </div>
-        
+
                         <b [ngClass]="{'view':perfilTipoCandidato, '':!perfilTipoCandidato}">Descripción</b>
                         <p style="font-size:x-small; line-height: 150%; text-align: justify; margin-top: .5rem;"
                             [ngClass]="{'view':perfilTipoCandidato, '':!perfilTipoCandidato}">
@@ -110,19 +113,19 @@
 
                     <div class="infoCuerpoD" [ngClass]="{'view':perfilTipoCandidato, '':!perfilTipoCandidato}">
                         <div>
-                                <div class="row">
-                                    <div class="col-2" *ngFor="let habilidadUs of habilidadesUsuario">
-                                        <span class="badge rounded-pill text-bg-secondary"
-                                            style="margin-right: .5rem; margin-bottom: .5rem;">{{habilidadUs.nombreHabilidad}}</span>
-                                    </div>
+                            <div class="row">
+                                <div class="col-3" *ngFor="let habilidadUs of habilidadesUsuario">
+                                    <span class="badge rounded-pills pildora"
+                                        style="margin-right: .5rem; margin-bottom: .5rem;">{{habilidadUs.nombreHabilidad}}</span>
                                 </div>
+                            </div>
                         </div>
                     </div>
                 </div>
 
                 <div class="cajaDerecha" style="padding-bottom: 2rem;">
                     <div class="infoCuerpo">
-                        <div class="card" style="padding: 1rem; width: 250px;">
+                        <div class="card carta" style="padding: 1rem; width: 250px;">
                             <div>
                                 <label style="width: 100%; text-align: center;"> Información de Contacto</label>
                                 <hr class="lineas">
@@ -161,23 +164,23 @@
                                 </div>
                             </div>
                             <div [ngClass]="{'view':perfilTipoCandidato, '':!perfilTipoCandidato}">
-                               
+
                                 <div style="margin-top: 1rem;">
                                     <label style="width: 100%; text-align: center;">Curriculum</label>
                                     <hr class="lineas">
                                 </div>
-    
+
                                 <div class="centrarII">
-                                    <div style="display: flex;" >
+                                    <div style="display: flex;">
                                         <div *ngIf="cargarPantalla(); else pantallaVacia">
-                                           
-                                                <button class="card documento" style="padding: .5rem; margin-right: .3rem;"
-                                                    *ngFor="let documento of documentosCV">
-                                                    <a [href]="documento" target="_blank" style="width: 199px;"><img
-                                                            src="https://firebasestorage.googleapis.com/v0/b/gdi-portalempleo.appspot.com/o/general%2Fpdf.png?alt=media&token=bbcef2fd-aea3-4d5f-9404-99ea57a7f17b"
-                                                            alt="" height="30px" width="30px"> </a>
-                                                </button>
-                    
+
+                                            <button class="card documento" style="padding: .5rem; margin-right: .3rem;"
+                                                *ngFor="let documento of documentosCV">
+                                                <a [href]="documento" target="_blank" style="width: 199px;"><img
+                                                        src="https://firebasestorage.googleapis.com/v0/b/gdi-portalempleo.appspot.com/o/general%2Fpdf.png?alt=media&token=bbcef2fd-aea3-4d5f-9404-99ea57a7f17b"
+                                                        alt="" height="30px" width="30px"> </a>
+                                            </button>
+
                                         </div>
                                         <ng-template #pantallaVacia>
                                             <p style="font-size: x-small;">El usuario no ha cargado ningun CV</p>
@@ -186,10 +189,10 @@
                                 </div>
 
                                 <div style="margin-top: 1rem;">
-                                    <label style="width: 100%; text-align: center;">  Documentos de Especialidad</label>
+                                    <label style="width: 100%; text-align: center;"> Documentos de Especialidad</label>
                                     <hr class="lineas">
                                 </div>
-    
+
                                 <div class="centrarII">
                                     <div style="display: flex;">
                                         <div *ngIf="cargarPantallaII(); else pantallaVacia2">
@@ -204,25 +207,29 @@
                                             </div>
                                              -->
 
-                                             <button class="card documento" style="padding: .5rem; margin-right: .3rem; margin-top: .3rem; width: 217px;"
-                                             *ngFor="let documento of documentosEsp">
-                                             <div class="container text-center">
-                                                <div class="row">
-                                                  <div class="col-3">
-                                                    <a [href]="documento.ruta" target="_blank" style="width: 199px;"><img
-                                                        src="https://firebasestorage.googleapis.com/v0/b/gdi-portalempleo.appspot.com/o/general%2Ffile-text.png?alt=media&token=11d13eb5-410b-48ad-9e31-a76f8707ebee"
-                                                        alt="" height="30px" width="30px"> </a>
-                                                  </div>
-                                                  <div class="col-9" style="font-size: x-small; text-align: center;">
-                                                   {{documento.desc}} 
-                                                  </div>
+                                            <button class="card documento"
+                                                style="padding: .5rem; margin-right: .3rem; margin-top: .3rem; width: 217px;"
+                                                *ngFor="let documento of documentosEsp">
+                                                <div class="container text-center">
+                                                    <div class="row">
+                                                        <div class="col-3">
+                                                            <a [href]="documento.ruta" target="_blank"
+                                                                style="width: 199px;"><img
+                                                                    src="https://firebasestorage.googleapis.com/v0/b/gdi-portalempleo.appspot.com/o/general%2Ffile-text.png?alt=media&token=11d13eb5-410b-48ad-9e31-a76f8707ebee"
+                                                                    alt="" height="30px" width="30px"> </a>
+                                                        </div>
+                                                        <div class="col-9"
+                                                            style="font-size: x-small; text-align: center;">
+                                                            {{documento.desc}}
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                              </div>
-                                             
-                                             </button>
+
+                                            </button>
                                         </div>
                                         <ng-template #pantallaVacia2>
-                                            <p style="font-size: x-small;">El usuario no ha cargado ningun archivo de especialidad</p>
+                                            <p style="font-size: x-small;">El usuario no ha cargado ningun archivo de
+                                                especialidad</p>
                                         </ng-template>
                                     </div>
                                 </div>

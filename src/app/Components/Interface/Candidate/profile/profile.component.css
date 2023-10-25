@@ -68,8 +68,11 @@
 
 .profesion{
     font-size: xx-large;
-    color: black;
-    opacity: .1;
+    color: rgb(97, 34, 50);
+    opacity: .5;
+}
+.letrasInfotec{
+    color: rgb(182,150,100);
 }
 
 .margenes{
@@ -125,7 +128,35 @@
     color: black;
     text-decoration:none;
     cursor: hand;
+    transition: all 0.3s;
 }
+
+.menuDesp:hover{
+    background-color: rgb(97, 34, 50);
+    color: white;
+}
+
+ .carta{
+    background-color:rgb(50, 90, 79);
+    color: white;
+ }
+
+.documento:hover{
+    transform:scale(1.09)
+}
+
+.pildora{
+    width: 100%;
+    border-radius: 10px;
+    background-color: rgb(182,150,100);
+    color: white;
+}
+
+.pildora:hover{
+    background-color: rgb(50, 90, 79);
+    color: white;
+}
+
 
 .completo{
     display: grid;

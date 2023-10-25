@@ -14,8 +14,30 @@
     padding-bottom: .5rem;
     padding-left: .5rem;
     padding-right: .5rem;
+    transition: all 0.3s;
 }
 
+.seleccionado{
+    transform: scale(1.05);
+}
+
+.botonInfotec {
+    width: 100%; 
+    border-color: rgb(97, 34, 50);
+    color: rgb(97, 34, 50);
+    transition: all 0.3s;
+}
+
+.botonInfotec:hover {
+    width: 100%; 
+    background-color: rgb(97, 34, 50);
+    color: white;
+}
+
+.bordeSuperior{
+    background-color: rgb(50, 90, 79) ;
+    border-radius: 5px 5px 0px 0px;
+}
 .vacantedeLista{
     opacity: .1;
     transition: all 0.3s;
@@ -46,8 +68,22 @@
     margin-left: .3rem;
     margin-right: .3rem;
     pointer-events: none;
+    background-color: rgb(182,150,100);
+    border-color:rgb(182,150,100);
   }
-  
+
+  .borrarBtn{
+    width: 100%; 
+    font-size: small;
+    background-color: rgb(97, 34, 50);
+    color: white;
+    transition: all 0.3s;
+  }
+
+  .borrarBtn:hover{
+    transform:scale(1.01)
+  }
+
   .botonInformativo2{
       margin-left: .3rem;
       margin-right: .3rem;

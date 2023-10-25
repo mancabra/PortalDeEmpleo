@@ -3,9 +3,9 @@
         <div class="" id="accordion">
             <div class="accordion-item ">
                 <h2 class="accordion-header">
-                    <button class="accordion-button " type="button" data-bs-toggle="collapse"
+                    <button class="accordion-button enlacesInfotec" type="button" data-bs-toggle="collapse"
                         data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne"
-                        style="color:rgb(42, 111, 244); height: 1.8rem;" (click)="modificarPrincipales()"
+                        (click)="modificarPrincipales()"
                         [ngClass]="{'':datosPrincipales, 'seleccion':!datosPrincipales}">
                         <b>MODIFICAR INFORMACIÓN</b>
                         <hr>
@@ -15,19 +15,42 @@
                     <div class="accordion-body">
                         <!--  -->
                         <h2 class="accordion-header" style="margin-top: 1rem;">
-                            <button class="accordion-button " type="button" data-bs-toggle="collapse"
+                            <button class="accordion-button enlacesInfotec" type="button" data-bs-toggle="collapse"
                                 data-bs-target="#collap" aria-expanded="true" aria-controls="collap"
-                                style="padding: .5rem; color:rgb(62, 96, 163); height: 1.8rem; align-content: center;">
+                                style="padding: .5rem; align-content: center;">
                                 Datos de Usuario:
                                 <hr>
                             </button>
                         </h2>
 
                         <div class="input-group input-group-sm" style="margin-bottom: .5rem;">
+                            <button class="input-group-text campoInfotec" id="inputGroup-sizing-sm"
+                            style="text-align: center; width: 163px;">
+                            <b> CAMBIAR NOMBRE </b> </button>
+                            <input type="text" class="form-control bordesInfotec" aria-label="Sizing example input"
+                            aria-describedby="inputGroup-sizing-sm" style="border-radius: 0px 0px 0px 0px;"
+                            placeholder="Ingresa el nuevo nombre" [(ngModel)]="nuevoNombre">
+
+                            <button class="input-group-text campoInfotec" id="inputGroup-sizing-sm"
+                            style="text-align: center; width: 163px;">
+                            <b>APELLIDO PATERNO</b> </button>
+                            <input type="text" class="form-control bordesInfotec" aria-label="Sizing example input"
+                            aria-describedby="inputGroup-sizing-sm" style="border-radius: 0px 0px 0px 0px;"
+                            placeholder="Ingresa el nuevo apellido paterno" [(ngModel)]="nuevoApellidoP">
+
+                            <button class="input-group-text campoInfotec" id="inputGroup-sizing-sm"
+                            style=" text-align: center; width: 163px;">
+                            <b> APELLIDO MATERNO</b> </button>
+                            <input type="text" class="form-control bordesInfotec" aria-label="Sizing example input"
+                            aria-describedby="inputGroup-sizing-sm" style="border-radius: 0px 5px 5px 0px;"
+                            placeholder="Ingresa el nuevo apellido materno" [(ngModel)]="nuevoApellidoM">
+                        </div>
+<!-- 
+                        <div class="input-group input-group-sm" style="margin-bottom: .5rem;">
                             <input type="text" class="form-control" aria-label="Sizing example input"
                                 aria-describedby="inputGroup-sizing-sm" style="border-radius: 5px 0px 0px 5px;"
                                 placeholder="Ingresa el nuevo nombre" [(ngModel)]="nuevoNombre">
-                            <button class="input-group-text" id="inputGroup-sizing-sm"
+                            <button class="input-group-text btnInfotec" id="inputGroup-sizing-sm"
                                 style="width: 35%; text-align: center;">
                                 <b> CAMBIAR NOMBRE </b> </button>
                         </div>
@@ -37,7 +60,7 @@
                             <input type="text" class="form-control" aria-label="Sizing example input"
                                 aria-describedby="inputGroup-sizing-sm" style="border-radius: 5px 0px 0px 5px;"
                                 placeholder="Ingresa el nuevo apellido paterno" [(ngModel)]="nuevoApellidoP">
-                            <button class="input-group-text" id="inputGroup-sizing-sm"
+                            <button class="input-group-text btnInfotec" id="inputGroup-sizing-sm"
                                 style="width: 35%; text-align: center;">
                                 <b> CAMBIAR APELLIDO </b> </button>
                         </div>
@@ -47,17 +70,17 @@
                             <input type="text" class="form-control" aria-label="Sizing example input"
                                 aria-describedby="inputGroup-sizing-sm" style="border-radius: 5px 0px 0px 5px;"
                                 placeholder="Ingresa el nuevo apellido materno" [(ngModel)]="nuevoApellidoM">
-                            <button class="input-group-text" id="inputGroup-sizing-sm"
+                            <button class="input-group-text btnInfotec" id="inputGroup-sizing-sm"
                                 style="width: 35%; text-align: center;">
                                 <b> CAMBIAR APELLIDO </b> </button>
-                        </div>
+                        </div> 
 
                         <div class="cajaInterna">
 
                             <div class="internaIzquierda"
                                 [ngClass]="{'view':perfilTipoCandidato, '':!perfilTipoCandidato}">
                                 <div class="input-group input-group-sm" style="margin-bottom: .5rem;">
-                                    <button class="input-group-text" id="inputGroup-sizing-sm"
+                                    <button class="input-group-text btnInfotec" id="inputGroup-sizing-sm"
                                         style="width: 60%; text-align: center;">
                                         <b> CAMBIAR APELLIDO </b> </button>
                                     <input type="text" class="form-control" aria-label="Sizing example input"
@@ -72,24 +95,23 @@
                                     <input type="text" class="form-control" aria-label="Sizing example input"
                                         aria-describedby="inputGroup-sizing-sm" style="border-radius: 5px 0px 0px 5px;"
                                         placeholder="Materno" [(ngModel)]="nuevoApellidoM">
-                                    <button class="input-group-text" id="inputGroup-sizing-sm"
+                                    <button class="input-group-text btnInfotec" id="inputGroup-sizing-sm"
                                         style="width: 60%; text-align: center;">
                                         <b> CAMBIAR APELLIDO </b> </button>
                                 </div>
                             </div>
-
                         </div>
-
+-->
                         <div class="cajaInterna">
 
                             <div class="internaIzquierda"
                                 [ngClass]="{'view':perfilTipoCandidato, '':!perfilTipoCandidato}">
                                 <div class="input-group input-group-sm" style="margin-bottom: .5rem;">
-                                    <button class="input-group-text" id="inputGroup-sizing-sm"
-                                        style="width: 60%; text-align: center;">
+                                    <button class="input-group-text campoInfotec" id="inputGroup-sizing-sm"
+                                        style="width: 218px; text-align: center;">
                                         <b> F. NACIMIENTO </b> </button>
 
-                                    <input type="date" class="form-control" aria-label="Sizing example input"
+                                    <input type="date" class="form-control bordesInfotec" aria-label="Sizing example input"
                                         aria-describedby="inputGroup-sizing-sm" style="border-radius: 0px 5px 5px 0px;"
                                         placeholder="Ingresa la nueva edad" [(ngModel)]="nuevaFecha">
                                 </div>
@@ -98,18 +120,18 @@
                             <div class="internaDerecha"
                                 [ngClass]="{'enBlock':perfilTipoCandidato, '':!perfilTipoCandidato}">
                                 <div class="input-group input-group-sm" style="margin-bottom: .5rem;">
-                                    <button class="btn btn-outline-secondary dropdown-toggle" type="button"
+                                    <button name="btnLada" class="btn btn-outline-secondary dropdown-toggle btnInfotec" type="button"
                                         data-bs-toggle="dropdown" aria-expanded="false">{{lada}}</button>
                                     <ul class="dropdown-menu">
-                                        <li><button class="dropdown-item" type="button"
+                                        <li><button class="dropdown-item listasInfotec" type="button"
                                                 *ngFor="let ladaSeleccionada of ladasMexico"
                                                 (click)="actualizarLada(ladaSeleccionada)">{{ladaSeleccionada}}</button>
                                         </li>
                                     </ul>
-                                    <input type="text" class="form-control" aria-label="Text input with dropdown button"
+                                    <input type="text" class="form-control bordesInfotec" aria-label="Text input with dropdown button"
                                         placeholder="55-55-55-55-55" [(ngModel)]="nuevoTelefono">
-                                    <button class="input-group-text" id="inputGroup-sizing-sm"
-                                        style="width: 35%; text-align: center;">
+                                    <button class="input-group-text campoInfotec" id="inputGroup-sizing-sm"
+                                        style="width: 218px; text-align: center;">
                                         <b> TELEFONO </b> </button>
                                 </div>
                             </div>
@@ -124,65 +146,66 @@
                 <div class="accordion-body">
 
                     <h2 class="accordion-header">
-                        <button class="accordion-button " type="button" data-bs-toggle="collapse"
+                        <button class="accordion-button enlacesInfotec" type="button" data-bs-toggle="collapse"
                             data-bs-target="#collap" aria-expanded="true" aria-controls="collap"
-                            style="padding: .5rem; color:rgb(62, 96, 163); height: 1.8rem; align-content: center;">
+                            style="padding: .5rem;  align-content: center;">
                             Zona y Ubicación:
                             <hr>
                         </button>
                     </h2>
 
-                    <div class="input-group input-group-sm" style="margin-bottom: .5rem;">
-                        <input type="text" class="form-control" aria-label="Sizing example input"
-                            aria-describedby="inputGroup-sizing-sm" style="border-radius: 5px 0px 0px 5px;"
-                            placeholder="Ingresa el nuevo domicilio" [(ngModel)]="nuevoDomicilio">
-                        <button class="input-group-text" id="inputGroup-sizing-sm"
-                            style="width: 35%; text-align: center;">
-                            <b> CAMBIAR DOMICILIO </b> </button>
-                    </div>
+                 
 
                     <div class="cajaInterna">
 
-                        <div class="internaIzquierda">
+
+
+                        <div class="internaGeneral">
+
+                            <div class="input-group input-group-sm" style="margin-bottom: .5rem;">
+                                <button class="input-group-text campoInfotec" id="inputGroup-sizing-sm"
+                                    style="text-align: center; border-radius: 5px 0px 0px 5px;">
+                                    <b> CAMBIAR DOMICILIO </b> </button>
+                                <input type="text" class="form-control bordesInfotec" aria-label="Sizing example input"
+                                    aria-describedby="inputGroup-sizing-sm" style="border-radius: 0px 0px 0px 0px;"
+                                    placeholder="Ingresa el nuevo domicilio" [(ngModel)]="nuevoDomicilio">
+                            </div>
+
                             <div class="input-group" style="margin-bottom: .5rem;">
-                                <label class="input-group-text" for="inputGroupSelect01"
-                                    style=" height: 2rem; width: 35%;">
+                                <label class="input-group-text campoInfotec" for="inputGroupSelect01"
+                                    style="width: 163px; height: 2rem; border-radius: 0px 0px 0px 0px;">
                                     <b>
                                         ESTADO </b> </label>
-                                <button class="form-select" type="button" id="inputGroupSelect01"
+                                <button class="form-select bordesInfotec" type="button" id="inputGroupSelect01"
                                     data-bs-toggle="dropdown" aria-expanded="false"
-                                    style="font-size: x-small; border-radius: 0px 5px 5px 0px;">{{nuevoEstado.nombreEstado}}</button>
+                                    style="font-size: x-small; border-radius: 0px 0px 0px 0px;">{{nuevoEstado.nombreEstado}}</button>
                                 <ul class="dropdown-menu">
                                     <div class="scrollMenu">
-                                        <li><button class="dropdown-item" type="button"
+                                        <li><button class="dropdown-item listasInfotec" type="button"
                                                 *ngFor="let estadoSeleccionado of estadosMexico"
                                                 (click)="actualizarEstado(estadoSeleccionado)">{{estadoSeleccionado.nombreEstado}}</button>
                                         </li>
                                     </div>
                                 </ul>
                             </div>
-                        </div>
 
-
-                        <div class="internaDerecha">
                             <div class="input-group" style="margin-bottom: .5rem;">
-                                <button class="form-select" type="button" id="inputGroupSelect01"
+                                <label class="input-group-text campoInfotec" for="inputGroupSelect01"
+                                style="height: 2rem; width: 163px; border-radius: 0px 0px 0px 0px;">
+                                <b>
+                                    MUNICIPIO </b> </label>
+                                <button class="form-select bordesInfotec" type="button" id="inputGroupSelect01"
                                     data-bs-toggle="dropdown" aria-expanded="false"
-                                    style="font-size: x-small; border-radius: 5px 0px 0px 5px;"
+                                    style="font-size: x-small; border-radius: 0px 5px 5px 0px;"
                                     [ngStyle]="{'pointer-events':bloquearMunicipio}">{{nuevoMunicipio.nombreMunicipio}}</button>
                                 <ul class="dropdown-menu">
                                     <div class="scrollMenu">
-                                        <li><button class="dropdown-item" type="button"
+                                        <li><button class="dropdown-item listasInfotec" type="button"
                                                 *ngFor="let municipioSeleccionado of municipiosMexico"
                                                 (click)="actualizarMunicipio(municipioSeleccionado)">{{municipioSeleccionado.nombreMunicipio}}</button>
                                         </li>
                                     </div>
                                 </ul>
-
-                                <label class="input-group-text" for="inputGroupSelect01"
-                                    style=" height: 2rem; width: 35%;">
-                                    <b>
-                                        MUNICIPIO </b> </label>
                             </div>
                         </div>
 
@@ -197,29 +220,30 @@
         <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
             <div class="accordion-body">
                 <h2 class="accordion-header">
-                    <button class="accordion-button " type="button" data-bs-toggle="collapse" data-bs-target="#collap"
+                    <button class="accordion-button enlacesInfotec" type="button" data-bs-toggle="collapse" data-bs-target="#collap"
                         aria-expanded="true" aria-controls="collap"
-                        style="padding: .5rem; color:rgb(62, 96, 163); height: 1.8rem; align-content: center;">
+                        style="padding: .5rem; align-content: center;">
                         Formación Academica y Experiencia:
                         <hr>
                     </button>
                 </h2>
 
                 <div class="input-group input-group-sm" style="margin-bottom: .5rem;">
-                    <input type="text" class="form-control" aria-label="Sizing example input"
-                        aria-describedby="inputGroup-sizing-sm" style="border-radius: 5px 0px 0px 5px;"
-                        placeholder="Ingresa la nueva profesión" [(ngModel)]="nuevaProfesion">
-                    <button class="input-group-text" id="inputGroup-sizing-sm" style="width: 35%; text-align: center;">
+                    <button class="input-group-text campoInfotec" id="inputGroup-sizing-sm" style="width: 218px; text-align: center;">
                         <b> CAMBIAR PROFESIÓN </b> </button>
+                    <input type="text" class="form-control bordesInfotec" aria-label="Sizing example input"
+                        aria-describedby="inputGroup-sizing-sm" style="border-radius: 0px 5px 5px 0px;"
+                        placeholder="Ingresa la nueva profesión" [(ngModel)]="nuevaProfesion">
+                 
                 </div>
 
                 <div class="cajaInterna">
                     <div class="internaIzquierda">
                         <div class="input-group input-group-sm" style="margin-bottom: .5rem;">
-                            <button class="input-group-text" id="inputGroup-sizing-sm"
-                                style="width: 35%; text-align: center;">
-                                <b> ESCUELA </b> </button>
-                            <input type="text" class="form-control" aria-label="Sizing example input"
+                            <button class="input-group-text campoInfotec" id="inputGroup-sizing-sm"
+                                style="width:218px; text-align: center;">
+                                <b> ÚLTIMO CENTRO EDUCATIVO </b> </button>
+                            <input type="text" class="form-control bordesInfotec" aria-label="Sizing example input"
                                 aria-describedby="inputGroup-sizing-sm" style="border-radius: 0px 5px 5px 0px;"
                                 placeholder="Ingresa el centro educativo" [(ngModel)]="nuevoCentroEducativo">
 
@@ -227,21 +251,21 @@
                     </div>
                     <div class="internaDerecha">
                         <div class="input-group input-group-sm" style="margin-bottom: .5rem;">
-                            <input type="text" class="form-control" aria-label="Sizing example input"
+                            <input type="text" class="form-control bordesInfotec" aria-label="Sizing example input"
                                 aria-describedby="inputGroup-sizing-sm" style="border-radius: 5px 0px 0px 5px;"
                                 placeholder="Ingresa tu puesto actual" [(ngModel)]="nuevoPuesto">
-                            <button class="input-group-text" id="inputGroup-sizing-sm"
-                                style="width: 35%; text-align: center;">
-                                <b> PUESTO </b> </button>
+                            <button class="input-group-text campoInfotec" id="inputGroup-sizing-sm"
+                                style="width: 218px; text-align: center;">
+                                <b> PUESTO ACTUAL</b> </button>
                         </div>
 
                     </div>
                 </div>
 
                 <h2 class="accordion-header">
-                    <button class="accordion-button " type="button" data-bs-toggle="collapse" data-bs-target="#collap"
+                    <button class="accordion-button enlacesInfotec" type="button" data-bs-toggle="collapse" data-bs-target="#collap"
                         aria-expanded="true" aria-controls="collap"
-                        style="padding: .5rem; color:rgb(62, 96, 163); height: 1.8rem; align-content: center;">
+                        style="padding: .5rem; align-content: center;">
                         Descripcion y habilidades
                         <hr>
                     </button>
@@ -268,8 +292,8 @@
             <div class="accordion-body">
 
                 <h2 class="accordion-header ">
-                    <button class="accordion-button " type="button" data-bs-toggle="collapse" data-bs-target=""
-                        aria-expanded="true" aria-controls="" style="color:rgb(62, 96, 163); height: 1.8rem;">
+                    <button class="accordion-button enlacesInfotec" type="button" data-bs-toggle="collapse" data-bs-target=""
+                        aria-expanded="true" aria-controls="">
                         SELECCION DE HABILIDADES
                         <hr>
                     </button>
@@ -286,8 +310,8 @@
                 <!-- idiomas -->
 
                 <h2 class="accordion-header ">
-                    <button class="accordion-button " type="button" data-bs-toggle="collapse" data-bs-target=""
-                        aria-expanded="true" aria-controls="" style="color:rgb(62, 96, 163); height: 1.8rem;">
+                    <button class="accordion-button enlacesInfotec" type="button" data-bs-toggle="collapse" data-bs-target=""
+                        aria-expanded="true" aria-controls="">
                         SELECCION DE IDIOMAS
                         <hr>
                     </button>
@@ -308,8 +332,8 @@
     <div class="" id="accordion" style="margin-bottom: .5rem; margin-top: .5rem;">
         <div class="accordion-item ">
             <h2 class="accordion-header ">
-                <button class="accordion-button " type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne"
-                    aria-expanded="true" aria-controls="collapseOne" style="color: rgb(42, 111, 244); height: 1.8rem;"
+                <button class="accordion-button enlacesInfotec" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne"
+                    aria-expanded="true" aria-controls="collapseOne"
                     (click)="modificarSecundarios()" [ngClass]="{'':datosSecundarios, 'seleccion':!datosSecundarios}">
                     <b>INFORMACION ADICIONAL</b>
                     <hr>

@@ -1,3 +1,114 @@
+.tituloInfitec{
+    color: rgb(182,150,100);
+}
+
+.textoNormal{
+    color:rgb(50, 90, 79) ;
+}
+
+.menuDesp{
+    background-color: white;
+    color:rgb(50, 90, 79) ;
+}
+
+.menuDesp:hover{
+    background-color: rgb(182,150,100);
+    color: white;
+}
+
+.formularioBlanco{
+    background-color: white;
+    border-color: rgb(50, 90, 79);
+    color:rgb(50, 90, 79);
+}
+
+.botonRegistro{
+    background-color: white;
+    border-color: rgb(147,46,66);
+    color: rgb(147,46,66);
+}
+
+.botonRegistro:hover{
+    background-color: rgb(147,46,66);
+    color: white;
+}
+
+.contornos{
+    border-color: rgb(50, 90, 79) ;
+}
+
+.boton{
+    border-color: rgb(50, 90, 79) ;
+    color: rgb(50, 90, 79) ;
+    background-color: white;
+}
+
+.boton:hover{
+    border-color: rgb(50, 90, 79) ;
+    color:white;
+    background-color:  rgb(50, 90, 79) ;
+}
+
+.programar{
+    border-color: rgb(182,150,100);
+    color: rgb(182,150,100);
+    transition: all 0.3s; 
+}
+
+.programar:hover{
+    border-color: rgb(182,150,100);
+    background-color: rgb(182,150,100);
+    color: white;
+    transition: all 0.3s; 
+}
+
+
+.contenedor{
+    padding-top: 1rem;
+    width: 100%;
+}
+
+.informativo{
+    background-color: rgb(50, 90, 79);
+    border-color: rgb(50, 90, 79);
+    color: white;
+}
+
+.datos{
+    display: flex;
+}
+
+.formulario{
+    padding-right: .5rem;
+    padding-left: .5rem;
+    display: grid;
+    width: 33%;
+}
+
+.descripcion{
+    padding-right: .5rem;
+    padding-left: .5rem;
+    display: grid;
+    width: 50%;
+}
+
+.btnProgramar{
+    border-color: rgb(182,150,100);
+    color: rgb(182,150,100);
+    transition: all 0.3s;
+}
+
+.fechas{
+    pointer-events: none;
+    opacity: .5;
+}
+
+.activarBtn{
+    background-color: rgb(182,150,100);
+    border-color: rgb(182,150,100);
+    color: white;
+}
+
 .cajaIzquierda{
     display: grid;
     margin-right: .5rem;
@@ -21,12 +132,40 @@
 
 .contenedorComponent{
     position: absolute;
-    top: 22%;
+    top: 18.5%;
     right: 30%;
     padding: 1rem;
     width: 620px;
     height: 620px;
     z-index:1000;
+}
+
+.preview{
+    position: absolute;
+    top: 23%;
+    right: 32%;
+    padding: 1rem;
+    width: 550px;
+    height: 440px;
+    z-index:1000;
+}
+
+.cerrar{
+    position: absolute;
+    top: 27%;
+    right: 33.5%;
+    width: 50px;
+    height: 50px;
+    z-index:1001;
+}
+
+.cerrarEmpresas{
+    position: absolute;
+    top: 21%;
+    right: 31.5%;
+    width: 50px;
+    height: 50px;
+    z-index:1001;
 }
 
 .pantalla{

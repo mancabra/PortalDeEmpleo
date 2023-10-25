@@ -33,6 +33,12 @@
     width: 50%;
 }
 
+.internaGeneral{
+    display: flex;
+    margin-left: .2rem;
+    width: 100%;
+}
+
 .internaIzquierda{
     display: grid;
     margin-right: .3rem;
@@ -55,6 +61,51 @@
 
 .captura{
 padding-left: 0px;
+}
+
+.nombreinfotecs{
+    background-color:  rgb(50, 90, 79);
+    border-color:rgb(50, 90, 79);
+    color: white;
+}
+
+.btnInfotec{
+    background-color: white;
+    border-color:rgb(50, 90, 79);
+    color: rgb(50, 90, 79);
+}
+
+.campoInfotec{
+    background-color:  rgb(50, 90, 79);
+    border-color:rgb(50, 90, 79);
+    color: white;
+}
+
+.listasInfotec{
+    background-color: white;
+    color:rgb(50, 90, 79);
+}
+
+.listasInfotec:hover{
+    background-color:rgb(50, 90, 79);
+    color:white;
+}
+
+
+
+.btnInfotecSeleccionado{
+    background-color:  rgb(50, 90, 79);
+    border-color:rgb(50, 90, 79);
+    color: white;
+}
+
+.bordesInfotec{
+    border-color:rgb(50, 90, 79);
+}
+
+.enlacesInfotec{
+    color:rgb(182,150,100);
+    height: 1.8rem;
 }
 
 .completo{

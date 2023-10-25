@@ -167,14 +167,14 @@ export class UpdateComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
 
-    this.obtenrIdiomas();
+    /*this.obtenrIdiomas();
     this.obtenerHabilidades();
     this.identificarVista();
-    this.buscarEstados();
-    /*
+    this.buscarEstados();*/
+    
     this.id_tipoUsuario = 2
     this.identificarTipoDePerfil();
-    */
+  
   }
 
   ngAfterViewInit() {
@@ -429,6 +429,14 @@ export class UpdateComponent implements OnInit, OnDestroy {
   // FUNCION PARA CAMBIAR EL CODIGO DE REGION DEL NUMERO TELEFONICO
   actualizarLada(numero: string) {
     this.lada = numero;
+
+    const boton = document.getElementsByName("btnLada")[0];
+    boton.classList.add("btnInfotecSeleccionado");
+  }
+
+  deseleccionar(){
+    const boton = document.getElementsByName("btnLada")[0];
+    boton.classList.remove("btnInfotecSeleccionado");
   }
 
   // FUNCION PARA ACTUALIZAR EL NUNICIPIO

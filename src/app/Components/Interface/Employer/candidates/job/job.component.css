@@ -22,14 +22,26 @@
 }
 
 .variable{
-    opacity: 0;
+    opacity:1;
     height: 20px;
     margin-left: -20px;
     padding-left: 20px;
     font-size: small;
     border-radius: 10px 10px 10px 10px;
-    border-color: black;
-    color: white;
+    background-color:rgb(182,150,100);
+    color:white;
+    transition: all 0.3s;
+}
+
+.estilos{
+    padding: 2rem;
+    opacity: 0;
+    transition: all 0.3s;
+}
+
+.aparecer{
+    padding: 2rem;
+    opacity: 1;
     transition: all 0.3s;
 }
 

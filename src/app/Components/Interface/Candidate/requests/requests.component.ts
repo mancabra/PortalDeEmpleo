@@ -33,10 +33,10 @@ export class RequestsComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.buscarUsuario();
-    //this.cargarMuestra();
+    //this.buscarUsuario();
+    this.cargarMuestra();
+  
   }
-/*
 
   ngAfterViewInit() {
     let postulacion = document.getElementsByName('postulacion')[0];
@@ -62,9 +62,27 @@ export class RequestsComponent implements OnInit, OnDestroy {
       }
       
     });
+
+    this.funcionEstilos();
+    this.funcionEstilosII();
   }
 
-  */
+
+
+  funcionEstilos(){
+    const borrar = document.getElementsByName("btnBorrar")[0];
+    borrar.addEventListener("mouseover", function(){
+      borrar.classList.add("seleccionado");
+    }, false);
+  }
+
+  funcionEstilosII(){
+    const borrar = document.getElementsByName("btnBorrar")[0];
+    borrar.addEventListener("mouseout", function(){
+      borrar.classList.remove("seleccionado");
+    }, false);
+  }
+
   cargarMuestra(){
     this.postulaciones =[
      { id_postulacion: 1,

@@ -47,8 +47,8 @@ export class CandidatesComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.buscarUsuario();
-    // this.cargarMuestra();
+    //this.buscarUsuario();
+    this.cargarMuestra();
   }
 
 
@@ -231,12 +231,12 @@ export class CandidatesComponent implements OnInit {
 
   // FUNCION DEL BOTON QUE PERMITE MOSTRAR LOS CANDIDATOS DE UNA VACANTE
   mostrarCandidatos(vacante: Vacante) {
-    this.vacanteActual = vacante;
+    /*this.vacanteActual = vacante;
     this._EmployerRequest.ontenerCandidatosVacante(vacante.id_vacante).subscribe(data => {
       this.candidatos = data;
       console.log(this.candidatos);
-    });
-    //this.cargarCandidatos();
+    });*/
+    this.cargarCandidatos();
   }
 
   cargarCandidatos() {
