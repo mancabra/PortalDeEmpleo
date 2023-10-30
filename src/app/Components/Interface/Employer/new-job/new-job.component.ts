@@ -306,9 +306,13 @@ export class NewJobComponent implements OnInit, OnDestroy {
   verProgramar() {
     this.activarProgramada();
     this.fechaProgramada = new Date;
-  //  
   //  this.programarP = true;
-    this.publicarAhora = false;
+
+    if(this.publicarAhora == false){
+      this.publicarAhora = true;
+    } else {
+      this.publicarAhora = false;
+    }
   }
 
   activarProgramada(){
@@ -347,6 +351,8 @@ export class NewJobComponent implements OnInit, OnDestroy {
 
   // FUNCION PARA MOSTRAR LA VISTA REGISTRO DE MEPRESA
   RegistarEmpresa() {
+    const panel = document.getElementsByName("crearEmpresa")[0];
+    panel.classList.add("mostrar");
     this.ocultarRegistro = false;
   }
 
@@ -686,7 +692,8 @@ export class NewJobComponent implements OnInit, OnDestroy {
       this.vacantePre.id_postulacion = 0,
 
     this._UserRequest.actualizarVacante(this.vacantePre);
-
+    const panel = document.getElementsByName("vistaVacante")[0];
+    panel.classList.add("mostrar");
     this.preview = true;
   }
 
@@ -694,10 +701,14 @@ export class NewJobComponent implements OnInit, OnDestroy {
     this.preview = false;
     this.vacantePre = new Vacante;
     this._UserRequest.actualizarVacante(this.vacantePre);
+    const panel = document.getElementsByName("vistaVacante")[0];
+    panel.classList.remove("mostrar");
   }
 
   cerrarEmpresas(){
     this.ocultarRegistro = true;
+    const panel = document.getElementsByName("crearEmpresa")[0];
+    panel.classList.remove("mostrar");
   }
 
   // FUNCION PARA PUBLICAR LA VACANTE DE MANERA AUTOMATICA

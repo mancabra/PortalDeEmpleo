@@ -1,3 +1,33 @@
 .view{
     display: none;
 }
+
+.botonInfotec{
+    border-color:rgb(147,46,66);
+    color:rgb(147,46,66);
+}
+
+.botonInfotec:hover{
+    background-color: rgb(147,46,66);
+    border-color: rgb(147,46,66);
+    color: white;
+}
+
+.textosInfotec{
+    color: rgb(50, 90, 79);;
+}
+
+.bordesInfotec{
+    border-color: rgb(50, 90, 79);
+}
+
+.botonRegistrar{
+     border-color: rgb(50, 90, 79);
+     color: rgb(50, 90, 79);
+}
+
+.botonRegistrar:hover{
+    background-color: rgb(50, 90, 79);
+    border-color: rgb(50, 90, 79);
+    color:white;
+}

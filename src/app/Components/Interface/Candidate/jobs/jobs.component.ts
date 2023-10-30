@@ -76,10 +76,10 @@ export class JobsComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.filtrosDisponibles = ["Ninguno", "Mejor Pagados", "Estado"];
     this.vacanteSeleccionada = new Vacante;
-    //this.buscarUsuario();
-    //this.obtenerVacantes();
-    //this.obtenerEstados();
-    this.cargarMuestra();
+    this.buscarUsuario();
+    this.obtenerVacantes();
+    this.obtenerEstados();
+    //this.cargarMuestra();
   }
 
   ngOnDestroy(): void {

@@ -47,8 +47,8 @@ export class CandidatesComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    //this.buscarUsuario();
-    this.cargarMuestra();
+    this.buscarUsuario();
+    //this.cargarMuestra();
   }
 
 
@@ -229,14 +229,25 @@ export class CandidatesComponent implements OnInit {
     });
   }
 
+  numero: number = 0;
+  limpiarBotones(){
+    const boton = document.getElementsByName("publicacion");
+    boton.forEach(element => {
+      element.classList.remove("botonVerSeleccionado");
+    });
+  }
   // FUNCION DEL BOTON QUE PERMITE MOSTRAR LOS CANDIDATOS DE UNA VACANTE
-  mostrarCandidatos(vacante: Vacante) {
-    /*this.vacanteActual = vacante;
+  mostrarCandidatos(vacante: Vacante, index: number ) {
+    this.limpiarBotones();
+    this.numero = index;
+    const boton = document.getElementsByName("publicacion")[this.numero];
+    boton.classList.add("botonVerSeleccionado");
+    this.vacanteActual = vacante;
     this._EmployerRequest.ontenerCandidatosVacante(vacante.id_vacante).subscribe(data => {
       this.candidatos = data;
       console.log(this.candidatos);
-    });*/
-    this.cargarCandidatos();
+    });
+    //this.cargarCandidatos();
   }
 
   cargarCandidatos() {
@@ -482,7 +493,7 @@ export class CandidatesComponent implements OnInit {
       if (data.estatus == true) {
         this.enviarAlerta("La postulación del candidato fue eliminada correctamente.", false);
         this.enviarAlertaExito(candidato);
-        this.mostrarCandidatos(this.vacanteActual);
+        this.mostrarCandidatos(this.vacanteActual,this.numero);
       } else {
         this.enviarAlerta("Ha surgido un error inesperado que nos impidio eliminar la postulación del candidato.", true);
         this.enviarAlertaError(candidato);
@@ -512,12 +523,27 @@ export class CandidatesComponent implements OnInit {
   // FUNCNION PARA MOSTRAR EL PERFIL DE UN CANDIDATO
   verCandidato(usuario:Candidato) {
     this.ocultarCandidato = false;
-    this._AdminRequest.usuarioActivo(usuario);
+
+    setTimeout(() =>{
+      const perfil = document.getElementsByName("panel")[0];
+      perfil.classList.remove("perfilOcultar");
+      perfil.classList.add("perfilMostar");
+      this._AdminRequest.usuarioActivo(usuario);
+    }, 100);
+
   }
 
-  cerrar() {
-    this.ocultarCandidato = true;
+  cerrarPanel(){
+    const perfil = document.getElementsByName("panel")[0];
+    perfil.classList.add("perfilOcultar");
+    perfil.classList.remove("perfilMostar");
+
+    setTimeout(() =>{
+      this.ocultarCandidato = true;
+    }, 710);
   }
+
+
 
   // FUNCION PARA ACEPTAR UNA POSTULACION SEGUN SU ID
   // SE TOMA TOMA LA POSTULACION DELECIONADA DE LA FUNCION ANTERIOR 
@@ -530,7 +556,7 @@ export class CandidatesComponent implements OnInit {
       if (data.estatus == true) {
         this.enviarAlerta("La postulación del candidato fue aceptada correctamente.", false);
         this.enviarAlertaExitoGC(candidato);
-        this.mostrarCandidatos(this.vacanteActual);
+        this.mostrarCandidatos(this.vacanteActual,this.numero);
       } else {
         this.enviarAlerta("Ha surgido un error inesperado que nos impidio aceptar la postulación del candidato.", true);
         this.enviarAlertaErrorGC(candidato);

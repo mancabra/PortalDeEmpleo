@@ -1,4 +1,4 @@
-<div [ngClass]="{'':ocultarCandidato, 'view':!ocultarCandidato}">
+<div class="fondo">
     <div style="display: flex;">
         <div class="cajaIzquierda">
             <div style="text-align: center;margin-bottom: 1rem; padding-left: 1rem; padding-right: 1rem;">
@@ -10,15 +10,18 @@
                 <div *ngIf="cargarPantallaI(); else pantallaVaciaI">
                     <div class="scrollMenu" style="padding-right: 1rem;">
                         <div class="card carta" *ngFor="let candidato of candidatos" style="margin-top: 1rem;">
+                            <div class="encabezadoDorado">
+                                &nbsp;
+                            </div>
                             <div class="card-body">
                                 <div class="acciones">
                                     <div class="btn-group">
-                                        <label class="botonAcciones" type="button" data-bs-toggle="dropdown"
+                                        <label type="button" data-bs-toggle="dropdown"
                                             aria-expanded="false">
-                                            <h3>...</h3>
+                                            <h3 >...</h3>
                                         </label>
                                         <ul class="dropdown-menu">
-                                            <li><a class="dropdown-item" (click)="verCandidato(candidato)">Ir al Perfil</a></li>
+                                            <li><a class="dropdown-item listaInfotecDorado" (click)="verCandidato(candidato)">Ir al Perfil</a></li>
                                         </ul>
                                     </div>
                                 </div>
@@ -31,9 +34,9 @@
                                 </p>
 
                                 <div class="d-grid" style="margin-top: 1rem;">
-                                    <button type="button" class="btn btn-success" style="margin-bottom: .5rem;"
+                                    <button type="button" class="btn btnAceptar" style="margin-bottom: .5rem;"
                                         (click)="aceptarCandidato(candidato)">ELEGIR CANDIDATO</button>
-                                    <button type="button" class="btn btn-danger" style="margin-bottom: .5rem;"
+                                    <button type="button" class="btn btnQuitar" style="margin-bottom: .5rem;"
                                         (click)="obtenerPostulacion(candidato)">QUITAR CANDIDATO</button>
                                 </div>
                             </div>
@@ -56,7 +59,10 @@
             <div style="padding: 1rem;">
                 <div *ngIf="cargarPantalla(); else pantallaVacia">
                     <div class="scrollMenu" style="padding-right: 1rem;">
-                        <div class="card carta" *ngFor="let vacante of publicaciones" style="margin-top: 1rem;">
+                        <div class="card carta" *ngFor="let vacante of publicaciones let i = index" style="margin-top: 1rem;">
+                            <div class="encabezado">
+                                &nbsp;
+                            </div>
                             <div class="card-body">
                                 <div class="acciones">
                                     <div class="btn-group">
@@ -65,9 +71,9 @@
                                             <h3>...</h3>
                                         </label>
                                         <ul class="dropdown-menu">
-                                            <li><a class="dropdown-item" (click)="modificarVacante(vacante)">Modificar
+                                            <li><a class="dropdown-item listaInfotec" (click)="modificarVacante(vacante)">Modificar
                                                     Vacante</a></li>
-                                            <li><a class="dropdown-item" (click)="eliminarVacante(vacante)">Eliminar
+                                            <li><a class="dropdown-item listaInfotec" (click)="eliminarVacante(vacante)">Eliminar
                                                     Vacante</a></li>
                                         </ul>
                                     </div>
@@ -82,14 +88,14 @@
                                 <div class="container text-rigth" style="padding: 0%;">
                                     <div class="row">
                                         <div class="col-2">
-                                            <span class="badge rounded-pill text-bg-secondary"
+                                            <span class="badge rounded-pill pastillas"
                                                 style="margin-right:.5rem; margin-bottom: .5rem; width: 180px;"> Sueldo
                                                 mensual: $ {{vacante.sueldo}}</span>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-2">
-                                            <span class="badge rounded-pill text-bg-secondary"
+                                            <span class="badge rounded-pill pastillas"
                                                 style="margin-right: .5rem; margin-bottom: .5rem; width: 180px;">horario:
                                                 {{vacante.horario}}</span>
                                         </div>
@@ -97,8 +103,8 @@
                                 </div>
 
                                 <div class="d-grid" style="margin-top: 1rem;">
-                                    <button type="button" class="btn btn-secondary" style="margin-bottom: .5rem;"
-                                        (click)="mostrarCandidatos(vacante)">VER CANDIDATOS DE LA VACANTE</button>
+                                    <button name="publicacion" type="button" class="btn botonVer" style="margin-bottom: .5rem;"
+                                        (click)="mostrarCandidatos(vacante,i)">VER CANDIDATOS DE LA VACANTE</button>
                                 </div>
 
                             </div>
@@ -115,13 +121,8 @@
     </div>
 </div>
 
-<div [ngClass]="{'view':ocultarCandidato, '':!ocultarCandidato}">
-    <div class="cerrar">
-        <label type="button" class=""
-            style="height: 30px; width: 30px; padding: 0%;"
-            (click)="cerrar()">
-            <b> x </b>
-        </label>
+    <div name="panel" class="perfil" [ngClass]="{'view':ocultarCandidato, '':!ocultarCandidato}">
+        <button name="cerrarBtn" type="button" class="btn-close borrar" aria-label="Close" (click)="cerrarPanel()"></button>
+        <app-profile name="componente" [vistaAdministrar]="vistaAdministrar"></app-profile>
     </div>
-    <app-profile [vistaAdministrar]="vistaAdministrar"></app-profile>
-</div>
+

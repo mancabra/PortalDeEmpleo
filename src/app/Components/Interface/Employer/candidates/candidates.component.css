@@ -24,7 +24,119 @@
     padding: 0%;
     top: 0%;
     left: 94%;
-    z-index: 100;
+    z-index: 1;
+}
+
+.encabezadoDorado{
+    border-radius: 5px 5px 0px 0px;
+    font-size: xx-small;
+    color:white;
+    background-color: rgb(151, 121, 77);
+}
+
+.encabezado{
+    border-radius: 5px 5px 0px 0px;
+    font-size: xx-small;
+    color:white;
+    background-color: rgb(50, 90, 79) ;
+}
+
+.listaInfotecDorado{
+    color:rgb(151, 121, 77);
+}
+
+.listaInfotecDorado:hover{
+    color: white;
+    background-color: rgb(50, 90, 79);
+}
+
+
+
+.perfil{
+    position: relative;
+    transition: all .7s;
+    transform: scale(0.8);
+    z-index: -1;
+}
+
+.fondo{
+    background-color: white;
+}
+
+.opacidad{
+    opacity: 0;
+}
+
+.perfilMostar{
+    position: relative;
+    z-index: 10;
+    transform: scale(0.8);
+    margin-top: -52.5%;
+}
+.perfilOcultar{
+    position: relative;
+    opacity: 1;
+    margin-top: 0%;
+    transform: scale(0.8);
+    z-index: -1;
+}
+
+
+
+
+.borrar{
+    position: absolute;
+    padding: 0%;
+    background-color: white;
+    top: 5%;
+    right: 3%;
+    z-index: 11;
+    transition: all 1s;
+}
+
+.btnAceptar{
+    border-color: rgb(50, 90, 79);
+    color:rgb(50, 90, 79)
+}
+
+.btnAceptar:hover{
+    border-color: rgb(50, 90, 79);
+    background-color: rgb(50, 90, 79);
+    color: white;
+}
+
+.btnQuitar{
+    border-color:  rgb(147,46,66);
+    color:rgb(147,46,66);
+}
+
+.btnQuitar:hover{
+    border-color: rgb(147,46,66);
+    background-color: rgb(147,46,66);
+    color: white;
+}
+.pastillas{
+    background-color: rgb(50, 90, 79);
+    color: white;
+}
+
+.listaInfotec{
+    color: rgb(50, 90, 79);
+}
+
+.listaInfotec:hover{
+   color: white;
+   background-color: rgb(151, 121, 77);
+}
+
+.botonVer{
+    border-color: rgb(151, 121, 77);
+    color: rgb(151, 121, 77);
+}
+.botonVerSeleccionado{
+    border-color:rgb(151, 121, 77);
+    background-color: rgb(151, 121, 77);
+    color: white;
 }
 
 .cerrar{

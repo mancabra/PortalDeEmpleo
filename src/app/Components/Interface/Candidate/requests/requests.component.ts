@@ -33,8 +33,8 @@ export class RequestsComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    //this.buscarUsuario();
-    this.cargarMuestra();
+    this.buscarUsuario();
+    //this.cargarMuestra();
   
   }
 

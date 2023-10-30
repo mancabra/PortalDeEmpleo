@@ -167,14 +167,14 @@ export class UpdateComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
 
-    /*this.obtenrIdiomas();
+    this.obtenrIdiomas();
     this.obtenerHabilidades();
     this.identificarVista();
-    this.buscarEstados();*/
-    
+    this.buscarEstados();
+    /*
     this.id_tipoUsuario = 2
     this.identificarTipoDePerfil();
-  
+    */
   }
 
   ngAfterViewInit() {

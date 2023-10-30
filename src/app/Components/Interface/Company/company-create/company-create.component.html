@@ -5,7 +5,7 @@
     </div>
     <div class="btn-group" role="group" aria-label="Basic radio toggle button group" style="margin-bottom: 1rem;">
         <input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="on">
-        <label class="btn btn-outline-danger" for="btnradio3">Empresa</label>
+        <label class="btn botonInfotec" for="btnradio3">Empresa</label>
     </div>
 
     <div>
@@ -20,7 +20,7 @@
         <div style="width: 100%;">
             <div class="container">
                 <div class="row">
-                    <div class="col-9" style="padding-left: 0%; padding-bottom: .3rem;">
+                    <div class="col-9 textosInfotec" style="padding-left: 0%; padding-bottom: .3rem;">
                         Nombre:*
                     </div>
                     <div class="col" style="color: red; font-size: x-small; text-align: right;"
@@ -32,7 +32,7 @@
         </div>
         <div style="display: flex;">
             <div style="width: 100%;">
-                <input class="form-control" type="text" placeholder="Nombre(s)" aria-label="default input example"
+                <input class="form-control bordesInfotec" type="text" placeholder="Nombre(s)" aria-label="default input example"
                     [(ngModel)]="nombre">
             </div>
             <div style="margin-left: 1rem; margin-right: 0rem; width: 100%;"
@@ -47,7 +47,7 @@
             <div style="width: 100%;">
                 <div class="container">
                     <div class="row">
-                        <div class="col-9" style="padding-left: 0%; padding-bottom: .3rem;">
+                        <div class="col-9 textosInfotec" style="padding-left: 0%; padding-bottom: .3rem;">
                             Descripción:*
                         </div>
                         <div class="col" style="color: red; font-size: x-small; text-align: right;"
@@ -59,7 +59,7 @@
             </div>
             <div style="display: flex;">
                 <div style="width: 100%;">
-                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"
+                    <textarea class="form-control bordesInfotec" id="exampleFormControlTextarea1" rows="3"
                         [(ngModel)]="descripcion"></textarea>
                 </div>
             </div>
@@ -69,7 +69,7 @@
     <div class="container text-center" style="margin-top: 2rem;">
         <div class="row">
             <div class="col">
-                <button type="button" class="btn btn-secondary btn-sm" style="width: 120px;"
+                <button type="button" class="btn botonRegistrar btn-sm" style="width: 120px;"
                     (click)="evaluarEmpresa()">Registrar</button>
             </div>
         </div>
