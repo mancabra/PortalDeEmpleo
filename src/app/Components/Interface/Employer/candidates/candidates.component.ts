@@ -243,11 +243,12 @@ export class CandidatesComponent implements OnInit {
     const boton = document.getElementsByName("publicacion")[this.numero];
     boton.classList.add("botonVerSeleccionado");
     this.vacanteActual = vacante;
+    
     this._EmployerRequest.ontenerCandidatosVacante(vacante.id_vacante).subscribe(data => {
       this.candidatos = data;
       console.log(this.candidatos);
     });
-    //this.cargarCandidatos();
+   // this.cargarCandidatos();
   }
 
   cargarCandidatos() {

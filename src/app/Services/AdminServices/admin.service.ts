@@ -26,6 +26,13 @@ export class AdminService {
 
   constructor(private _http: HttpClient) { }
 
+    //FUNCION PARA OBTENER UN USUARIO POR OCRREO
+    obtenerUsuario(mail: string) {
+      console.log("Proceso buscarUsuario");
+      let cadena = "app/obtenerUsuarioCompleto/" + mail;
+      return this._http.get(cadena).toPromise();
+    }
+
   // FUNCION QUE PERMITE GUARDAR EL CORREO INGRESADO EN EL LOGIN EN UNA VARIABLE LOCAL
   guaradarCorreo(correo: any) {
     this.correo = correo;
@@ -62,6 +69,11 @@ export class AdminService {
     return this._http.put("app/modificarIdioma", AdminRequest).toPromise();
   }
 
+  // FUNCION PARA OBTENER UNA VACABTE POR ID
+  obtenerVacante(id: number){
+    let cadena = "app/obtenerVacantePorId/" + id;
+    return this._http.get(cadena).toPromise();
+  }
 
   // FUNCION QUE PERMITE ELIMINAR UN IDIOMA
   eliminarIdioma(id: number) {

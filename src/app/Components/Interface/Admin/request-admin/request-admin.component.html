@@ -3,11 +3,11 @@
         <div class="card caja2">
             <table class="table table-striped" style="margin: 0%; font-size: small;  text-align: center;">
                 <tr>
-                    <td class="idP">id_proceso</td>
-                    <td class="tipoP">tipoProceso</td>
-                    <td class="fechaP">fechaProceso</td>
-                    <td class="vacanteP">nombreVacante</td>
-                    <td class="desc">descripcion</td>
+                    <td class="idP letras">id proceso</td>
+                    <td class="tipoP letras">Tipo de proceso</td>
+                    <td class="fechaP letras">Fecha de proceso</td>
+                    <td class="vacanteP letras">Nombre de la Vacante</td>
+                    <td class="desc letras">Descripcion</td>
                 </tr>
             </table>
         </div>
@@ -15,7 +15,7 @@
 
     <div class="interiores">
         <div class="card caja">
-            <table class="table table-striped" style="margin: 0%; font-size: small;  text-align: center;">
+            <table class="table tablaInfotec" style="margin: 0%; font-size: small;  text-align: center;">
                 <tbody style="margin-top: 2rem; font-size: small;  text-align: center;">
                     <tr *ngFor="let proceso of vectorLog">
                         <td class="idP">{{proceso.id_proceso}}</td>

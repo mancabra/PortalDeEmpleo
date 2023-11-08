@@ -169,3 +169,37 @@
 .long{
     width: 100%;
 }
+
+.paginas{
+    position: sticky;
+    top: 87%;
+    right: 0;
+    display: grid;
+    place-items: center;
+    width: 100%;
+    z-index: 1001;
+    padding-top: 1rem;
+}
+
+.coloresInfotec{
+    background-color: rgb(97, 34, 50);;
+}
+
+.bordesInfotec{
+border-color: rgb(97, 34, 50);
+color: rgb(97, 34, 50);
+}
+
+.bordesInfotec:hover{
+    color: white;
+    background-color: rgb(97, 34, 50);
+}
+
+.textosIndotec{
+    color: rgb(97, 34, 50);
+}
+
+.textosIndotec:hover{
+    color: white;
+    background-color: rgb(97, 34, 50);
+}

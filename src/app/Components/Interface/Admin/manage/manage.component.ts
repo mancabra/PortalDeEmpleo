@@ -52,9 +52,6 @@ export class ManageComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.desactivarBTPerfil();
-    this.desactivarPerfil();
-    this.desactivarVacante();
     this.desactivarModVacantes();
     this.desactivarModPerfil();
     this.desactivarGenerar();
@@ -67,67 +64,31 @@ export class ManageComponent implements OnInit, OnDestroy {
 
   identificarVista(data: any) {
     this.desactivarInterfaz = true;
-    if (data.vista == "revisarPerfil") {
-      this.buscar(data.correo);
-      this.activarBTPerfil();
-      this.desactivarVacante();
-      this.desactivarModVacantes();
-      this.desactivarModPerfil();
+    if (data.vista == "actualizarPerfil") {
       this.desactivarGenerar();
-      this.activarPerfil();
-    } else if (data.vista == "verVacante") {
-      this.desactivarPerfil();
       this.desactivarModVacantes();
-      this.desactivarModPerfil();
-      this.desactivarGenerar();
-      this.activarVacante();
-    } else if (data.vista == "actualizarPerfil") {
-      this.desactivarBTPerfil();
-      this.desactivarPerfil();
-      this.desactivarVacante();
-      this.desactivarModVacantes();
-      this.desactivarGenerar();
       this.activarModPerfil();
+      /*
     } else if (data.vista == "modificarVacante") {
-      this.desactivarPerfil();
-      this.desactivarVacante();
       this.desactivarModPerfil();
       this.desactivarGenerar();
       this.activarModVacantes();
     } else if (data.vista == "crear") {
-      this.desactivarPerfil();
-      this.desactivarVacante();
       this.desactivarModVacantes();
       this.desactivarModPerfil();
-      this.activarGenerar();
+      this.activarGenerar();*/
     } else if (data.vista == "volver") {
-      this.desactivarPerfil();
-      this.desactivarVacante();
-      this.desactivarModVacantes();
-      this.desactivarModPerfil();
-      this.desactivarGenerar();
-      this.desactivarInterfaz = true;
+     this.obtenerUsuario(data.correo);
     }
   }
 
-  activarPerfil() {
-    let perfil = document.getElementsByName('perfil')[0];
-    perfil.classList.remove('off');
-  }
-
-  desactivarPerfil() {
-    let perfil = document.getElementsByName('perfil')[0];
-    perfil.classList.add('off');
-  }
-
-  activarVacante() {
-    let vacante = document.getElementsByName('')[0];
-    vacante.classList.remove('off');
-  }
-
-  desactivarVacante() {
-    let vacante = document.getElementsByName('')[0];
-    vacante.classList.add('off');
+  obtenerUsuario(correo: string){
+    this._AdminRequest.obtenerUsuario(correo).then((data: any) => {
+      this._AdminRequest.usuarioActivo(data);
+      setTimeout(() =>{
+        this.desactivarInterfaz = false;
+      }, 300);
+    });
   }
 
   activarModVacantes() {
@@ -158,37 +119,6 @@ export class ManageComponent implements OnInit, OnDestroy {
   desactivarGenerar() {
     let generar = document.getElementsByName('generar')[0];
     generar.classList.add('off');
-  }
-
-  actualizarPerfil(){
-    const data = {
-      vista: "actualizarPerfil"
-    }
-    this.identificarVista(data);
-  }
-
-  activarBTPerfil(){
-    let boton = document.getElementsByName('botonAct')[0];
-    boton.classList.remove('off');
-  }
-
-  desactivarBTPerfil(){
-    let boton = document.getElementsByName('botonAct')[0];
-    boton.classList.add('off');
-  }
-
-  // FUNCION PARA BUSCAR UN USUARIO
-  buscar(correoElectronico: string) {
-    this._AdminRequest.obtenerPorCorreo(correoElectronico).then((data: any) => {
-      if (data.usuario.tipoUsuario == 1 || data.usuario.tipoUsuario == 2 || data.usuario.tipoUsuario == 3) {
-        this.usuario = data;
-        this.id_tipoUsuario = this.usuario.usuario.tipoUsuario;
-        this.id_usuario = this.usuario.usuario.id_usuario;
-        this._AdminRequest.usuarioActivo(this.usuario);
-      } else {
-        this.enviarAlerta("Ha surgido un error inesperado que nos impidio realizar la busqueda.", true);
-      }
-    });
   }
 
   // FUNCNON PARA ELEGIR UNA LISTA SEGUN EL AUTOCOMPLETE
@@ -237,14 +167,6 @@ export class ManageComponent implements OnInit, OnDestroy {
           this.enviarAlerta("Ha surgido un error inesperado que nos impidio suspender la cuenta.", true);
         }
       });
-    } else {
-      this.enviarAlerta("No se ha podido identificar el tipo de usuario.", true);
-    }
-  }
-
-  modificar() {
-    if (this.id_tipoUsuario != 0) {
-      this.identificarVista("actualizarPerfil");
     } else {
       this.enviarAlerta("No se ha podido identificar el tipo de usuario.", true);
     }

@@ -14,21 +14,28 @@ export class AppComponent implements OnInit, OnDestroy {
   tipoUsuario: number = 0;
 
   // VARIABLE PARA MOSTRAR LA PANTALLA DE ALERTA
-  estadoAlerta:Subscription;
-  ocultarAlerta: boolean = true;
+  estadoAlerta: Subscription;
+  ocultarAlerta: boolean = false;
 
-  alertaActiva:Subscription;
-  alerta: Alert = new Alert ;
+  alertaActiva: Subscription;
+  alerta: Alert = new Alert;
   ruta: String = "";
   color: String = ""
 
-  subscription:Subscription;
+  subscription: Subscription;
   ocultarNavbar: boolean = true;
 
 
-  constructor( private _UserRequest: InterfaceService){
+  constructor(private _UserRequest: InterfaceService) {
     this.estadoAlerta = this._UserRequest.getEstadoAlerta().subscribe(data => {
       this.ocultarAlerta = data;
+
+      if (this.ocultarAlerta == true) {
+        this.desactivarAlerta();
+      } else {
+
+        this.activarAlerta();
+      }
     });
 
     this.alertaActiva = this._UserRequest.getAlerta().subscribe(data => {
@@ -45,7 +52,7 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-  this._UserRequest.desactivarAlerta();
+    this._UserRequest.desactivarAlerta();
   }
 
   ngOnDestroy(): void {
@@ -54,7 +61,36 @@ export class AppComponent implements OnInit, OnDestroy {
     this.subscription.unsubscribe();
   }
 
-  cerrar(){
+  cerrar() {
     this._UserRequest.desactivarAlerta();
+  }
+
+  mostrar: boolean = false;
+
+  // funciones privacidad
+  privacidad() {
+    let ventana = document.getElementsByName('banner')[0];
+    if (this.mostrar == false) {
+      this.mostrar = true;
+      setTimeout(() => {
+        ventana.classList.add("mostrar");
+      }, 10);
+
+    } else {
+      ventana.classList.remove("mostrar");
+      setTimeout(() => {
+        this.mostrar = false;
+      }, 501);
+    }
+  }
+
+  activarAlerta() {
+    const alerta = document.getElementsByName('alert')[0];
+    alerta.classList.add('mostrar')
+  }
+
+  desactivarAlerta() {
+    const alerta = document.getElementsByName('alert')[0];
+    alerta.classList.remove('mostrar')
   }
 }

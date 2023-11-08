@@ -2,30 +2,30 @@
     <div>
         <div style="padding-bottom: 0%;">
             <div class="card caja2">
-                <table class="table table-striped" style="margin: 0%; font-size: small;  text-align: center;"  
-                [ngClass]="{'':persona, 'ocultar':!persona}">
+                <table class="table table-striped" style="margin: 0%; font-size: small;  text-align: center;"
+                    [ngClass]="{'':persona, 'ocultar':!persona}">
                     <tr>
-                        <td [ngClass]="{'':persona, 'idP':!persona}">{{id_elemento}}</td>
-                        <td [ngClass]="{'':persona, 'nombreP':!persona}">{{nombreElemento}}</td>
+                        <td [ngClass]="{'':persona, 'idP':!persona}" class="letras">{{id_elemento}}</td>
+                        <td [ngClass]="{'':persona, 'nombreP':!persona}" class="letras">{{nombreElemento}}</td>
                         <!-- vacante -->
-                        <td [ngClass]="{'ocultar':vacante, '':!vacante}">sueldo</td>
-                        <td [ngClass]="{'ocultar':vacante, 'horario':!vacante}">horario</td>
-                        <td [ngClass]="{'ocultar':vacante, '':!vacante}">modalidad</td>
-                        <td td [ngClass]="{'':persona, 'borrarElemento':!persona}">borrar elemento</td>
-                        <td td [ngClass]="{'':persona, 'borrarElemento':!persona}">Editar elemento</td>
+                        <td [ngClass]="{'ocultar':vacante, '':!vacante}" class="letras">sueldo</td>
+                        <td [ngClass]="{'ocultar':vacante, 'horario':!vacante}" class="letras">horario</td>
+                        <td [ngClass]="{'ocultar':vacante, '':!vacante}" class="letras">modalidad</td>
+                        <td td [ngClass]="{'':persona, 'borrarElemento':!persona}" class="letras">borrar elemento</td>
+                        <td td [ngClass]="{'':persona, 'borrarElemento':!persona}" class="letras">Editar elemento</td>
                     </tr>
                 </table>
-                <table class="table table-striped" style="margin: 0%; font-size: small;  text-align: center;"  
-                [ngClass]="{'ocultar':persona, '':!persona}">
+                <table class="table table-striped" style="margin: 0%; font-size: small;  text-align: center;"
+                    [ngClass]="{'ocultar':persona, '':!persona}">
                     <tr>
-                        <td [ngClass]="{'ocultar':persona, 'idP':!persona}">{{id_elemento}}</td>
-                        <td [ngClass]="{'ocultar':persona, '':!persona}">{{nombreElemento}}</td>
+                        <td [ngClass]="{'ocultar':persona, 'idP':!persona}" class="letras">{{id_elemento}}</td>
+                        <td [ngClass]="{'ocultar':persona, '':!persona}" class="letras">{{nombreElemento}}</td>
                         <!-- persona -->
-                        <td [ngClass]="{'ocultar':persona, 'apellido':!persona}">apellido P</td>
-                        <td [ngClass]="{'ocultar':persona, 'apellido':!persona}">apellido M</td>
-                        <td [ngClass]="{'ocultar':persona, 'correo':!persona}">correo</td>
-                        <td td [ngClass]="{'':persona, 'botonPersonaI':!persona}">borrar elemento</td>
-                        <td td [ngClass]="{'':persona, 'botonPersonaII':!persona}">Editar elemento</td>
+                        <td [ngClass]="{'ocultar':persona, 'apellido':!persona}" class="letras">apellido P</td>
+                        <td [ngClass]="{'ocultar':persona, 'apellido':!persona}" class="letras">apellido M</td>
+                        <td [ngClass]="{'ocultar':persona, 'correo':!persona}" class="letras">correo</td>
+                        <td td [ngClass]="{'':persona, 'botonPersonaI':!persona}" class="letras">borrar elemento</td>
+                        <td td [ngClass]="{'':persona, 'botonPersonaII':!persona}" class="letras">Editar elemento</td>
                     </tr>
                 </table>
             </div>
@@ -34,8 +34,8 @@
 
     <div class="interiores">
         <div class="card caja scrollMenu">
-            <table class="table table-striped" style="margin: 0%; font-size: small;  text-align: center;"
-            [ngClass]="{'':persona, 'ocultar':!persona}">
+            <table class="table" style="margin: 0%; font-size: small;  text-align: center;"
+                [ngClass]="{'':persona, 'ocultar':!persona}">
                 <tbody style="margin-top: 2rem; font-size: small;  text-align: center;">
                     <tr *ngFor="let objeto of vectorGeneral">
                         <td [ngClass]="{'idTabla':vacante, 'idTablaV':!vacante}">{{objeto.id}}</td>
@@ -44,19 +44,19 @@
                         <td [ngClass]="{'ocultar':vacante, '':!vacante}"> {{objeto.horario}}</td>
                         <td [ngClass]="{'ocultar':vacante, 'modalidad':!vacante}"> {{objeto.modalidad.modalidad}}</td>
                         <td [ngClass]="{'botonB':vacante, 'botonBV':!vacante}">
-                            <button name="borrarBTN" type="button" class="btn btn-outline-danger btn-sm"
+                            <button name="borrarBTN" type="button" class="btn btnBorrarInfo"
                                 (click)="borrar(objeto)">borrar {{tipoVector}}</button>
                         </td>
                         <td [ngClass]="{'botonS':vacante, 'botonSV':!vacante}">
-                            <button type="button" class="btn btn-outline-secondary btn-sm"
-                                (click)="seleccionar(objeto)">seleccionar {{tipoVector}}</button>
+                            <button type="button" class="btn btnSelecInfo" (click)="seleccionar(objeto)">seleccionar
+                                {{tipoVector}}</button>
                         </td>
                     </tr>
                 </tbody>
             </table>
 
-            <table class="table table-striped" style="margin: 0%; font-size: small;  text-align: center;"
-            [ngClass]="{'ocultar':persona, '':!persona}">
+            <table class="table" style="margin: 0%; font-size: small;  text-align: center;"
+                [ngClass]="{'ocultar':persona, '':!persona}">
                 <tbody style="margin-top: 2rem; font-size: small;  text-align: center;">
                     <tr *ngFor="let objeto of vectorGeneral">
                         <td [ngClass]="{'ocultar':persona, 'idP':!persona}">{{objeto.id}}</td>
@@ -65,12 +65,12 @@
                         <td [ngClass]="{'ocultar':persona, 'apellido':!persona}"> {{objeto.apellidoM}}</td>
                         <td [ngClass]="{'ocultar':persona, 'correo':!persona}"> {{objeto.correo}}</td>
                         <td [ngClass]="{'ocultar':persona, 'botonPersonaI':!persona}">
-                            <button name="borrarBTN" type="button" class="btn btn-outline-danger btn-sm"
+                            <button name="borrarBTN" type="button" class="btn btnBorrarInfo"
                                 (click)="borrar(objeto)">eliminar cuenta</button>
                         </td>
                         <td [ngClass]="{'ocultar':persona, 'botonPersonaII':!persona}">
-                            <button type="button" class="btn btn-outline-secondary btn-sm"
-                                (click)="seleccionar(objeto)">seleccionar {{tipoVector}}</button>
+                            <button type="button" class="btn btnSelecInfo" (click)="seleccionar(objeto)">seleccionar
+                                {{tipoVector}}</button>
                         </td>
                     </tr>
                 </tbody>
@@ -87,7 +87,7 @@
                             <div style="width: 100%;">
                                 <div class="container">
                                     <div class="row">
-                                        <div class="col-6" style="padding-left: 0%; padding-bottom: .3rem;">
+                                        <div class="col-6 textosDatos">
                                             {{id_elemento}} :
                                         </div>
 
@@ -96,7 +96,7 @@
                             </div>
                             <div style="display: flex;">
                                 <div style="width: 100%;">
-                                    <input class="form-control" type="text" placeholder="Apellido Paterno"
+                                    <input class="form-control bordesInfotec" type="text" placeholder="Apellido Paterno"
                                         aria-label="default input example" [(ngModel)]="id_Captura" disabled>
                                 </div>
                             </div>
@@ -106,7 +106,7 @@
                             <div style="width: 100%;">
                                 <div class="container">
                                     <div class="row">
-                                        <div class="col-6" style="padding-left: 0%; padding-bottom: .3rem;">
+                                        <div class="col-6 textosDatos">
                                             {{nombreElemento}} :
                                         </div>
                                     </div>
@@ -114,7 +114,7 @@
                             </div>
                             <div style="display: flex;">
                                 <div style="width: 100%;">
-                                    <input class="form-control" type="text" placeholder="nombre"
+                                    <input name="campoNombre" class="form-control bordesInfotec" type="text" placeholder="nombre"
                                         aria-label="default input example" [(ngModel)]="nombreCaptura">
                                 </div>
                             </div>
@@ -124,11 +124,11 @@
                 </div>
             </div>
             <div style="margin-bottom: .5rem;">
-                <button name="CreateObj" type="button" class="btn btn-success" style="width: 100%;" (click)="agregar()">
+                <button name="CreateObj" type="button" class="btn btnInfotecG" style="width: 100%;" (click)="agregar()">
                     GUARDAR NUEVO</button>
             </div>
             <div style="margin-bottom: .5rem;">
-                <button name="ModObj" type="button" class="btn btn-warning" style="width: 100%;" (click)="editar()">
+                <button name="ModObj" type="button" class="btn btnInfotecY" style="width: 100%;" (click)="editar()">
                     GUARDAR CAMBIOS </button>
             </div>
         </div>
@@ -138,3 +138,29 @@
 <ng-template #noSeleccionado>
     <p style="text-align: center;">No se ha seleccionado una lista</p>
 </ng-template>
+
+<div [ngClass]="{'':verBtnBorrar, 'view':!verBtnBorrar}">
+    <button type="button" class="btn-close cerrar" aria-label="Close" (click)="cerrar()"></button>
+</div>
+
+<div class="preview" name="vistaVacante">
+    <div class="card">
+        <app-job></app-job>
+    </div>
+</div>
+
+<div name="panel" class="perfil" [ngClass]="{'':ocultarCandidato, 'view':!ocultarCandidato}">
+    <button name="cerrarBtn" type="button" class="btn-close borrar" aria-label="Close" (click)="cerrarPanel()"></button>
+    <app-profile name="componente" [vistaAdministrar]="vistaAdministrar"></app-profile>
+</div>
+
+<div class="btnAct"  [ngClass]="{'':ocutarBtnAct, 'view':!ocutarBtnAct}">
+    <div class="card" style="padding: .5rem;"> 
+        <a class="btn btnInfotecY" style="width: 100%;" (click)="actualizarPerfil()">Actualizar Perfil</a>
+    </div>
+</div>
+
+<div class="registro" name="formRegistro">
+    <button name="cerrarBtn" type="button" class="btn-close btnCerrar" aria-label="Close" (click)="ocultarRegistro()"></button>
+    <app-create [usuarioAdmin]="usuarioAdmin"></app-create>
+</div>

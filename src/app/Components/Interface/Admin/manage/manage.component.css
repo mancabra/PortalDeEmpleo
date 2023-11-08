@@ -29,3 +29,15 @@
     display: block;
     margin-bottom: 2rem;
 }
+
+.bontonInfotec{
+    border-color: rgb(50, 90, 79);
+    color: rgb(50, 90, 79);
+}
+
+.bontonInfotec:hover{
+    border-color: rgb(50, 90, 79);
+    background-color: rgb(50, 90, 79);
+    color: white;
+}
+

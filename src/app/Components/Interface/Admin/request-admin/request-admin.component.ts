@@ -18,7 +18,7 @@ export class RequestAdminComponent implements OnInit {
   }
   ngOnInit(): void {
     this.obtenerLog();
-    //this.cargarMuestra();
+   // this.cargarMuestra();
   }
 
   obtenerLog() {

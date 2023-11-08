@@ -77,7 +77,7 @@ export class JobsComponent implements OnInit, OnDestroy {
     this.filtrosDisponibles = ["Ninguno", "Mejor Pagados", "Estado"];
     this.vacanteSeleccionada = new Vacante;
     this.buscarUsuario();
-    this.obtenerVacantes();
+    this.obtenerVacantesPag0();
     this.obtenerEstados();
     //this.cargarMuestra();
   }
@@ -251,6 +251,31 @@ export class JobsComponent implements OnInit, OnDestroy {
       }
     });
   }
+
+  vectorPag: number [] = [];
+    // FUNCION PARA OBTENER LAS VACANTES DISPONIBLES PAG
+    obtenerVacantesPag0() {
+      this.vectorPag = [];
+      this._CandidateRequest.obtenerVacantesPag(0).subscribe(data => {
+        this.jobsList = data.content;
+        for (let index = 0; index < data.pageSize; index++) {
+          const element = index+1;
+          this.vectorPag.push(element);
+        }
+      });
+    }
+
+    obtenerVacantesPag(pagina:number) {
+      this._CandidateRequest.obtenerVacantesPag(pagina).subscribe(data => {
+        this.jobsList = data.content;
+      });
+    }
+
+    obtenerVacantesUltima() {
+      this._CandidateRequest.obtenerVacantesPag(this.vectorPag.length).subscribe(data => {
+        this.jobsList = data.content;
+      });
+    }
 
 
 

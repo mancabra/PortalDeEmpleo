@@ -5,6 +5,7 @@ import { Candidato } from '../Entity/candidato';
 import { Postulacion } from '../Entity/postulacion';
 import { Habilidad } from '../Entity/habilidad';
 import { Idioma } from '../Entity/idioma';
+import { Vacante } from '../Entity/vacante';
 
 @Injectable({
   providedIn: 'root'
@@ -89,11 +90,17 @@ export class CandidateService {
   }
 
   // OBTENER VACANTES DE BASE DE DATOS (TODAS)
-  obtenerVacantes() {
-    //prueba de funcionamiento
-    console.log("Proceso ObternerVacantes");
-    return this._http.get("app/obtenerListaVacantes").toPromise();
+  obtenerVacantesPag(pag: number): Observable<any> {
+    let cadena = "app/vacantes/page/" + pag;
+    return this._http.get<any>(cadena);
   }
+
+    // OBTENER VACANTES DE BASE DE DATOS (TODAS)
+    obtenerVacantes() {
+      //prueba de funcionamiento
+      console.log("Proceso ObternerVacantes");
+      return this._http.get("app/obtenerListaVacantes").toPromise();
+    }
 
   // OBTENER VACANTES DE BASE DE DATOS (POR MUNICIPIO)
   obtenerVacantesCercanas(CandidateRequest: number) {

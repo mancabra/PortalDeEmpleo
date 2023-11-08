@@ -14,21 +14,13 @@
                         <option value="vacante"></option>
                         <option value="candidato"></option>
                     </datalist>
-                    <button class="btn btn-outline-secondary" type="button" (click)="seleccionar()" >Seleccionar Tabla </button>
+                    <button class="btn bontonInfotec" type="button" (click)="seleccionar()" >Seleccionar Tabla </button>
                 </div>
             </div>
         </div>
     </div>
 </div>
 
-<div name="botonAct" style="margin-bottom: 2rem;">
-    <div class="col">
-        <div class="card" style="padding: .5rem;"> 
-            <a class="btn btn-warning" style="width: 100%;"
-            (click)="actualizarPerfil()">Actualizar Perfil</a>
-        </div>
-    </div>
-</div>
 <!--  
 <div style="display: flex;">
     <div class="cajaIzquierda">
@@ -141,14 +133,17 @@
 </div>
 -->
 
+
 <div [ngClass]="{'off':desactivarInterfaz, '':!desactivarInterfaz}">
     <app-data></app-data>
 </div>
+<div [ngClass]="{'':desactivarInterfaz, 'off':!desactivarInterfaz}">
+   <app-update [vistaAdministrar]="vistaAdministrar"> </app-update>
+</div>
 
-<div class="off" name ="perfil"><app-profile [vistaAdministrar]="vistaAdministrar"></app-profile></div>
-<div name ="perfilMOD"><app-update [vistaAdministrar]="vistaAdministrar"></app-update></div>
-<div name ="generar"><app-create [usuarioAdmin]="usuarioAdmin"></app-create></div>
-<div name =""></div>
+<!-- 
+<div name ="generar"></div>
 <div name =""></div>
 
+ -->
     

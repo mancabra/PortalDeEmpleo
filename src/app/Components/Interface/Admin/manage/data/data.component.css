@@ -109,3 +109,183 @@ width: 193px;
 .ocultar{
     display: none;
 }
+
+.letras{
+    color:rgb(151, 121, 77);
+}
+
+tbody tr:nth-child(odd) {
+    background-color:rgb(218, 202, 168);
+    color: white;
+  }
+  
+  tbody tr:nth-child(even) {
+    background-color: white;
+    color:rgb(151, 121, 77);
+  }
+
+  .btnSelecInfo{
+    font-size: x-small;
+    background-color: white;
+    color: rgb(50, 90, 79);
+    border-color: rgb(50, 90, 79);
+  }
+
+  .perfil{
+    position: relative;
+    transition: all .7s;
+    transform: scale(0);
+    z-index: -1;
+}
+
+  .perfilMostar{
+    position: relative;
+    z-index: 10;
+    transform: scale(0.8);
+    margin-top: -57.5%;
+}
+
+.perfilOcultar{
+    position: relative;
+    opacity: 1;
+    margin-top: 0%;
+    transform: scale(0.8);
+    z-index: -1;
+}
+
+.borrar{
+  position: absolute;
+  padding: 0%;
+  background-color: white;
+  top: 5%;
+  right: 3%;
+  z-index: 11;
+  transition: all 1s;
+}
+
+.btnAct{
+  position: absolute;
+  top: 90%;
+  right: 16.2%;
+  width: 972.8px;
+  z-index: 1000;
+}
+
+  .btnSelecInfo:hover{
+    background-color: rgb(50, 90, 79);
+    color: white;
+    border-color: rgb(50, 90, 79);
+  }
+
+  .btnBorrarInfo{
+    font-size: x-small;
+    background-color: white;
+    color: rgb(97, 34, 50);
+    border-color: rgb(97, 34, 50);
+  }
+
+  .btnBorrarInfo:hover{
+    background-color: rgb(97, 34, 50);
+    color: white;
+    border-color: rgb(97, 34, 50);
+  }
+
+  .bordesInfotec{
+    border-color:rgb(50, 90, 79) ;
+  }
+
+  .textosDatos{
+    color: rgb(50, 90, 79);
+    padding-left: 0%;
+    padding-bottom: .3rem;
+  }
+
+  .btnInfotecG{
+    background-color: white;
+    border-color: rgb(50, 90, 79);
+    color: rgb(50, 90, 79);
+  }
+
+  .btnInfotecY{
+    background-color: white;
+    border-color: rgb(151, 121, 77);
+    color: rgb(151, 121, 77);
+  }
+
+  .btnInfotecG:hover{
+    background-color: rgb(50, 90, 79);
+    border-color: rgb(50, 90, 79);
+    color: white;
+  }
+
+  .btnInfotecY:hover{
+    background-color: rgb(151, 121, 77);
+    border-color: rgb(151, 121, 77);
+    color: white;
+  }
+
+  .preview{
+    position: absolute;
+    opacity: 0;
+    top: 23%;
+    right: 32%;
+    padding: 1rem;
+    width: 550px;
+    height: 440px;
+    z-index:-1;
+    transform: scale(0);
+    transition: all 0.3s;
+}
+
+.cerrar{
+    position: absolute;
+    top: 27%;
+    right: 33.5%;
+    width: 50px;
+    height: 50px;
+    z-index:1001;
+}
+
+.mostrar{
+    opacity: 1;
+    transform: scale(1);
+    z-index:1000;
+}
+
+.view{
+  display: none;
+}
+
+.bloqueo{
+  pointer-events: none;
+  opacity: .9;
+  background-color: rgb(233, 236, 239);
+}
+
+.registro{
+  position: absolute;
+  opacity: 0;
+  top: 10%;
+  right: 20%;
+  padding: 1rem;
+  z-index:-1;
+  transform: scale(0);
+  transition: all 0.3s;
+}
+
+.mostrarRegistro{
+  opacity: 1;
+  transform: scale(.8);
+  z-index:1000;
+}
+
+.btnCerrar{
+    position: absolute;
+    padding: .2rem;
+    border-radius: 5px;
+    top: 8.5%;
+    right: 3.5%;
+    z-index: 11;
+    transition: all 1s;
+    background-color: white;
+}

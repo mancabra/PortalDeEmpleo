@@ -173,3 +173,21 @@
     height: 400px;
     z-index:1000;
 }
+
+.suspendida{
+    width: 100%;
+    height: 50px;
+    position: absolute;
+    top: 10%;
+    right: 0%;
+    z-index: 1000;
+}
+
+.banner{
+    width: 100%;
+    height: 50px;
+    display: grid;
+    place-items: center;
+    background-color: rgb(97, 34, 50);
+    color: white;
+}

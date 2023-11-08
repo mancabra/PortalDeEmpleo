@@ -17,9 +17,9 @@ import { Vacante } from '../Entity/vacante';
 export class InterfaceService {
 
   // RUTA UTILIZADA PARA LOS POPUPS DE ERROR
-  rutaTriste: String = "https://firebasestorage.googleapis.com/v0/b/gdi-portalempleo.appspot.com/o/images%2Ftriste.png?alt=media&token=9a85755b-d710-48f6-8b41-8a993572104a";
+  rutaTriste: String = "../assets/triste.png";
   // RUTA UTILIZADA PARA LOS POPUPS DE EXITO
-  rutaFeliz: String = "https://firebasestorage.googleapis.com/v0/b/gdi-portalempleo.appspot.com/o/images%2Ffeliz.png?alt=media&token=1dc280f4-9167-48a8-b23b-7ad2086806f7";
+  rutaFeliz: String = "../assets/feliz.png";
 
   usuario: Candidato = new Candidato;
   correo: string = "";
@@ -209,11 +209,11 @@ export class InterfaceService {
     this.alerta.mss = alerta.mss;
     if (this.alerta.error == true) {
       this.alerta.ruta = this.rutaTriste;
-      this.alerta.color = "red";
+      this.alerta.color = "rgb(97, 34, 50)";
       this.alerta.name = "LO SENTIMOS"
     } else {
       this.alerta.ruta = this.rutaFeliz;
-      this.alerta.color = "green";
+      this.alerta.color = "rgb(50, 90, 79)";
       this.alerta.name = "¡TODO LISTO!";
     }
     this.alerta$.next(this.alerta);

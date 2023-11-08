@@ -347,6 +347,7 @@ export class UpdateComponent implements OnInit, OnDestroy {
     }
   }
 
+
   // FUNCION PARA OBTENER LOS IDIOMAS DISPONIBLES
   obtenrIdiomas() {
     this._CandidateRequest.obtenerIdiomas().subscribe(data => {
@@ -863,8 +864,8 @@ export class UpdateComponent implements OnInit, OnDestroy {
         } else {
           this.enviarAlerta("El perfil ha sido modificado correctamente.", false);
           const OBJETO = {
-            vista: "revisarPerfil",
-            correoElectronico: this.usuario.usuario.correoElectronico
+            vista: "volver",
+            correo: this.usuario.usuario.correoElectronico
           }
           this._AdminRequest.cambiarVista(OBJETO);
         }
@@ -884,8 +885,8 @@ export class UpdateComponent implements OnInit, OnDestroy {
         } else {
           this.enviarAlerta("El perfil ha sido modificado correctamente.", false);
           const OBJETO = {
-            vista: "revisarPerfil",
-            correoElectronico: this.usuario.usuario.correoElectronico
+            vista: "volver",
+            correo: this.usuario.usuario.correoElectronico
           }
           this._AdminRequest.cambiarVista(OBJETO);
         }
@@ -1207,6 +1208,8 @@ export class UpdateComponent implements OnInit, OnDestroy {
 
   // MODIFICACION DE IMAGENES
   capturarSecundarios() {
+  
+  
     this.mensajeAlerta = "";
     this.mensajeAlerta = "Los archivos seleccionados para el campo: " + this.mensajeAlerta + " no son de una extención valida."
       + " Ten en cuenta que las extenciones permitidas para los campos de captura de imagenes son PNG y JPG, mientras que para la captura de archivos solo de admite el formato PDF";
@@ -1253,8 +1256,8 @@ export class UpdateComponent implements OnInit, OnDestroy {
           this.subirEspecialidadII();
           this.subirEspecialidadIII();
           const OBJETO = {
-            vista: "revisarPerfil",
-            correoElectronico: this.usuario.usuario.correoElectronico
+            vista: "volver",
+            correo: this.usuario.usuario.correoElectronico
           }
           this._AdminRequest.cambiarVista(OBJETO);
         }

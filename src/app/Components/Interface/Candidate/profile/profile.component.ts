@@ -84,12 +84,14 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
     // SUSCRIPCION AL OBSERVABLE DE UN SERVICIO PARA OBTENER UN USUARIO
     this.subscription = this._AdminRequest.getUsuario().subscribe(data => {
+      console.log(this.usuario)
       this.usuario = data;
       this.identificarVista();
     });
   }
 
   ngOnInit(): void {
+    
     this.documentosEsp = [];
     this.documentosCV = [];
     this.identificarVista();

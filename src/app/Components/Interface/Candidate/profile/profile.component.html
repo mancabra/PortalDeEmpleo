@@ -1,16 +1,11 @@
 <div>
     <div>
-        <div style="width: 100%;">
-            <div class="contenedorComponent" [ngClass]="{'view':usuarioActivo, '':!usuarioActivo}">
-                <div style="background-color:red; opacity: 0.5; width: 100%;">
-                    <div style="padding: 2rem; text-align: center;">
-                        <b style="color: white;">ESTA CUENTA ACTUALMENTE SE ENCUENTRA SUSPENDIDA</b>
-                    </div>
+        <div class="card" style="width: 100%; height: 100%; padding: .5rem;">
+            <div class="suspendida" [ngClass]="{'view':usuarioActivo, '':!usuarioActivo}">
+                <div class="banner">
+                    <b>ESTA CUENTA ACTUALMENTE SE ENCUENTRA SUSPENDIDA</b>
                 </div>
             </div>
-        </div>
-
-        <div class="card" style="width: 100%; height: 100%; padding: .5rem;">
             <div style=" position: relative;">
                 <div class="bajo">
                     <div class="card text" style="height: 200px;">
@@ -41,7 +36,6 @@
                                                 <li><a class="dropdown-item menuDesp"
                                                         (click)="suspenderCuenta();">Suspender
                                                         Cuenta</a></li>
-
                                             </ul>
                                         </div>
                                     </div>

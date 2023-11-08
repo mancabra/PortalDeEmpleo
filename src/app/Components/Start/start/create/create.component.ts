@@ -793,6 +793,9 @@ export class CreateComponent {
             this.subirPerfil();
             this.enviarAlerta("El candidato fue creado correctamente, la cuenta ya puede ser utilizada.", false);
             this.limpiarCampos();
+            setTimeout(() => {
+              this._AdminRequest.listaActiva('candidato');
+            }, 500);
           }
         } else {
           if (data.estatus == false) {
@@ -823,6 +826,9 @@ export class CreateComponent {
           this.limpiarCampos();
           this.subirPortada();
           this.subirPerfil();
+          setTimeout(() => {
+            this._AdminRequest.listaActiva('empleador');
+          }, 500);
         }
       });
     } else {
@@ -842,6 +848,10 @@ export class CreateComponent {
             this.limpiarCampos();
             this.subirPortada();
             this.subirPerfil();
+            setTimeout(() => {
+              this._AdminRequest.listaActiva('empleador');
+            }, 500);
+    
           }
         } else {
           if (data.estatus == false) {

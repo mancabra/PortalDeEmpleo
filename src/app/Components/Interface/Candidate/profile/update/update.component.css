@@ -130,5 +130,68 @@ padding-left: 0px;
 }
 
 
+input[type="file"]{
+  border-color: rgb(50, 90, 79);
+}
+
+.botonMas{
+    border-color: rgb(50, 90, 79);
+    background-color: white;
+    color: rgb(50, 90, 79);
+}
+
+.botonMas:hover{
+    border-color: rgb(50, 90, 79);
+    background-color: rgb(50, 90, 79);
+    color: white;
+}
+
+.botonMenos{
+    border-color: rgb(97, 34, 50);
+    color: rgb(97, 34, 50);
+    background-color: white;
+}
+
+.botonMenos:hover{
+    border-color: rgb(97, 34, 50);
+    color: white;
+    background-color:rgb(97, 34, 50);
+}
+
+.btnActualizar{
+    border-color: rgb(182,150,100);
+    color: rgb(182,150,100);
+    background-color: white;
+}
+
+.btnActualizar:hover{
+    border-color: rgb(182,150,100);
+    color: white;
+    background-color: rgb(182,150,100);
+}
+
+.textosIdiomas{
+    color: rgb(50, 90, 79);
+}
+
+.mycheck{
+    border-color:rgb(97, 34, 50);
+    background-color: white;
+}
+
+.mycheck:checked{
+    border-color: rgb(97, 34, 50);
+    background-color:rgb(97, 34, 50);
+}
+
+.mycheck2{
+    border-color: rgb(50, 90, 79);
+    background-color: white;
+}
+
+.mycheck2:checked{
+    border-color: rgb(50, 90, 79);
+    background-color:rgb(50, 90, 79);
+}
 
 

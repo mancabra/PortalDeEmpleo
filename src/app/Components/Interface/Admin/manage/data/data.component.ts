@@ -18,6 +18,7 @@ import { InterfaceService } from 'src/app/Services/InterfaceServices/interface.s
 })
 export class DataComponent implements OnInit, OnDestroy {
 
+  vistaAdministrar: boolean = true;
   id_elemento: string = "id";
   nombreElemento: string = "nombre";
   vectorGeneral: any[] = [];
@@ -42,9 +43,9 @@ export class DataComponent implements OnInit, OnDestroy {
       this.tipoVector = data;
       let botonModificar = document.getElementsByName('ModObj')[0];
       botonModificar.classList.add('bloqueo');
-
       this.identificarLista(this.tipoVector);
       this.quitarBloqueo();
+    
     });
 
   }
@@ -86,6 +87,7 @@ export class DataComponent implements OnInit, OnDestroy {
       this.externo = false;
       this.desbloquearCrear();
       this.obtenrIdiomas();
+      this.desbloquearNombre();
     } else if (lista == "habilidad") {
       this.id_elemento = "id";
       this.nombreElemento = "nombre";
@@ -94,6 +96,7 @@ export class DataComponent implements OnInit, OnDestroy {
       this.externo = false;
       this.desbloquearCrear();
       this.obtenerHabilidades();
+      this.desbloquearNombre();
     } else if (lista == "horario") {
       this.id_elemento = "id";
       this.nombreElemento = "nombre";
@@ -102,6 +105,7 @@ export class DataComponent implements OnInit, OnDestroy {
       this.externo = false;
       this.desbloquearCrear();
       this.obtenerTiposDeHorario();
+      this.desbloquearNombre();
     } else if (lista == "contratacion") {
       this.id_elemento = "id";
       this.nombreElemento = "nombre";
@@ -110,6 +114,7 @@ export class DataComponent implements OnInit, OnDestroy {
       this.externo = false;
       this.desbloquearCrear();
       this.obtenerTiposContratacion();
+      this.desbloquearNombre();
     } else if (lista == "modalidad") {
       this.id_elemento = "id";
       this.nombreElemento = "nombre";
@@ -118,13 +123,16 @@ export class DataComponent implements OnInit, OnDestroy {
       this.externo = false;
       this.desbloquearCrear();
       this.obtenerModalidades();
+      this.desbloquearNombre();
     } else if (lista == "candidato") {
+      this.ocultarRegistro();
       this.id_elemento = "id";
       this.nombreElemento = "nombre";
       this.vacante = true;
       this.persona = false;
       this.externo = true;
-      this.bloquearCrear()
+      this.bloquearNombre();
+      this.desbloquearCrear();
       this.obtenerCandidatos();
     } else if (lista == "vacante") {
       this.id_elemento = "id";
@@ -132,14 +140,17 @@ export class DataComponent implements OnInit, OnDestroy {
       this.vacante = false;
       this.persona = true;
       this.externo = true;
+      this.bloquearNombre();
       this.bloquearCrear()
       this.obtenerVacantes();
     } else if (lista == "empleador") {
+      this.ocultarRegistro();
       this.id_elemento = "id";
       this.nombreElemento = "nombre";
       this.vacante = true;
       this.persona = false;
       this.externo = true;
+      this.bloquearNombre();
       this.bloquearCrear();
       this.obtenerempleadores();
     }
@@ -171,8 +182,8 @@ export class DataComponent implements OnInit, OnDestroy {
   obtenrIdiomas() {
 
     this._CandidateRequest.obtenerIdiomas().subscribe(data => {
-      this.vectorGeneral = [];
 
+      this.vectorGeneral = [];
       for (let i = 0; i < data.length; i++) {
         const element = data[i];
 
@@ -191,25 +202,26 @@ export class DataComponent implements OnInit, OnDestroy {
       }
     });
     /*
-    this.vectorGeneral = [];
-
-    for (let i = 0; i < this.vectorIdiomas.length; i++) {
-      const element = this.vectorIdiomas[i];
-
-      const OBJETO = {
-        id: element.id_idioma,
-        nombre: element.nombreIdioma,
-        sueldo: "",
-        horario: "",
-        modalidad: "",
-        apellidoP: "",
-        apellidoM: "",
-        correo: "",
-        telefono: "",
-      }
-      this.vectorGeneral.push(OBJETO);
-    }
-    */
+        
+        this.vectorGeneral = [];
+    
+        for (let i = 0; i < this.vectorIdiomas.length; i++) {
+          const element = this.vectorIdiomas[i];
+    
+          const OBJETO = {
+            id: element.id_idioma,
+            nombre: element.nombreIdioma,
+            sueldo: "",
+            horario: "",
+            modalidad: "",
+            apellidoP: "",
+            apellidoM: "",
+            correo: "",
+            telefono: "",
+          }
+          this.vectorGeneral.push(OBJETO);
+        }
+        */
   }
 
   // FUNCION PARA OBTENER LAS HABILIDADES DISPONIBLES
@@ -252,7 +264,7 @@ export class DataComponent implements OnInit, OnDestroy {
           apellidoM: "",
           correo: "",
           telefono: "",
-          id_usuario:0
+          id_usuario: 0
         }
         this.vectorGeneral.push(OBJETO);
       }
@@ -276,7 +288,7 @@ export class DataComponent implements OnInit, OnDestroy {
           apellidoM: "",
           correo: "",
           telefono: "",
-          id_usuario:0
+          id_usuario: 0
         }
         this.vectorGeneral.push(OBJETO);
       }
@@ -300,12 +312,14 @@ export class DataComponent implements OnInit, OnDestroy {
           apellidoM: "",
           correo: "",
           telefono: "",
-          id_usuario:0
+          id_usuario: 0
         }
         this.vectorGeneral.push(OBJETO);
       }
     });
   }
+
+
 
   vectorVacantes: Vacante[] = [
     {
@@ -347,32 +361,32 @@ export class DataComponent implements OnInit, OnDestroy {
           apellidoM: "",
           correo: "",
           telefono: "",
-          id_usuario:0
+          id_usuario: 0
         }
         this.vectorGeneral.push(OBJETO);
       }
     });
     /*
-    this.vectorGeneral = [];
-
-    for (let i = 0; i < this.vectorVacantes.length; i++) {
-      const element = this.vectorVacantes[i];
-
-      const OBJETO = {
-        id: element.id_vacante,
-        nombre: element.nombreVacante,
-        sueldo: element.sueldo,
-        horario: element.horario,
-        modalidad: element.modalidadTrabajo
-      }
-      this.vectorGeneral.push(OBJETO);
-    }*/
+      this.vectorGeneral = [];
+  
+      for (let i = 0; i < this.vectorVacantes.length; i++) {
+        const element = this.vectorVacantes[i];
+  
+        const OBJETO = {
+          id: element.id_vacante,
+          nombre: element.nombreVacante,
+          sueldo: element.sueldo,
+          horario: element.horario,
+          modalidad: element.modalidadTrabajo
+        }
+        this.vectorGeneral.push(OBJETO);
+      }*/
   }
 
   vectorPersonas: Candidato[] = [
     {
       //this.empleador = {
-      id_candidato: 0,
+      id_candidato: 1,
       //id_empleador:0,
       edad: 25,
       domicilio: "C. Alcatraz",
@@ -381,7 +395,61 @@ export class DataComponent implements OnInit, OnDestroy {
       centroEducativo: "UAM: Azcapotzalco",
       rutaCv: "Untitled-2.pdf",
       usuario: {
-        id_usuario: 0,
+        id_usuario: 1,
+        nombre: "Daniel",
+        correoElectronico: "mancabra97@gmail.com",
+        contrasena: "1234556",
+        tipoUsuario: 2,
+        apellidoP: "Cordoba",
+        apellidoM: "Lopez",
+        telefono: "+52 5514098249",
+        estatusUsuario: true,
+        rutaImagenPerfil: "Captura de pantalla 2023-09-07 223459.png",
+        rutaImagenPortada: "Captura de pantalla 2023-09-07 224204.png",
+      },
+      vacantes: [],
+      idiomas: [
+        { id_idioma: 0, nombreIdioma: "ingles", candidatos: [] },
+        { id_idioma: 0, nombreIdioma: "ingles", candidatos: [] },
+        { id_idioma: 0, nombreIdioma: "ingles", candidatos: [] },
+        { id_idioma: 0, nombreIdioma: "ingles", candidatos: [] },
+        { id_idioma: 0, nombreIdioma: "ingles", candidatos: [] },
+      ],
+      municipio: { id_municipio: 0, nombreMunicipio: "talxacala", estado: new Estado },
+      estado: { id_estado: 1, nombreEstado: "tlaxcala", municipios: [] },
+      profesion: "DISEÑADOR",
+      fechaNacimiento: new Date,
+      habilidades: [
+        { id_habilidad: 0, nombreHabilidad: "trabajo en equipo", candidatos: [] },
+        { id_habilidad: 0, nombreHabilidad: "trabajo en equipo", candidatos: [] },
+        { id_habilidad: 0, nombreHabilidad: "trabajo en equipo", candidatos: [] },
+        { id_habilidad: 0, nombreHabilidad: "trabajo en equipo", candidatos: [] },
+        { id_habilidad: 0, nombreHabilidad: "trabajo en equipo", candidatos: [] },
+        { id_habilidad: 0, nombreHabilidad: "trabajo en equipo", candidatos: [] },
+        { id_habilidad: 0, nombreHabilidad: "trabajo en equipo", candidatos: [] },
+        { id_habilidad: 0, nombreHabilidad: "trabajo en equipo", candidatos: [] },
+        { id_habilidad: 0, nombreHabilidad: "trabajo en equipo", candidatos: [] },
+        { id_habilidad: 0, nombreHabilidad: "trabajo en equipo", candidatos: [] },
+      ],
+      rutaEspecialidad: "Untitled-2.pdf",
+      descripcionEspecialidad1: "holaMundo",
+      rutaEspecialidad2: "Untitled-2.pdf",
+      descripcionEspecialidad2: "holaMundo",
+      rutaEspecialidad3: "Untitled-2.pdf",
+      descripcionEspecialidad3: "holaMundo",
+    },
+    {
+      //this.empleador = {
+      id_candidato: 2,
+      //id_empleador:0,
+      edad: 25,
+      domicilio: "C. Alcatraz",
+      puestoActual: "Diseñador",
+      descripcion: "Diseñador grafico con experiencia en el diseño digital y diseño de paginas web Diseñador grafico con experiencia en el diseño digital y diseño de paginas web Diseñador grafico con experiencia en el diseño digital y diseño de paginas web Diseñador grafico con experiencia en el diseño digital y diseño de paginas web Diseñador grafico con experiencia en el diseño digital y diseño de paginas web Diseñador grafico con experiencia en el diseño digital y diseño de paginas web Diseñador grafico con experiencia en el diseño digital y diseño de paginas web",
+      centroEducativo: "UAM: Azcapotzalco",
+      rutaCv: "Untitled-2.pdf",
+      usuario: {
+        id_usuario: 2,
         nombre: "Ramiro",
         correoElectronico: "mancabra97@gmail.com",
         contrasena: "1234556",
@@ -418,16 +486,17 @@ export class DataComponent implements OnInit, OnDestroy {
         { id_habilidad: 0, nombreHabilidad: "trabajo en equipo", candidatos: [] },
       ],
       rutaEspecialidad: "Untitled-2.pdf",
-       descripcionEspecialidad1: "holaMundo",
+      descripcionEspecialidad1: "holaMundo",
       rutaEspecialidad2: "Untitled-2.pdf",
-       descripcionEspecialidad2: "holaMundo",
+      descripcionEspecialidad2: "holaMundo",
       rutaEspecialidad3: "Untitled-2.pdf",
-       descripcionEspecialidad3: "holaMundo",
+      descripcionEspecialidad3: "holaMundo",
     }
   ];
 
   // FUNCION PARA OBTENER LOS CANDIDATOS DISPONIBLES
   obtenerCandidatos() {
+  
     this._AdminRequest.obtenerCandidatos().then((data: any) => {
       this.vectorGeneral = [];
       for (let i = 0; i < data.length; i++) {
@@ -449,7 +518,7 @@ export class DataComponent implements OnInit, OnDestroy {
       }
     });
 
-/*  
+  /*
     this.vectorGeneral = [];
 
     for (let i = 0; i < this.vectorPersonas.length; i++) {
@@ -468,8 +537,8 @@ export class DataComponent implements OnInit, OnDestroy {
         id_usuario: element.usuario.id_usuario
       }
       this.vectorGeneral.push(OBJETO);
-    }*/
-
+    }
+*/
   }
 
   // FUNCION PARA OBTENER LOS EMPLEADORES DISPONIBLES
@@ -511,27 +580,67 @@ export class DataComponent implements OnInit, OnDestroy {
   }
 
   evaluarExterno(objeto: any) {
-    if(this.tipoVector == "candidato"){
-      const OBJETO = {
-        vista: "revisarPerfil",
-        correo: objeto.correo,
-        id_usuario: objeto.id_usuario
-      }
-      this._AdminRequest.cambiarVista(OBJETO);
-    } else if (this.tipoVector == "empleador"){
-      const OBJETO = {
-        vista: "revisarPerfil",
-        correo: objeto.correo,
-        id_usuario: objeto.id_usuario
-      }
-      this._AdminRequest.cambiarVista(OBJETO);
-    } else if (this.tipoVector == "vacante"){
-      const OBJETO = {
-        vista: "verVacante",
-        id_vacante: objeto.id_vacante
-      }
-      this._AdminRequest.cambiarVista(OBJETO);
+    if (this.tipoVector == "candidato") {
+      this.obtenerUsuario(objeto.correo);
+    } else if (this.tipoVector == "empleador") {
+      this.obtenerUsuario(objeto.correo);
+    } else if (this.tipoVector == "vacante") {
+      /* this._AdminRequest.cambiarVista(OBJETO);*/
+      this.obtenerVacanteActual(objeto.id_vacante);
     }
+  }
+
+  obtenerUsuario(correo: string) {
+    this._AdminRequest.obtenerUsuario(correo).then((data: any) => {
+      this._AdminRequest.usuarioActivo(data);
+      this.mostrarCandidato();
+    });
+  }
+
+  mostrarCandidato() {
+    this.ocultarCandidato = true;
+    setTimeout(() => {
+      const perfil = document.getElementsByName("panel")[0];
+      perfil.classList.remove("perfilOcultar");
+      perfil.classList.add("perfilMostar");
+    }, 100);
+
+    setTimeout(() => {
+      this.ocutarBtnAct = true;
+    }, 300);
+  }
+
+  actualizarPerfil() {
+    const data = {
+      vista: "actualizarPerfil"
+    }
+    this._AdminRequest.cambiarVista(data);
+  }
+
+  vacanteActual: Vacante = new Vacante;
+  verBtnBorrar: boolean = false;
+
+  obtenerVacanteActual(id: number) {
+    this._AdminRequest.obtenerVacante(id).then((data: any) => {
+      this.vacanteActual = data;
+      this.enviarVacante(this.vacanteActual);
+    });
+  }
+
+  enviarVacante(vacante: Vacante) {
+    this._UserRequest.actualizarVacante(vacante);
+    const panel = document.getElementsByName("vistaVacante")[0];
+    panel.classList.add("mostrar");
+    setTimeout(() => {
+      this.verBtnBorrar = true;
+    }, 250);
+  }
+
+  cerrar() {
+    this.verBtnBorrar = false;
+    const panel = document.getElementsByName("vistaVacante")[0];
+    panel.classList.remove("mostrar");
+
   }
 
   limpiar() {
@@ -541,7 +650,19 @@ export class DataComponent implements OnInit, OnDestroy {
 
   agregar() {
     if (this.externo == true) {
-      
+      switch (this.tipoVector) {
+        case "candidato":
+          this.mostrarRegistro();
+          break;
+        case "empleador":
+          this.mostrarRegistro();
+          break;
+        case "administrador":
+          this.mostrarRegistro();
+          break;
+        default:
+          console.log("error");
+      }
     } else {
       if (this.tipoVector == "idioma") {
         this.guardarIdioma();
@@ -556,6 +677,17 @@ export class DataComponent implements OnInit, OnDestroy {
       }
     }
 
+  }
+
+  usuarioAdmin: boolean = true;
+  mostrarRegistro() {
+ const registro = document.getElementsByName('formRegistro')[0];
+ registro.classList.add('mostrarRegistro');
+  }
+
+  ocultarRegistro(){
+    const registro = document.getElementsByName('formRegistro')[0];
+    registro.classList.remove('mostrarRegistro');
   }
 
   editar() {
@@ -649,6 +781,16 @@ export class DataComponent implements OnInit, OnDestroy {
   desbloquearCrear() {
     let botonguardar = document.getElementsByName('CreateObj')[0];
     botonguardar.classList.remove('bloqueo');
+  }
+
+  bloquearNombre() {
+    const nombre = document.getElementsByName('campoNombre')[0];
+    nombre.classList.add('bloqueo');
+  }
+
+  desbloquearNombre() {
+    const nombre = document.getElementsByName('campoNombre')[0];
+    nombre.classList.remove('bloqueo');
   }
 
   eliminarIdioma(id: number) {
@@ -875,31 +1017,46 @@ export class DataComponent implements OnInit, OnDestroy {
 
   // FUNCION PARA BORRAR UN USUARIO POR ID
   BorrarUsuario(id: number) {
-      this._AdminRequest.eliminarUsuario(id).then((data: any) => {
-        if (data.estatus == true) {
-          if(this.tipoVector == "empleador"){
-            this.obtenerempleadores();
-          } else{
-            this.obtenerCandidatos();
-          }
-          this.enviarAlerta("La cuenta del usuario ha sido eliminada y ya no esta dispinible el la aplicacion.", false);
+    this._AdminRequest.eliminarUsuario(id).then((data: any) => {
+      if (data.estatus == true) {
+        if (this.tipoVector == "empleador") {
+          this.obtenerempleadores();
         } else {
-          this.enviarAlerta("Ha surgido un error inesperado que nos impidio borrar la cuenta.", true);
+          this.obtenerCandidatos();
         }
-      });
+        this.enviarAlerta("La cuenta del usuario ha sido eliminada y ya no esta dispinible el la aplicacion.", false);
+      } else {
+        this.enviarAlerta("Ha surgido un error inesperado que nos impidio borrar la cuenta.", true);
+      }
+    });
   }
 
-    // FUNCION DE ADMINISTRADOR PARA ELIMINAR UNA VACANTE
-    eliminarVacante(id: number) {
-      this._EmployerRequest.eliminarVacante(id).then((data: any) => {
-        if (data.estatus == true) {
-          this.enviarAlerta("La vacante se ha eliminado correctamente.", false);
-          this.obtenerVacantes();
-        } else {
-          this.enviarAlerta("No se ha podido eliminar la vacante debido a un error interno.", true);
-        }
-      });
-    }
+  // FUNCION DE ADMINISTRADOR PARA ELIMINAR UNA VACANTE
+  eliminarVacante(id: number) {
+    this._EmployerRequest.eliminarVacante(id).then((data: any) => {
+      if (data.estatus == true) {
+        this.enviarAlerta("La vacante se ha eliminado correctamente.", false);
+        this.obtenerVacantes();
+      } else {
+        this.enviarAlerta("No se ha podido eliminar la vacante debido a un error interno.", true);
+      }
+    });
+  }
+
+
+  ocultarCandidato: boolean = false;
+  ocutarBtnAct: boolean = false;
+  cerrarPanel() {
+    this.ocutarBtnAct = false;
+    const perfil = document.getElementsByName("panel")[0];
+    perfil.classList.add("perfilOcultar");
+    perfil.classList.remove("perfilMostar");
+
+    setTimeout(() => {
+      this.ocultarCandidato = false;
+    }, 710);
+  }
+
 
 
   // FUNCION PARA EL POPUP
