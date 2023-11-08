@@ -1,13 +1,14 @@
 <div style="display: flex;">
     <div class="cajaIzquierda" *ngIf="cargarPantalla(); else PantallaVacia">
         <div class="scrollMenu">
+            <!--  -->
             <div class="card" style="width: 100%; margin-top: 1rem;" *ngFor="let notificacion of alertas">
                 <div class="tituloVacante" style="height: 2rem;">
                     <b></b>
                 </div>
                 <div style="padding: 2rem;">
-                    <p style="font-size:medium; padding: 0rem;"> <b>{{notificacion.nombreAlerta}} </b></p>
-                    <p style="font-size: small; line-height: 150%; text-align: justify;">
+                    <p class="tituloAlerta"><b>{{notificacion.nombreAlerta}} </b></p>
+                    <p class="descAlerta">
                         {{notificacion.textoAlerta}}
                     </p>
                 </div>
