@@ -73,3 +73,21 @@
     text-align: center;
     font-size: large;
 }
+
+.btnContra{
+    width: 27%;
+    margin-left: 3%;
+    font-size: x-small;
+    border-color: rgb(182, 150, 100);
+    color:rgb(182, 150, 100)
+}
+
+.btnContra:hover{
+    border-color: rgb(182, 150, 100);
+    color: white;
+    background-color: rgb(182, 150, 100);
+}
+
+.contrasena{
+    width: 70%;
+}

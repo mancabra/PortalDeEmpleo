@@ -26,6 +26,7 @@ import { environment } from '../environments/environment';
 import { provideStorage,getStorage } from '@angular/fire/storage';
 import { DataComponent } from './Components/Interface/Admin/manage/data/data.component';
 import { CompanyCreateComponent } from './Components/Interface/Company/company-create/company-create.component';
+import { PasswordComponent } from './Components/Start/start/password/password.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +48,8 @@ import { CompanyCreateComponent } from './Components/Interface/Company/company-c
     UpdateComponent,
     UpdateJobComponent,
     DataComponent,
-    CompanyCreateComponent
+    CompanyCreateComponent,
+    PasswordComponent
   ],
   imports: [
     BrowserModule,

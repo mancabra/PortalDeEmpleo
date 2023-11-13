@@ -13,6 +13,7 @@ import { CandidatesComponent } from './Components/Interface/Employer/candidates/
 import { ManageComponent } from './Components/Interface/Admin/manage/manage.component';
 import { RequestAdminComponent } from './Components/Interface/Admin/request-admin/request-admin.component';
 import { UpdateJobComponent } from './Components/Interface/Employer/candidates/update-job/update-job.component';
+import { PasswordComponent } from './Components/Start/start/password/password.component';
 
 
 
@@ -20,6 +21,7 @@ import { UpdateJobComponent } from './Components/Interface/Employer/candidates/u
 
 const routes: Routes = [
   {path:'',redirectTo:'/start',pathMatch:'full'},
+  {path:'cambiar_contraseña/:correo',component:PasswordComponent,},
 
   {path:'start',component:StartComponent},
   {path:'interface/vacantes',component:JobsComponent},

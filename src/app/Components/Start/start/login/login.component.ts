@@ -27,7 +27,7 @@ export class LoginComponent {
   correoIngresado: string = "";
   contrasenaIngresada: string = "";
 
-  constructor(private _UserRequest: InterfaceService) {
+  constructor(private _UserRequest: InterfaceService, private  router: Router) {
   }
 
   ngOnInit() {
@@ -112,4 +112,22 @@ export class LoginComponent {
     this._UserRequest.cargarAlerta(ALERTA);
   }
 
+  // FUNCION PARA EL CAMBIO DE CONTRASEÑA
+  cambiarContrasena(){
+    if (this.correoIngresado == "") {
+      this.verErrorCorreo = false;
+      const error = "Se debe capturar un correo para poder realizar esta opción"
+      this.enviarAlerta(error, true);
+    } else {
+      this._UserRequest.realizarPeticion(this.correoIngresado).then((data:any)=>{
+        if (data.estatus == true){
+          this.enviarAlerta(data.mensaje,false);
+          //this.router.navigate(['cambiar_contraseña/',this.correoIngresado]);
+        } else{
+          this.enviarAlerta(data.mensaje,true);
+        }
+      })
+      
+    }
+  }
 }

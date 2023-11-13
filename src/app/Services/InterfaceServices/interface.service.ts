@@ -117,6 +117,18 @@ export class InterfaceService {
     return this._http.get<Municipio[]>(cadena);
   }
 
+  realizarPeticion(mail: string){
+    let cadena = "app/peticion/"+mail;
+    return this._http.get(cadena).toPromise();
+  }
+
+  // PETICION PARA EL CAMBIO DE CONTRASEÑA
+  cambiarContra(objeto: any){
+    console.log(objeto);
+    let cadena = "app/cambio_dePass";
+    return this._http.post(cadena,objeto).toPromise();
+  }
+
   // OBSERVABLE TIPO NOTIFICACIONES
   getAlerts(): Observable<any> {
     return this.alerts$.asObservable();
@@ -177,7 +189,7 @@ export class InterfaceService {
 
   //FUNCION QUE ENVIA UNA ACTUALIZACION A TODOS LOS COMPONENTES QUE SE SUSCRIBIERON A ESTE OBSERVABLE
   hacerVisitante() {
-    this.tipoUsuario = 2;
+    this.tipoUsuario = 0;
     this.tipo$.next(this.tipoUsuario);
   }
 

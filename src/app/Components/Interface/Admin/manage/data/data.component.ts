@@ -346,11 +346,10 @@ export class DataComponent implements OnInit, OnDestroy {
   ]
   // FUNCION PARA OBTENER LAS VACANTES DISPONIBLES
   obtenerVacantes() {
+    this.vectorGeneral = [];
     this._CandidateRequest.obtenerVacantes().then((data: any) => {
-      this.vectorGeneral = [];
       for (let i = 0; i < data.length; i++) {
         const element = data[i];
-
         const OBJETO = {
           id: element.id_vacante,
           nombre: element.nombreVacante,
@@ -496,7 +495,6 @@ export class DataComponent implements OnInit, OnDestroy {
 
   // FUNCION PARA OBTENER LOS CANDIDATOS DISPONIBLES
   obtenerCandidatos() {
-  
     this._AdminRequest.obtenerCandidatos().then((data: any) => {
       this.vectorGeneral = [];
       for (let i = 0; i < data.length; i++) {
@@ -580,13 +578,14 @@ export class DataComponent implements OnInit, OnDestroy {
   }
 
   evaluarExterno(objeto: any) {
+    console.log(objeto);
     if (this.tipoVector == "candidato") {
       this.obtenerUsuario(objeto.correo);
     } else if (this.tipoVector == "empleador") {
       this.obtenerUsuario(objeto.correo);
     } else if (this.tipoVector == "vacante") {
       /* this._AdminRequest.cambiarVista(OBJETO);*/
-      this.obtenerVacanteActual(objeto.id_vacante);
+      this.obtenerVacanteActual(objeto.id);
     }
   }
 

@@ -142,7 +142,7 @@ tbody tr:nth-child(odd) {
     position: relative;
     z-index: 10;
     transform: scale(0.8);
-    margin-top: -57.5%;
+    margin-top: -45%;
 }
 
 .perfilOcultar{

@@ -258,9 +258,10 @@ export class JobsComponent implements OnInit, OnDestroy {
       this.vectorPag = [];
       this._CandidateRequest.obtenerVacantesPag(0).subscribe(data => {
         this.jobsList = data.content;
-        for (let index = 0; index < data.pageSize; index++) {
+        for (let index = 0; index < data.pageable.pageSize; index++) {
           const element = index+1;
           this.vectorPag.push(element);
+          console.log('hola')
         }
       });
     }
