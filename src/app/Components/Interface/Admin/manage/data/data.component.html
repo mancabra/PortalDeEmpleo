@@ -2,30 +2,21 @@
     <div>
         <div style="padding-bottom: 0%;">
             <div class="card caja2">
-                <table class="table table-striped" style="margin: 0%; font-size: small;  text-align: center;"
-                    [ngClass]="{'':persona, 'ocultar':!persona}">
+                <table class="table table-striped" style="margin: 0%; font-size: small;  text-align: center;">
                     <tr>
-                        <td [ngClass]="{'':persona, 'idP':!persona}" class="letras">{{id_elemento}}</td>
-                        <td [ngClass]="{'':persona, 'nombreP':!persona}" class="letras">{{nombreElemento}}</td>
-                        <!-- vacante -->
-                        <td [ngClass]="{'ocultar':vacante, '':!vacante}" class="letras">sueldo</td>
-                        <td [ngClass]="{'ocultar':vacante, 'horario':!vacante}" class="letras">horario</td>
-                        <td [ngClass]="{'ocultar':vacante, '':!vacante}" class="letras">modalidad</td>
-                        <td td [ngClass]="{'':persona, 'borrarElemento':!persona}" class="letras">borrar elemento</td>
-                        <td td [ngClass]="{'':persona, 'borrarElemento':!persona}" class="letras">Editar elemento</td>
-                    </tr>
-                </table>
-                <table class="table table-striped" style="margin: 0%; font-size: small;  text-align: center;"
-                    [ngClass]="{'ocultar':persona, '':!persona}">
-                    <tr>
-                        <td [ngClass]="{'ocultar':persona, 'idP':!persona}" class="letras">{{id_elemento}}</td>
-                        <td [ngClass]="{'ocultar':persona, '':!persona}" class="letras">{{nombreElemento}}</td>
-                        <!-- persona -->
-                        <td [ngClass]="{'ocultar':persona, 'apellido':!persona}" class="letras">apellido P</td>
-                        <td [ngClass]="{'ocultar':persona, 'apellido':!persona}" class="letras">apellido M</td>
-                        <td [ngClass]="{'ocultar':persona, 'correo':!persona}" class="letras">correo</td>
-                        <td td [ngClass]="{'':persona, 'botonPersonaI':!persona}" class="letras">borrar elemento</td>
-                        <td td [ngClass]="{'':persona, 'botonPersonaII':!persona}" class="letras">Editar elemento</td>
+                        <td name="id" class="letras idTabla">{{id_elemento}}</td>
+                        <td name="nombre" class="letras nombre">{{nombreElemento}}</td>
+        
+                        <td name="apP" class="letras ocultar">apellido P</td>
+                        <td name="apM" class="letras ocultar">apellido M</td>
+                        <td name="correo" class="letras ocultar">correo</td>
+
+                        <td name="sueldo" class="letras ocultar">sueldo</td>
+                        <td name="horario" class="letras ocultar">horario</td>
+                        <td name="modalidad" class="letras ocultar">modalidad</td>
+
+                        <td name="btnBrr" class="letras botonB">borrar elemento</td>
+                        <td name="btnScc" class="letras botonS">Editar elemento</td>
                     </tr>
                 </table>
             </div>
@@ -163,4 +154,14 @@
 <div class="registro" name="formRegistro">
     <button name="cerrarBtn" type="button" class="btn-close btnCerrar" aria-label="Close" (click)="ocultarRegistro()"></button>
     <app-create [usuarioAdmin]="usuarioAdmin"></app-create>
+</div>
+
+<div name="btnGenerar" class="banner"  [ngClass]="{'':verform, 'view':!verform}" (click)="mostrarReportes()">
+    <b class="textos">
+        GENERAR UN REPORTE
+    </b>    
+</div>
+
+<div name="pantalla" class="contenedor">
+    <app-document  class="sobrePoner"></app-document>
 </div>

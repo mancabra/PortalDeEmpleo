@@ -2,6 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { Log } from '../Entity/log';
+import { Usuario } from '../Entity/usuario';
+import { Vacante } from '../Entity/vacante';
 
 @Injectable({
   providedIn: 'root'
@@ -21,17 +23,18 @@ export class AdminService {
   // VARIABLE PARA EL OBSERVABLE DE TIPO STRING
   private lista$ = new Subject<string>();
 
+  private boolean$ = new Subject<boolean>();
   // VARIABLE PARA EL OBSERVABLE DE TIPO STRING
   private objeto$ = new Subject<any>();
 
   constructor(private _http: HttpClient) { }
 
-    //FUNCION PARA OBTENER UN USUARIO POR OCRREO
-    obtenerUsuario(mail: string) {
-      console.log("Proceso buscarUsuario");
-      let cadena = "app/obtenerUsuarioCompleto/" + mail;
-      return this._http.get(cadena).toPromise();
-    }
+  //FUNCION PARA OBTENER UN USUARIO POR OCRREO
+  obtenerUsuario(mail: string) {
+    console.log("Proceso buscarUsuario");
+    let cadena = "app/obtenerUsuarioCompleto/" + mail;
+    return this._http.get(cadena).toPromise();
+  }
 
   // FUNCION QUE PERMITE GUARDAR EL CORREO INGRESADO EN EL LOGIN EN UNA VARIABLE LOCAL
   guaradarCorreo(correo: any) {
@@ -70,7 +73,7 @@ export class AdminService {
   }
 
   // FUNCION PARA OBTENER UNA VACABTE POR ID
-  obtenerVacante(id: number){
+  obtenerVacante(id: number) {
     let cadena = "app/obtenerVacantePorId/" + id;
     return this._http.get(cadena).toPromise();
   }
@@ -192,44 +195,45 @@ export class AdminService {
   }
 
   // FUNCION QUE PERMITE OBTENER UNA LISTA DE CANDIDATOS
-  obtenerCandidatos(){
+  obtenerCandidatos() {
     console.log("Proceso obtener lista de candidatos");
     return this._http.get("app/obtenerListaCandidatos").toPromise();
   }
 
   // FUNCION QUE PERMITE OBTENER UNA LISTA DE CANDIDATOS ACTIVOS
-  obtenerCandidatosFActivos(){
+  obtenerCandidatosFActivos() {
     console.log("Proceso obtener lista de candidatos activos");
     return this._http.get("app/obtenerListaCandidatosActivos").toPromise();
   }
 
   // FUNCION QUE PERMITE OBTENER UNA LISTA DE CANDIDATOS INACTIVOS
-  obtenerCandidatosFInactivos(){
+  obtenerCandidatosFInactivos() {
     console.log("Proceso obtener lista de candidatos inactivos");
     return this._http.get("app/obtenerListaCandidatosInactivos").toPromise();
   }
 
   // FUNCION PARA OBTENER LA LISTA DE EMPLEADORES
-  obtenerEmpleadores(){
+  obtenerEmpleadores() {
     console.log("Proceso obtenerEmpleadores");
     return this._http.get("app/obtenerListaEmpleadores").toPromise();
   }
 
-   // FUNCION PARA OBTENER LA LISTA DE EMPLEADORES ACTIVOS
-   obtenerEmpleadoresFActivos(){
+  // FUNCION PARA OBTENER LA LISTA DE EMPLEADORES ACTIVOS
+  obtenerEmpleadoresFActivos() {
     console.log("Proceso obtenerEmpleadoresActivos");
     return this._http.get("app/obtenerListaEmpleadoresActivos").toPromise();
   }
-   // FUNCION PARA OBTENER LA LISTA DE EMPLEADORES INACTIVOS
-   obtenerEmpleadoresFInactivos(){
+  // FUNCION PARA OBTENER LA LISTA DE EMPLEADORES INACTIVOS
+  obtenerEmpleadoresFInactivos() {
     console.log("Proceso obtenerEmpleadoresInactivos");
     return this._http.get("app/obtenerListaEmpleadoresInactivos").toPromise();
   }
 
   // FUNCION OBTENER LOG
-  obtenerLog():Observable<Log[]>{
-    console.log("Proceso obtenerLog") 
-    return this._http.get<Log[]>("app/obtenerListaProcesos");
+  obtenerLog(page: number) {
+    console.log("Proceso obtenerLog")
+    let cadena = 'app/procesos/page/'+ page;
+    return this._http.get(cadena).toPromise();
   }
   // FUNCION PARA BUSCAR UN USUARIO A GESTIONAR
   obtenerPorCorreo(mail: string) {
@@ -239,6 +243,30 @@ export class AdminService {
 
     let cadena = "app/obtenerUsuarioCompleto/" + mail;
     return this._http.get(cadena).toPromise();
+  }
+
+  // FUNCION REPORTE: OBTENER USUARIOS POR ROL
+  obtenerUsuariosPor_rol(rol: string): Observable<Usuario[]> {
+    let cadena = "app/obtenerListaUsuariosRol?rol=" + rol;
+    return this._http.get<Usuario[]>(cadena);
+  }
+
+  // FUNCION REPORTE: OBTENER USUARIOS POR ACTIVIDAD
+  obtenerUsuariosPor_actividad(tipoFiltro: string): Observable<Usuario[]> {
+    let cadena = "app/obtenerListaUsuariosActividad?tipoFiltro=" + tipoFiltro;
+    return this._http.get<Usuario[]>(cadena);
+  }
+
+  // FUNCION REPORTE: OBTENER VACANTES POR ACTIVIDAD
+  obtenerVacantesPor_actividad(tipoFiltro: string): Observable<Vacante[]> {
+    let cadena = "app/obtenerListaVacantesActividad?tipoFiltro=" + tipoFiltro;
+    return this._http.get<Vacante[]>(cadena);
+  }
+
+  // FUNCION REPORTE: OBTENER VACANTES POR ESTADO
+  obtenerVacantesPor_estado(id_estado: number): Observable<Vacante[]> {
+    let cadena = "app/obtenerVacantesEstado/" + id_estado;
+    return this._http.get<Vacante[]>(cadena);
   }
 
   // FUNCION PARA OBSERVABLE DE USUARIO
@@ -268,8 +296,17 @@ export class AdminService {
     return this.objeto$.asObservable();
   }
 
-  cambiarVista(objeto: any){
+  cambiarVista(objeto: any) {
     this.objeto$.next(objeto);
+  }
+
+  // FUNCION PARA OBSERVABLE DE ADMin
+  getForm(): Observable<boolean> {
+    return this.boolean$.asObservable();
+  }
+
+  activarForm() {
+    this.boolean$.next(false);
   }
 
 }

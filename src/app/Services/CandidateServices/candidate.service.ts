@@ -57,8 +57,8 @@ export class CandidateService {
     return this._http.put("app/guardarArchivo", CandidatoDTO).toPromise();
   }
 
-   // GUARDAR IDIOMAS
-   guardarIdiomas(idiomas:any) {
+  // GUARDAR IDIOMAS
+  guardarIdiomas(idiomas: any) {
     //prueba de funcionamiento
     console.log("Proceso guardarIdiomas");
     console.log("Info Enviada");
@@ -90,17 +90,11 @@ export class CandidateService {
   }
 
   // OBTENER VACANTES DE BASE DE DATOS (TODAS)
-  obtenerVacantesPag(pag: number): Observable<any> {
-    let cadena = "app/vacantes/page/" + pag;
-    return this._http.get<any>(cadena);
+  obtenerVacantes() {
+    //prueba de funcionamiento
+    console.log("Proceso ObternerVacantes");
+    return this._http.get("app/obtenerListaVacantes").toPromise();
   }
-
-    // OBTENER VACANTES DE BASE DE DATOS (TODAS)
-    obtenerVacantes() {
-      //prueba de funcionamiento
-      console.log("Proceso ObternerVacantes");
-      return this._http.get("app/obtenerListaVacantes").toPromise();
-    }
 
   // OBTENER VACANTES DE BASE DE DATOS (POR MUNICIPIO)
   obtenerVacantesCercanas(CandidateRequest: number) {
@@ -120,27 +114,55 @@ export class CandidateService {
     return this._http.get("app/obtenerVacantesPorSueldo").toPromise();
   }
 
-  // OBTENER VACANTES DE BASE DE DATOS (POR TITULO DE VACANTE)
-  obtenerVacantesPorPalabra(CandidateRequest: string) {
-    //prueba de funcionamiento
-    console.log("Proceso obtenerVacantesPorPalabra");
-    console.log("Info Enviada");
-    console.log(CandidateRequest);
-    let cadena = "app/obtenerVacantesPorPalabraClave/" + CandidateRequest;
+  // PAGINADOS --------------------
+
+  // OBTENER VACANTES DE BASE DE DATOS (TODAS)
+  obtenerVacantesPag(page: number) {
+    let cadena = "app/vacantes/page/" + page;
     return this._http.get(cadena).toPromise();
   }
 
-  // OBTENER VACANTES DE BASE DE DATOS (POR NOMBRE Y MUNICIPIO)
-  buscarporMunicipio_Nombre(id_municipio: number, filtroActivo: string) {
-    //prueba de funcionamiento
-    console.log("Proceso obtenerVacantesPorPalabraYMunicipio");
-    console.log("Info Enviada");
-    console.log(id_municipio);
-    console.log(filtroActivo);
-
-    let cadena = "app/obtenerVacantesCercaYPorPalabraClave?id_municipio=" + id_municipio + "&palabraClave=" + filtroActivo;
+  obtenerVacantesPorEstadoPag(id_estado: number, page: number) {
+    let cadena = "app/vacantes/page/estado?id_estado=" + id_estado + "&page=" + page;
     return this._http.get(cadena).toPromise();
   }
+
+
+  obtenerVacantesPorMunicipioPag(id_municipio: number, page: number) {
+    let cadena = "app/vacantes/page/municipio?id_municipio=" + id_municipio + "&page=" + page;
+    return this._http.get(cadena).toPromise();
+  }
+
+
+    // OBTENER VACANTES DE BASE DE DATOS (POR TITULO DE VACANTE)
+    obtenerVacantesPorPalabra( nombre: string, page: number) {
+      //prueba de funcionamiento
+      console.log("Proceso obtenerVacantesPorPalabra");
+      let cadena = "app/vacantes/page/nombre?nombre=" + nombre + "&page=" + page;
+      return this._http.get(cadena).toPromise();
+    }
+
+
+      // OBTENER VACANTES DE BASE DE DATOS (POR ESTADO Y NOMBRE)
+  buscarporEstado_Nombre(id_estado: number, filtroActivo: string, page: number) {
+    //prueba de funcionamiento
+    console.log("Proceso obtenerVacantesPorPalabraYEstado");
+    return this._http.get("app/vacantes/page/nombre/estado?nombre=" + filtroActivo+"&id_estado=" + id_estado + "&page=" + page).toPromise();
+  }
+
+    // OBTENER VACANTES DE BASE DE DATOS (POR NOMBRE Y MUNICIPIO)
+    buscarporMunicipio_Nombre(id_municipio: number, filtroActivo: string, page: number) {
+      //prueba de funcionamiento
+      console.log("Proceso obtenerVacantesPorPalabraYMunicipio");
+      let cadena = "app/vacantes/page/nombre/municipio?nombre=" + filtroActivo+"&id_municipio=" + id_municipio+ "&page=" + page;
+      return this._http.get(cadena).toPromise();
+    }
+
+  // PAGINADOS --------------------
+
+
+
+
 
   // OBTENER VACANTES DE BASE DE DATOS (POR ESTADO)
   buscarporEstado(id_estado: number) {
@@ -152,14 +174,7 @@ export class CandidateService {
     return this._http.get(cadena).toPromise();
   }
 
-  // OBTENER VACANTES DE BASE DE DATOS (POR ESTADO Y NOMBRE)
-  buscarporEstado_Nombre(CandidateRequest: any) {
-    //prueba de funcionamiento
-    console.log("Proceso obtenerVacantesPorPalabraYEstado");
-    console.log("Info Enviada");
-    console.log(CandidateRequest);
-    return this._http.get("app/obtenerVacantesEstadoYPorPalabraCalve", CandidateRequest).toPromise();
-  }
+
 
   // OBTENER POSTULACIUONES DEL CANDIDATO
   obtenerPostulaciones(idRequest: number): Observable<Postulacion[]> {
@@ -178,7 +193,7 @@ export class CandidateService {
     return this._http.get<Habilidad[]>("app/obtenerListaHabilidades");
   }
 
-   // OBTENER IDIOMAS DISPONIBLES
+  // OBTENER IDIOMAS DISPONIBLES
   obtenerIdiomas(): Observable<Idioma[]> {
     //prueba de funcionamiento
     console.log("Proceso obtenerIdiomas");

@@ -30,6 +30,7 @@ export class PasswordComponent implements OnInit{
   }
 
   ngOnInit(): void {
+    this._UserRequest.usuarioActivo(4);
     this.mail = this.rutaActiva.snapshot.params;
     console.log(this.mail);
   }
@@ -83,6 +84,8 @@ export class PasswordComponent implements OnInit{
         const error = data.mensaje;
         if(data.estatus == true){
           this.enviarAlerta(error,false);
+          this.passwordI = "";
+          this.passwordII = "";
         } else {
           this.enviarAlerta(error,true);
         }

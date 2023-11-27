@@ -25,6 +25,7 @@ export class DataComponent implements OnInit, OnDestroy {
 
   tipoVector: string = "";
   subscription: Subscription;
+  subscriptionII: Subscription;
 
   nombreCaptura: string = "";
   id_Captura: number = 0;
@@ -32,6 +33,7 @@ export class DataComponent implements OnInit, OnDestroy {
   vacante: boolean = true;
   persona: boolean = true;
   externo: boolean = false;
+ anterior : string  = "";
 
   constructor(
     private _AdminRequest: AdminService,
@@ -45,22 +47,106 @@ export class DataComponent implements OnInit, OnDestroy {
       botonModificar.classList.add('bloqueo');
       this.identificarLista(this.tipoVector);
       this.quitarBloqueo();
-    
+      this.evaluarLista();
+      this.anterior =  this.tipoVector;
+    });
+
+    this.subscriptionII = this._AdminRequest.getForm().subscribe(data => {
+      if (data == false) {
+        this.ocultarReportes();
+      }
     });
 
   }
 
   ngOnInit(): void {
+    
+  }
 
+  evaluarLista() {
+    let id = document.getElementsByName('id')[0] ;
+    let nombre = document.getElementsByName('nombre')[0] ;
+    let apP = document.getElementsByName('apP')[0] ;
+    let apM = document.getElementsByName('apM')[0] ;
+    let correo = document.getElementsByName('correo')[0] ;
+    let sueldo = document.getElementsByName('sueldo')[0] ;
+    let horario = document.getElementsByName('horario')[0] ;
+    let modalidad = document.getElementsByName('modalidad')[0] ;
+    let btnBrr = document.getElementsByName('btnBrr')[0] ;
+    let btnScc = document.getElementsByName('btnScc')[0] ;
+
+    if (this.tipoVector == "candidato"|| this.tipoVector == "empleador") {
+      apP.classList.replace('ocultar', 'apellido');
+      apM.classList.replace('ocultar', 'apellido');
+      correo.classList.replace('ocultar', 'correo');
+
+      if(this.anterior == 'vacante'){
+        id.classList.replace('idTablaV', 'idP');
+        nombre.classList.replace('nombreV', 'nombreP');
+        btnBrr.classList.replace('botonBV', 'botonPersonaI');
+        btnScc.classList.replace('botonSV', 'botonPersonaII');
+        sueldo.classList.replace('sueldo', 'ocultar');
+        horario.classList.replace('horario', 'ocultar');
+        modalidad.classList.replace('modalidad', 'ocultar');
+      } else{
+        id.classList.replace('idTabla', 'idP');
+        nombre.classList.replace('nombre', 'nombreP');
+        btnBrr.classList.replace('botonB', 'botonPersonaI');
+        btnScc.classList.replace('botonS', 'botonPersonaII');
+      }
+
+    } else if (this.tipoVector == "vacante") {
+      sueldo.classList.replace('ocultar','sueldo');
+      horario.classList.replace('ocultar','horario');
+      modalidad.classList.replace('ocultar','modalidad');
+
+      if(this.anterior == 'candidato'||this.anterior == 'empleador'){
+        id.classList.replace('idP','idTablaV');
+        nombre.classList.replace('nombreP','nombreV');
+        btnBrr.classList.replace('botonPersonaI','botonBV');
+        btnScc.classList.replace('botonPersonaII','botonSV');
+        apP.classList.replace('apellido', 'ocultar');
+        apM.classList.replace('apellido', 'ocultar');
+        correo.classList.replace('correo','ocultar');
+      }else{
+        id.classList.replace('idTabla', 'idTablaV');
+        nombre.classList.replace('nombre', 'nombreV');
+        btnBrr.classList.replace('botonB', 'botonBV');
+        btnScc.classList.replace('botonS', 'botonSV');
+      }
+    } else{
+      if(this.anterior == 'candidato'||this.anterior == 'empleador'){
+        id.classList.replace('idP','idTabla');
+        nombre.classList.replace('nombreP','nombre');
+        btnBrr.classList.replace('botonPersonaI','botonB');
+        btnScc.classList.replace('botonPersonaII','botonS');
+        apP.classList.replace('apellido', 'ocultar');
+        apM.classList.replace('apellido', 'ocultar');
+        correo.classList.replace('correo','ocultar');
+      } else if(this.anterior == 'vacante'){
+        id.classList.replace('idTablaV',"idTabla");
+        nombre.classList.replace('nombreV',"nombre");
+        btnBrr.classList.replace('botonBV',"botonB");
+        btnScc.classList.replace('botonSV',"botonS");
+        sueldo.classList.replace('sueldo', 'ocultar');
+        horario.classList.replace('horario', 'ocultar');
+        modalidad.classList.replace('modalidad', 'ocultar');
+      } else{
+
+      }
+    }
   }
 
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
+    this.subscriptionII.unsubscribe();
   }
 
   ngAfterViewInit() {
     this.bloquearCrear();
     this.bloquearEditar();
+    this.estilos();
+    this.evaluarLista();
   }
 
 
@@ -222,6 +308,41 @@ export class DataComponent implements OnInit, OnDestroy {
           this.vectorGeneral.push(OBJETO);
         }
         */
+  }
+
+  estilos() {
+    const boton = document.getElementsByName("btnGenerar")[0];
+    const pantalla = document.getElementsByName("pantalla")[0];
+    boton.addEventListener("mouseover", function () {
+      pantalla.classList.add("seleccionado");
+    }, false);
+
+    boton.addEventListener("mouseout", function () {
+      pantalla.classList.remove("seleccionado");
+    }, false)
+  }
+  verform: boolean = true;
+  mostrarReportes() {
+    const boton = document.getElementsByName("btnGenerar")[0];
+    const pantalla = document.getElementsByName("pantalla")[0];
+    pantalla.classList.add('mostar');
+    setTimeout(() => {
+      boton.classList.add('desplazar');
+    }, 150);
+    setTimeout(() => {
+      this.verform = false;
+    }, 451);
+  }
+
+  ocultarReportes() {
+    const boton = document.getElementsByName("btnGenerar")[0];
+    const pantalla = document.getElementsByName("pantalla")[0];
+    pantalla.classList.remove('mostar');
+    this.verform = true;
+    setTimeout(() => {
+      boton.classList.remove('desplazar');
+    }, 110);
+
   }
 
   // FUNCION PARA OBTENER LAS HABILIDADES DISPONIBLES
@@ -516,27 +637,27 @@ export class DataComponent implements OnInit, OnDestroy {
       }
     });
 
-  /*
-    this.vectorGeneral = [];
-
-    for (let i = 0; i < this.vectorPersonas.length; i++) {
-      const element = this.vectorPersonas[i];
-
-      const OBJETO = {
-        id: element.id_candidato,
-        nombre: element.usuario.nombre,
-        sueldo: "",
-        horario: "",
-        modalidad: "",
-        apellidoP: element.usuario.apellidoP,
-        apellidoM: element.usuario.apellidoM,
-        correo: element.usuario.correoElectronico,
-        telefono: element.usuario.telefono,
-        id_usuario: element.usuario.id_usuario
+    /*
+      this.vectorGeneral = [];
+  
+      for (let i = 0; i < this.vectorPersonas.length; i++) {
+        const element = this.vectorPersonas[i];
+  
+        const OBJETO = {
+          id: element.id_candidato,
+          nombre: element.usuario.nombre,
+          sueldo: "",
+          horario: "",
+          modalidad: "",
+          apellidoP: element.usuario.apellidoP,
+          apellidoM: element.usuario.apellidoM,
+          correo: element.usuario.correoElectronico,
+          telefono: element.usuario.telefono,
+          id_usuario: element.usuario.id_usuario
+        }
+        this.vectorGeneral.push(OBJETO);
       }
-      this.vectorGeneral.push(OBJETO);
-    }
-*/
+  */
   }
 
   // FUNCION PARA OBTENER LOS EMPLEADORES DISPONIBLES
@@ -680,11 +801,11 @@ export class DataComponent implements OnInit, OnDestroy {
 
   usuarioAdmin: boolean = true;
   mostrarRegistro() {
- const registro = document.getElementsByName('formRegistro')[0];
- registro.classList.add('mostrarRegistro');
+    const registro = document.getElementsByName('formRegistro')[0];
+    registro.classList.add('mostrarRegistro');
   }
 
-  ocultarRegistro(){
+  ocultarRegistro() {
     const registro = document.getElementsByName('formRegistro')[0];
     registro.classList.remove('mostrarRegistro');
   }

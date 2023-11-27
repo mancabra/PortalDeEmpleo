@@ -64,3 +64,36 @@ tbody tr:nth-child(odd) {
     background-color: white;
     color:rgb(151, 121, 77);
   }
+
+  .coloresInfotec{
+    background-color: rgb(50, 90, 79);
+}
+
+.bordesInfotec{
+border-color: rgb(50, 90, 79);
+color:rgb(50, 90, 79);
+}
+
+.bordesInfotec:hover{
+    color: white;
+    background-color: rgb(50, 90, 79)
+}
+
+.textosIndotec{
+    color: rgb(50, 90, 79)
+}
+
+.textosIndotec:hover{
+    color: white;
+    background-color: rgb(50, 90, 79)
+}
+.paginas{
+    position: absolute;
+    top: 85%; 
+    right: 0;
+    display: grid;
+    place-items: center;
+    width: 100%;
+    z-index: 1001;
+    padding-top: 1rem;
+}

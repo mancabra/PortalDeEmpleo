@@ -26,7 +26,8 @@ export class LoginComponent {
   // VARIABLES PARA LA CAPTURA DE DATOS
   correoIngresado: string = "";
   contrasenaIngresada: string = "";
-
+  passII: string = "password";
+  rutaII: string = "../assets/eye-off.png";
   constructor(private _UserRequest: InterfaceService, private  router: Router) {
   }
 
@@ -122,12 +123,22 @@ export class LoginComponent {
       this._UserRequest.realizarPeticion(this.correoIngresado).then((data:any)=>{
         if (data.estatus == true){
           this.enviarAlerta(data.mensaje,false);
-          //this.router.navigate(['cambiar_contraseña/',this.correoIngresado]);
+          //this.router.navigate(['cambiar/',this.correoIngresado]);
         } else{
           this.enviarAlerta(data.mensaje,true);
         }
       })
       
+    }
+  }
+
+  mostrarII(){
+    if (this.passII == "password") {
+      this.rutaII = "../assets/eye.png";
+      this.passII = "text";
+    } else {
+      this.rutaII = "../assets/eye-off.png";
+      this.passII = "password";
     }
   }
 }

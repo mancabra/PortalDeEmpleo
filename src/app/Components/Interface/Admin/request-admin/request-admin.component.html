@@ -29,3 +29,29 @@
         </div>
     </div>
 </div>
+
+<div class="paginas" *ngIf="cargarProcesos(); else nopag">
+    <div class="card " style="padding:.5rem;">
+     <div class="card coloresInfotec" style="padding:.5rem;">
+         <nav aria-label="Page navigation example">
+             <ul class="pagination"  style="margin-bottom: 0px;">
+               <li class="page-item">
+                 <a class="page-link textosIndotec" aria-label="Previous" (click)="obtenerPag(0)">
+                   <span aria-hidden="true">&laquo;</span>
+                 </a>
+               </li>
+               <li class="page-item" *ngFor="let ventana of vectorPag let i = index" ><a class="page-link bordesInfotec" (click)="obtenerPag(i)">{{ventana}}</a></li>
+               <li class="page-item">
+                 <a class="page-link textosIndotec" (click)="obtenerUltima()" aria-label="Next">
+                   <span aria-hidden="true">&raquo;</span>
+                 </a>
+               </li>
+             </ul>
+           </nav>
+     </div>
+    </div>
+ </div>
+
+ <ng-template #nopag>
+                         
+ </ng-template>

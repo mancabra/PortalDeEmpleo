@@ -1,0 +1,64 @@
+
+    <div class="card formulario" name="formulario">
+        <div class="encabezado">
+            &nbsp;
+        </div>
+        <button type="button" class="btn-close cerrar" (click)="botonCerrar()"></button>
+        <div class="contenido">
+            <b><label class="titulo">CREACIÓN DE REPORTES</label></b>
+
+            <div class="cajaLista">
+                <label class="texto">Entidad del reporte: </label>
+                <div class="input-group input-group-sm mb-3 listas">
+                    <button class="btn dropdown-toggle listaInfotec" name = "entidad" type="button"
+                        data-bs-toggle="dropdown" aria-expanded="false"
+                        style="width: 100%;">{{entidadSeleccionada}}</button>
+
+                    <ul class="dropdown-menu">
+                        <div>
+                            <li><button class="dropdown-item despInfotec" type="button"
+                               *ngFor="let entidad of entidades" (click)="actualizarEntidad(entidad)">{{entidad}}</button>
+                            </li>
+                        </div>
+                    </ul>
+                </div>
+            </div>
+            <div class="cajaLista">
+                <label class="texto">Filtro seleccionado: </label>
+                <div class="input-group input-group-sm mb-3 listas">
+                    <button class="btn dropdown-toggle listaInfotec" name = "filtro" type="button"
+                        data-bs-toggle="dropdown" aria-expanded="false"
+                        style="width: 100%;">{{filtroSeleccionado}}</button>
+
+                    <ul class="dropdown-menu">
+                        <div>
+                            <li><button class="dropdown-item despInfotec" type="button"
+                                *ngFor="let filtro of filtros" (click)="actualizarFiltro(filtro)">{{filtro}}</button>
+                            </li>
+                        </div>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="cajaLista" name="filtroPlus">
+                <label class="texto">{{filtroPlus}} </label>
+                <div class="input-group input-group-sm mb-3 listas">
+                    <button class="btn dropdown-toggle listaInfotec" name = "filtro" type="button"
+                        data-bs-toggle="dropdown" aria-expanded="false"
+                        style="width: 100%;">{{estadoSeleccionado.nombreEstado}}</button>
+
+                    <ul class="dropdown-menu">
+                        <div class="scrollMenu">
+                            <li><button class="dropdown-item despInfotec" type="button"
+                                *ngFor="let seleccion of rolEstado" (click)="actualizarEstado(seleccion)">{{seleccion.nombreEstado}}</button>
+                            </li>
+                        </div>
+                    </ul>
+                </div>
+            </div>
+
+            <div name="btnInfotec" class="cajaBoton position-absolute bottom-0 end-0">
+                <button class="btn btnInfotec" (click)="generar()"> GENERER REPORTE</button>
+            </div>
+        </div>
+    </div>

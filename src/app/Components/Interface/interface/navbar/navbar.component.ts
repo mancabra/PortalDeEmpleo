@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { InterfaceService } from 'src/app/Services/InterfaceServices/interface.service';
 
@@ -26,18 +26,19 @@ export class NavbarComponent implements OnInit, OnDestroy, AfterViewInit {
   // CADA VARIABLE HACE REFERENCIA A UNA VISTA DISPONIBLE EN LA APP
   start: boolean = true;
   vacantes: boolean = true;
-  postulaciones: boolean = true;
-  notificaciones: boolean = true;
-  perfil: boolean = true;
-  administrar: boolean = true;
-  peticiones: boolean = true;
-  publicaciones: boolean = true;
-  publicarNueva: boolean = true;
+  postulaciones: boolean = false;
+  notificaciones: boolean = false;
+  perfil: boolean = false;
+  administrar: boolean = false;
+  peticiones: boolean = false;
+  publicaciones: boolean = false;
+  publicarNueva: boolean = false;
 
   // INYECCION DE SERVICOS A USAR EN EL COMPONENTE
   constructor(
     private router: Router,
-    private _UserRequest: InterfaceService) {
+    private _UserRequest: InterfaceService,
+    private rutaActiva: ActivatedRoute,) {
 
     // SUSCRIPCION AL OBSERVABLE DE UN SERVICIO PARA OBTENER UNA VARIABLE BOOLEANA
     this.subscription = this._UserRequest.getNavBar().subscribe(data => {
@@ -63,8 +64,10 @@ export class NavbarComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngOnInit() {
+    /*
     this._UserRequest.mostarNav();
     this._UserRequest.hacerVisitante();
+    */
   }
 
   // FUNCION PARA ELIMINAR LA SUSCRIPCION A UN OBSERVABLE
@@ -123,7 +126,7 @@ export class NavbarComponent implements OnInit, OnDestroy, AfterViewInit {
       this.perfil = true;
       this.seleccionar("Administrar");
     } else {
-
+      this._UserRequest.ocultarNavB();
     }
   }
 

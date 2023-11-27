@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit,  } from '@angular/core';
+import { InterfaceService } from 'src/app/Services/InterfaceServices/interface.service';
 
 @Component({
   selector: 'app-interface',
@@ -7,9 +8,11 @@ import { Component, OnDestroy, OnInit,  } from '@angular/core';
 })
 export class InterfaceComponent implements OnInit, OnDestroy {
 
-  constructor(){ }
+  constructor(private _UserRequest:InterfaceService){ }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+   // this._UserRequest.hacerVisitante();
+   }
 
   ngOnDestroy(): void { }
 

@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { AfterViewInit, Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { CandidateService } from 'src/app/Services/CandidateServices/candidate.service';
@@ -17,13 +17,15 @@ import { InterfaceService } from 'src/app/Services/InterfaceServices/interface.s
   styleUrls: ['./jobs.component.css']
 })
 
-export class JobsComponent implements OnInit, OnDestroy {
+export class JobsComponent implements OnInit, OnDestroy, AfterViewInit {
 
   imageSeach: string = "../assets/search.png";
 
   // VARIABLE PARA CAMBIAR EL COMPORTAMIENTO DEL COMPONETE 
   // EL COMPORTAMIENTO CAMBIA DEPENDIENDO DEL USUARIO QUE USA EL COMPONENTE
   @Input() usuarioAdmin: boolean = false;
+
+  log: boolean = false;
 
   // VARIABLES DE USUARIO
   usuario: Candidato = new Candidato;
@@ -47,7 +49,7 @@ export class JobsComponent implements OnInit, OnDestroy {
   filtroEstado: boolean = true;
 
   // VECTOR QUE ALMACENA LOS FILTROS DISPONIBLES
-  filtrosDisponibles = ["Ninguno", "Mejor Pagados", "Estado"];
+  filtrosDisponibles = ["Ninguno", "Mejor Pagados", "Estado","Cercanos a Mi"];
 
   // VECTOR QUE ALMACENA LAS VACANTES DISPONIBLES EN BD
   jobsList: Vacante[] = [];
@@ -57,8 +59,12 @@ export class JobsComponent implements OnInit, OnDestroy {
   // VARIABLE QUE ALMACENA EL ESTADO SELLECIONADO PARA LA BUSQUEDA POR FILTROS
   estado: Estado;
   subscription: Subscription;
-
+  subscriptionI: Subscription;
   pantallaSecundaria: boolean = false;
+// VECTOR PARA EL PAGINADO
+  vectorPag: number [] = [];
+  id: number = 0;
+
 
   // INYECCION DE SERVICOS A USAR EN EL COMPONENTE
   constructor(
@@ -70,20 +76,25 @@ export class JobsComponent implements OnInit, OnDestroy {
         this.pantallaSecundaria = data;
         this.funcionEstilos();
       });
+      this.subscriptionI = this._UserRequest.getTipoUsuario().subscribe(data => {
+
+    });
     this.estado = { id_estado: 0, nombreEstado: "Estado", municipios: [] };
   }
 
   ngOnInit() {
-    this.filtrosDisponibles = ["Ninguno", "Mejor Pagados", "Estado"];
-    this.vacanteSeleccionada = new Vacante;
     this.buscarUsuario();
-    this.obtenerVacantesPag0();
+    this.filtrosDisponibles = ["Ninguno", "Estado","Cercanos a Mi"];
+    this.vacanteSeleccionada = new Vacante;
+    this.identificarFiltro();
     this.obtenerEstados();
     //this.cargarMuestra();
   }
 
+
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
+    this.subscriptionI.unsubscribe();
   }
 
   funcionEstilos(){
@@ -100,7 +111,7 @@ export class JobsComponent implements OnInit, OnDestroy {
     const pantalla = document.getElementsByName("secundaria")[0];
     pantalla.classList.add("moverY");
    }
-  /*
+  
     ngAfterViewInit() {
       let vacante1 = document.getElementsByName('vacantedeLista')[0];
       vacante1.classList.add('aparece');
@@ -125,157 +136,52 @@ export class JobsComponent implements OnInit, OnDestroy {
         
       });
     }
-    */
+  
 
-
-  cargarMuestra() {
-    this.jobsList = [
-      {
-        id_vacante: 1,
-        nombreVacante: "Gerente",
-        especialista: "ninguno",
-        sueldo: 10000,
-        horario: "9:00am - 6:00pm",
-        domicilio: "Alcatraz n9",
-        municipio: { id_municipio: 0, nombreMunicipio: "mexico", estado: new Estado },
-        estatus: false,
-        descripcion: "Carnicero de planta",
-        empresa: { id_empresa: 0, nombre: "bimbo", descripcion: "panaderia", vacantes_empresa: [] },
-        empleador: new Empleador,
-        candidatos: [],
-        tipoHorario: { id_tipoHorario: 0, dias: "sab-dom", tipoHorario_vacantes: [] },
-        tipoContratacion: { id_tipoContratacion: 0, horario: "VIRTUAL", tipoContratacion_vacantes: [] },
-        modalidadTrabajo: new ModalidadTrabajo,
-        id_postulacion: 0,
-        fechaPublicacionSrt: "",
-        diasPublicada: 0,
-        estado: new Estado
-      }, {
-        id_vacante: 2,
-        nombreVacante: "Repartidor",
-        especialista: "ninguno",
-        sueldo: 10000,
-        horario: "9:00am - 6:00pm",
-        domicilio: "Alcatraz n9",
-        municipio: { id_municipio: 0, nombreMunicipio: "mexico", estado: new Estado },
-        estatus: false,
-        descripcion: "Carnicero de planta",
-        empresa: { id_empresa: 0, nombre: "bimbo", descripcion: "panaderia", vacantes_empresa: [] },
-        empleador: new Empleador,
-        candidatos: [],
-        tipoHorario: { id_tipoHorario: 0, dias: "sab-dom", tipoHorario_vacantes: [] },
-        tipoContratacion: { id_tipoContratacion: 0, horario: "VIRTUAL", tipoContratacion_vacantes: [] },
-        modalidadTrabajo: new ModalidadTrabajo,
-        id_postulacion: 0,
-        fechaPublicacionSrt: "",
-        diasPublicada: 0,
-        estado: new Estado
-      }, {
-        id_vacante: 3,
-        nombreVacante: "Operador",
-        especialista: "Tecnico",
-        sueldo: 10000,
-        horario: "9:00am - 6:00pm",
-        domicilio: "Alcatraz n9",
-        municipio: { id_municipio: 0, nombreMunicipio: "mexico", estado: new Estado },
-        estatus: false,
-        descripcion: "Carnicero de planta",
-        empresa: { id_empresa: 0, nombre: "bimbo", descripcion: "panaderia", vacantes_empresa: [] },
-        empleador: new Empleador,
-        candidatos: [],
-        tipoHorario: { id_tipoHorario: 0, dias: "sab-dom", tipoHorario_vacantes: [] },
-        tipoContratacion: { id_tipoContratacion: 0, horario: "VIRTUAL", tipoContratacion_vacantes: [] },
-        modalidadTrabajo: new ModalidadTrabajo,
-        id_postulacion: 0,
-        fechaPublicacionSrt: "",
-        diasPublicada: 0,
-        estado: new Estado
-      }, {
-        id_vacante: 4,
-        nombreVacante: "Pastelero",
-        especialista: "Repostero",
-        sueldo: 10000,
-        horario: "9:00am - 6:00pm",
-        domicilio: "Alcatraz n9",
-        municipio: { id_municipio: 0, nombreMunicipio: "mexico", estado: new Estado },
-        estatus: false,
-        descripcion: "Carnicero de planta",
-        empresa: { id_empresa: 0, nombre: "bimbo", descripcion: "panaderia", vacantes_empresa: [] },
-        empleador: new Empleador,
-        candidatos: [],
-        tipoHorario: { id_tipoHorario: 0, dias: "sab-dom", tipoHorario_vacantes: [] },
-        tipoContratacion: { id_tipoContratacion: 0, horario: "indefinido", tipoContratacion_vacantes: [] },
-        modalidadTrabajo: {id_modalidad:0, modalidad:"hibrido",modalidadTrabajo_vacantes:[]},
-        id_postulacion: 0,
-        fechaPublicacionSrt: "",
-        diasPublicada: 0,
-        estado: new Estado
-      }, {
-        id_vacante: 5,
-        nombreVacante: "Panadero",
-        especialista: "Panadero",
-        sueldo: 10000,
-        horario: "9:00am - 6:00pm",
-        domicilio: "Alcatraz n9",
-        municipio: { id_municipio: 0, nombreMunicipio: "mexico", estado: new Estado },
-        estatus: false,
-        descripcion: "Carnicero de planta",
-        empresa: { id_empresa: 0, nombre: "bimbo", descripcion: "panaderia", vacantes_empresa: [] },
-        empleador: new Empleador,
-        candidatos: [],
-        tipoHorario: { id_tipoHorario: 0, dias: "sab-dom", tipoHorario_vacantes: [] },
-        tipoContratacion: { id_tipoContratacion: 0, horario: "VIRTUAL", tipoContratacion_vacantes: [] },
-        modalidadTrabajo: new ModalidadTrabajo,
-        id_postulacion: 0,
-        fechaPublicacionSrt: "",
-        diasPublicada: 0,
-        estado: new Estado
-      }
-    ];
-  }
   // FUNCION PARA BUSCAR UN USUARIO POR CORREO
   buscarUsuario() {
-
-    this._CandidateRequest.obtener().then((data: any) => {
+     this._CandidateRequest.obtener().then((data: any) => {
       this.usuario = data
+      this.id = this.usuario.usuario.tipoUsuario;
     });
   }
-
-  // FUNCION PARA OBTENER LAS VACANTES DISPONIBLES
-  obtenerVacantes() {
-    this._CandidateRequest.obtenerVacantes().then((data: any) => {
-      if (data == null) {
-
-      } else {
-        this.jobsList = data;
-      }
-    });
-  }
-
-  vectorPag: number [] = [];
-    // FUNCION PARA OBTENER LAS VACANTES DISPONIBLES PAG
-    obtenerVacantesPag0() {
-      this.vectorPag = [];
-      this._CandidateRequest.obtenerVacantesPag(0).subscribe(data => {
-        this.jobsList = data.content;
-        for (let index = 0; index < data.pageable.pageSize; index++) {
-          const element = index+1;
-          this.vectorPag.push(element);
-          console.log('hola')
-        }
-      });
-    }
 
     obtenerVacantesPag(pagina:number) {
-      this._CandidateRequest.obtenerVacantesPag(pagina).subscribe(data => {
-        this.jobsList = data.content;
-      });
+      if (this.busqueda == "" && this.filtroActivo == false) {
+        this.buscarSinFiltro(pagina);
+      } else if (this.busqueda != "" && this.filtroActivo == false) {
+        this.buscarPorNombre(pagina);
+      } else if (this.busqueda == "" && this.filtroActivo == true) {
+        this.controlPaginados(pagina);
+      } else if (this.busqueda != "" && this.filtroActivo == true) {
+        this.controlPaginadosDobles(pagina);
+      }
+    }
+
+    controlPaginados(pagina:number){
+      if(this.filtro == "Filtros"){
+        this.buscarSinFiltro(pagina);
+      } else if(this.filtro == "Estado"){
+        this.buscarPorEstado(pagina);
+      }else if(this.filtro == "Cercanos a Mi"){
+        this.buscarPorMunicipio(pagina);
+      }
+    }
+
+    controlPaginadosDobles(pagina:number){
+      if (this.filtro == "Cercanos a Mi") {
+        this.buscarporNombreYMunicipio(pagina);
+      } else if (this.filtro == "Estado") {
+        if (this.estado.nombreEstado == "Estado") {
+          this.enviarAlerta("No podemos realizar la busqueda por que no se ha seleccionado un estado.", true);
+        } else {
+          this.buscarporNombreYEstado(pagina);
+        }
+      }
     }
 
     obtenerVacantesUltima() {
-      this._CandidateRequest.obtenerVacantesPag(this.vectorPag.length).subscribe(data => {
-        this.jobsList = data.content;
-      });
+      this.obtenerVacantesPag(this.vectorPag.length-1);
     }
 
 
@@ -305,11 +211,14 @@ export class JobsComponent implements OnInit, OnDestroy {
     }
   }
 
+  contador: number = 0;
   // FUNCION QUE CAMBIA EL TEXTO MOSTRADO EN UN BOTON 
   // EL TEXTO CAMBIA DEPENDIENDO DE USUARIO ACTIVO
   cambiarBoton() {
     this.id_tipoUsuario = this.usuario.usuario.tipoUsuario;
+    this.contador = this.contador +1
     if (this.usuarioAdmin == true) {
+  
       this.textoBoton = "Eliminar Vacante";
     } else {
       if (this.id_tipoUsuario == 0) {
@@ -371,9 +280,9 @@ export class JobsComponent implements OnInit, OnDestroy {
   // FUNCION PARA EVALUAR SI LA BUSQUEDA DE VACANTES ES CON FILTRO O SIN FILTRO
   buscarVacantes() {
     if (this.busqueda == "" && this.filtroActivo == false) {
-      this.obtenerVacantes();
+      this.buscarSinFiltro(0);
     } else if (this.busqueda != "" && this.filtroActivo == false) {
-      this.buscarPorNombre();
+      this.buscarPorNombre(0);
     } else if (this.busqueda == "" && this.filtroActivo == true) {
       this.identificarFiltro();
     } else if (this.busqueda != "" && this.filtroActivo == true) {
@@ -384,86 +293,148 @@ export class JobsComponent implements OnInit, OnDestroy {
   // FUNCION PARA IDENTIFICAR EL FILTRO ACTIVO
   identificarFiltro() {
     if (this.filtro == "Cercanos a Mi") {
-      this.buscarPorMunicipio();
+      this.buscarPorMunicipio(0);
     } else if (this.filtro == "Mejor Pagados") {
-      this.buscarPorSueldo();
+      //this.buscarPorSueldo();
     } else if (this.filtro == "Estado") {
       if (this.estado.nombreEstado == "Estado") {
         this.enviarAlerta("No podemos realizar la busqueda por que no se ha seleccionado un estado.", true);
       } else {
-        this.buscarPorEsatdo();
+        this.buscarPorEstado(0);
       }
+    } else if (this.filtro == "Filtros"){
+      this.buscarSinFiltro(0);
     }
   }
 
-  // FUNCION PARA IDENTIFICAR EL FILTRO ACTIVO Y ASI DETERMINAR UN FLUJO
-  busquedaconFiltroYNombre() {
+  buscarSinFiltro(page: number){
+    this._CandidateRequest.obtenerVacantesPag(page).then((data: any) => {
+      if (data == null) {
+        this.enviarAlerta("No podemos realizar la busqueda debido a un error interno, por favor intente de nuevo.", true);
+      } else {
+        this.vectorPag=[];  
+      this.jobsList = data.content;      
+      for (let index = 0; index < data.totalPages; index++) {
+        const element = index+1;
+        this.vectorPag.push(element);
+      }
+      }
+    });
+    this.cargarVacantes();
+  }
+  
+  // FUNCION PARA REALIZAR UNA BUSQUEDA SEGUN EL ESTADO SELECCIONADO
+  buscarPorEstado(page: number) {
+    this._CandidateRequest.obtenerVacantesPorEstadoPag(this.estado.id_estado,page).then((data: any) => {
+      if (data == null) {
+        this.enviarAlerta("No podemos realizar la busqueda debido a un error interno, por favor intente de nuevo.", true);
+      } else {
+        this.vectorPag=[];  
+        this.jobsList = data.content;      
+        for (let index = 0; index < data.totalPages; index++) {
+          const element = index+1;
+          this.vectorPag.push(element);
+        }
+      }
+    });
+    this.cargarVacantes();
+  }
+
+   // FUNCION PARA BUSCAR VACANTES SEGUN EL MUNICIPIO DEL CANDIDATO
+   buscarPorMunicipio(page: number) {
+    if( this.id == 0 ){
+      this.enviarAlerta("Se requiere un inicio de sesión para realizar esta acción.", true);
+    } else {
+      this._CandidateRequest.obtenerVacantesPorMunicipioPag(this.usuario.municipio.id_municipio,page).then((data: any) => {
+        if (data == null) {
+          this.enviarAlerta("No podemos realizar la busqueda debido a un error interno, por favor intente de nuevo.", true);
+        } else {
+          this.vectorPag=[];  
+        this.jobsList = data.content;      
+        for (let index = 0; index < data.totalPages; index++) {
+          const element = index+1;
+          this.vectorPag.push(element);
+        }
+        }
+      });
+      this.cargarVacantes();
+    }
+  }
+
+
+   // FUNCION PARA BUSCAR VACNATES POR NOMBRE
+   buscarPorNombre(page:number) {
+    this._CandidateRequest.obtenerVacantesPorPalabra(this.busqueda,page).then((data: any) => {
+      if (data.content.size == 0) {
+        this.enviarAlerta("No hemos podido encontrtar vacantes que contengan el nombre indicado.", true);
+      } else {
+        this.vectorPag=[];  
+        this.jobsList = data.content;      
+        for (let index = 0; index < data.totalPages; index++) {
+          const element = index+1;
+          this.vectorPag.push(element);
+        }
+      }
+    });
+    this.cargarVacantes();
+  }
+
+
+   // FUNCION PARA IDENTIFICAR EL FILTRO ACTIVO Y ASI DETERMINAR UN FLUJO
+   busquedaconFiltroYNombre() {
     if (this.filtro == "Cercanos a Mi") {
-      this.buscarporNombreYMunicipio();
+      this.buscarporNombreYMunicipio(0);
     } else if (this.filtro == "Mejor Pagados") {
       //
     } else if (this.filtro == "Estado") {
       if (this.estado.nombreEstado == "Estado") {
         this.enviarAlerta("No podemos realizar la busqueda por que no se ha seleccionado un estado.", true);
       } else {
-        this.buscarporNombreYEstado();
+        this.buscarporNombreYEstado(0);
       }
     }
-  }
-
-  // FUNCION PARA REALIZAR UNA BUSQUEDA SEGUN EL ESTADO SELECCIONADO
-  buscarPorEsatdo() {
-    this._CandidateRequest.buscarporEstado(this.estado.id_estado).then((data: any) => {
-      if (data == null) {
-        this.enviarAlerta("No podemos realizar la busqueda debido a un error interno, por favor intente de nuevo.", true);
-      } else {
-        this.jobsList = data;
-      }
-    });
-    this.cargarVacantes();
   }
 
   // FUNCION PARA REALIZAR UNA BUSQUEDA POR NOMBRE Y MUNICIPIO DEL CANDIDATO
-  buscarporNombreYMunicipio() {
-    this._CandidateRequest.buscarporMunicipio_Nombre(this.usuario.municipio.id_municipio, this.busqueda).then((data: any) => {
-      if (data == null) {
-        this.enviarAlerta("No podemos realizar la busqueda debido a un error interno, por favor intente de nuevo.", true);
-      } else {
-        this.jobsList = data;
-      }
-    });
-    this.cargarVacantes();
+  buscarporNombreYMunicipio(page: number) {
+    if( this.id == 0 ){
+      this.enviarAlerta("Se requiere un inicio de sesión para realizar esta acción.", true);
+    } else {
+      this._CandidateRequest.buscarporMunicipio_Nombre(this.usuario.municipio.id_municipio, this.busqueda, page).then((data: any) => {
+        if (data == null) {
+          this.enviarAlerta("No podemos realizar la busqueda debido a un error interno, por favor intente de nuevo.", true);
+        } else {
+          this.vectorPag=[];  
+          this.jobsList = data.content;      
+          for (let index = 0; index < data.totalPages; index++) {
+            const element = index+1;
+            this.vectorPag.push(element);
+          }
+        }
+      });
+      this.cargarVacantes();
+    }
   }
+
 
   // FUNCION PARA REALIZAR UNA BUSQUEDA POR NOMBRE Y UN ESTADO SELECCIONADO
-  buscarporNombreYEstado() {
-
-    const BUSQUEDA = {
-      id_estado: this.estado.id_estado,
-      palabraClave: this.busqueda
-    }
-
-    this._CandidateRequest.buscarporEstado_Nombre(BUSQUEDA).then((data: any) => {
+  buscarporNombreYEstado(page: number) {
+    this._CandidateRequest.buscarporEstado_Nombre(this.estado.id_estado, this.busqueda, page).then((data: any) => {
       if (data == null) {
         this.enviarAlerta("No podemos realizar la busqueda debido a un error interno, por favor intente de nuevo.", true);
       } else {
-        this.jobsList = data;
+        this.vectorPag=[];  
+        this.jobsList = data.content;      
+        for (let index = 0; index < data.totalPages; index++) {
+          const element = index+1;
+          this.vectorPag.push(element);
+        }
       }
     });
     this.cargarVacantes();
   }
 
-  // FUNCION PARA BUSCAR VACANTES SEGUN EL MUNICIPIO DEL CANDIDATO
-  buscarPorMunicipio() {
-    this._CandidateRequest.obtenerVacantesCercanas(this.usuario.municipio.id_municipio).then((data: any) => {
-      if (data == null) {
-        this.enviarAlerta("No podemos realizar la busqueda debido a un error interno, por favor intente de nuevo.", true);
-      } else {
-        this.jobsList = data;
-      }
-    });
-    this.cargarVacantes();
-  }
+ 
 
   // FUNCION PARA ORDENAR LAS VACANTES POR SUELDO
   buscarPorSueldo() {
@@ -477,17 +448,7 @@ export class JobsComponent implements OnInit, OnDestroy {
     this.cargarVacantes();
   }
 
-  // FUNCION PARA BUSCAR VACNATES POR NOMBRE
-  buscarPorNombre() {
-    this._CandidateRequest.obtenerVacantesPorPalabra(this.busqueda).then((data: any) => {
-      if (data == null) {
-        this.enviarAlerta("No podemos realizar la busqueda debido a un error interno, por favor intente de nuevo.", true);
-      } else {
-        this.jobsList = data;
-      }
-    });
-    this.cargarVacantes();
-  }
+ 
 
   // FUNCION PARA IDENTIFICAR LA FUNCION QUE REALIZARA EL BOTON SEGUN EL USUARIO ACTIVO
   evaluarBoton(vacante: Vacante) {

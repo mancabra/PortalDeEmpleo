@@ -14,6 +14,7 @@ import { ManageComponent } from './Components/Interface/Admin/manage/manage.comp
 import { RequestAdminComponent } from './Components/Interface/Admin/request-admin/request-admin.component';
 import { UpdateJobComponent } from './Components/Interface/Employer/candidates/update-job/update-job.component';
 import { PasswordComponent } from './Components/Start/start/password/password.component';
+import { DocumentComponent } from './Components/Interface/Admin/manage/document/document.component';
 
 
 
@@ -21,14 +22,14 @@ import { PasswordComponent } from './Components/Start/start/password/password.co
 
 const routes: Routes = [
   {path:'',redirectTo:'/start',pathMatch:'full'},
-  {path:'cambiar_contraseña/:correo',component:PasswordComponent,},
-
+  {path:'cambiar_contraseña/:correo',component:PasswordComponent},
   {path:'start',component:StartComponent},
   {path:'interface/vacantes',component:JobsComponent},
   {path:'interface/postulaciones',component:RequestsComponent},
   {path:'interface/notificaciones',component:AlertsComponent},
   {path:'interface/perfil',component:ProfileComponent},
   {path:'interface/perfil/modificar',component:UpdateComponent},
+  {path:'interface/rtx',component:DocumentComponent},
 
   // RUTAS EMPLEADOR
   {path:'interface/publicar',component:NewJobComponent},
@@ -42,7 +43,7 @@ const routes: Routes = [
   
 
 
-  {path:'**',redirectTo:'/start',pathMatch:'full'}
+ {path:'**',redirectTo:'/start',pathMatch:'full'}
 ];
 
 @NgModule({

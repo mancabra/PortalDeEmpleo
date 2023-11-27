@@ -38,8 +38,14 @@
             </div>
 
             <div style="display: flex;">
-              <input class="form-control form-control contrasena" type="password" placeholder="********" aria-describedby="passwordHelpBlock"
-              [(ngModel)]="contrasenaIngresada">
+              <div class="contrasena">
+                <div class="cajaContrasena">
+                    <input name="pass" type="{{passII}}" class="form-control form-control long" minlength="8" maxlength="20" placeholder="········" [(ngModel)]="contrasenaIngresada">
+                    <button class="mostar" (click)="mostrarII()">
+                      <img class="imagenes" src="{{rutaII}}">
+                    </button>
+                  </div>
+            </div>
               <button class="btn btnContra" type="button" (click)="cambiarContrasena()" >CAMBIAR CONTRASEÑA</button>
             </div>
             

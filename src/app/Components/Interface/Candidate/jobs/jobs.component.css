@@ -32,6 +32,12 @@
     background-color: rgb(50, 90, 79) ;
 }
 
+.cajaCompleta{
+   display: block; 
+   width: 100%;
+   height: 100%;
+}
+
 .vacanteStilo{
     transition: all 0.3s;
     opacity: 0;
