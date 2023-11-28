@@ -25,6 +25,8 @@ export class DocumentComponent implements OnInit, OnDestroy {
   vacantes: Vacante[] = [];
   usuarios: Usuario[] = [];
 
+  usuario: any;
+
   estadoSeleccionado: Estado = new Estado;
 
   constructor(private _UserRequest: InterfaceService,
@@ -44,6 +46,11 @@ export class DocumentComponent implements OnInit, OnDestroy {
 
   }
 
+  buscarUsuario() {
+    this._UserRequest.obtener().then((data: any) => {
+      this.usuario = data
+    });
+  }
 
   obtenerEstados() {
     this._UserRequest.obtenerEstados().subscribe(data => {
@@ -53,9 +60,9 @@ export class DocumentComponent implements OnInit, OnDestroy {
 
   cargarRoles() {
     this.rolEstado = [
-      { id_estado: 0, nombreEstado: "Administradores", municipios: [] },
-      { id_estado: 0, nombreEstado: "Candidatos", municipios: [] },
-      { id_estado: 0, nombreEstado: "Empleadores", municipios: [] }
+      { id_estado: 0, nombreEstado: "administrador", municipios: [] },
+      { id_estado: 0, nombreEstado: "candidato", municipios: [] },
+      { id_estado: 0, nombreEstado: "empleadores", municipios: [] }
     ];
   }
 
@@ -111,8 +118,10 @@ export class DocumentComponent implements OnInit, OnDestroy {
   generar() {
     if (this.entidadSeleccionada == "Usuario") {
       this.evaluarEntidadUsuario();
-    } else {
+    } else  if (this.entidadSeleccionada == "Usuario") {
       this.evaluarEntidadVacante();
+    } else{
+      this.enviarAlerta("Se debe seleccionar una entidad", true);
     }
   }
 
@@ -157,28 +166,44 @@ export class DocumentComponent implements OnInit, OnDestroy {
   }
 
   solicitarVacantesActivasInactivas() {
-    this._AdminRequest.obtenerVacantesPor_actividad(this.filtroSeleccionado).subscribe(data => {
-      this.vacantes = data;
+    this._AdminRequest.obtenerVacantesPor_actividad(this.filtroSeleccionado, 1).then((data: any) => {
+      if (data == false) {
+        this.enviarAlerta("El reporte fue creado correctamente", data);
+      } else {
+        this.enviarAlerta("Ha ocurrido un error durante la creación del reporte", data);
+      }
     });
   }
 
 
   solicitarVacantesEstado() {
-    this._AdminRequest.obtenerVacantesPor_estado(this.estadoSeleccionado.id_estado).subscribe(data => {
-      this.vacantes = data;
+    this._AdminRequest.obtenerVacantesPor_estado(this.estadoSeleccionado.id_estado).then((data: any) => {
+      if (data == false) {
+        this.enviarAlerta("El reporte fue creado correctamente", data);
+      } else {
+        this.enviarAlerta("Ha ocurrido un error durante la creación del reporte", data);
+      }
     });
   }
 
   solicitarUsuariosActivosInactivos() {
-    this._AdminRequest.obtenerUsuariosPor_actividad(this.filtroSeleccionado).subscribe(data => {
-      this.usuarios = data;
+    this._AdminRequest.obtenerUsuariosPor_actividad(this.filtroSeleccionado, 1).then((data: any) => {
+      if (data == false) {
+        this.enviarAlerta("El reporte fue creado correctamente", data);
+      } else {
+        this.enviarAlerta("Ha ocurrido un error durante la creación del reporte", data);
+      }
     });
   }
 
 
   solicitarUsuarioRol() {
-    this._AdminRequest.obtenerUsuariosPor_rol(this.estadoSeleccionado.nombreEstado).subscribe(data => {
-      this.usuarios = data;
+    this._AdminRequest.obtenerUsuariosPor_rol(this.estadoSeleccionado.nombreEstado, 1).then((data: any) => {
+      if (data == false) {
+        this.enviarAlerta("El reporte fue creado correctamente", data);
+      } else {
+        this.enviarAlerta("Ha ocurrido un error durante la creación del reporte", data);
+      }
     });
   }
 
@@ -219,13 +244,25 @@ export class DocumentComponent implements OnInit, OnDestroy {
     btn.classList.remove('agrandar');
   }
 
-  botonCerrar(){
+  botonCerrar() {
     this.estadoSeleccionado = { id_estado: 0, nombreEstado: "Selecciona un Estado", municipios: [] };
     this.entidadSeleccionada = "Seleccione una entidad";
     this.filtroSeleccionado = "Seleccione un filtro";
     this.bloquearFiltros();
     this.ocultarFiltroPlus();
     this._AdminRequest.activarForm();
+  }
+
+  // FUNCION PARA EL POPUP
+  enviarAlerta(mss: String, error: boolean) {
+
+    const ALERTA = {
+      mss: mss,
+      error: error,
+    }
+
+    this._UserRequest.activarAlerta();
+    this._UserRequest.cargarAlerta(ALERTA);
   }
 
 

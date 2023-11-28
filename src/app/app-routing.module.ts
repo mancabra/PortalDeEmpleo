@@ -29,7 +29,6 @@ const routes: Routes = [
   {path:'interface/notificaciones',component:AlertsComponent},
   {path:'interface/perfil',component:ProfileComponent},
   {path:'interface/perfil/modificar',component:UpdateComponent},
-  {path:'interface/rtx',component:DocumentComponent},
 
   // RUTAS EMPLEADOR
   {path:'interface/publicar',component:NewJobComponent},

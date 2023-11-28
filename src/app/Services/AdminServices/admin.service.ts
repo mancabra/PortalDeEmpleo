@@ -246,27 +246,27 @@ export class AdminService {
   }
 
   // FUNCION REPORTE: OBTENER USUARIOS POR ROL
-  obtenerUsuariosPor_rol(rol: string): Observable<Usuario[]> {
-    let cadena = "app/obtenerListaUsuariosRol?rol=" + rol;
-    return this._http.get<Usuario[]>(cadena);
+  obtenerUsuariosPor_rol(rol: string, id_usuario: number) {
+    let cadena = "app/obtenerListaUsuariosRol?rol=" + rol +"&id_usuario=" + id_usuario;
+    return this._http.get(cadena).toPromise();
   }
 
   // FUNCION REPORTE: OBTENER USUARIOS POR ACTIVIDAD
-  obtenerUsuariosPor_actividad(tipoFiltro: string): Observable<Usuario[]> {
-    let cadena = "app/obtenerListaUsuariosActividad?tipoFiltro=" + tipoFiltro;
-    return this._http.get<Usuario[]>(cadena);
+  obtenerUsuariosPor_actividad(tipoFiltro: string, id_usuario: number) {
+    let cadena = "app/obtenerListaUsuariosActividad?tipoFiltro=" + tipoFiltro +"&id_usuario=" + id_usuario;
+    return this._http.get(cadena).toPromise();
   }
 
   // FUNCION REPORTE: OBTENER VACANTES POR ACTIVIDAD
-  obtenerVacantesPor_actividad(tipoFiltro: string): Observable<Vacante[]> {
-    let cadena = "app/obtenerListaVacantesActividad?tipoFiltro=" + tipoFiltro;
-    return this._http.get<Vacante[]>(cadena);
+  obtenerVacantesPor_actividad(tipoFiltro: string, id_usuario: number) {
+    let cadena = "app/obtenerListaVacantesActividad?tipoFiltro=" + tipoFiltro +"&id_usuario=" + id_usuario;
+    return this._http.get(cadena).toPromise();
   }
 
   // FUNCION REPORTE: OBTENER VACANTES POR ESTADO
-  obtenerVacantesPor_estado(id_estado: number): Observable<Vacante[]> {
+  obtenerVacantesPor_estado(id_estado: number) {
     let cadena = "app/obtenerVacantesEstado/" + id_estado;
-    return this._http.get<Vacante[]>(cadena);
+    return this._http.get(cadena).toPromise();
   }
 
   // FUNCION PARA OBSERVABLE DE USUARIO
