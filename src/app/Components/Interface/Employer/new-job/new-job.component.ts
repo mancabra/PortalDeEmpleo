@@ -140,6 +140,7 @@ export class NewJobComponent implements OnInit, OnDestroy {
     // SUSCRIPCION AL OBSERVABLE DE UN SERVICIO PARA OBTENER EMPRESAS
     this.subscription = this._EmployerRequest.getEmpresas().subscribe(data => {
       this.empresasRegistradas = data;
+     this.cerrarEmpresas();
     });
   }
 

@@ -118,7 +118,7 @@ export class DocumentComponent implements OnInit, OnDestroy {
   generar() {
     if (this.entidadSeleccionada == "Usuario") {
       this.evaluarEntidadUsuario();
-    } else  if (this.entidadSeleccionada == "Usuario") {
+    } else  if (this.entidadSeleccionada == "Vacante") {
       this.evaluarEntidadVacante();
     } else{
       this.enviarAlerta("Se debe seleccionar una entidad", true);
@@ -169,6 +169,7 @@ export class DocumentComponent implements OnInit, OnDestroy {
     this._AdminRequest.obtenerVacantesPor_actividad(this.filtroSeleccionado, 1).then((data: any) => {
       if (data == false) {
         this.enviarAlerta("El reporte fue creado correctamente", data);
+
       } else {
         this.enviarAlerta("Ha ocurrido un error durante la creación del reporte", data);
       }

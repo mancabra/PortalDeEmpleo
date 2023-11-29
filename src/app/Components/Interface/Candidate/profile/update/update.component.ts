@@ -137,9 +137,13 @@ export class UpdateComponent implements OnInit, OnDestroy {
 
   descripciones: boolean = true;
 
+
   activoI: boolean = false;
   activoII: boolean = false;
   activoIII: boolean = false;
+  activoIV: boolean = false;
+  activoV: boolean = false;
+  activoVI: boolean = false;
 
   // VARIABLES PARA LA IDENTIFICACION DE REGISTRO
   permitirAct: boolean = true;
@@ -220,9 +224,9 @@ export class UpdateComponent implements OnInit, OnDestroy {
       this.nuevaEspecialidadII = this.rutaEspecialidadII;
       this.nuevaEspecialidadIII = this.rutaEspecialidadIII;
       this.descripcionI = this.candidato.descripcionEspecialidad1,
-      this.descripcionII = this.candidato.descripcionEspecialidad2,
-      this.descripcionIII = this.candidato.descripcionEspecialidad3,
-      this.asignarGenerales(this.candidato);
+        this.descripcionII = this.candidato.descripcionEspecialidad2,
+        this.descripcionIII = this.candidato.descripcionEspecialidad3,
+        this.asignarGenerales(this.candidato);
       console.log("candidato");
     } else if (this.usuario.usuario.tipoUsuario == 3) {
       this.empleador = this.usuario;
@@ -435,7 +439,7 @@ export class UpdateComponent implements OnInit, OnDestroy {
     boton.classList.add("btnInfotecSeleccionado");
   }
 
-  deseleccionar(){
+  deseleccionar() {
     const boton = document.getElementsByName("btnLada")[0];
     boton.classList.remove("btnInfotecSeleccionado");
   }
@@ -907,7 +911,7 @@ export class UpdateComponent implements OnInit, OnDestroy {
       tipo: "perfil",
       name: this.img.name,
     }
-
+    this.activoV = true;
     this.evaluarExtencion(ARCHIVO);
   }
 
@@ -922,7 +926,7 @@ export class UpdateComponent implements OnInit, OnDestroy {
       tipo: "portada",
       name: this.imgP.name,
     }
-
+    this.activoVI = true;
     this.evaluarExtencion(ARCHIVO);
   }
 
@@ -937,7 +941,7 @@ export class UpdateComponent implements OnInit, OnDestroy {
       tipo: "curriculum",
       name: this.document.name,
     }
-
+    this.activoIV = true;
     this.evaluarExtencion(ARCHIVO);
   }
 
@@ -1035,50 +1039,62 @@ export class UpdateComponent implements OnInit, OnDestroy {
   }
 
   subirPerfil() {
-    if (this.nuevaImagenPerfil != this.imagenPerfil) {
-      uploadBytes(this.imgReff, this.img)
-        .then(response => console.log(response))
-        .catch(error => console.log(error));
+    if (this.activoV) {
+      if (this.nuevaImagenPerfil != this.imagenPerfil) {
+        uploadBytes(this.imgReff, this.img)
+          .then(response => console.log(response))
+          .catch(error => console.log(error));
+      }
     }
   }
 
   subirPortada() {
-    if (this.nuevaImagenPortada != this.imagenPortada) {
-      uploadBytes(this.imgReffP, this.imgP)
-        .then(response => console.log(response))
-        .catch(error => console.log(error));
+    if (this.activoVI) {
+      if (this.nuevaImagenPortada != this.imagenPortada) {
+        uploadBytes(this.imgReffP, this.imgP)
+          .then(response => console.log(response))
+          .catch(error => console.log(error));
+      }
     }
   }
 
   subirCV() {
-    if (this.nuevoCurriculum != "") {
-      uploadBytes(this.documentRef, this.document)
-        .then(response => console.log(response))
-        .catch(error => console.log(error));
+    if (this.activoIV) {
+      if (this.nuevoCurriculum != "") {
+        uploadBytes(this.documentRef, this.document)
+          .then(response => console.log(response))
+          .catch(error => console.log(error));
+      }
     }
   }
 
   subirEspecialidad() {
-    if (this.nuevaEspecialidad != "") {
-      uploadBytes(this.documentERef, this.documentE)
-        .then(response => console.log(response))
-        .catch(error => console.log(error));
+    if (this.activoI) {
+      if (this.nuevaEspecialidad != "") {
+        uploadBytes(this.documentERef, this.documentE)
+          .then(response => console.log(response))
+          .catch(error => console.log(error));
+      }
     }
   }
 
   subirEspecialidadII() {
-    if (this.nuevaEspecialidadII != "") {
-      uploadBytes(this.documentIIERef, this.documentEII)
-        .then(response => console.log(response))
-        .catch(error => console.log(error));
+    if (this.activoII) {
+      if (this.nuevaEspecialidadII != "") {
+        uploadBytes(this.documentIIERef, this.documentEII)
+          .then(response => console.log(response))
+          .catch(error => console.log(error));
+      }
     }
   }
 
   subirEspecialidadIII() {
-    if (this.nuevaEspecialidadIII != "") {
-      uploadBytes(this.documentIIIERef, this.documentEIII)
-        .then(response => console.log(response))
-        .catch(error => console.log(error));
+    if (this.activoIII) {
+      if (this.nuevaEspecialidadIII != "") {
+        uploadBytes(this.documentIIIERef, this.documentEIII)
+          .then(response => console.log(response))
+          .catch(error => console.log(error));
+      }
     }
   }
 
@@ -1208,8 +1224,8 @@ export class UpdateComponent implements OnInit, OnDestroy {
 
   // MODIFICACION DE IMAGENES
   capturarSecundarios() {
-  
-  
+
+
     this.mensajeAlerta = "";
     this.mensajeAlerta = "Los archivos seleccionados para el campo: " + this.mensajeAlerta + " no son de una extención valida."
       + " Ten en cuenta que las extenciones permitidas para los campos de captura de imagenes son PNG y JPG, mientras que para la captura de archivos solo de admite el formato PDF";
